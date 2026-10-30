@@ -6,6 +6,7 @@ from pathlib import Path
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -57,3 +58,39 @@ class OtaIntegrityTests(unittest.TestCase):
                     data=b'\n'.join(line for line in data.splitlines() if not line.startswith(b'FILE_HASH='))+b'\n'
                 modified.writestr(item,data)
         with self.assertRaises(ValueError): self.inspect(output.getvalue())
+
+    def test_path_swap_cannot_hash_different_bytes_than_validated_zip(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            valid=root/'valid.zip'; valid.write_bytes(self.package())
+            invalid=root/'invalid.zip'; invalid.write_bytes(b'not even a ZIP')
+
+            class SwappingPath(type(Path())):
+                def open(self,*args,**kwargs):
+                    self.unlink(); self.symlink_to(invalid)
+                    try:
+                        return super().open(*args,**kwargs)
+                    finally:
+                        self.unlink(); self.symlink_to(valid)
+
+            alias=SwappingPath(root/'output.zip'); alias.symlink_to(valid)
+            try:
+                result=ota.check_ota_integrity(alias,'dash')
+            except ValueError:
+                return  # Refusing a mutable link is also safe.
+            self.assertEqual(result['sha256'],hashlib.sha256(valid.read_bytes()).hexdigest())
+
+    def test_replaced_output_path_is_rejected_before_returning_result(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            output=root/'output.zip'; output.write_bytes(self.package())
+            replacement=root/'replacement.zip'; replacement.write_bytes(b'invalid')
+            original_digest=hashlib.file_digest
+
+            def replace_after_hash(source,algorithm):
+                result=original_digest(source,algorithm)
+                replacement.replace(output)
+                return result
+
+            with patch.object(ota.hashlib,'file_digest',side_effect=replace_after_hash):
+                with self.assertRaises(ValueError): ota.check_ota_integrity(output,'dash')

@@ -1,7 +1,9 @@
 """Read-only OTA container/hash checks. Not a signature or hardware validator."""
 import base64
 import hashlib
+import os
 from pathlib import PurePosixPath
+import stat
 import struct
 import zipfile
 
@@ -22,9 +24,8 @@ def small_file(z,name):
     return z.read(name).decode('utf-8')
 
 
-def _check_ota_integrity(path,device):
-    before=path.stat()
-    with zipfile.ZipFile(path) as z:
+def check_payload(source,device):
+    with zipfile.ZipFile(source) as z:
         entries=z.infolist()
         if len(entries)>1000: raise ValueError('too many OTA entries')
         names=set()
@@ -67,16 +68,30 @@ def _check_ota_integrity(path,device):
             if item.filename in {'payload.bin','payload_properties.txt','META-INF/com/android/metadata'} or item.is_dir(): continue
             with z.open(item) as content:
                 while content.read(1024*1024): pass
-    with path.open('rb') as f:
-        archive_digest=hashlib.file_digest(f,'sha256').hexdigest()
-    after=path.stat()
-    if (before.st_dev,before.st_ino,before.st_size,before.st_mtime_ns,before.st_ctime_ns)!=(after.st_dev,after.st_ino,after.st_size,after.st_mtime_ns,after.st_ctime_ns):
-        raise ValueError('OTA file changed during validation')
-    return {'device':device,'ota_type':'AB','size_bytes':after.st_size,'sha256':archive_digest,'payload_sha256':digest.hexdigest(),'android_signatures_verified':False,'payload_manifest_parsed':False}
+    return digest.hexdigest()
+
+
+def identity(info):
+    return (info.st_dev,info.st_ino,info.st_mode,info.st_nlink,info.st_size,info.st_mtime_ns,info.st_ctime_ns)
+
+
+def _check_ota_integrity(path,device):
+    fd=os.open(path,os.O_RDONLY|os.O_NOFOLLOW|os.O_NONBLOCK|os.O_CLOEXEC)
+    with os.fdopen(fd,'rb') as source:
+        before=os.fstat(source.fileno())
+        if not stat.S_ISREG(before.st_mode) or before.st_nlink!=1:
+            raise ValueError('OTA must be a regular file without links')
+        payload_digest=check_payload(source,device)
+        source.seek(0)
+        archive_digest=hashlib.file_digest(source,'sha256').hexdigest()
+        after=os.fstat(source.fileno())
+        if identity(before)!=identity(after) or identity(after)!=identity(path.lstat()):
+            raise ValueError('OTA file changed during validation')
+    return {'device':device,'ota_type':'AB','size_bytes':after.st_size,'sha256':archive_digest,'payload_sha256':payload_digest,'android_signatures_verified':False,'payload_manifest_parsed':False}
 
 
 def check_ota_integrity(path,device):
     try:
         return _check_ota_integrity(path,device)
-    except (KeyError,zipfile.BadZipFile,UnicodeError,RuntimeError) as exc:
+    except (KeyError,OSError,zipfile.BadZipFile,UnicodeError,RuntimeError) as exc:
         raise ValueError('invalid OTA container or required properties') from exc
