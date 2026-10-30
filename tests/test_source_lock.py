@@ -89,6 +89,25 @@ class SourceLockTests(unittest.TestCase):
         self.assertTrue(lock.log_errors(self.root, other))
         self.assertEqual(lock.log_errors(self.root, mounted), [])
 
+    def test_exact_missing_image_link_policy_is_allowed(self):
+        target = "/etc/systemd/system/infinity-unit-test-not-present.service"
+        (self.root / "image-link").symlink_to(target)
+        policy = {"image-link": target}
+        lock.snapshot(self.root, self.manifest, image_links=policy)
+        self.assertEqual(lock.verify(self.root, self.manifest, image_links=policy), [])
+        self.assertTrue(lock.verify(self.root, self.manifest, image_links={}))
+
+    def test_image_policy_never_allows_existing_or_writable_external_targets(self):
+        target = self.base / "external"
+        target.write_text("untrusted")
+        (self.root / "image-link").symlink_to(target)
+        policy = {"image-link": str(target)}
+        with self.assertRaises(ValueError):
+            lock.snapshot(self.root, self.manifest, image_links=policy)
+        target.unlink()
+        with self.assertRaises(ValueError):
+            lock.snapshot(self.root, self.manifest, image_links=policy)
+
 
 if __name__ == "__main__":
     unittest.main()

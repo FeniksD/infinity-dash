@@ -27,7 +27,7 @@ def paths(root):
     yield from walk(root)
 
 
-def record(root, relative):
+def record(root, relative, image_links=None):
     parts = PurePosixPath(relative)
     if parts.is_absolute() or ".." in parts.parts or not parts.parts:
         raise ValueError("invalid source path")
@@ -39,7 +39,18 @@ def record(root, relative):
     if stat.S_ISLNK(st.st_mode):
         resolved = path.resolve()
         if not resolved.is_relative_to(root):
-            raise ValueError("external symlink: " + relative)
+            target = os.readlink(path)
+            if (image_links or {}).get(relative) != target:
+                raise ValueError("external symlink: " + relative)
+            if resolved.exists() or resolved.is_symlink():
+                raise ValueError("image link resolves to an existing host object: " + relative)
+            for parent in resolved.parents:
+                if parent.exists():
+                    metadata = parent.stat()
+                    if metadata.st_uid != 0 or metadata.st_mode & 0o022:
+                        raise ValueError("image link has a mutable host ancestor: " + relative)
+            result.update(kind="image-link", target=target)
+            return result
         target_parts = resolved.relative_to(root).parts
         if ".git" in target_parts or (target_parts and target_parts[0] in EXCLUDED_ROOTS):
             raise ValueError("symlink into excluded source tree: " + relative)
@@ -59,18 +70,19 @@ def record(root, relative):
     return result
 
 
-def snapshot(root, manifest):
+def snapshot(root, manifest, image_links=None):
     root, manifest = root.resolve(), manifest.absolute()
+    image_links = image_links or {}
     if manifest.resolve().is_relative_to(root):
         raise ValueError("source manifest must be outside the source tree")
     created = False
     try:
         with manifest.open("x") as output:
             created = True
-            output.write(json.dumps({"format": FORMAT, "root": str(root)}) + "\n")
+            output.write(json.dumps({"format": FORMAT, "root": str(root), "image_links": image_links}) + "\n")
             count = 0
             for relative in paths(root):
-                output.write(json.dumps(record(root, relative), sort_keys=True) + "\n")
+                output.write(json.dumps(record(root, relative, image_links), sort_keys=True) + "\n")
                 count += 1
             output.flush()
             os.fsync(output.fileno())
@@ -81,13 +93,14 @@ def snapshot(root, manifest):
         raise
 
 
-def verify(root, manifest):
+def verify(root, manifest, image_links=None):
     root = root.resolve()
+    image_links = image_links or {}
     expected_paths = set()
     errors = []
     with manifest.open() as source:
         header = json.loads(next(source))
-        if header != {"format": FORMAT, "root": str(root)}:
+        if header != {"format": FORMAT, "root": str(root), "image_links": image_links}:
             return ["source manifest root/format mismatch"]
         for line in source:
             expected = json.loads(line)
@@ -96,7 +109,7 @@ def verify(root, manifest):
                 raise ValueError("duplicate source manifest path")
             expected_paths.add(relative)
             try:
-                if record(root, relative) != expected:
+                if record(root, relative, image_links) != expected:
                     errors.append("source changed: " + relative)
             except (OSError, ValueError) as exc:
                 errors.append("source unavailable/unsafe: " + relative + ": " + str(exc))
@@ -160,11 +173,13 @@ def main():
             return 0
         if not args.manifest:
             raise ValueError("--manifest is required")
+        policy_path = Path(__file__).with_name("source-link-policy.json")
+        image_links = json.loads(policy_path.read_text()) if policy_path.exists() else {}
         if args.command == "snapshot":
-            count = snapshot(args.source, args.manifest)
+            count = snapshot(args.source, args.manifest, image_links)
             print("source snapshot completed:", count, "entries")
         else:
-            errors = verify(args.source, args.manifest)
+            errors = verify(args.source, args.manifest, image_links)
             if errors:
                 print("\n".join(errors[:20]))
                 print("source verification failed:", len(errors), "differences")

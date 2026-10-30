@@ -1,0 +1,5 @@
+{
+  "device/google/trout/agl_services_build/yocto-layer/meta-google/recipes-trout/images/machine-image/sa81x5/google-overlay/etc/systemd/system/multi-user.target.wants/dumpstate_grpc_server.service": "/etc/systemd/system/dumpstate_grpc_server.service",
+  "device/google/trout/agl_services_build/yocto-layer/meta-google/recipes-trout/images/machine-image/sa81x5/google-overlay/etc/systemd/system/multi-user.target.wants/gnss_replay.service": "/etc/systemd/system/gnss_replay.service",
+  "device/google/trout/agl_services_build/yocto-layer/meta-google/recipes-trout/images/machine-image/sa81x5/google-overlay/etc/systemd/system/multi-user.target.wants/vehicle_hal_grpc_server.service": "/etc/systemd/system/vehicle_hal_grpc_server.service"
+}
