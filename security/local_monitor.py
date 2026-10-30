@@ -46,7 +46,31 @@ def ssh(host, command):
         "-o", "ForwardAgent=no", "-o", "ConnectTimeout=10",
         "-o", "ServerAliveInterval=5", "-o", "ServerAliveCountMax=2",
         host, command,
-    ], timeout=45)
+    ], timeout=45, stderr=subprocess.PIPE)
+
+
+def transient_transport_failure(exc):
+    if not isinstance(exc, subprocess.CalledProcessError) or exc.returncode != 255:
+        return False
+    detail = (exc.stderr or b"").decode(errors="replace").lower()
+    if any(text in detail for text in ("host key verification failed", "remote host identification", "permission denied")):
+        return False
+    return any(text in detail for text in (
+        "network is unreachable", "no route to host", "connection timed out",
+        "connection reset by peer", "connection closed by", "broken pipe",
+    ))
+
+
+def verify_once(args, expected, expected_baseline):
+    remote = members(ssh(args.host, "tar -C /srv/infinity/infinity-dash-prep -cf - ."))
+    if remote != expected:
+        return ["remote preparation differs from local archive"]
+    if ssh(args.host, "cat /root/infinity-security/baseline.json") != expected_baseline:
+        return ["remote baseline differs from local copy"]
+    health = json.loads(ssh(args.host, "cat /var/lib/infinity-guard/status.json"))
+    if not health.get("ok") or abs(time.time() - health.get("time", 0)) > 180:
+        return ["server guard is unhealthy or stale"]
+    return []
 
 
 def saved_latch(path):
@@ -54,6 +78,8 @@ def saved_latch(path):
         return False
     try:
         state = json.loads(path.read_text())
+        if not isinstance(state, dict):
+            return True
         return bool(state.get("latched") or not state.get("ok", False))
     except (ValueError, OSError):
         return True
@@ -64,16 +90,32 @@ def cycle(args, latched):
     try:
         expected = members(args.archive.read_bytes(), "infinity-dash-prep/", sealed=True)
         expected_baseline = args.baseline.read_bytes()
-        remote = members(ssh(args.host, "tar -C /srv/infinity/infinity-dash-prep -cf - ."))
-        if remote != expected:
-            errors.append("remote preparation differs from local archive")
-        if ssh(args.host, "cat /root/infinity-security/baseline.json") != expected_baseline:
-            errors.append("remote baseline differs from local copy")
-        health = json.loads(ssh(args.host, "cat /var/lib/infinity-guard/status.json"))
-        if not health.get("ok") or abs(time.time() - health.get("time", 0)) > 180:
-            errors.append("server guard is unhealthy or stale")
+        for attempt, delay in enumerate((0, 3, 7, 10)):
+            if delay:
+                time.sleep(delay)
+            try:
+                errors = verify_once(args, expected, expected_baseline)
+                break
+            except subprocess.CalledProcessError as exc:
+                if latched or attempt == 3 or not transient_transport_failure(exc):
+                    raise
+                print(json.dumps({"transport_retry": attempt + 1, "reason": (exc.stderr or b"").decode(errors="replace").strip()[:300]}), flush=True)
     except Exception as exc:
-        errors.append("verification unavailable: " + str(exc))
+        detail = str(exc)
+        if isinstance(exc, subprocess.CalledProcessError) and exc.stderr:
+            detail += ": " + exc.stderr.decode(errors="replace").strip()[:300]
+        errors.append("verification unavailable: " + detail)
+    if latched:
+        try:
+            previous_state = json.loads(args.state.read_text())
+            if not isinstance(previous_state, dict):
+                raise ValueError("invalid saved incident")
+            previous = previous_state.get("errors", [])
+            if not isinstance(previous, list) or not all(isinstance(error, str) for error in previous):
+                raise ValueError("invalid saved incident")
+            errors = previous + [error for error in errors if error not in previous]
+        except (OSError, ValueError):
+            errors.insert(0, "previous incident details unavailable")
     stopped = False
     if errors or latched:
         latched = True
