@@ -3,7 +3,7 @@
   <remote name="aosp" fetch="https://android.googlesource.com" review="android-review.googlesource.com" revision="refs/tags/android-17.0.0_r1"/>
   <remote name="dash-github" fetch="https://github.com/"/>
   <remote name="dash-gitlab" fetch="https://gitlab.com/"/>
-  <remote name="github" fetch=".." review="review.lineageos.org"/>
+  <remote name="github" fetch="https://github.com/" review="review.lineageos.org"/>
   <remote name="gitlab" fetch="https://gitlab.com/"/>
   <remote name="infinity" fetch="https://github.com/ProjectInfinity-X" revision="17"/>
   <remote name="lfs" fetch="https://gitea.com/projectInfinity-x" revision="17"/>
