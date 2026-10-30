@@ -23,6 +23,8 @@ roots = [
 files = ["/etc/ssh/sshd_config", "/etc/passwd", "/etc/group", "/etc/shadow", "/etc/sudoers", "/usr/sbin/sshd", "/usr/bin/git", "/usr/bin/python3.14", "/etc/pam.d/sshd"]
 if args.source_manifest:
     files.append(str(args.source_manifest.resolve()))
+    files.append(str(args.source_manifest.resolve().parent))
+    files.append(str(args.source_root.resolve().parent))
 trees = {}
 for name in roots:
     root = Path(name)
