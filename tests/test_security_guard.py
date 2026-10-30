@@ -5,6 +5,7 @@ import unittest
 from unittest.mock import patch
 import json
 import subprocess
+import tracemalloc
 
 spec = importlib.util.spec_from_file_location("guard", Path(__file__).resolve().parents[1] / "security/guard.py")
 guard = importlib.util.module_from_spec(spec)
@@ -81,6 +82,20 @@ class SecurityGuardTests(unittest.TestCase):
             self.assertFalse(status["build_pause_confirmed"])
             self.assertEqual(first, (state / "incident.json").read_bytes())
             self.assertFalse(json.loads((state / "status.json").read_text())["ok"])
+
+    def test_large_inventory_hash_uses_bounded_memory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "large"
+            with p.open("wb") as output:
+                for _ in range(16):
+                    output.write(b"x" * 1024 * 1024)
+            tracemalloc.start()
+            try:
+                guard.file_record(p)
+                _, peak = tracemalloc.get_traced_memory()
+            finally:
+                tracemalloc.stop()
+            self.assertLess(peak, 4 * 1024 * 1024)
 
     def test_new_listener_or_service_is_reported(self):
         baseline = {"files": {}, "allowed_ip": "1.2.3.4", "fingerprint": "SHA256:x", "listeners": ["tcp 0.0.0.0 22"], "services": ["ssh.service"]}

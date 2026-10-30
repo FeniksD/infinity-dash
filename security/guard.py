@@ -23,7 +23,10 @@ def file_record(path):
     p = Path(path)
     st = p.lstat()
     kind = "link" if stat.S_ISLNK(st.st_mode) else "file" if stat.S_ISREG(st.st_mode) else "other"
-    digest = hashlib.sha256(p.read_bytes()).hexdigest() if kind == "file" else None
+    digest = None
+    if kind == "file":
+        with p.open("rb") as source:
+            digest = hashlib.file_digest(source, "sha256").hexdigest()
     return {"sha256": digest, "mode": st.st_mode & 0o7777, "uid": st.st_uid, "kind": kind, "link": os.readlink(p) if kind == "link" else None}
 
 
