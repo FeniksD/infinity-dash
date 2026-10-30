@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
 
 from apply_device import apply_device
+from apply_platform import apply_platform, matches_platform_patch, platform_specs
 from preflight import SHA, validate_bundle, validate_checkouts
 
 
@@ -53,6 +54,7 @@ def project_revisions(manifest):
 def validate_locked_checkouts(bundle, source, manifest):
     errors = []
     prepared_names = {"AndroidProducts.mk", "BoardConfig.mk", "device.mk", "infinity_dash.mk"}
+    platform_patches = {spec["path"]: spec for spec in platform_specs(bundle)}
     for relative, revision in project_revisions(manifest).items():
         path = source / relative
         head = subprocess.run(["git", "-C", str(path), "rev-parse", "--show-toplevel", "HEAD"], capture_output=True, text=True)
@@ -78,6 +80,8 @@ def validate_locked_checkouts(bundle, source, manifest):
                 if not actual.is_file() or actual.read_bytes() != expected.read_bytes():
                     valid_patch = False
                     break
+        if relative in platform_patches:
+            valid_patch = matches_platform_patch(bundle, path, platform_patches[relative], entries)
         if not valid_patch:
             errors.append("dirty locked checkout: " + relative)
     return errors
@@ -168,6 +172,11 @@ def main() -> int:
         if errors:
             raise ValueError("; ".join(errors))
         print(apply_device(bundle, source))
+        for message in apply_platform(bundle, source):
+            print(message)
+        errors = validate_checkouts(bundle, source, prepared=True)
+        if errors:
+            raise ValueError("; ".join(errors))
         logs = source / ".infinity-dash-logs"
         logs.mkdir(exist_ok=True)
         subprocess.run(["repo", "manifest", "-r", "-o", str(logs / "resolved-manifest.xml")], cwd=source, check=True)

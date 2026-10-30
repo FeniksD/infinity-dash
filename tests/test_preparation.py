@@ -22,7 +22,7 @@ class PreparationTests(unittest.TestCase):
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
         root = Path(temp.name)
-        for folder in ("sources", "local_manifests", "device"):
+        for folder in ("sources", "local_manifests", "device", "patches", "source_overrides"):
             source = ROOT / folder
             if source.exists():
                 shutil.copytree(source, root / folder)

@@ -42,7 +42,7 @@ class ServerPreparationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             bundle = Path(folder) / "bundle"
             bundle.mkdir()
-            for name in ("sources", "local_manifests", "device", "build"):
+            for name in ("sources", "local_manifests", "device", "build", "patches", "source_overrides"):
                 shutil.copytree(ROOT / name, bundle / name)
             manifest = bundle / "build/source-manifest.xml"
             text = manifest.read_text()
@@ -58,7 +58,7 @@ class ServerPreparationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             bundle = Path(folder) / "bundle"
             bundle.mkdir()
-            for name in ("sources", "local_manifests", "device", "build"):
+            for name in ("sources", "local_manifests", "device", "build", "patches", "source_overrides"):
                 shutil.copytree(ROOT / name, bundle / name)
             import xml.etree.ElementTree as ET
             path = bundle / "build/source-manifest.xml"

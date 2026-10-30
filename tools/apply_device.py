@@ -8,16 +8,9 @@ import subprocess
 import sys
 
 
-def apply_device(bundle: Path, source: Path) -> str:
-    source = source.resolve()
-    device = (source / "device/xiaomi/dash").resolve()
-    if not device.is_relative_to(source) or not device.is_dir():
-        raise ValueError("device checkout is missing or outside source root")
-    projects = json.loads((bundle / "sources/dependencies.json").read_text())["projects"]
-    expected = next(p["commit"] for p in projects if p["path"] == "device/xiaomi/dash")
+def apply_checkout_patch(device: Path, expected: str, patch: Path) -> str:
     if not re.fullmatch(r"[0-9a-f]{40}", expected):
         raise ValueError("invalid upstream commit")
-    patch = (bundle / "patches/0001-infinity-dash.patch").resolve()
 
     def git(*args):
         return subprocess.run(["git", "-C", str(device), *args], capture_output=True, text=True)
@@ -37,6 +30,16 @@ def apply_device(bundle: Path, source: Path) -> str:
     if applied.returncode:
         raise ValueError("patch application failed: " + applied.stderr.strip())
     return "device patch applied"
+
+
+def apply_device(bundle: Path, source: Path) -> str:
+    source = source.resolve()
+    device = (source / "device/xiaomi/dash").resolve()
+    if not device.is_relative_to(source) or not device.is_dir():
+        raise ValueError("device checkout is missing or outside source root")
+    projects = json.loads((bundle / "sources/dependencies.json").read_text())["projects"]
+    expected = next(p["commit"] for p in projects if p["path"] == "device/xiaomi/dash")
+    return apply_checkout_patch(device, expected, (bundle / "patches/0001-infinity-dash.patch").resolve())
 
 
 def main() -> int:

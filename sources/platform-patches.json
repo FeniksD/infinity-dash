@@ -1,0 +1,12 @@
+{
+  "patches": [
+    {
+      "path": "vendor/infinity",
+      "commit": "59119a77dd2218ee6d766ba1adc1a4b6f865e85f",
+      "patch": "patches/0002-readonly-build-manifest.patch",
+      "files": {
+        "config/BoardConfigLineage.mk": "source_overrides/vendor/infinity/config/BoardConfigLineage.mk"
+      }
+    }
+  ]
+}
