@@ -33,9 +33,12 @@
 - [x] Run the complete local suite, validate exact patch application, and obtain a fresh code review.
 - [x] Commit the candidate separately with its unvalidated integration boundaries documented.
 
-### Task 2: Native validation and possible deployment (pending)
+### Task 2: Native validation and possible deployment (in progress)
 
-- [ ] After the current full ROM build ends, compile the patched target in a separately verified source state.
+- [x] Prepare a separately verified source view, private output filesystem, resource limits and clean environment without changing the active ROM build.
+- [ ] Compile the patched `gsid` target in that private namespace (running alongside the ROM build at the user's request).
 - [ ] Inspect resulting dependencies and the DSU runtime SELinux/domain permissions.
 - [ ] Prepare a reversible installation method and backups before seeking approval to change the phone.
 - [ ] Validate allocation, real status-file serialization and `UnmapImageDevice` cleanup (including split-image teardown order), and only then a test boot; do not claim success from a host test.
+
+Native launcher: `build/dsu-native-launch.sh` runs as root only for setup, creates a private mount/network/PID namespace, and delegates compilation to UID1000. The original output/log/home paths are read-only inside that namespace. `build/dsu-native-build.sh` checks the full variant source inventory before and after `m gsid -j2`. The separate output filesystem is capped at40GiB; the cgroup caps CPU at2, RAM at24GiB and swap at4GiB. The source override and both manifests remain root-owned and covered by the host guard. Native build success is still pending.

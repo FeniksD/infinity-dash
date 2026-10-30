@@ -1,0 +1,6 @@
+[safe]
+    directory = /srv/infinity/android
+    directory = /srv/infinity/android/*
+[user]
+    name = FeniksD
+    email = 69045720+FeniksD@users.noreply.github.com
