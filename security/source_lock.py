@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Snapshot and verify the immutable Android source tree, outside build outputs."""
 import argparse
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
+from itertools import islice
 import os
 from pathlib import Path, PurePosixPath
 import re
@@ -93,26 +95,38 @@ def snapshot(root, manifest, image_links=None):
         raise
 
 
-def verify(root, manifest, image_links=None):
+def verify(root, manifest, image_links=None, jobs=1, progress=False):
+    if not 1 <= jobs <= 32:
+        raise ValueError("verification jobs must be between 1 and 32")
     root = root.resolve()
     image_links = image_links or {}
     expected_paths = set()
     errors = []
-    with manifest.open() as source:
+    def check(expected):
+        relative = expected["path"]
+        try:
+            if record(root, relative, image_links) != expected:
+                return "source changed: " + relative
+        except (OSError, ValueError) as exc:
+            return "source unavailable/unsafe: " + relative + ": " + str(exc)
+        return None
+
+    with manifest.open() as source, ThreadPoolExecutor(max_workers=jobs) as pool:
         header = json.loads(next(source))
         if header != {"format": FORMAT, "root": str(root), "image_links": image_links}:
             return ["source manifest root/format mismatch"]
-        for line in source:
-            expected = json.loads(line)
-            relative = expected["path"]
-            if relative in expected_paths:
-                raise ValueError("duplicate source manifest path")
-            expected_paths.add(relative)
-            try:
-                if record(root, relative, image_links) != expected:
-                    errors.append("source changed: " + relative)
-            except (OSError, ValueError) as exc:
-                errors.append("source unavailable/unsafe: " + relative + ": " + str(exc))
+        next_progress = 100000
+        while lines := list(islice(source, 256)):
+            batch = [json.loads(line) for line in lines]
+            for expected in batch:
+                relative = expected["path"]
+                if relative in expected_paths:
+                    raise ValueError("duplicate source manifest path")
+                expected_paths.add(relative)
+            errors.extend(error for error in pool.map(check, batch) if error)
+            if progress and len(expected_paths) >= next_progress:
+                print("checked source entries:", len(expected_paths), flush=True)
+                next_progress += 100000
     for relative in paths(root):
         if relative not in expected_paths:
             errors.append("unexpected source: " + relative)
@@ -153,6 +167,7 @@ def main():
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--logs", type=Path)
+    parser.add_argument("--jobs", type=int, default=8)
     args = parser.parse_args()
     try:
         if args.source.is_symlink() or not args.source.is_dir():
@@ -179,7 +194,7 @@ def main():
             count = snapshot(args.source, args.manifest, image_links)
             print("source snapshot completed:", count, "entries")
         else:
-            errors = verify(args.source, args.manifest, image_links)
+            errors = verify(args.source, args.manifest, image_links, jobs=args.jobs, progress=True)
             if errors:
                 print("\n".join(errors[:20]))
                 print("source verification failed:", len(errors), "differences")

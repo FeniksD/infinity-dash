@@ -108,6 +108,16 @@ class SourceLockTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             lock.snapshot(self.root, self.manifest, image_links=policy)
 
+    def test_parallel_verification_matches_serial_results(self):
+        for i in range(40):
+            (self.root / f"file-{i}.txt").write_text(str(i))
+        lock.snapshot(self.root, self.manifest)
+        self.assertEqual(lock.verify(self.root, self.manifest, jobs=4), [])
+        (self.root / "file-17.txt").write_text("changed")
+        self.assertEqual(lock.verify(self.root, self.manifest, jobs=4), lock.verify(self.root, self.manifest, jobs=1))
+        with self.assertRaises(ValueError):
+            lock.verify(self.root, self.manifest, jobs=0)
+
 
 if __name__ == "__main__":
     unittest.main()
