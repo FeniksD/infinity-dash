@@ -32,7 +32,7 @@ if sys.argv[1] == "verify" and "verify" in old and os.environ.get("POST_FAIL") =
     def test_success_orders_both_checks_and_passes_external_output(self):
         result, trace, root = self.exercise()
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-        self.assertEqual(trace, ["verify", "log-check", "build:" + str(root / "out"), "verify"])
+        self.assertEqual(trace, ["verify", "log-check", "build:../out", "verify"])
 
     @unittest.skipIf(os.geteuid() == 0, "requires a non-root builder")
     def test_failed_build_still_checks_sources_and_preserves_exit_status(self):
