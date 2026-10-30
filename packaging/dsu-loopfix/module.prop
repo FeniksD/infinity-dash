@@ -1,0 +1,6 @@
+id=infinity_dsu_loopfix
+name=DSU loop mapping fix for dash Android 17
+version=0.1-experimental
+versionCode=1
+author=FeniksD
+description=Experimental DSU loop mapping; overlays only gsid. Disable module to restore the original binary. GSI boot is not yet validated.

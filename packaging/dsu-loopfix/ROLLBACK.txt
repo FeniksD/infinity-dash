@@ -1,0 +1,12 @@
+This is an experimental, device-and-version-specific Magisk module.
+It does not flash boot, init_boot, vendor_boot, vbmeta, LK, or userdata.
+
+Normal rollback: disable infinity_dsu_loopfix in Magisk and reboot.
+If Android cannot start but recovery can decrypt/access /data:
+create /data/adb/modules/infinity_dsu_loopfix/disable and reboot.
+This recovery method depends on working recovery and accessible /data.
+
+The GSI must be tested separately. Building/loading gsid does not prove
+that ColorOS GSI will boot or that all phone hardware will work in it.
+
+Remove this temporary test module before changing/updating the host ROM.
