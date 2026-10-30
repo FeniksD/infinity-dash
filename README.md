@@ -29,6 +29,8 @@ bash scripts/prepare-server.sh /srv/infinity-dash
 
 Подробности исходников и ограничений: [sources/NOTES.md](sources/NOTES.md). План дальнейших этапов: [docs/superpowers/plans/2026-10-30-infinity-dash.md](docs/superpowers/plans/2026-10-30-infinity-dash.md).
 
+После полной синхронизации зафиксированы конкретные revisions 1245 репозиториев: [build/source-manifest.xml](build/source-manifest.xml). Изменения для `dash` накладываются отдельным patch; manifest не заменяет проверку этих изменений и готовых образов.
+
 ## Авторство
 
 Подготовка порта и инфраструктуры: [FeniksD](https://github.com/FeniksD). Аппаратное дерево основано на работе [xiaomi-mt6991](https://github.com/xiaomi-mt6991/device_xiaomi_dash), системная база — [Project Infinity X](https://github.com/ProjectInfinity-X). Авторство и лицензионные заголовки исходных файлов сохранены.
