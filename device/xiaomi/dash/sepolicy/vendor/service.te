@@ -1,0 +1,27 @@
+# Dolby
+type hal_aidl_dms_service, protected_service, service_manager_type, hal_service_type;
+
+# ID manager
+type hal_idmanager_service, protected_service, service_manager_type, hal_service_type;
+
+# MTD service
+type hal_mtdservice_service, protected_service, service_manager_type, hal_service_type;
+
+# MIUICamera (dash) MIVI bg services (IBGService/IPostProcService, mapped in
+# vendor/service_contexts). Deliberately bare service_manager_type (no
+# hal_service_type): priv_app must be grantable find without joining any HAL
+# client attribute, and mtk_hal_camera must be grantable add - both defined in
+# dash-miuicamera/sepolicy/vendor/miuicamera.te. A fresh type has no
+# neverallow coverage by construction.
+type xiaomi_mivi_service, service_manager_type;
+
+# Camera (Xiaomi HAL services provided by camerahalserver/mtk_hal_camera).
+# Labels mirror stock vendor_service_contexts (hal_mivimessage_service,
+# hal_quickcamera_service, aidlintentaware_service). Bare service_manager_type
+# like xiaomi_mivi_service above: keeps app find grants neverallow-clean.
+# Without these, registration fails at boot with
+# avc: denied { add } ... tcontext=u:object_r:default_android_service:s0
+# (observed live for all three).
+type hal_mivimessage_service, service_manager_type;
+type hal_quickcamera_service, service_manager_type;
+type aidlintentaware_service, service_manager_type;

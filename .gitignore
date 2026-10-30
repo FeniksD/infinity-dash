@@ -1,0 +1,6 @@
+.cache/
+.superpowers/
+dist/
+logs/
+__pycache__/
+*.pyc

@@ -1,0 +1,28 @@
+typeattribute mtk_hal_camera bpfdomain;
+
+get_prop(mtk_hal_camera, bpf_progs_loaded_prop)
+
+allow mtk_hal_camera fs_bpf:dir search;
+allow mtk_hal_camera fs_bpf_vendor:dir search;
+allow mtk_hal_camera fs_bpf_vendor:file { read write };
+allow mtk_hal_camera proc_pressure_mem:file rw_file_perms;
+allow mtk_hal_camera procfs_memory:file r_file_perms;
+allow mtk_hal_camera persist_data_file:lnk_file r_file_perms;
+allow mtk_hal_camera vendor_data_file:dir create_dir_perms;
+allow mtk_hal_camera vendor_data_file:file create_file_perms;
+
+r_dir_file(mtk_hal_camera, camera_persist_file)
+r_dir_file(mtk_hal_camera, persist_data_file)
+r_dir_file(mtk_hal_camera, sysfs_chipid)
+r_dir_file(mtk_hal_camera, sysfs_therm)
+r_dir_file(mtk_hal_camera, vendor_camera_update_db_file)
+# staged filter LUTs/watermarks in /data/vendor/camera (stock reads them as vendor_data_file)
+r_dir_file(mtk_hal_camera, vendor_camera_data_file)
+
+allow mtk_hal_camera system_data_file:dir search;
+allow mtk_hal_camera sysfs:file { read open getattr };
+allow mtk_hal_camera vendor_data_file:sock_file { create unlink };
+allow mtk_hal_camera camera_config_prop:file { read open getattr map };
+
+# DSAC fast-direct buffer mapping via /dev/dio_dma_mapper_misc (stock parity).
+allow mtk_hal_camera dio_dma_mapper_device:chr_file { ioctl read write getattr lock append map open watch watch_reads };

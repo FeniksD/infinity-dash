@@ -1,0 +1,2 @@
+# eSIM
+sys.esim.state    u:object_r:sys_esim_state_prop:s0

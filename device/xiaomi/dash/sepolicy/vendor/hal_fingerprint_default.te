@@ -1,0 +1,35 @@
+type fpsensor_socket, file_type;
+type vendor_hal_fingerprint_hwservice_xiaomi, hwservice_manager_type;
+type vendor_hal_fingerprint_service_xiaomi, hal_service_type, protected_service, service_manager_type;
+
+add_service(hal_fingerprint_default, vendor_hal_fingerprint_service_xiaomi)
+add_hwservice(hal_fingerprint_default, vendor_hal_fingerprint_hwservice_xiaomi)
+
+binder_call(hal_fingerprint_default, hal_touchfeature_xiaomi_default)
+binder_call(hal_fingerprint_default, hal_graphics_composer_default)
+binder_call(hal_fingerprint_default, platform_app)
+
+rw_dir_file(hal_fingerprint_default, fingerprint_vendor_data_file)
+rw_dir_file(hal_fingerprint_default, persist_data_file)
+rw_dir_file(hal_fingerprint_default, sysfs_therm)
+rw_dir_file(hal_fingerprint_default, vendor_sysfs_displayfeature)
+rw_dir_file(hal_fingerprint_default, vendor_fingerprint_sysfs)
+
+r_dir_file(hal_fingerprint_default, vendor_sysfs_touch)
+set_prop(hal_fingerprint_default, vendor_fingerprint_prop)
+
+allow init fpsensor_socket:sock_file create_file_perms;
+
+allow hal_fingerprint_default touchfeature_device:chr_file rw_file_perms;
+
+allow hal_fingerprint_default self:capability sys_nice;
+allow hal_fingerprint_default persist_data_file:dir search;
+allow hal_fingerprint_default persist_data_file:file rw_file_perms;
+allow hal_fingerprint_default mnt_vendor_file:dir search;
+allow hal_fingerprint_default vendor_fingerprint_data_file_fpdump:dir create_dir_perms;
+allow hal_fingerprint_default vendor_fingerprint_data_file_fpdump:file create_file_perms;
+allow hal_fingerprint_default vendor_displayfeature_device:dir r_dir_perms;
+allow hal_fingerprint_default vendor_displayfeature_device:chr_file rw_file_perms;
+allow hal_fingerprint_default vendor_touchfeature_device:chr_file rw_file_perms;
+allow hal_fingerprint_default vendor_sysfs_displayfeature:dir r_dir_perms;
+allow hal_fingerprint_default vendor_sysfs_displayfeature:file rw_file_perms;

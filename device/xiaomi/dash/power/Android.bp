@@ -1,0 +1,17 @@
+cc_library_static {
+    name: "libpowermode-ext-dash",
+    defaults: [
+        "android.hardware.power-ndk_shared",
+    ],
+    vendor: true,
+    srcs: [
+        "power-mode.cpp",
+    ],
+    whole_static_libs: [
+        "vendor.xiaomi.hw.touchfeature-V1-ndk",
+    ],
+    shared_libs: [
+        "libbase",
+        "libbinder_ndk",
+    ],
+}

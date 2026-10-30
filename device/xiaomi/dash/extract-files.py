@@ -1,0 +1,345 @@
+#!/usr/bin/env -S PYTHONPATH=../../../tools/extract-utils python3
+#
+# SPDX-FileCopyrightText: The LineageOS Project
+# SPDX-License-Identifier: Apache-2.0
+#
+
+from extract_utils.file import File
+from extract_utils.fixups_blob import (
+    BlobFixupCtx,
+    File,
+    blob_fixup,
+    blob_fixups_user_type,
+)
+from extract_utils.fixups_lib import (
+    lib_fixups,
+    lib_fixups_user_type,
+)
+from extract_utils.main import (
+    ExtractUtils,
+    ExtractUtilsModule,
+)
+from extract_utils.tools import (
+    llvm_objdump_path,
+)
+from extract_utils.utils import (
+    run_cmd,
+)
+
+namespace_imports = [
+    'device/xiaomi/dash',
+    'hardware/mediatek',
+    'hardware/mediatek/libmtkperf_client',
+    'hardware/xiaomi',
+]
+
+
+def blob_fixup_graphic_buffer_size(
+    ctx: BlobFixupCtx,
+    file: File,
+    file_path: str,
+    *args,
+    **kwargs,
+):
+    for line in run_cmd(
+        [
+            llvm_objdump_path,
+            '--disassemble-all',
+            file_path,
+        ]
+    ).splitlines():
+        line = line.split(maxsplit=5)
+        if len(line) != 6:
+            continue
+        # The size of GraphicBuffer changed from 0x100 to 0xd30
+        offset, _, instruction, register, value, _ = line
+        if instruction == 'mov' and register[:-1] == 'w0' and value == '#0x100':
+            with open(file_path, 'rb+') as f:
+                f.seek(int(offset[:-1], 16))
+                f.write(b'\x00\xa6\x81\x52')  # AArch64 mov w0, #0xd30
+
+
+def blob_fixup_zero_wlan_wakelock_cfg(
+    ctx: BlobFixupCtx,
+    file: File,
+    file_path: str,
+    *args,
+    **kwargs,
+):
+    with open(file_path, 'rb') as f:
+        data = f.read()
+    if b'WakeLockThreadTO' in data:
+        return
+    if not data.endswith(b'\n'):
+        data += b'\n'
+    data += (
+        b'# Zero the per-event wake-lock grace periods so WLAN timeout never '
+        b'blocks suspend\n'
+        b'WakeLockThreadTO 0\n'
+        b'WakeLockRxTO 0\n'
+    )
+    with open(file_path, 'wb') as f:
+        f.write(data)
+
+
+def lib_fixup_vendor_suffix(lib: str, partition: str, *args, **kwargs):
+    return f'{lib}_{partition}' if partition == 'vendor' else None
+
+
+lib_fixups: lib_fixups_user_type = {
+    **lib_fixups,
+    (
+        'libneuron_graph_delegate.mtk',
+        'libnir_neon_driver_ndk.mtk.vndk',
+        'libtflite_mtk',
+        'vendor.mediatek.hardware.apuware.apusys-V5-ndk',
+        'vendor.mediatek.hardware.apuware.utils-V1-ndk',
+        'vendor.mediatek.hardware.apuware.utils@2.0',
+        'vendor.mediatek.hardware.neuropilot.agent-V1-ndk',
+        'vendor.mediatek.hardware.videotelephony-V1-ndk'
+    ): lib_fixup_vendor_suffix,
+}
+
+
+blob_fixups: blob_fixups_user_type = {
+    'vendor/bin/mnld' : blob_fixup()
+        .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so')
+        .replace_needed('libmnl.so', 'libmnl_mtk.so'),
+    (
+        'odm/bin/hw/vendor.xiaomi.hw.touchfeature-service',
+        'odm/lib64/libadaptivehdr.so',
+        'odm/lib64/libcolortempmode.so',
+        'odm/lib64/libdither.so',
+        'odm/lib64/libflatmode.so',
+        'odm/lib64/libhistprocess.so',
+        'odm/lib64/libmiBrightness.so',
+        'odm/lib64/libmiSensorCtrl.so',
+        'odm/lib64/libpaperMode.so',
+        'odm/lib64/librhytheyecare.so',
+        'odm/lib64/libsdr2hdr.so',
+        'odm/lib64/libsre.so',
+        'odm/lib64/libtruetone.so',
+        'odm/lib64/libvideomode.so',
+        'odm/lib64/libdynamicelvss.so',
+        'vendor/lib64/mt6991/libaalservice.so',
+        'vendor/lib64/mt6991/libpqconfig.so'
+    ): blob_fixup()
+        .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so'),
+    (
+        'odm/bin/hw/vendor.xiaomi.sensor.citsensorservice.aidl',
+        'odm/lib64/hw/displayfeature.default.so'
+    ): blob_fixup()
+        .replace_needed('android.hardware.sensors-V2-ndk.so', 'android.hardware.sensors-V3-ndk.so')
+        .replace_needed('libtinyxml2.so', 'libtinyxml2-v36.so'),
+    (
+        'odm/lib64/camera/dynamicplugins/com.xiaomi.plugin.gainmap.so',
+        'odm/lib64/camera/dynamicplugins/com.xiaomi.plugin.jpegrAggr.so',
+    ): blob_fixup()
+        .replace_needed('libultrahdr.so', 'libultrahdr-v36.so'),
+    (
+        'odm/lib64/libAncHumanPreviewBokeh.so',
+        'odm/lib64/libMiEmojiEffect.so',
+        'odm/lib64/libMiVideoFilter.so',
+        'odm/lib64/libTrueSight.so',
+        'odm/lib64/libwa_widelens_undistort.so',
+        'odm/lib64/libarcsoft_beautyshot.so',
+        'vendor/lib64/mt6991/libneuralnetworks_sl_driver_mtk_prebuilt.so',
+        'vendor/lib64/mt6991/libneuron_adapter_mgvi.so',
+        'vendor/lib64/libMiPhotoFilter.so',
+        'vendor/lib64/libmcve.so'
+    ): blob_fixup()
+        .clear_symbol_version('AHardwareBuffer_allocate')
+        .clear_symbol_version('AHardwareBuffer_createFromHandle')
+        .clear_symbol_version('AHardwareBuffer_describe')
+        .clear_symbol_version('AHardwareBuffer_isSupported')
+        .clear_symbol_version('AHardwareBuffer_getNativeHandle')
+        .clear_symbol_version('AHardwareBuffer_lock')
+        .clear_symbol_version('AHardwareBuffer_lockPlanes')
+        .clear_symbol_version('AHardwareBuffer_release')
+        .clear_symbol_version('AHardwareBuffer_unlock'),
+    (
+        'odm/lib64/libmiXmlParser.so',
+        'vendor/lib64/hw/audio.primary.mediatek.so',
+        'vendor/lib64/hw/mt6991/vendor.mediatek.hardware.pq_aidl-impl.so',
+        'vendor/lib64/libHardwareBacklightcore.so',
+        'vendor/lib64/libaudiocloudctrl.so',
+        'vendor/lib64/libmicamera_aidl_provider.so',
+        'vendor/lib64/libpqxmlflagparser.so',
+        'vendor/lib64/libpqxmlparser.so',
+        'vendor/lib64/librt_extamp_intf.so',
+        'vendor/lib64/libsilkybrightnesscore.so',
+        'vendor/lib64/libxlog.so',
+        'vendor/lib64/mt6991/lib3a.custom.ae.flow.so',
+        'vendor/lib64/mt6991/libmmlpqImpl.so'
+    ): blob_fixup()
+        .replace_needed('libtinyxml2.so', 'libtinyxml2-v36.so'),
+    (
+        'odm/lib64/libmt_mitee.so',
+        'odm/lib64/libgoogleid.so',
+        'vendor/bin/hw/android.hardware.security.keymint@3.0-service.mitee',
+    ): blob_fixup()
+        .replace_needed('android.hardware.security.keymint-V3-ndk.so', 'android.hardware.security.keymint-V3-ndk-v36.so')
+        .replace_needed('libkeymint_support.so', 'libkeymint_support_mtk.so')
+        .remove_needed('libkeymint_remote_prov_support.so'),
+    'system_ext/bin/hw/android.hardware.audio.parameter_parser.service': blob_fixup()
+        .replace_needed('av-audio-types-aidl-ndk.so', 'av-audio-types-aidl-V3-ndk.so'),
+    'system_ext/lib64/libimsma.so': blob_fixup()
+        .replace_needed('libsink.so', 'libsink-mtk.so'),
+    'system_ext/lib64/libsink-mtk.so': blob_fixup()
+        .add_needed('libaudioclient_shim.so'),
+    'system_ext/priv-app/ImsService/ImsService.apk': blob_fixup()
+        .apktool_patch('blob-patches/ImsService'),
+    'vendor/bin/hw/android.hardware.audio.service-aidl.mediatek': blob_fixup()
+        .replace_needed('android.media.audio.common.types-V5-ndk.so', 'android.media.audio.common.types-V3-ndk.so')
+        .replace_needed('libaudio_aidl_conversion_common_ndk.so', 'libaudio_aidl_conversion_common_ndk_prebuilt.so'),
+    (
+        'vendor/bin/hw/mt6991/android.hardware.graphics.allocator-V2-service-mediatek.mt6991',
+        'vendor/lib64/egl/mt6991/libGLES_mali.so',
+        'vendor/lib64/hw/mt6991/android.hardware.graphics.allocator-V2-mediatek.so',
+        'vendor/lib64/hw/mt6991/mapper.mediatek.so',
+        'vendor/lib64/mt6991/libmtkcam_grallocutils.so',
+        'vendor/lib64/libaimemc.so',
+        'vendor/lib64/libcodec2_vpp_AIMEMC_plugin.so',
+        'vendor/lib64/libcodec2_vpp_AISR_plugin.so',
+        'vendor/lib64/libgpud.so',
+        'vendor/lib64/libmtkcam_grallocutils_aidlv2helper.so',
+        'vendor/lib64/vendor.mediatek.hardware.camera.isphal-V1-ndk.so',
+        'vendor/lib64/vendor.mediatek.hardware.pq_aidl-V2-ndk.so',
+        'vendor/lib64/vendor.mediatek.hardware.pq_aidl-V4-ndk.so',
+        'vendor/lib64/vendor.mediatek.hardware.pq_aidl-V7-ndk.so'
+    ): blob_fixup()
+        .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
+    'vendor/etc/init/hw/init.batterysecret.rc': blob_fixup()
+        .regex_replace('    seclabel u:r:batterysecret:s0\n', ''),
+    (
+        'vendor/etc/init/android.hardware.graphics.allocator-V2-service-mediatek.rc',
+        'vendor/etc/init/android.hardware.graphics.composer@3.3-service.rc',
+        'vendor/etc/init/arm.mali.platform-mediatek.rc'
+    ): blob_fixup()
+        .regex_replace('.*writepid.*\n', ''),
+    'vendor/lib64/hw/android.hardware.audio.effect.aidl-impl-mediatek.so': blob_fixup()
+        .replace_needed('android.media.audio.common.types-V5-ndk.so', 'android.media.audio.common.types-V3-ndk.so')
+        .replace_needed('libtinyxml2.so', 'libtinyxml2-v36.so'),
+    # Stock BT audio AIDL parcelables; the real V1-ndk module name collides with
+    # the source aidl_interface in hardware/mediatek, so the blob ships renamed
+    # as libmediatek_btaudio_aidl_v1 (proprietary-files.txt) and both consumers
+    # get their DT_NEEDED pointed at the new name.
+    (
+        'vendor/lib64/android.hardware.bluetooth.audio-impl-mediatek.so',
+    ): blob_fixup()
+        .remove_needed('vendor.mediatek.hardware.bluetooth.audio-V1-ndk.so'),
+    (
+        'vendor/lib64/hw/audio.primary.mediatek.so',
+        'vendor/lib64/libbluetooth_audio_session_aidl_mtk.so',
+    ): blob_fixup()
+        .replace_needed('vendor.mediatek.hardware.bluetooth.audio-V1-ndk.so', 'libmediatek_btaudio_aidl_v1.so'),
+    'vendor/lib64/hw/android.hardware.soundtrigger3-impl.so': blob_fixup()
+        .replace_needed('libaudio_aidl_conversion_common_ndk.so', 'libaudio_aidl_conversion_common_ndk_prebuilt.so'),
+    'vendor/lib64/hw/hwcomposer.mtk_common.so': blob_fixup()
+        .add_needed('libprocessgroup_shim.so')
+        .replace_needed('libtinyxml2.so', 'libtinyxml2-v36.so'),
+    (
+        'vendor/lib64/hw/hwcomposer.mtk_common.so',
+        'vendor/lib64/mt6991/libmtkcam_taskmgr.so',
+        'vendor/lib64/libcameraopt.so'
+    ): blob_fixup()
+        .add_needed('libprocessgroup_shim.so'),
+    (
+         'vendor/lib64/soundfx/libhwdapaidl.so',
+         'vendor/lib64/soundfx/libswdapaidl.so',
+         'vendor/lib64/soundfx/libswgamedapaidl.so',
+         'vendor/lib64/soundfx/libswspatializeraidl.so'
+    ): blob_fixup()
+        .replace_needed('android.media.audio.common.types-V5-ndk.so', 'android.media.audio.common.types-V3-ndk.so')
+        .replace_needed('libaudio_aidl_conversion_common_ndk.so', 'libaudio_aidl_conversion_common_ndk_prebuilt.so'),
+    'vendor/lib64/soundfx/libdlbvolaidl.so': blob_fixup()
+        .replace_needed('android.media.audio.common.types-V5-ndk.so', 'android.media.audio.common.types-V3-ndk.so'),
+    'vendor/lib64/android.hardware.audio.core-impl-mediatek.so': blob_fixup()
+        .add_needed('libaudioutils_shim.so')
+        .replace_needed('android.media.audio.common.types-V5-ndk.so', 'android.media.audio.common.types-V3-ndk.so')
+        .replace_needed('libaudio_aidl_conversion_common_ndk.so', 'libaudio_aidl_conversion_common_ndk_prebuilt.so')
+        .replace_needed('libnbaio_mono.so', 'libnbaio_mono-dash.so'),
+    'vendor/lib64/libaudio_aidl_conversion_common_ndk_prebuilt.so': blob_fixup()
+        .replace_needed('android.media.audio.common.types-V5-ndk.so', 'android.media.audio.common.types-V3-ndk.so'),
+    # WiFi: remove wowlan_triggers=disconnect from wpa_supplicant
+    # overlays so the firmware won't wake the system on disconnect
+    # events, which causes WLAN wakelocks during idle.
+    'vendor/etc/wifi/p2p_supplicant_overlay.conf': blob_fixup()
+        .regex_replace('wowlan_triggers=disconnect\n', ''),
+    'vendor/etc/wifi/wpa_supplicant_overlay.conf': blob_fixup()
+        .regex_replace('wowlan_triggers=disconnect\n', ''),
+    # WLAN: stock wifi.cfg carries no WakeLock* keys, so the driver's
+    # per-event wake-lock grace periods stay at the compiled defaults
+    # (WakeLockThreadTO 50 ms / WakeLockRxTO 300 ms) and every radio event
+    # keeps the "WLAN timeout" wakeup source active that long. Zero both
+    # so it releases immediately and never blocks suspend.
+    'vendor/firmware/wifi.cfg': blob_fixup()
+        .call(blob_fixup_zero_wlan_wakelock_cfg),
+    'vendor/lib64/libcodec2_fsr.so': blob_fixup()
+        .call(blob_fixup_graphic_buffer_size)
+        .replace_needed('android.hardware.graphics.common-V5-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
+    'vendor/lib64/libcom.xiaomi.grallocutils.so': blob_fixup()
+        .call(blob_fixup_graphic_buffer_size),
+    # libswtcc.so (AppTCCCore) is loaded only by
+    # vpp_hdrmeta_handler_plugin.so, i.e. only while VppHdrEditing runs
+    # for an HDR10+ session. It does operator new(0x100) for an
+    # android::GraphicBuffer exactly like the other blobs covered by
+    # blob_fixup_graphic_buffer_size, but was missing from the fixup
+    # list, so it under-allocates on this ROM and smashes the heap of
+    # the codec2 process for the whole HDR10+ session.
+    'vendor/lib64/libswtcc.so': blob_fixup()
+        .call(blob_fixup_graphic_buffer_size),
+    'vendor/lib64/libmicamera_hal_core.so': blob_fixup()
+        .call(blob_fixup_graphic_buffer_size)
+        .replace_needed('libtinyxml2.so', 'libtinyxml2-v36.so'),
+    'vendor/lib64/libultrahdr-v36.so': blob_fixup()
+        .replace_needed('libjpegdecoder.so', 'libjpegdecoder-v36.so')
+        .replace_needed('libjpegencoder.so', 'libjpegencoder-v36.so'),
+    'vendor/lib64/vendor.mediatek.hardware.pq_aidl-V7-ndk.so': blob_fixup()
+        .replace_needed('android.hardware.graphics.common-V4-ndk.so', 'android.hardware.graphics.common-V7-ndk.so'),
+    (
+        'vendor/lib64/vendor.xiaomi.hardware.camera.injection-V1-ndk.so',
+        'vendor/lib64/vendor.xiaomi.hardware.camera.injection-client.so',
+        'vendor/lib64/vendor.xiaomi.hardware.camera.injection-service.so'
+    ): blob_fixup()
+        .replace_needed('android.hardware.camera.device-V1-ndk.so', 'android.hardware.camera.device-V2-ndk.so'),
+    (
+        'vendor/bin/hw/android.hardware.media.c2-mediatek-64b',
+        'vendor/bin/hw/vendor.dolby.media.c2-default-service-dax',
+        'vendor/bin/hw/vendor.dolby.media.c2-service-vision',
+        'vendor/lib64/c2.dolby.client.so',
+        'vendor/lib64/c2.dolby.hevc.dec.so',
+        'vendor/lib64/c2.dolby.hevc.sec.dec.so',
+        'vendor/lib64/libcodec2_mtk_vdec.so',
+        'vendor/lib64/libcodec2_mtk_venc.so'
+    ): blob_fixup()
+        .replace_needed('libcodec2_aidl.so', 'libcodec2_aidl_prebuilt.so')
+        .replace_needed('libcodec2_hidl_plugin.so', 'libcodec2_hidl_plugin_mtk.so')
+        .replace_needed('libcodec2_vndk.so', 'libcodec2_vndk_mtk.so')
+        .replace_needed('libcodec2_hal_common.so', 'libcodec2_hal_common_mtk.so')
+        .replace_needed('libformatter.so', 'libformatter_mtk.so'),
+    (
+        'vendor/lib64/libcodec2_aidl.so'
+    ): blob_fixup()
+        .replace_needed('libcodec2_hidl_plugin.so', 'libcodec2_hidl_plugin_mtk.so')
+        .replace_needed('libcodec2_vndk.so', 'libcodec2_vndk_mtk.so')
+        .replace_needed('libcodec2_hal_common.so', 'libcodec2_hal_common_mtk.so'),
+    (
+        'vendor/lib64/libcodec2_hal_common.so',
+        'vendor/lib64/libcodec2_hidl_plugin.so'
+    ): blob_fixup()
+        .replace_needed('libcodec2_vndk.so', 'libcodec2_vndk_mtk.so'),
+}  # fmt: skip
+
+module = ExtractUtilsModule(
+    'dash',
+    'xiaomi',
+    add_firmware_proprietary_file=True,
+    blob_fixups=blob_fixups,
+    lib_fixups=lib_fixups,
+    namespace_imports=namespace_imports,
+)
+
+if __name__ == '__main__':
+    utils = ExtractUtils.device(module)
+    utils.run()

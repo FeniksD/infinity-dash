@@ -1,0 +1,22 @@
+# Batterysecret
+vendor_restricted_prop(vendor_batterysecret_prop)
+
+# DisplayFeature
+vendor_internal_prop(vendor_displayfeature_prop)
+
+# eSIM
+vendor_restricted_prop(vendor_esim_state_prop)
+
+# Fingerprint
+vendor_public_prop(vendor_fingerprint_prop)
+
+# ID manager
+vendor_restricted_prop(vendor_idmanager_prop)
+
+# MTD service
+vendor_restricted_prop(vendor_mtdservice_prop)
+
+# Touchfeature
+vendor_public_prop(vendor_panel_info_prop)
+vendor_restricted_prop(vendor_touch_hostprocess_prop)
+vendor_restricted_prop(vendor_touchfeature_prop)

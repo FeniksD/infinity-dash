@@ -1,0 +1,20 @@
+service vendor.esim_enable /vendor/bin/mtkmtb -c 5:1
+    disabled
+    oneshot
+    user root
+    group root radio system
+
+service vendor.esim_disable /vendor/bin/mtkmtb -c 5:2
+    disabled
+    oneshot
+    user root
+    group root radio system
+
+service vendor.esim_state /vendor/bin/init.esim.sh
+    disabled
+    oneshot
+    user root
+    group root radio system
+
+on property:vendor.esim.state=*
+    setprop sys.esim.state ${vendor.esim.state}

@@ -1,0 +1,428 @@
+{
+  "Nodes": [
+    {
+      "Name": "MemFreq",
+      "Path": "/sys/devices/platform/1c013000.dvfsrc/mtk-dvfsrc-devfreq/devfreq/mtk-dvfsrc-devfreq/userspace/set_freq",
+      "Values": [
+        "9594000000",
+        "8528000000",
+        "7488000000",
+        "6370000000",
+        "5460000000",
+        "4212000000",
+        "3094000000",
+        "2067000000",
+        "1532000000",
+        "754000000",
+        "0"
+      ],
+      "ResetOnInit": true,
+      "Comments": [
+        "It is userspace gov, powerhal will have exclusive and direct control of the freq"
+      ]
+    },
+    {
+      "Name": "GpuPwrLevel",
+      "Path": "/proc/gpufreqv2/fix_target_opp_index",
+      "Values": [
+        "-1","0","1","2","3","4","5","6","7","8","9","10","11","12","13","14",
+        "15","16","17","18","19","20","21","22","23","24","25","26","27","28",
+        "29","30","31","32","33","34","35","36","37","38","39","40","41","42",
+        "43","44","45","46","47","48","49","50","51"
+      ],
+      "ResetOnInit": true,
+      "DefaultIndex": 0,
+      "Comments": [
+        "[00*] freq: 1612000, volt:  85000, vsram:  85000",
+        "[01*] freq: 1612000, volt:  85000, vsram:  85000",
+        "[02*] freq: 1612000, volt:  85000, vsram:  85000",
+        "[03*] freq: 1612000, volt:  85000, vsram:  85000",
+        "[04*] freq: 1508000, volt:  82500, vsram:  82500",
+        "[05*] freq: 1508000, volt:  82500, vsram:  82500",
+        "[06*] freq: 1508000, volt:  82500, vsram:  82500",
+        "[07*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[08*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[09*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[10*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[11*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[12*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[13*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[14*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[15*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[16*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[17*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[18*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[19*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[20*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[21*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[22*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[23*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[24*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[25*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[26*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[27*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[28*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[29*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[30*] freq: 1430000, volt:  80625, vsram:  80625",
+        "[31*] freq: 1378000, volt:  79375, vsram:  79375",
+        "[32*] freq: 1326000, volt:  78125, vsram:  78125",
+        "[33*] freq: 1300000, volt:  77500, vsram:  77500",
+        "[34*] freq: 1248000, volt:  76250, vsram:  76250",
+        "[35*] freq: 1196000, volt:  75000, vsram:  75000",
+        "[36*] freq: 1144000, volt:  73750, vsram:  75000",
+        "[37*] freq: 1118000, volt:  73125, vsram:  75000",
+        "[38*] freq: 1066000, volt:  71250, vsram:  75000",
+        "[39*] freq: 1014000, volt:  70000, vsram:  75000",
+        "[40*] freq:  962000, volt:  68750, vsram:  75000",
+        "[41*] freq:  936000, volt:  68125, vsram:  75000",
+        "[42*] freq:  884000, volt:  66875, vsram:  75000",
+        "[43*] freq:  832000, volt:  65625, vsram:  75000",
+        "[44*] freq:  806000, volt:  65000, vsram:  75000",
+        "[45*] freq:  754000, volt:  63750, vsram:  75000",
+        "[46*] freq:  702000, volt:  61875, vsram:  75000",
+        "[47*] freq:  650000, volt:  60625, vsram:  75000",
+        "[48*] freq:  624000, volt:  60000, vsram:  75000",
+        "[49*] freq:  572000, volt:  58750, vsram:  75000",
+        "[50*] freq:  442000, volt:  55625, vsram:  75000",
+        "[51*] freq:  338000, volt:  52500, vsram:  75000"
+      ]
+    },
+    {
+      "Name": "ThermalMessage",
+      "Path": "/sys/devices/virtual/thermal/thermal_message/sconfig",
+      "Values": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "50",
+        "52",
+        "57",
+        "58",
+        "60",
+        "61",
+        "75",
+        "76",
+        "500",
+        "501",
+        "700",
+        "701",
+        "702"
+      ],
+      "ResetOnInit": true,
+      "DefaultIndex": 0,
+      "Comments": [
+        "NORMAL",
+        "HUANJI",
+        "ABNORMAL",
+        "NIGHTVIDEO",
+        "DOLBYVISION",
+        "PHONE",
+        "NOLIMITS",
+        "CLASS0",
+        "YOUTUBE",
+        "ARVR",
+        "NAVIGATION",
+        "VIDEO",
+        "DEMO",
+        "SPTM",
+        "VIDEOCHAT",
+        "CAMERA",
+        "4K",
+        "8K",
+        "TGAME",
+        "MGAME",
+        "YUANSHEN",
+        "XINGTIE",
+        "HIGHFPS",
+        "CHARGE",
+        "DOUYIN",
+        "RECHARGE",
+        "PER-NORMAL",
+        "PER-ABNORMAL",
+        "PER-CLASS0",
+        "PER-YOUTUBE",
+        "PER-NAVIGATION",
+        "PER-VIDEO",
+        "XINGTIE",
+        "HIGHFPS",
+        "HP-NORMAL",
+        "HP-MGAME",
+        "CGAME",
+        "CCLASSVIDEO",
+        "CGAME"
+      ]
+    },
+    {
+      "Name": "CPUEfficiencyClusterMaxFreq",
+      "Path": "/sys/devices/system/cpu/cpufreq/policy0/scaling_max_freq",
+      "Values": [
+        "2400000","2300000","2200000","2100000","2000000","1900000","1800000",
+        "1700000","1600000","1500000","1400000","1300000","1200000","1100000",
+        "1000000","900000","800000","700000","600000","500000","400000","339000"
+      ],
+      "DefaultIndex": 0,
+      "ResetOnInit": true
+    },
+    {
+      "Name": "CPUEfficiencyClusterMinFreq",
+      "Path": "/sys/devices/system/cpu/cpufreq/policy0/scaling_min_freq",
+      "Values": [
+        "2400000","2300000","2200000","2100000","2000000","1900000","1800000",
+        "1700000","1600000","1500000","1400000","1300000","1200000","1100000",
+        "1000000","900000","800000","700000","600000","500000","400000","339000"
+      ],
+      "ResetOnInit": true
+    },
+    {
+      "Name": "CPUSuperClusterMaxFreq",
+      "Path": "/sys/devices/system/cpu/cpufreq/policy4/scaling_max_freq",
+      "Values": [
+        "3300000","3200000","3100000","3000000","2900000","2800000","2700000",
+        "2600000","2500000","2400000","2300000","2200000","2100000","2000000",
+        "1900000","1800000","1700000","1600000","1500000","1400000","1300000",
+        "1200000","1100000","1000000","900000","800000","700000","622000"
+      ],
+      "DefaultIndex": 0,
+      "ResetOnInit": true
+    },
+    {
+      "Name": "CPUSuperClusterMinFreq",
+      "Path": "/sys/devices/system/cpu/cpufreq/policy4/scaling_min_freq",
+      "Values": [
+        "3300000","3200000","3100000","3000000","2900000","2800000","2700000",
+        "2600000","2500000","2400000","2300000","2200000","2100000","2000000",
+        "1900000","1800000","1700000","1600000","1500000","1400000","1300000",
+        "1200000","1100000","1000000","900000","800000","700000","622000"
+      ],
+      "ResetOnInit": true
+    },
+    {
+      "Name": "CPUUltraClusterMaxFreq",
+      "Path": "/sys/devices/system/cpu/cpufreq/policy7/scaling_max_freq",
+      "Values": [
+        "3730000","3600000","3500000","3400000","3300000","3200000","3100000",
+        "3000000","2900000","2800000","2700000","2600000","2500000","2400000",
+        "2300000","2200000","2100000","2000000","1900000","1800000","1700000",
+        "1600000","1500000","1400000","1300000","1200000","1100000","1000000",
+        "900000","798000"
+      ],
+      "DefaultIndex": 0,
+      "ResetOnInit": true
+    },
+    {
+      "Name": "CPUUltraClusterMinFreq",
+      "Path": "/sys/devices/system/cpu/cpufreq/policy7/scaling_min_freq",
+      "Values": [
+        "3730000","3600000","3500000","3400000","3300000","3200000","3100000",
+        "3000000","2900000","2800000","2700000","2600000","2500000","2400000",
+        "2300000","2200000","2100000","2000000","1900000","1800000","1700000",
+        "1600000","1500000","1400000","1300000","1200000","1100000","1000000",
+        "900000","798000"
+      ],
+      "ResetOnInit": true
+    },
+    {
+      "Name": "GpuBaseDvfsMargin",
+      "Path": "/sys/kernel/ged/hal/timer_base_dvfs_margin",
+      "Values": ["30", "50", "18743356"],
+      "DefaultIndex": 0,
+      "ResetOnInit": true
+    },
+    {
+      "Name": "GpuBaseDvfsStep",
+      "Path": "/sys/kernel/ged/hal/loading_base_dvfs_step",
+      "Values": ["103", "16", "771"],
+      "DefaultIndex": 0,
+      "ResetOnInit": true
+    },
+    {
+      "Name": "UclampTALatency",
+      "Path": "/dev/cpuctl/top-app/cpu.uclamp.latency_sensitive",
+      "Values": ["0", "1"],
+      "ResetOnInit": true
+    },
+    {
+      "Name": "UclampTAMin",
+      "Path": "/dev/cpuctl/top-app/cpu.uclamp.min",
+      "Values": ["0", "40", "80", "100"],
+      "DefaultIndex": 0,
+      "ResetOnInit": true
+    },
+    {
+      "Name": "PowerHALAudioState",
+      "Path": "vendor.powerhal.audio",
+      "Values": ["AUDIO_STREAMING_LOW_LATENCY", ""],
+      "Type": "Property"
+    },
+    {
+      "Name": "PowerHALRenderingState",
+      "Path": "vendor.powerhal.rendering",
+      "Values": ["EXPENSIVE_RENDERING", ""],
+      "Type": "Property"
+    }
+  ],
+  "Actions": [
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "CPUEfficiencyClusterMinFreq",
+      "Duration": 0,
+      "Value": "1000000"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "CPUSuperClusterMinFreq",
+      "Duration": 0,
+      "Value": "2200000"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "CPUUltraClusterMinFreq",
+      "Duration": 0,
+      "Value": "2500000"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "MemFreq",
+      "Duration": 0,
+      "Value": "5460000000"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "UclampTAMin",
+      "Duration": 0,
+      "Value": "80"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "GpuPwrLevel",
+      "Duration": 0,
+      "Value": "20"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "GpuBaseDvfsMargin",
+      "Duration": 0,
+      "Value": "18743356"
+    },
+    {
+      "PowerHint": "LAUNCH",
+      "Node": "GpuBaseDvfsStep",
+      "Duration": 0,
+      "Value": "771"
+    },
+    {
+      "PowerHint": "AUDIO_STREAMING_LOW_LATENCY",
+      "Node": "PowerHALAudioState",
+      "Duration": 0,
+      "Value": "AUDIO_STREAMING_LOW_LATENCY"
+    },
+    {
+      "PowerHint": "AUDIO_STREAMING_LOW_LATENCY",
+      "Node": "CPUEfficiencyClusterMinFreq",
+      "Duration": 0,
+      "Value": "1000000"
+    },
+    {
+      "PowerHint": "AUDIO_STREAMING_LOW_LATENCY",
+      "Node": "CPUSuperClusterMinFreq",
+      "Duration": 0,
+      "Value": "1000000"
+    },
+    {
+      "PowerHint": "EXPENSIVE_RENDERING",
+      "Node": "PowerHALRenderingState",
+      "Duration": 0,
+      "Value": "EXPENSIVE_RENDERING"
+    },
+    {
+      "PowerHint": "EXPENSIVE_RENDERING",
+      "Node": "GpuPwrLevel",
+      "Duration": 0,
+      "Value": "35"
+    },
+    {
+      "PowerHint": "GAME_LOADING",
+      "Node": "MemFreq",
+      "Duration": 0,
+      "Value": "6370000000"
+    },
+    {
+      "PowerHint": "GAME_LOADING",
+      "Node": "CPUEfficiencyClusterMinFreq",
+      "Duration": 0,
+      "Value": "1000000"
+    },
+    {
+      "PowerHint": "GAME_LOADING",
+      "Node": "CPUSuperClusterMinFreq",
+      "Duration": 0,
+      "Value": "2200000"
+    },
+    {
+      "PowerHint": "GAME_LOADING",
+      "Node": "CPUUltraClusterMinFreq",
+      "Duration": 0,
+      "Value": "3000000"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "CPUSuperClusterMinFreq",
+      "Duration": 0,
+      "Value": "1000000"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "CPUUltraClusterMinFreq",
+      "Duration": 0,
+      "Value": "1000000"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "CPUSuperClusterMaxFreq",
+      "Duration": 0,
+      "Value": "2500000"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "CPUUltraClusterMaxFreq",
+      "Duration": 0,
+      "Value": "2700000"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "UclampTAMin",
+      "Duration": 0,
+      "Value": "40"
+    },
+    {
+      "PowerHint": "INTERACTION",
+      "Node": "UclampTALatency",
+      "Duration": 0,
+      "Value": "1"
+    }
+  ]
+}
+

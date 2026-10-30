@@ -1,0 +1,2 @@
+# only customized property
+ro.vendor.audio.clean_speaker=true

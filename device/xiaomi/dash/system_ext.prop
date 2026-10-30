@@ -1,0 +1,32 @@
+# Audio
+ro.audio.silent=0
+ro.audio.flinger_standbytime_ms=2000
+ro.audio.ihaladaptervendorextension_enabled=true
+ro.audio.usb.period_us=16000
+ro.camera.sound.forced=0
+
+# Display
+sys.brightness.disable_gamma_conversion=true
+
+# Radio
+ro.fota.oem=Xiaomi
+ro.radio.device_type=1
+ro.vendor.imeisv=05
+ro.vendor.mtk_gwsd_support=1
+ro.vendor.mtk_telephony_add_on_policy=0
+ro.vendor.vodata_support=1
+vendor.rild.libargs=-d /dev/ttyC0
+vendor.rild.libpath=mtk-ril.so
+
+# Media
+media.stagefright.thumbnail.prefer_hw_codecs=true
+
+# Version
+ro.mi.os.version.code=3
+ro.mi.os.version.incremental=OS3.0.302.0.WPLMIXM
+ro.product.marketname=POCO X8 Pro Max
+
+# Wifi
+wifi.direct.interface=p2p0
+wifi.interface=wlan0
+wifi.tethering.interface=ap0

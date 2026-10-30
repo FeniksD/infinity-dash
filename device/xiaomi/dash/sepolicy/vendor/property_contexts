@@ -1,0 +1,69 @@
+# Batterysecret
+persist.vendor.accelerate.charge u:object_r:vendor_batterysecret_prop:s0
+
+# Camera
+persist.vendor.camera. u:object_r:vendor_mtk_camera_prop:s0
+persist.vendor.cameraid.totalnum u:object_r:vendor_mtk_camera_prop:s0
+persist.vendor.EnableP3ColorSpace u:object_r:vendor_mtk_camera_prop:s0
+persist.vendor.XDRVersion u:object_r:vendor_mtk_camera_prop:s0
+ro.vendor.dynamiccamera. u:object_r:vendor_mtk_camera_prop:s0
+vendor.camera. u:object_r:vendor_mtk_camera_prop:s0
+
+# DisplayFeature
+persist.vendor.dc_backlight.enable u:object_r:vendor_displayfeature_prop:s0
+persist.vendor.max.brightness u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.cabc.enable u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.display.all_modes_support_WCG.enable u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.display.update_gray_by_temperature u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.displayfeature.dump u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.histogram.enable u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.localhbm.enable u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.mi_sf.hdr_enable_flatmode u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.mtk.pq.aidl u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.mtk.pq.odm u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.sre.enable u:object_r:vendor_displayfeature_prop:s0
+ro.vendor.xiaomi.bl.poll u:object_r:vendor_displayfeature_prop:s0
+vendor.display.panel.calibration.status u:object_r:vendor_displayfeature_prop:s0
+vendor.displayfeature.entry.enable u:object_r:vendor_displayfeature_prop:s0
+
+# eSIM
+vendor.esim.state    u:object_r:vendor_esim_state_prop:s0
+
+# Fingerprint
+persist.vendor.fpc. u:object_r:vendor_fingerprint_prop:s0
+persist.vendor.goodix. u:object_r:vendor_fingerprint_prop:s0
+persist.vendor.sys.fp. u:object_r:vendor_fingerprint_prop:s0
+ro.hardware.fp. u:object_r:vendor_fingerprint_prop:s0
+vendor.fps_hal. u:object_r:vendor_fingerprint_prop:s0
+vendor.panel.display. u:object_r:vendor_fingerprint_prop:s0
+vendor.panel.touch_vendor u:object_r:vendor_fingerprint_prop:s0
+
+# ID manager
+persist.vendor.sys.idmgr. u:object_r:vendor_idmanager_prop:s0
+ro.vendor.idmgr. u:object_r:vendor_idmanager_prop:s0
+
+# MTD service
+persist.vendor.sys.attestation.status u:object_r:vendor_mtdservice_prop:s0
+persist.vendor.sys.pay. u:object_r:vendor_mtdservice_prop:s0
+persist.vendor.sys.provision.status u:object_r:vendor_mtdservice_prop:s0
+persist.vendor.sys.rkp.status u:object_r:vendor_mtdservice_prop:s0
+vendor.sys.feature_state u:object_r:vendor_mtdservice_prop:s0
+vendor.sys.rpmb_state u:object_r:vendor_mtdservice_prop:s0
+
+# Radio
+ro.vendor.oem. u:object_r:vendor_mtk_radio_prop:s0
+ro.vendor.radio. u:object_r:vendor_mtk_radio_prop:s0
+
+# Sensors
+ro.vendor.sensors.xiaomi.udfps u:object_r:vendor_mtk_sensor_prop:s0
+
+# Thermal
+vendor.sys.thermal. u:object_r:vendor_thermal_prop:s0
+
+# Touchfeature
+persist.vendor.hostprocess. u:object_r:vendor_touch_hostprocess_prop:s0
+persist.vendor.touchfeature. u:object_r:vendor_touchfeature_prop:s0
+ro.vendor.touch.touchflinger.enable u:object_r:vendor_touchfeature_prop:s0
+ro.vendor.touch.touchscheduler.enable u:object_r:vendor_touchfeature_prop:s0
+ro.vendor.touchfeature.type u:object_r:vendor_touchfeature_prop:s0
+vendor.panel. u:object_r:vendor_panel_info_prop:s0

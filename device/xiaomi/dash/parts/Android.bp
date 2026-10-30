@@ -1,0 +1,24 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+android_app {
+    name: "XiaomiParts",
+    certificate: "platform",
+    defaults: ["SettingsLibDefaults"],
+    srcs: ["src/**/*.kt"],
+    platform_apis: true,
+    privileged: true,
+    system_ext_specific: true,
+    static_libs: [
+        "SettingsLib",
+        "SettingsLibSliderPreference",
+        "androidx.core_core",
+        "androidx.fragment_fragment",
+        "androidx.preference_preference",
+        "org.lineageos.settings.resources",
+        "vendor.xiaomi.hardware.displayfeature_aidl-V2-java",
+        "vendor.xiaomi.hw.touchfeature-V1-java",
+    ],
+}

@@ -1,0 +1,11 @@
+set_prop(mtk_hal_pq, vendor_displayfeature_prop)
+
+allow mtk_hal_pq gz_device:chr_file rw_file_perms;
+r_dir_file(mtk_hal_pq, dmabuf_system_secure_heap_device)
+
+allow mtk_hal_pq dmabuf_system_secure_heap_device:chr_file { read open ioctl };
+allow mtk_hal_pq gz_device:chr_file { read write open ioctl };
+allow mtk_hal_pq vendor_sysfs_displayfeature:dir search;
+allow mtk_hal_pq vendor_sysfs_displayfeature:file { read open };
+allow mtk_hal_pq mnt_vendor_file:dir search;
+allow mtk_hal_pq mnt_vendor_file:file { read write open };
