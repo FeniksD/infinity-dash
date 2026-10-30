@@ -21,6 +21,8 @@ roots = [
     "/var/spool/cron", "/usr/local/lib/infinity-guard",
 ]
 files = ["/etc/ssh/sshd_config", "/etc/passwd", "/etc/group", "/etc/shadow", "/etc/sudoers", "/usr/sbin/sshd", "/usr/bin/git", "/usr/bin/python3.14", "/etc/pam.d/sshd"]
+if Path("/etc/apparmor.d/infinity-build-nsjail").exists():
+    files.append("/etc/apparmor.d/infinity-build-nsjail")
 if args.source_manifest:
     files.append(str(args.source_manifest.resolve()))
     files.append(str(args.source_manifest.resolve().parent))

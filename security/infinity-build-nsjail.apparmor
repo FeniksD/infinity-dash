@@ -1,0 +1,7 @@
+abi <abi/4.0>,
+include <tunables/global>
+
+# The executable is part of the root-owned, read-only, verified source tree.
+/srv/infinity/android/prebuilts/build-tools/linux-x86/bin/nsjail flags=(unconfined) {
+  userns,
+}
