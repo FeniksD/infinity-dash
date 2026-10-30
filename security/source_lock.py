@@ -148,7 +148,7 @@ def mount_errors(root, mountinfo):
         errors.append("source requires an exact read-only mount")
     for path, options in entries:
         if path != root and path.is_relative_to(root) and "ro" not in options:
-            if path != root / ".infinity-dash-logs":
+            if path not in {root / ".infinity-dash-logs", root / "out"}:
                 errors.append("unexpected writable source submount: " + str(path))
     return errors
 
@@ -161,12 +161,21 @@ def log_errors(root, logs):
     return []
 
 
+def output_errors(root, output):
+    actual = (root / "out").stat()
+    expected = output.stat()
+    if (actual.st_dev, actual.st_ino) != (expected.st_dev, expected.st_ino):
+        return ["source output mount does not match the external output directory"]
+    return []
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("snapshot", "verify", "mount-check", "log-check"))
+    parser.add_argument("command", choices=("snapshot", "verify", "mount-check", "log-check", "output-check"))
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--manifest", type=Path)
     parser.add_argument("--logs", type=Path)
+    parser.add_argument("--output", type=Path)
     parser.add_argument("--jobs", type=int, default=8)
     args = parser.parse_args()
     try:
@@ -185,6 +194,14 @@ def main():
             if errors:
                 raise ValueError("; ".join(errors))
             print("external log destination verified")
+            return 0
+        if args.command == "output-check":
+            if not args.output:
+                raise ValueError("--output is required")
+            errors = output_errors(args.source.resolve(), args.output.resolve())
+            if errors:
+                raise ValueError("; ".join(errors))
+            print("external output destination verified")
             return 0
         if not args.manifest:
             raise ValueError("--manifest is required")

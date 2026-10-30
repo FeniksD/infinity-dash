@@ -134,8 +134,14 @@ def check(baseline_path, state_dir):
     records = [json.loads(x) for x in run(*command).splitlines() if x.strip()]
     errors = inspect(baseline, [x.get("MESSAGE", "") for x in records], run("ss", "-H", "-lntup"), run("systemctl", "list-units", "--type=service", "--state=running", "--no-legend", "--plain"))
     if "source_lock" in baseline:
-        from source_lock import mount_errors
-        errors += mount_errors(Path(baseline["source_lock"]["root"]), Path("/proc/self/mountinfo").read_text())
+        from source_lock import log_errors, mount_errors, output_errors
+        source = baseline["source_lock"]
+        root = Path(source["root"])
+        errors += mount_errors(root, Path("/proc/self/mountinfo").read_text())
+        if "output" in source:
+            errors += output_errors(root, Path(source["output"]))
+        if "logs" in source:
+            errors += log_errors(root, Path(source["logs"]))
     if not run("ufw", "status").startswith("Status: active\n"):
         errors.append("firewall is inactive")
     if records:

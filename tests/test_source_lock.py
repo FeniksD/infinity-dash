@@ -58,6 +58,8 @@ class SourceLockTests(unittest.TestCase):
         self.assertTrue(lock.mount_errors(self.root, "1 0 8:1 / / ro - ext4 /dev/vda2 ro\n"))
         child = f"2 1 8:1 / {self.root}/vendor rw - ext4 /dev/vda2 rw\n"
         self.assertTrue(lock.mount_errors(self.root, prefix + "ro - ext4 /dev/vda2 rw\n" + child))
+        output = f"2 1 8:1 / {self.root}/out rw - ext4 /dev/vda2 rw\n"
+        self.assertEqual(lock.mount_errors(self.root, prefix + "ro - ext4 /dev/vda2 rw\n" + output), [])
 
     def test_second_snapshot_does_not_replace_baseline(self):
         lock.snapshot(self.root, self.manifest)
@@ -88,6 +90,14 @@ class SourceLockTests(unittest.TestCase):
         other.mkdir()
         self.assertTrue(lock.log_errors(self.root, other))
         self.assertEqual(lock.log_errors(self.root, mounted), [])
+
+    def test_output_destination_must_reference_the_same_directory(self):
+        mounted = self.root / "out"
+        mounted.mkdir()
+        other = self.base / "output"
+        other.mkdir()
+        self.assertTrue(lock.output_errors(self.root, other))
+        self.assertEqual(lock.output_errors(self.root, mounted), [])
 
     def test_exact_missing_image_link_policy_is_allowed(self):
         target = "/etc/systemd/system/infinity-unit-test-not-present.service"

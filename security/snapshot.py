@@ -40,7 +40,11 @@ baseline = {
     "services": guard.services(guard.run("systemctl", "list-units", "--type=service", "--state=running", "--no-legend", "--plain")),
 }
 if args.source_root:
-    baseline["source_lock"] = {"root": str(args.source_root.resolve()), "manifest": str(args.source_manifest.resolve())}
+    baseline["source_lock"] = {
+        "root": str(args.source_root.resolve()), "manifest": str(args.source_manifest.resolve()),
+        "output": str(args.source_root.resolve().parent / "out"),
+        "logs": str(args.source_root.resolve().parent / "logs"),
+    }
 args.output.write_text(json.dumps(baseline, indent=2) + "\n")
 args.output.chmod(0o600)
 print("Reviewed host baseline written:", len(baseline["files"]), "paths")
