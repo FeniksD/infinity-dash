@@ -55,6 +55,8 @@ def transient_transport_failure(exc):
     detail = (exc.stderr or b"").decode(errors="replace").lower()
     if any(text in detail for text in ("host key verification failed", "remote host identification", "permission denied")):
         return False
+    if "timeout, server " in detail and "not responding" in detail:
+        return True
     return any(text in detail for text in (
         "network is unreachable", "no route to host", "connection timed out",
         "connection reset by peer", "connection closed by", "broken pipe",

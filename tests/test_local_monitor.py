@@ -83,6 +83,15 @@ class LocalMonitorTests(unittest.TestCase):
             self.assertTrue(sleep.called)
             self.assertFalse(any('pkill' in call.args[1] for call in ssh.call_args_list))
 
+    def test_brief_server_keepalive_timeout_retries_without_pausing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            args,replies=self.inputs(tmp)
+            failure=monitor.subprocess.CalledProcessError(255,['ssh'],stderr=b'Timeout, server 94.237.81.2 not responding.')
+            with patch.object(monitor,'ssh',side_effect=[failure]+replies),patch.object(monitor.time,'sleep'):
+                status=monitor.cycle(args,False)
+            self.assertTrue(status['ok'])
+            self.assertFalse(status['latched'])
+
     def test_persistent_network_loss_pauses_and_requires_manual_resume(self):
         with tempfile.TemporaryDirectory() as tmp:
             args,replies=self.inputs(tmp)
