@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "status": "source-prepared; firmware build in progress",
+  "target": {
+    "device": "dash",
+    "model": "2602BPC18G",
+    "product": "infinity_dash",
+    "release": "cp2a",
+    "variant": "userdebug",
+    "gapps": false
+  },
+  "platform_manifest_commit": "1cb4940693b1567d19ee86d52eeae76c1e80f04e",
+  "resolved_project_count": 1245,
+  "resolved_manifest_file": "build/source-manifest.xml",
+  "resolved_manifest_sha256": "6e7818a896b6fdd6336bce9aab8cdaff668f46adcf54e77529db80387873ae54",
+  "source_inventory_sha256": "52a91110c36956312ab846c6edbf8220717b962318d4d944ad7680592656344b",
+  "source_inventory_entries": 2008164,
+  "patches": [
+    {
+      "file": "patches/0001-infinity-dash.patch",
+      "sha256": "72955b4bdba480d53c5550acadd9dbb92a1852a0ad688f95b34cbd089ede07e7"
+    },
+    {
+      "file": "patches/0002-readonly-build-manifest.patch",
+      "sha256": "b94640c4749943428b6b7192a70303a0a54b0fac0ce5a679a304ed6a1a02efe8"
+    }
+  ],
+  "hardware_validation": "not performed; this metadata is not an installation approval"
+}
