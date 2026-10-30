@@ -15,8 +15,8 @@ for path in "$manifest" "$output_dir" "$logs_dir"; do
         exit 1
     fi
 done
-python3 -B "$guard_dir/source_lock.py" verify --source "$source_dir" --manifest "$manifest"
-python3 -B "$guard_dir/source_lock.py" log-check --source "$source_dir" --logs "$logs_dir"
+python3 -E -s -B "$guard_dir/source_lock.py" verify --source "$source_dir" --manifest "$manifest"
+python3 -E -s -B "$guard_dir/source_lock.py" log-check --source "$source_dir" --logs "$logs_dir"
 if [[ $EUID == 0 ]]; then
     echo "Compilation must run as the unprivileged build user"
     exit 1
@@ -27,6 +27,6 @@ set +e
 bash /srv/infinity/infinity-dash-prep/scripts/build-server.sh "$source_dir"
 build_status=$?
 set -e
-python3 -B "$guard_dir/source_lock.py" verify --source "$source_dir" --manifest "$manifest"
+python3 -E -s -B "$guard_dir/source_lock.py" verify --source "$source_dir" --manifest "$manifest"
 echo "Source verification after compilation passed; build exit status: $build_status"
 exit "$build_status"
