@@ -4,4 +4,7 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_dash.mk
+    $(LOCAL_DIR)/infinity_dash.mk
+
+COMMON_LUNCH_CHOICES := \
+    infinity_dash-cp2a-userdebug

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "snapshot_date": "2026-10-30",
+  "projects": [
+    {
+      "path": "device/xiaomi/dash",
+      "repository": "xiaomi-mt6991/device_xiaomi_dash",
+      "url": "https://github.com/xiaomi-mt6991/device_xiaomi_dash.git",
+      "branch": "cnb",
+      "commit": "574a0737bdc440ba90aa7b28681506ed28a44d9e",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "device/xiaomi/dash-miuicamera",
+      "repository": "xiaomi-mt6991/device_xiaomi_dash-miuicamera",
+      "url": "https://github.com/xiaomi-mt6991/device_xiaomi_dash-miuicamera.git",
+      "branch": "cnb",
+      "commit": "10c12b191aef02a9a31ba462b7df9bbb143a7982",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "vendor/xiaomi/dash",
+      "repository": "xiaomi-mt6991/vendor_xiaomi_dash",
+      "url": "https://gitlab.com/xiaomi-mt6991/vendor_xiaomi_dash.git",
+      "branch": "cnb",
+      "commit": "abb32a784dff6fea8834e6719e442792a9f96000",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "vendor/xiaomi/dash-miuicamera",
+      "repository": "xiaomi-mt6991/vendor_xiaomi_dash-miuicamera",
+      "url": "https://gitlab.com/xiaomi-mt6991/vendor_xiaomi_dash-miuicamera.git",
+      "branch": "bka",
+      "commit": "6010e183349a2d95eb7b5bd268cbba93471765bb",
+      "selection_reason": "No cnb branch is published; cnb camera device.mk inherits this shared vendor package. Binary compatibility requires the future Android build/device test."
+    },
+    {
+      "path": "device/xiaomi/dash-kernel",
+      "repository": "xiaomi-mt6991/device_xiaomi_dash-kernel",
+      "url": "https://github.com/xiaomi-mt6991/device_xiaomi_dash-kernel.git",
+      "branch": "cnb",
+      "commit": "4458fffb756b163f6157c9bdd967a6941c51b58c",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "hardware/mediatek",
+      "repository": "xiaomi-mt6991/hardware_mediatek",
+      "url": "https://github.com/xiaomi-mt6991/hardware_mediatek.git",
+      "branch": "cnb",
+      "commit": "725fa8b2c3068504b53d024806f701cf6c651a2e",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "hardware/xiaomi",
+      "repository": "xiaomi-mt6991/hardware_xiaomi",
+      "url": "https://github.com/xiaomi-mt6991/hardware_xiaomi.git",
+      "branch": "cnb",
+      "commit": "9cdb022b5dfc9384bf363384822b8feb31f5949b",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "device/mediatek/sepolicy_vndr",
+      "repository": "xiaomi-mt6991/device_mediatek_sepolicy_vndr",
+      "url": "https://github.com/xiaomi-mt6991/device_mediatek_sepolicy_vndr.git",
+      "branch": "cnb",
+      "commit": "918d5cad30b9f020c7c64254ce78e401aa3f88a6",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "packages/apps/LunarisDolby",
+      "repository": "xiaomi-mt6991/packages_apps_LunarisDolby",
+      "url": "https://github.com/xiaomi-mt6991/packages_apps_LunarisDolby.git",
+      "branch": "bka",
+      "commit": "ba35d806973518d19728d1e1f2de5aef34dbbca4",
+      "selection_reason": "Only bka is published. Android.bp defines the platform-API Kotlin app required by dash/device.mk; source compilation will be verified on the build server."
+    },
+    {
+      "path": "external/wpa_supplicant_8",
+      "repository": "xiaomi-mt6991/external_wpa_supplicant_8",
+      "url": "https://github.com/xiaomi-mt6991/external_wpa_supplicant_8.git",
+      "branch": "cnb",
+      "commit": "2aab9938862e6bb366e8f31965e360e460fa7785",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "hardware/nxp/nfc",
+      "repository": "xiaomi-mt6991/hardware_nxp_nfc",
+      "url": "https://github.com/xiaomi-mt6991/hardware_nxp_nfc.git",
+      "branch": "cnb",
+      "commit": "e9fec9e5c0c651bc6892194d8925495cdc815257",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "packages/modules/DeviceLock",
+      "repository": "xiaomi-mt6991/packages_modules_DeviceLock",
+      "url": "https://github.com/xiaomi-mt6991/packages_modules_DeviceLock.git",
+      "branch": "cnb",
+      "commit": "5e72d93405fd10498e99387dac0f53cb15b72b5c",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    },
+    {
+      "path": "vendor/qcom/opensource/vibrator",
+      "repository": "xiaomi-mt6991/vendor_qcom_opensource_vibrator",
+      "url": "https://github.com/xiaomi-mt6991/vendor_qcom_opensource_vibrator.git",
+      "branch": "cnb",
+      "commit": "d73328679fcd951f6643b374ce9b3460d299d012",
+      "selection_reason": "Android 17 branch from the upstream dash integration."
+    }
+  ]
+}

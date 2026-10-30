@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<manifest>
+  <remote name="dash-github" fetch="https://github.com/" />
+  <remote name="dash-gitlab" fetch="https://gitlab.com/" />
+  <project path="device/xiaomi/dash" name="xiaomi-mt6991/device_xiaomi_dash" remote="dash-github" revision="574a0737bdc440ba90aa7b28681506ed28a44d9e" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="device/xiaomi/dash-miuicamera" name="xiaomi-mt6991/device_xiaomi_dash-miuicamera" remote="dash-github" revision="10c12b191aef02a9a31ba462b7df9bbb143a7982" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="vendor/xiaomi/dash" name="xiaomi-mt6991/vendor_xiaomi_dash" remote="dash-gitlab" revision="abb32a784dff6fea8834e6719e442792a9f96000" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="vendor/xiaomi/dash-miuicamera" name="xiaomi-mt6991/vendor_xiaomi_dash-miuicamera" remote="dash-gitlab" revision="6010e183349a2d95eb7b5bd268cbba93471765bb" upstream="refs/heads/bka" clone-depth="1" />
+  <project path="device/xiaomi/dash-kernel" name="xiaomi-mt6991/device_xiaomi_dash-kernel" remote="dash-github" revision="4458fffb756b163f6157c9bdd967a6941c51b58c" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="hardware/mediatek" name="xiaomi-mt6991/hardware_mediatek" remote="dash-github" revision="725fa8b2c3068504b53d024806f701cf6c651a2e" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="hardware/xiaomi" name="xiaomi-mt6991/hardware_xiaomi" remote="dash-github" revision="9cdb022b5dfc9384bf363384822b8feb31f5949b" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="device/mediatek/sepolicy_vndr" name="xiaomi-mt6991/device_mediatek_sepolicy_vndr" remote="dash-github" revision="918d5cad30b9f020c7c64254ce78e401aa3f88a6" upstream="refs/heads/cnb" clone-depth="1" />
+  <project path="packages/apps/LunarisDolby" name="xiaomi-mt6991/packages_apps_LunarisDolby" remote="dash-github" revision="ba35d806973518d19728d1e1f2de5aef34dbbca4" upstream="refs/heads/bka" clone-depth="1" />
+  <remove-project name="LineageOS/android_external_wpa_supplicant_8" optional="true" />
+  <project path="external/wpa_supplicant_8" name="xiaomi-mt6991/external_wpa_supplicant_8" remote="dash-github" revision="2aab9938862e6bb366e8f31965e360e460fa7785" upstream="refs/heads/cnb" clone-depth="1" />
+  <remove-project name="LineageOS/android_hardware_nxp_nfc" optional="true" />
+  <project path="hardware/nxp/nfc" name="xiaomi-mt6991/hardware_nxp_nfc" remote="dash-github" revision="e9fec9e5c0c651bc6892194d8925495cdc815257" upstream="refs/heads/cnb" clone-depth="1" />
+  <remove-project name="platform/packages/modules/DeviceLock" optional="true" />
+  <project path="packages/modules/DeviceLock" name="xiaomi-mt6991/packages_modules_DeviceLock" remote="dash-github" revision="5e72d93405fd10498e99387dac0f53cb15b72b5c" upstream="refs/heads/cnb" clone-depth="1" />
+  <remove-project name="LineageOS/android_vendor_qcom_opensource_vibrator" optional="true" />
+  <project path="vendor/qcom/opensource/vibrator" name="xiaomi-mt6991/vendor_qcom_opensource_vibrator" remote="dash-github" revision="d73328679fcd951f6643b374ce9b3460d299d012" upstream="refs/heads/cnb" clone-depth="1" />
+</manifest>

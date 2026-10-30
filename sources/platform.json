@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/ProjectInfinity-X/manifest.git",
+  "branch": "17",
+  "commit": "1cb4940693b1567d19ee86d52eeae76c1e80f04e",
+  "android": 17,
+  "version": "4.1",
+  "release_config": "cp2a"
+}
