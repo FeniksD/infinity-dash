@@ -36,7 +36,9 @@ python3 tools/preflight.py --source-root ~/android/infinity-dash
 BUILD_JOBS=8 bash scripts/build-server.sh ~/android/infinity-dash
 ```
 
-Скрипт выполняет `lunch infinity_dash-cp2a-userdebug` и `m bacon`. `cp2a` подтверждён в `vendor/infinity/vars/aosp_target_release` изученной ветки. Вывод сохраняется в `.infinity-dash-logs/build-<UTC>.log` внутри Android checkout.
+Скрипт выполняет `lunch infinity_dash cp2a userdebug` и `m bacon`. Здесь аргументы разделены пробелами: текущий парсер Infinity понимает вариант с дефисом как `product-variant`, поэтому `infinity_dash-cp2a-userdebug` ошибочно задаёт variant `cp2a-userdebug`. Общий пункт выбора зарегистрирован как `infinity_dash-userdebug`.
+
+`cp2a` подтверждён в `vendor/infinity/vars/aosp_target_release` изученной ветки; `lunch` также выводит release из `build_id.mk`. Перед компиляцией скрипт проверяет фактически выбранные product, release и variant. Вывод подготовки окружения, `lunch` и самой сборки сохраняется в `.infinity-dash-logs/build-<UTC>-<PID>.log` внутри Android checkout; код ошибки сохраняется.
 
 Результат ожидается в `out/target/product/dash/`. Завершение компиляции не подтверждает исправность камеры, модема, отпечатка, сна и зарядки; перед установкой нужен отдельный разбор образов и сценария восстановления. Скрипт сборки не устанавливает результат.
 

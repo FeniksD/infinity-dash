@@ -1,5 +1,5 @@
 diff --git a/AndroidProducts.mk b/AndroidProducts.mk
-index 564d2a5..97e416c 100644
+index 564d2a5..f5cf264 100644
 --- a/AndroidProducts.mk
 +++ b/AndroidProducts.mk
 @@ -4,4 +4,7 @@
@@ -10,7 +10,7 @@ index 564d2a5..97e416c 100644
 +    $(LOCAL_DIR)/infinity_dash.mk
 +
 +COMMON_LUNCH_CHOICES := \
-+    infinity_dash-cp2a-userdebug
++    infinity_dash-userdebug
 diff --git a/BoardConfig.mk b/BoardConfig.mk
 index a4490a1..7efafb8 100644
 --- a/BoardConfig.mk
