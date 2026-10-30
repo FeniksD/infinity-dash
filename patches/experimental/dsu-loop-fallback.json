@@ -1,11 +1,16 @@
 {
-  "status": "experimental-not-deployed",
+  "status": "native-validated-not-installed",
   "project": "system/fs/fs_mgr",
   "revision": "91ff6a99ae0a1be7a625a0738983c995ed03f8c1",
   "file": "libfiemap/image_manager.cpp",
   "original_sha256": "9841d041982b400e7be2295f373a7c5c8b4606e50366ffe9c2cea58f9e5cb7d8",
   "patched_sha256": "82f21ac6b8203ac96e7a626585b8470e963895a8ce605289f6a27f9e99a649b4",
   "patch_sha256": "46672dcf9380d567b58527806faf5ec0f4d2a7c498f3f92ed00d9557e6a24bf0",
-  "native_android_build_verified": false,
-  "phone_installation_verified": false
+  "native_android_build_verified": true,
+  "phone_installation_verified": false,
+  "native_gsid_sha256": "21e841019201fcc09250396eedb22ee9995452b8d1b629691a6fd1dcb85a4e80",
+  "native_build_exit": 0,
+  "source_postcheck": "passed",
+  "phone_linker_list_exit": 0,
+  "gsi_boot_verified": false
 }
