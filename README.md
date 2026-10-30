@@ -29,6 +29,8 @@ bash scripts/prepare-server.sh /srv/infinity-dash
 
 GitHub Actions пока выключены; текущая сборка запущена через SSH. Компоненты будущего ограниченного интерфейса запуска описаны в [ci/README.md](ci/README.md).
 
+Живые логи текущей VM: `bash scripts/watch-builds.sh`. В отдельной консоли сверху отображается Infinity X, снизу — экспериментальная сборка `gsid`; в строке состояния — серверный контроль. Просмотр подключается только для чтения к отдельной tmux-сессии. `Ctrl+b`, затем `d` отключает просмотр; закрытие окна не останавливает сборки.
+
 Подробности исходников и ограничений: [sources/NOTES.md](sources/NOTES.md). План дальнейших этапов: [docs/superpowers/plans/2026-10-30-infinity-dash.md](docs/superpowers/plans/2026-10-30-infinity-dash.md).
 
 После полной синхронизации зафиксированы конкретные revisions 1245 репозиториев: [build/source-manifest.xml](build/source-manifest.xml). Изменения для `dash` накладываются отдельным patch; manifest не заменяет проверку этих изменений и готовых образов.
