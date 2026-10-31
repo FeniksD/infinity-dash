@@ -31,6 +31,8 @@ bash scripts/prepare-server.sh /srv/infinity-dash
 
 Установленный артефакт: `Project_Infinity-X-4.1-dash-31.10.2026-GAPPS-UNOFFICIAL-RELEASE-v2.zip`, 4 286 098 883 байта, SHA-256 `2d51adbaaa53665c6c61f933872ef85de383d4f94eab56115da8f95ed6256e95`. Он содержит 16 разрешённых разделов, включая проверенный `pvmfw`; `lk`, `preloader`, модем и NV-разделы исключены. Выполнена чистая установка через recovery, система загрузилась со слота B. Приватные release-ключи остаются на ПК владельца.
 
+[Инструкция установки release-v2](docs/install-release-v2.md) описывает проверенный bootstrap и sideload. [Готовность к публикации и maintainership](docs/public-release-readiness.md) отдельно отмечает непроверенные сценарии, вопрос исходников ядра и требования команды Infinity X.
+
 GitHub Actions пока выключены; текущая сборка запущена через SSH. Компоненты будущего ограниченного интерфейса запуска описаны в [ci/README.md](ci/README.md).
 
 Просмотр логов VM: `bash scripts/watch-builds.sh`. Скрипт подключает отдельную tmux-сессию только для чтения. Наличие логов не означает, что сейчас идёт сборка.
