@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-10-31T15:30:50.239568+00:00",
+  "device": "dash",
+  "android_version": 17,
+  "rom_version": "Infinity X 4.1",
+  "source_build_commit": "754decc022b25740754389324cc878d094c34721",
+  "signing_implementation_commit": "f7c7ffd713f21467f503e61ef8630fcd00776563",
+  "packaging_preparation_commit": "15bb372",
+  "keyset": "release-20261031-v1",
+  "signed_target_files": {
+    "bytes": 11646348826,
+    "sha256": "5898c1bbb7330c879e4bb030c384160f66cba088367bb2be25dc5d06413429bf"
+  },
+  "ota": {
+    "filename": "Project_Infinity-X-4.1-dash-31.10.2026-GAPPS-UNOFFICIAL-RELEASE.zip",
+    "device": "dash",
+    "ota_type": "AB",
+    "size_bytes": 4286098823,
+    "sha256": "32d1de6b02b5c3e8ddfe6a82b361594312858a4cfcfbbeb55a8629ffb054ac21",
+    "payload_sha256": "570e51a1a85f20a96507ca16d5410e6cd99cd3ac3a602186503bd4e4dd4d4271",
+    "android_signatures_verified": true,
+    "payload_manifest_parsed": true,
+    "partitions": {
+      "boot": {
+        "bytes": 67108864,
+        "sha256": "ac68320df3d72a9704dd17c716dfa5ace4625b311a7f0d22db6d8ebb35546ef2"
+      },
+      "init_boot": {
+        "bytes": 8388608,
+        "sha256": "a4988f410cfa0a7244afb39a32b08d117d83de38da118578180a1e495a80daa0"
+      },
+      "vendor_boot": {
+        "bytes": 67108864,
+        "sha256": "4eda8137bad54542c0642b978b5f809090862c0ee77722a9f8d1bdeb3522bc49"
+      },
+      "dtbo": {
+        "bytes": 8388608,
+        "sha256": "78b38138705b6678f8d014c9115cfd1bb60344612c56f805614eab4f6f3c3775"
+      },
+      "vbmeta": {
+        "bytes": 8192,
+        "sha256": "8d4aaaf19b935ca5dc527b72d0824be5a3c320f89bf6a0f31070c59985a64ff6"
+      },
+      "vbmeta_system": {
+        "bytes": 8192,
+        "sha256": "ab3338fbb964f38bfe7a84faf00c5112c7eab5fe08ba1425f61bdf3ee77a1b56"
+      },
+      "vbmeta_vendor": {
+        "bytes": 4096,
+        "sha256": "54350a991d97267e5c09a06f4208511c641093683172044fb2863b8d3c34df49"
+      },
+      "system": {
+        "bytes": 802893824,
+        "sha256": "45e8acefff373dccbd5e16f6d17940d41e2c6e9639ed3c12aab5c3212d4d3558"
+      },
+      "system_ext": {
+        "bytes": 879042560,
+        "sha256": "55a57997291061d9a93d72416ff51b8dc8dfa232b49d77ca329c3213c9430728"
+      },
+      "product": {
+        "bytes": 1508945920,
+        "sha256": "7f316e164d4e3ad06291221185800c34d3ece16910795768ebb3a67a6a871e94"
+      },
+      "vendor": {
+        "bytes": 974561280,
+        "sha256": "3d1ce3a8c467144b0e23cc810fd2c7fdd0b324706eefcbe95cafaeff6ec1df52"
+      },
+      "odm": {
+        "bytes": 1158004736,
+        "sha256": "de3844ab01f0d7fdae142e50cb8ef14d31c7d321ea59bd87b1646a220e046cca"
+      },
+      "system_dlkm": {
+        "bytes": 6975488,
+        "sha256": "651683902aac0053eff5580de99153789a838d2c88a5bf1504590d39743a3fac"
+      },
+      "vendor_dlkm": {
+        "bytes": 21524480,
+        "sha256": "778b4e6493da1383940702c7c8183c474b75d7652083a9ef898b253332d5dea8"
+      },
+      "odm_dlkm": {
+        "bytes": 348160,
+        "sha256": "e27acc65245f155bca0a3e85aa071d40ae891c8daf05759c32a9477b38f6a165"
+      },
+      "pvmfw": {
+        "bytes": 20971520,
+        "sha256": "aa372d186a146dd8c6d3419c5787470dd5d3dd4b98a952760d8f3dd37276a293"
+      }
+    },
+    "whole_ota_signature_verified": true,
+    "payload_signature_verified": true,
+    "automatic_data_wipe": false
+  },
+  "bootstrap_images": [
+    {
+      "file": "images/boot.img",
+      "bytes": 67108864,
+      "sha256": "ac68320df3d72a9704dd17c716dfa5ace4625b311a7f0d22db6d8ebb35546ef2"
+    },
+    {
+      "file": "images/init_boot.img",
+      "bytes": 8388608,
+      "sha256": "a4988f410cfa0a7244afb39a32b08d117d83de38da118578180a1e495a80daa0"
+    },
+    {
+      "file": "images/vendor_boot.img",
+      "bytes": 67108864,
+      "sha256": "4eda8137bad54542c0642b978b5f809090862c0ee77722a9f8d1bdeb3522bc49"
+    },
+    {
+      "file": "images/dtbo.img",
+      "bytes": 8388608,
+      "sha256": "78b38138705b6678f8d014c9115cfd1bb60344612c56f805614eab4f6f3c3775"
+    },
+    {
+      "file": "images/vbmeta.img",
+      "bytes": 8192,
+      "sha256": "8d4aaaf19b935ca5dc527b72d0824be5a3c320f89bf6a0f31070c59985a64ff6"
+    },
+    {
+      "file": "images/vbmeta_system.img",
+      "bytes": 8192,
+      "sha256": "ab3338fbb964f38bfe7a84faf00c5112c7eab5fe08ba1425f61bdf3ee77a1b56"
+    },
+    {
+      "file": "images/vbmeta_vendor.img",
+      "bytes": 4096,
+      "sha256": "54350a991d97267e5c09a06f4208511c641093683172044fb2863b8d3c34df49"
+    },
+    {
+      "file": "images/pvmfw.img",
+      "bytes": 20971520,
+      "sha256": "aa372d186a146dd8c6d3419c5787470dd5d3dd4b98a952760d8f3dd37276a293"
+    }
+  ],
+  "checks": {
+    "apk_files_verified": 400,
+    "apk_files_resigned": 345,
+    "presigned_apk_files_unchanged": 55,
+    "nested_apk_files_verified": 30,
+    "apexes_resigned": 40,
+    "presigned_apexes_unchanged": 4,
+    "fsverity_sidecars": 278,
+    "fsverity_manifests": 2,
+    "manifest_v4_signatures_verified": true,
+    "avb_chains_verified": true,
+    "vintf_verified": true,
+    "presigned_package_identities_preserved": true,
+    "unit_tests": 109
+  },
+  "installation_status": "not_installed",
+  "google_play_certification": "not_verified_on_this_release",
+  "play_integrity": "not_verified_on_this_release",
+  "requires_before_installation": [
+    "Explicit consent to clean installation across platform signing keys",
+    "Verified raw backups of current pvmfw_a and pvmfw_b"
+  ],
+  "excluded_firmware": [
+    "lk",
+    "preloader",
+    "modem",
+    "nvram",
+    "nvdata",
+    "persist",
+    "frp"
+  ]
+}

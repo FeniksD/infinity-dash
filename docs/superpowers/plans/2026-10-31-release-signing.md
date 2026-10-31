@@ -47,14 +47,14 @@
 - [x] Use AOSP signing tools to replace test-key APK/APEX signatures consistently.
 - [x] Regenerate fs-verity metadata and signed BuildManifest digest lists after APK signing.
 - [x] Regenerate images and AVB descriptors with matching local identities.
-- [ ] Generate a signed Android-only OTA with the original 15 partitions plus required `pvmfw`.
+- [x] Generate a signed Android-only OTA with the original 15 partitions plus required `pvmfw`.
 - [ ] Back up both physical pvmfw slots before installation.
-- [ ] Keep input and output hash reports, signing log and public verification evidence.
+- [x] Keep input and output hash reports, signing log and public verification evidence.
 
 ### Task 4: Verify and prepare installation
 
 - [x] Verify every produced APK/APEX signature and confirm presigned packages remain unchanged.
-- [ ] Check VINTF, AVB chains, payload signatures, whole-OTA signature and partition allowlist.
-- [ ] Preserve a verified current-ROM rollback and record migration requirements.
+- [x] Check VINTF, AVB chains, payload signatures, whole-OTA signature and partition allowlist.
+- [x] Preserve a verified current-ROM rollback and record migration requirements.
 - [ ] Only then carry out installation within the user's authorized scope, obtaining specific consent if a new data wipe is required.
 - [ ] Test live platform identity, Google certification and Basic/Device/Strong independently.
