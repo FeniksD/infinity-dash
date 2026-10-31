@@ -25,7 +25,7 @@ index a4490a1f717e02d6c49afcf8e19979b1da8dee59..7efafb8136dd0076b2c3cff768c789e1
  
  BOARD_SUPER_PARTITION_SIZE := 9126805504
 diff --git a/device.mk b/device.mk
-index bbab00227410cacd07285668c31b600af6244cbd..0e7492b5fd40d9e8d7dfa2d099373861a9db90b3 100644
+index bbab00227410cacd07285668c31b600af6244cbd..f0f724f0239e832ea828cea38d76b9cbb571a64f 100644
 --- a/device.mk
 +++ b/device.mk
 @@ -4,7 +4,7 @@
@@ -46,6 +46,15 @@ index bbab00227410cacd07285668c31b600af6244cbd..0e7492b5fd40d9e8d7dfa2d099373861
      POSTINSTALL_OPTIONAL_vendor=true
  
  PRODUCT_PACKAGES += \
+@@ -185,6 +185,8 @@ PRODUCT_PACKAGES += \
+     xiaomi.system.hypsys.common-service-dummy
+ 
+ # Health
++$(call soong_config_set_bool,mediatek_health,ignore_time_to_full,true)
++
+ PRODUCT_PACKAGES += \
+     android.hardware.health-service.mediatek \
+     android.hardware.health-service.mediatek-recovery
 diff --git a/infinity_dash.mk b/infinity_dash.mk
 new file mode 100644
 index 0000000000000000000000000000000000000000..0b45f6c988abc44fff4b3779cfbfefe9c87d5c2d

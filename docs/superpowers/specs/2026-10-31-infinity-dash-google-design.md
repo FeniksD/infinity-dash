@@ -37,7 +37,7 @@ Runtime acceptance must confirm both lock-screen and unlocked alignment; the num
 - Preserve Android/device/kernel/vendor revisions, current hardware tuning, kernel/DTB/module cohort, SELinux enforcement, encryption and device identity.
 - Do not add root, change bootloader state, flash LK/preloader/radio/NV, change charging controls or import private attestation keys/keyboxes.
 - Play Store certification and Play Integrity are separate runtime checks, not promises. Report observed Basic/Device/Strong verdicts and app compatibility after installation; GApps inclusion alone does not establish certification.
-- Existing Dolby, charge-time-estimate and XiaomiParts permission findings remain tracked separately. Do not silently bundle unrelated fixes into this application migration.
+- Existing Dolby and XiaomiParts permission findings remain tracked separately. Do not silently bundle unrelated fixes into this application migration.
 - Keep the verified Vanilla package, raw images, original rollback backup and source baselines available.
 
 ## Preparation and build
@@ -51,3 +51,9 @@ Validate the old test baseline, selected package dependencies, permission/librar
 Do not assume that a Vanilla-to-GApps transition after first boot is a supported data-preserving update. Determine the migration procedure before phone writes. Back up new user data if present; obtain specific approval before any new wipe. Never sideload the complete OTA containing low-level firmware. Continue the reviewed selective installation procedure with a coherent final image set and verified rollback.
 
 Acceptance checks: Android boots; Google account sign-in (performed by the user), Play Store installs/updates an application, Play services remain running, Gboard is available/default, intended Google applications open and receive the appropriate roles, duplicate user apps are absent, contacts/SMS/providers still work, and camera/telephony/eSIM/lighting are not regressed. Record actual Play certification/Integrity separately. Do not claim unperformed checks passed.
+
+## Later requested correction: charge-time estimate
+
+The user explicitly requested that the known incorrect charging-time estimate be corrected before the new installation. Recorded dash measurements reproduce the driver's multi-day estimates exactly: its time-to-full calculation uses the stale MTK gauge average current, while instantaneous current and charge counter come from the external BMS. Do not change the kernel, charging current, thermal protection or capacity calibration to address this presentation bug.
+
+Use the existing AIDL Health `UpdateHealthInfo` extension point to mark hardware time-to-full as unsupported (-1), enabled only for dash by the `mediatek_health.ignore_time_to_full` Soong setting. With the setting absent, all hardware estimates must pass through unchanged. Other HealthInfo fields remain untouched. BatteryStats then uses its existing charge-level history estimator. This does not promise an immediate or perfectly accurate estimate; a fresh session needs charge-level observations and tapering can change the prediction. Runtime acceptance must confirm both the HAL value and framework/UI estimate after charging progresses.

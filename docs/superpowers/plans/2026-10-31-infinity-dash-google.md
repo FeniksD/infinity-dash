@@ -89,3 +89,14 @@
 - [ ] Regenerate the complete upstream device patch, including the new overlay files.
 - [ ] Run all preparation tests, offline preflight, XML parsing and native RRO resource compilation. Expected: all pass; required sound assets/defaults remain those of Vanilla; no second overlay with the same package installed.
 - [ ] Review this new delta before controlled source promotion. Resume Task 2 only after the intentionally stopped draft completes source verification.
+
+### Task 6: Correct the dash hardware charge-time estimate
+
+The user now explicitly requests this known bug fix before installation. This is an exception for reporting time only, not permission to alter charging controls.
+
+- [ ] Reproduce the stale-current time-to-full error from the recorded phone samples and inspect the actual HAL-to-BatteryStats path.
+- [ ] Test the ETA filter with recorded invalid durations, a normal duration, unsupported/full values and 64-bit input; prove non-dash behavior remains unchanged.
+- [ ] Add the dash-only Soong opt-in and narrow Health HAL override, preserving all other battery fields and recovery/charger behavior.
+- [ ] Verify patch reproduction and the complete preparation suite; review the delta.
+- [ ] Wait for the completed GApps build's source postcheck, freeze its output, then promote the reviewed source delta through existing root/local guards.
+- [ ] Reuse the build cache and complete native build and artifact checks. Verify the resulting HAL and charge estimate on the handset before claiming the UI bug fixed.

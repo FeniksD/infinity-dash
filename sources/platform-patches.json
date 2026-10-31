@@ -23,6 +23,16 @@
       "files": {
         "prebuilts.mk": "source_overrides/vendor/extras/prebuilts.mk"
       }
+    },
+    {
+      "path": "hardware/mediatek",
+      "commit": "725fa8b2c3068504b53d024806f701cf6c651a2e",
+      "patch": "patches/0005-dash-health-eta.patch",
+      "files": {
+        "aidl/health/Android.bp": "source_overrides/hardware/mediatek/aidl/health/Android.bp",
+        "aidl/health/Health.cpp": "source_overrides/hardware/mediatek/aidl/health/Health.cpp",
+        "aidl/health/ChargeTimeToFull.h": "source_overrides/hardware/mediatek/aidl/health/ChargeTimeToFull.h"
+      }
     }
   ]
 }

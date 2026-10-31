@@ -1,0 +1,97 @@
+diff --git a/aidl/health/Android.bp b/aidl/health/Android.bp
+index 63825caee4d35b81a45084c1103d54b08f20bbce..a94a5c6d6887688c865b3d7fc3f7f02e7b019f41 100644
+--- a/aidl/health/Android.bp
++++ b/aidl/health/Android.bp
+@@ -4,8 +4,21 @@
+  * SPDX-License-Identifier: Apache-2.0
+  */
+ 
+-cc_defaults {
++soong_config_module_type {
++    name: "mediatek_health_defaults",
++    module_type: "cc_defaults",
++    config_namespace: "mediatek_health",
++    bool_variables: ["ignore_time_to_full"],
++    properties: ["cflags"],
++}
++
++mediatek_health_defaults {
+     name: "android.hardware.health-service.mediatek-defaults",
++    soong_config_variables: {
++        ignore_time_to_full: {
++            cflags: ["-DMEDIATEK_HEALTH_IGNORE_TIME_TO_FULL=1"],
++        },
++    },
+     defaults: [
+         "libhealth_aidl_impl_user",
+         "libhealth_aidl_charger_defaults",
+diff --git a/aidl/health/ChargeTimeToFull.h b/aidl/health/ChargeTimeToFull.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..b5f2389564489b9a87430c03b834ed482916a248
+--- /dev/null
++++ b/aidl/health/ChargeTimeToFull.h
+@@ -0,0 +1,23 @@
++/*
++ * Copyright (C) 2026 FeniksD
++ * SPDX-License-Identifier: Apache-2.0
++ */
++
++#pragma once
++
++#include <cstdint>
++
++namespace mediatek::health {
++
++inline constexpr int64_t ChargeTimeToFullSeconds(int64_t reported_seconds) {
++#if defined(MEDIATEK_HEALTH_IGNORE_TIME_TO_FULL) && MEDIATEK_HEALTH_IGNORE_TIME_TO_FULL
++    // dash's MTK gauge estimates time from a stale current_avg while current_now
++    // comes from the external BMS. Let BatteryStats use charge-level history.
++    (void)reported_seconds;
++    return -1;  // HealthInfo::BATTERY_CHARGE_TIME_TO_FULL_NOW_SECONDS_UNSUPPORTED
++#else
++    return reported_seconds;
++#endif
++}
++
++}  // namespace mediatek::health
+diff --git a/aidl/health/Health.cpp b/aidl/health/Health.cpp
+index 1d8ebb56ea8de7972e7f266f2cbef501fda0c060..ec6e42b719a62ea951ad7b8fc0f2365c814deff2 100644
+--- a/aidl/health/Health.cpp
++++ b/aidl/health/Health.cpp
+@@ -10,6 +10,8 @@
+ #include <health-impl/Health.h>
+ #include <health/utils.h>
+ 
++#include "ChargeTimeToFull.h"
++
+ #ifndef CHARGER_FORCE_NO_UI
+ #define CHARGER_FORCE_NO_UI 0
+ #endif
+@@ -26,6 +28,18 @@ using aidl::android::hardware::health::charger::ChargerCallback;
+ using aidl::android::hardware::health::charger::ChargerModeMain;
+ #endif
+ 
++class MediatekHealth : public Health {
++  public:
++    using Health::Health;
++
++  protected:
++    void UpdateHealthInfo(aidl::android::hardware::health::HealthInfo* info) override {
++        Health::UpdateHealthInfo(info);
++        info->batteryChargeTimeToFullNowSeconds =
++                mediatek::health::ChargeTimeToFullSeconds(info->batteryChargeTimeToFullNowSeconds);
++    }
++};
++
+ static constexpr const char* gInstanceName = "default";
+ static constexpr std::string_view gChargerArg{"--charger"};
+ 
+@@ -47,7 +61,7 @@ int main(int argc, char** argv) {
+     // make a default health service
+     auto config = std::make_unique<healthd_config>();
+     ::android::hardware::health::InitHealthdConfig(config.get());
+-    auto binder = ndk::SharedRefBase::make<Health>(gInstanceName, std::move(config));
++    auto binder = ndk::SharedRefBase::make<MediatekHealth>(gInstanceName, std::move(config));
+ 
+     if (argc >= 2 && argv[1] == gChargerArg) {
+ #if !CHARGER_FORCE_NO_UI

@@ -185,6 +185,8 @@ PRODUCT_PACKAGES += \
     xiaomi.system.hypsys.common-service-dummy
 
 # Health
+$(call soong_config_set_bool,mediatek_health,ignore_time_to_full,true)
+
 PRODUCT_PACKAGES += \
     android.hardware.health-service.mediatek \
     android.hardware.health-service.mediatek-recovery
