@@ -7,6 +7,14 @@
       "files": {
         "config/BoardConfigLineage.mk": "source_overrides/vendor/infinity/config/BoardConfigLineage.mk"
       }
+    },
+    {
+      "path": "build/soong",
+      "commit": "0d6b055bc35b580785fa667dfebc367ee219458f",
+      "patch": "patches/0003-xiaomi-ims-bootclasspath.patch",
+      "files": {
+        "scripts/check_boot_jars/package_allowed_list.txt": "source_overrides/build/soong/scripts/check_boot_jars/package_allowed_list.txt"
+      }
     }
   ]
 }

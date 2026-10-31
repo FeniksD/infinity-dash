@@ -1,0 +1,10 @@
+diff --git a/scripts/check_boot_jars/package_allowed_list.txt b/scripts/check_boot_jars/package_allowed_list.txt
+--- a/scripts/check_boot_jars/package_allowed_list.txt
++++ b/scripts/check_boot_jars/package_allowed_list.txt
+@@ -266,3 +266,6 @@
+ ###################################################
+ # Xiaomi Extensions
+ com.xiaomi.extensions.*
++
++# Xiaomi IMS factory in dash's mediatek-ims-common.jar
++com\.xiaomi\.ims
