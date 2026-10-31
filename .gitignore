@@ -5,3 +5,10 @@ dist/
 logs/
 __pycache__/
 *.pyc
+# Private release signing material is kept outside this repository.
+*.pk8
+*.pem
+!signing/public/**/*.x509.pem
+*.passphrase
+*.gpg
+signing/private/

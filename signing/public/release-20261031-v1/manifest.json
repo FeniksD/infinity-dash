@@ -1,0 +1,687 @@
+{
+  "schema": 1,
+  "keyset": "release-20261031-v1",
+  "owner": "FeniksD",
+  "source_build": "754decc022b25740754389324cc878d094c34721",
+  "keys": {
+    "build/make/target/product/security/testkey": {
+      "role": "apk/releasekey",
+      "kind": "certificate",
+      "certificate_sha256": "4f5fd7014473c7315fe670229559e238f84ac2cb3e317029e71f09210eb3989d",
+      "public_key_sha256": "fed983a8bd8316b7541445760b2e0fd60879783604b0d430a0571941d8a06620",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/platform": {
+      "role": "apk/platform",
+      "kind": "certificate",
+      "certificate_sha256": "96fbe051e7843d226ee49d93c6fef34398494a70c8add559c577ee05ef78c7eb",
+      "public_key_sha256": "b230b0541abfae6bd7a3f936687aaa59a49df98709e688bb2f7489718b7d0471",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/shared": {
+      "role": "apk/shared",
+      "kind": "certificate",
+      "certificate_sha256": "a9e44fb3854fbcb6bfaf7890444814e54e21d68020ba68084f85989c493c4ac2",
+      "public_key_sha256": "8d6b73e3733817778878ddccb685d96ffce784f2901721d483865797ce8346c3",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/media": {
+      "role": "apk/media",
+      "kind": "certificate",
+      "certificate_sha256": "94cb8bf86d67aea948916140fe9daab1aa17f54bd7aa8bd4b8754639fa1f94f6",
+      "public_key_sha256": "390082f7fa9679a07b7b006a63794bd6be9b274ab526d65ffc4f0055784f9e49",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/networkstack": {
+      "role": "apk/networkstack",
+      "kind": "certificate",
+      "certificate_sha256": "4863c639987910be68e7e68ebb25d2d61c62a3fda2ad064e3cd69b8a5caaf40b",
+      "public_key_sha256": "aa52b279f371319f6c50350e1fb8f76e21251db08a68c9894d1aeb7b74432f73",
+      "key_bits": 4096
+    },
+    "vendor/infinity/build/target/product/security/lineage": {
+      "role": "recovery/lineage",
+      "kind": "certificate",
+      "certificate_sha256": "742d91fbf8be94785bd907b17c0f22fc369facc806b217e33ec19091dd5cd87a",
+      "public_key_sha256": "2cf938258216e66c628a5917ab26e651db07ce0e06ec55625a9c158be1bd532b",
+      "key_bits": 4096
+    },
+    "art/build/apex/com.android.art": {
+      "role": "apex-container/com.android.art",
+      "kind": "certificate",
+      "certificate_sha256": "d8dd94bd52bf59f498d9f6145acbec231093ef084f9edf2b3fa6d852b6ce2e91",
+      "public_key_sha256": "0d212633faf6d741fa30cc44db8c64efad3282345a88e006c6a04c7c8e5e2cf9",
+      "key_bits": 4096
+    },
+    "bionic/apex/com.android.runtime": {
+      "role": "apex-container/com.android.runtime",
+      "kind": "certificate",
+      "certificate_sha256": "897b6190f01e6d30a2a48eab26150e42a88352e61d8052bd695d0dc470965971",
+      "public_key_sha256": "9833be4f4ad6d1433a2d5086e66635e83f8096ffd3f76d95519cbabd97776f70",
+      "key_bits": 4096
+    },
+    "external/conscrypt/apex/com.android.conscrypt": {
+      "role": "apex-container/com.android.conscrypt",
+      "kind": "certificate",
+      "certificate_sha256": "e3c51a527b030d062259ab31a17ed745ad7aff37bc193297e57ad8a9cc70263b",
+      "public_key_sha256": "f828a9ccb69939d2325d1bb242dcebd833179eefd8da4c6c1b1a79f23a16f6d8",
+      "key_bits": 4096
+    },
+    "frameworks/av/apex/com.android.media.swcodec": {
+      "role": "apex-container/com.android.media.swcodec",
+      "kind": "certificate",
+      "certificate_sha256": "0e714fe1f59e261b8215d28e5fa3c6e11cc8ec92af26ad2158f8f6839686470d",
+      "public_key_sha256": "92104203a78f14b8f6441af5cc569546a73ed8c22001bf9f266af241e6f759c7",
+      "key_bits": 4096
+    },
+    "frameworks/av/apex/com.android.media": {
+      "role": "apex-container/com.android.media",
+      "kind": "certificate",
+      "certificate_sha256": "a855191fa8115df9c26745ab8790a6848d9fd34e7b4e00280cd4a9661d34f27d",
+      "public_key_sha256": "a7cdde2642a9aff1f598d6721779d270b6df10d04fece56e46c1ef23f5eb90fb",
+      "key_bits": 4096
+    },
+    "hardware/interfaces/apexkey/com.android.hardware": {
+      "role": "apex-container/com.android.hardware",
+      "kind": "certificate",
+      "certificate_sha256": "99d496a4a7f5fab1c92451e4554c543b2cc714f3cf80388ac239e7f66eea5787",
+      "public_key_sha256": "0643975053be405ea2adf4fad791231fdadefa577c351abcb7a9143600e10a8b",
+      "key_bits": 4096
+    },
+    "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast": {
+      "role": "apex-container/com.android.cellbroadcast",
+      "kind": "certificate",
+      "certificate_sha256": "77c6abb0751723d866028369f8ea9ddfbc2db81f72553620d7ff17b4cd89e433",
+      "public_key_sha256": "4c58c151d7d2038a02e8ea67718359a22f71e77d60b884742acfefaab25b2007",
+      "key_bits": 4096
+    },
+    "packages/modules/AdServices/apex/com.android.adservices": {
+      "role": "apex-container/com.android.adservices",
+      "kind": "certificate",
+      "certificate_sha256": "dc0508323eac5b7b985eee7930e41289133b1cf751ebce72626239ada08ccd9d",
+      "public_key_sha256": "c2a0af27e721c664bce77a02c40da3d6d103a9bbf28d81be2b89e9227e4a5c37",
+      "key_bits": 4096
+    },
+    "packages/modules/AppSearch/com.android.appsearch": {
+      "role": "apex-container/com.android.appsearch",
+      "kind": "certificate",
+      "certificate_sha256": "3a33fc3b7a3f209370ff0f2bc11a9f58caefa2440052e7ee8b968f5850d58a45",
+      "public_key_sha256": "b4ea7c0cfc6734d10d13619a555d676b4f79983485669a547c5eb52dfcfffb49",
+      "key_bits": 4096
+    },
+    "packages/modules/Bluetooth/apex/key/com.android.bt": {
+      "role": "apex-container/com.android.bt",
+      "kind": "certificate",
+      "certificate_sha256": "e1c29e4014a98e5087a41926268bfb4ec7ae15c743450fcc2cbf34e1c6730437",
+      "public_key_sha256": "4fef4a2b39855813d7e5d3ccd8fbdd962fa5b0b65b0767796e0cb36513689dfb",
+      "key_bits": 4096
+    },
+    "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure": {
+      "role": "apex-container/com.android.configinfrastructure",
+      "kind": "certificate",
+      "certificate_sha256": "488bdc8d8d71ee7d82a1d006103fa7e7ec5943a42cb4f7b03557f1d839c3008f",
+      "public_key_sha256": "4c90103a6a311c2c71d625db418a4b68bfce481b245070040b19cd33933a2096",
+      "key_bits": 4096
+    },
+    "packages/modules/Connectivity/Tethering/apex/com.android.tethering": {
+      "role": "apex-payload/com.android.tethering",
+      "kind": "avb",
+      "certificate_sha256": "24b03acbcd7d712d12c48b40f29a798742f35b3c496c61e4681fb8ae71ecd1bf",
+      "public_key_sha256": "c842989bd60e724e1635691e5d7858af361560a479b9d357b48aca0332d315fa",
+      "key_bits": 4096
+    },
+    "packages/modules/CrashRecovery/apex/com.android.crashrecovery": {
+      "role": "apex-container/com.android.crashrecovery",
+      "kind": "certificate",
+      "certificate_sha256": "2a25fbe727aa10a0c977f6756aa555c80ee5fcc4ca9671978ebb650cbd1d159e",
+      "public_key_sha256": "2c8272ac0626e3893038f48b6eb9eb89742f8f7ed8da724288199d02a428ad2b",
+      "key_bits": 4096
+    },
+    "packages/modules/DeviceLock/apex/com.android.devicelock": {
+      "role": "apex-container/com.android.devicelock",
+      "kind": "certificate",
+      "certificate_sha256": "aa1ada29f29e7b3324cce573baa9bde9f63fb43595ef7484f1dd39a7de633296",
+      "public_key_sha256": "4e947d09bea8b313e54ff13f019150eb54a69f52a5c0674e9be1c087caf338c8",
+      "key_bits": 4096
+    },
+    "packages/modules/DnsResolver/apex/com.android.resolv": {
+      "role": "apex-container/com.android.resolv",
+      "kind": "certificate",
+      "certificate_sha256": "fb819e3f7b4fb1df13bd6840eb1e100a08b6b4684fbde0a0b730948fb7d51baf",
+      "public_key_sha256": "778515f499122698cdca8ef452fb22c303d907ec6593ef02748c69631e496b09",
+      "key_bits": 4096
+    },
+    "packages/modules/HealthFitness/apex/com.android.healthfitness": {
+      "role": "apex-container/com.android.healthfitness",
+      "kind": "certificate",
+      "certificate_sha256": "3c8938a1bbb346251f1459478b18a13778e17a4052caaea485d55945b57c2e5c",
+      "public_key_sha256": "2c73639d3f17e24817e7f49970059993a11af2ac287cabb11c0766d5b4c63c6d",
+      "key_bits": 4096
+    },
+    "packages/modules/IPsec/apex/com.android.ipsec": {
+      "role": "apex-container/com.android.ipsec",
+      "kind": "certificate",
+      "certificate_sha256": "5cce669bb2822c9c8af1c6d793636e44a117d023b2f0af9cf6b2e4fe5188fd9e",
+      "public_key_sha256": "78fa22ddf9fd9f72180e928eea4ee3c0e0e3de8052efab10813471b6f1e9c3a5",
+      "key_bits": 4096
+    },
+    "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks": {
+      "role": "apex-container/com.android.neuralnetworks",
+      "kind": "certificate",
+      "certificate_sha256": "27718e650c3c20a1da1c6d994fd9db9f7ee8015812c20dac186dbffef264b146",
+      "public_key_sha256": "337cc269472b4371420e4fd3451ae112f04df3b4a4ec0acd9fcffca0b782ac96",
+      "key_bits": 4096
+    },
+    "packages/modules/Nfc/apex/com.android.nfcservices": {
+      "role": "apex-container/com.android.nfcservices",
+      "kind": "certificate",
+      "certificate_sha256": "cbc33bda9ec2cb474a202f4d47f7f5e02d9bbc4646f30988b75fbe71ce087fbc",
+      "public_key_sha256": "bdbd973095fec325095a8f601c1cd8fefd16cb5a5dab423ea9f6b8e84c8db486",
+      "key_bits": 4096
+    },
+    "packages/modules/NpuManager/apex/com.android.npumanager": {
+      "role": "apex-container/com.android.npumanager",
+      "kind": "certificate",
+      "certificate_sha256": "bd435a39a7fc4becaa943a601e8214c1ba2883a59625c836a04f9bc393fac355",
+      "public_key_sha256": "7acbc5c1c24a225cf1067d3c940af3715c8c470a6b6be142a797554f016347de",
+      "key_bits": 4096
+    },
+    "packages/modules/OnDevicePersonalization/apex/com.android.ondevicepersonalization": {
+      "role": "apex-payload/com.android.ondevicepersonalization",
+      "kind": "avb",
+      "certificate_sha256": "561602fe61cb3a6461afd258147daa580ef3bf9c0aabf1e2fea24d7ea4e336bf",
+      "public_key_sha256": "06f91141fabf984d45885dd1e1142ace66aa472c620090932c74ebaeadd69594",
+      "key_bits": 4096
+    },
+    "packages/modules/Permission/com.android.permission": {
+      "role": "apex-container/com.android.permission",
+      "kind": "certificate",
+      "certificate_sha256": "9ecc75cb43627f01d7b2ccb3e948557aa09653d2ddacf39b37f55bea7b21b040",
+      "public_key_sha256": "31f9c3e8ebb314b77c67d14141433df7d7f009f29f5a4efc485b523bf9bed2e7",
+      "key_bits": 4096
+    },
+    "packages/modules/Profiling/apex/com.android.profiling": {
+      "role": "apex-container/com.android.profiling",
+      "kind": "certificate",
+      "certificate_sha256": "728577cc3808c6e504449a46d4e1d18b3387c93e13e94cfe7b571eb37e95c2ae",
+      "public_key_sha256": "3159bff49a9fc3b4310adb809ff4b83e67ddb68a3015d92b8fabd9c83c622547",
+      "key_bits": 4096
+    },
+    "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd": {
+      "role": "apex-container/com.android.rkpd",
+      "kind": "certificate",
+      "certificate_sha256": "ab6086a158c8845b349843d2e62ed09963f473ddad7f18104399fd6df84382ce",
+      "public_key_sha256": "e1b7c2823e84423e8d348aac265732f45a28dad731df52a9675055bde2e3a954",
+      "key_bits": 4096
+    },
+    "packages/modules/RuntimeI18n/apex/com.android.i18n": {
+      "role": "apex-container/com.android.i18n",
+      "kind": "certificate",
+      "certificate_sha256": "9500a9b785102b12c87ffd90abd311b7acfecabd745d98ca8069bf89137d75a4",
+      "public_key_sha256": "bf8b4e365f024760f60a6f7d2816256a2957097c7ba24277e6bdf0535cedc670",
+      "key_bits": 4096
+    },
+    "packages/modules/Scheduling/apex/com.android.scheduling": {
+      "role": "apex-container/com.android.scheduling",
+      "kind": "certificate",
+      "certificate_sha256": "aad96d1736e40af2b3b4545c884331a61e8e532dbb2e1e7d52d6ebecb704e5d9",
+      "public_key_sha256": "c6f9aa0e4ac2a144b0039363d9757f75a9ba7f92c4237be939e4a8c72d30942f",
+      "key_bits": 4096
+    },
+    "packages/modules/SdkExtensions/com.android.sdkext": {
+      "role": "apex-container/com.android.sdkext",
+      "kind": "certificate",
+      "certificate_sha256": "19106200c81f77ffdd279faa614b45454ace2d2d37b94b4d381621b318855b9d",
+      "public_key_sha256": "8268b63bd7a72a7907656aa71e1366df8c0ce71cc4d13bd9ea2fdf72fd5c568b",
+      "key_bits": 4096
+    },
+    "packages/modules/StatsD/apex/com.android.os.statsd": {
+      "role": "apex-container/com.android.os.statsd",
+      "kind": "certificate",
+      "certificate_sha256": "a1701664c064a347df09f50bbffdb9b36dd005fafb4e2419ae8a435cdb2ae02c",
+      "public_key_sha256": "e5c6f5bcd4d7f58b6944066946d024f89d5b6ffa101c3e53d24684b877147bc3",
+      "key_bits": 4096
+    },
+    "packages/modules/Telephony/apex/com.android.telephonycore": {
+      "role": "apex-container/com.android.telephonycore",
+      "kind": "certificate",
+      "certificate_sha256": "f6c68df5f21ca0a362faaf4823ce055adf726417f721e9e2f599dde31757359f",
+      "public_key_sha256": "46a0fce13dbd6ed30c6f9db90d2cbea60a6fab813ab7b3ef2af649ca6b4b7ad5",
+      "key_bits": 4096
+    },
+    "packages/modules/UprobeStats/apex/com.android.uprobestats": {
+      "role": "apex-container/com.android.uprobestats",
+      "kind": "certificate",
+      "certificate_sha256": "756655189d78b5e235ebc617d01a752a717131cacc1074ab51c24195dd6c46d6",
+      "public_key_sha256": "696cb9072e9d1d7041218dea5b8c1cfde188da39354db6b034c89290a122b100",
+      "key_bits": 4096
+    },
+    "packages/modules/Uwb/apex/com.android.uwb": {
+      "role": "apex-container/com.android.uwb",
+      "kind": "certificate",
+      "certificate_sha256": "e2b5859180e894df5e7a6f09269e08387c8beb40ea25498ece3e77509cdced25",
+      "public_key_sha256": "e994e61e630c119e5106ae77153bfd0c04ec8682fd3d1b0178e8597933841b42",
+      "key_bits": 4096
+    },
+    "packages/modules/Virtualization/build/apex/com.android.virt": {
+      "role": "apex-container/com.android.virt",
+      "kind": "certificate",
+      "certificate_sha256": "9caa7e1666777aa063a81c9a4178cef48cdea80dd2c9b202b6b0cc8e280c6639",
+      "public_key_sha256": "b42875f01a183426801fc42425a40d58fe1eda55918f4747ccf4745e2d98f3df",
+      "key_bits": 4096
+    },
+    "packages/modules/Virtualization/build/compos/com.android.compos": {
+      "role": "apex-container/com.android.compos",
+      "kind": "certificate",
+      "certificate_sha256": "8ffdadacb2d352743171bbc87b49834cdb4d4bc3ffc9594f0c633e0d94df6fef",
+      "public_key_sha256": "7a79d4d99244079f9c27d895a7b023b47d2ba1fb04ab9adaab097994986409f0",
+      "key_bits": 4096
+    },
+    "packages/modules/WebApp/apex/com.android.webapp": {
+      "role": "apex-container/com.android.webapp",
+      "kind": "certificate",
+      "certificate_sha256": "d154a9dfe88fc6ea50d0639dc54679ed7827455b7c74a2f55a1a7e9562b13284",
+      "public_key_sha256": "d01c41b6429e401b95f6642f84442929d866d4dcd6041adb3a3075740be859cc",
+      "key_bits": 4096
+    },
+    "packages/modules/Wifi/apex/com.android.wifi": {
+      "role": "apex-container/com.android.wifi",
+      "kind": "certificate",
+      "certificate_sha256": "1cad6530adabc972bf7782ed0853c89f0a95ffff287ddb09c88be93b226ed091",
+      "public_key_sha256": "557b2971d8b752544603b9335672d5f1f37ffe99dbdab51e5912993a8ca8d793",
+      "key_bits": 4096
+    },
+    "packages/modules/adb/apex/com.android.adbd": {
+      "role": "apex-container/com.android.adbd",
+      "kind": "certificate",
+      "certificate_sha256": "ba3d5e10778246a09341550994ffb7182d9552abe1cfb643aaad733c953437d2",
+      "public_key_sha256": "32dd42e5fb4693479209453ddcd908238eee33267c9e84739b8287fd1bf921fa",
+      "key_bits": 4096
+    },
+    "packages/providers/MediaProvider/apex/com.android.mediaprovider": {
+      "role": "apex-container/com.android.mediaprovider",
+      "kind": "certificate",
+      "certificate_sha256": "ca081fb7487c7195f3b80391c9f50ada86dd17f0bdb55454cf4d67ab22b2b75b",
+      "public_key_sha256": "2966ff6bb3f4ad70548d17e8b6773df2ec77377152d164f3dc4205521598a200",
+      "key_bits": 4096
+    },
+    "system/timezone/apex/com.android.tzdata": {
+      "role": "apex-container/com.android.tzdata",
+      "kind": "certificate",
+      "certificate_sha256": "1a92297c474e03adf4bc19d6458abd1a4976977a64072140e21eadc68a8dd2cb",
+      "public_key_sha256": "b7d8ef2d8eaac3af6dd76085f68a22c34b7e7281fbafc25dcf9dd4acc60888ab",
+      "key_bits": 4096
+    },
+    "external/avb/test/data/testkey_rsa4096": {
+      "role": "avb/avb",
+      "kind": "avb",
+      "certificate_sha256": "2f2da24f4d8fa448b27662b222309e78a02cd8e68cab3c8a2badecee4209819c",
+      "public_key_sha256": "b4a98e0e2cb794882f589ecd6c10b6b7634d36e4be060432bdb09ad5a08ef777",
+      "key_bits": 4096
+    },
+    "payload:art/build/apex/com.android.art": {
+      "role": "apex-payload/com.android.art",
+      "kind": "avb",
+      "certificate_sha256": "68ee39572b555f0ebaafba22cf771da57afadc96fc935e922342323642d78f0c",
+      "public_key_sha256": "9c25af411c3468afc7ec92447c81b3292c57a29709a0076f607dee7e8e353c4c",
+      "key_bits": 4096
+    },
+    "payload:bionic/apex/com.android.runtime": {
+      "role": "apex-payload/com.android.runtime",
+      "kind": "avb",
+      "certificate_sha256": "994f4685b976d7a6a7d017d99f8148cf480a0d59cbb4bbfbb07ed5a049552002",
+      "public_key_sha256": "f1f00c0799e8296915ec8565da5fe82db6654f95962855a6694867042b86f0d1",
+      "key_bits": 4096
+    },
+    "payload:external/conscrypt/apex/com.android.conscrypt": {
+      "role": "apex-payload/com.android.conscrypt",
+      "kind": "avb",
+      "certificate_sha256": "cc577fd50a87d3c2a953211a13de2a1abbc62dc0777472db4ce1d1d770e0b3ea",
+      "public_key_sha256": "5f7982dba1af67b2d0501cc29860d8b81157f4a159c99bf6c7425643cd160df7",
+      "key_bits": 4096
+    },
+    "payload:frameworks/av/apex/com.android.media.swcodec": {
+      "role": "apex-payload/com.android.media.swcodec",
+      "kind": "avb",
+      "certificate_sha256": "a9ed5321911462a14caaf2cef71fa390141f3af5a0d2a15868e13dea11fcb40d",
+      "public_key_sha256": "19c89f50a51ec4504982b0ff3c72ce74f83a530485a8ed23e57c4d536fd5410e",
+      "key_bits": 4096
+    },
+    "payload:frameworks/av/apex/com.android.media": {
+      "role": "apex-payload/com.android.media",
+      "kind": "avb",
+      "certificate_sha256": "f88fffd26b0a7454ad2e2b01b8b0e8842b01fc785a2e3cdc4993e56d9a2420c8",
+      "public_key_sha256": "fea2323721c7c3060ad055987cc2af9d91c1fd5b2ebe505137f68cb827b77731",
+      "key_bits": 4096
+    },
+    "payload:hardware/interfaces/apexkey/com.android.hardware": {
+      "role": "apex-payload/com.android.hardware",
+      "kind": "avb",
+      "certificate_sha256": "02fe51b455b34327131cce8b4018deb7d94ad6aa09dac33b5a84509e7d8e8ef6",
+      "public_key_sha256": "af607abb5833ca2f075683548de7de33a1fe9b6b21d0532b4e8d86402aa32955",
+      "key_bits": 4096
+    },
+    "payload:packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast": {
+      "role": "apex-payload/com.android.cellbroadcast",
+      "kind": "avb",
+      "certificate_sha256": "fe80fa35db021065f9e3a9417ec6c24e0a22f8d77213a910daf32683df4f7878",
+      "public_key_sha256": "f4a21793966d5b6ec8070149f7c62f7071c1c6b8927e6bb5cf3b8a6ded495951",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/AdServices/apex/com.android.adservices": {
+      "role": "apex-payload/com.android.adservices",
+      "kind": "avb",
+      "certificate_sha256": "22a823f2782151fac3bdb0f3cdbe6fe0175ee1acb8af618237478daf0afaf999",
+      "public_key_sha256": "926f8776a34ac55be059f6b91cc936493045d0731cf05c84791c371cdddf3acb",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/AppSearch/com.android.appsearch": {
+      "role": "apex-payload/com.android.appsearch",
+      "kind": "avb",
+      "certificate_sha256": "aab4cf89d8e7895521cda76aa68da88743280bdb4802c39c5bc6c9c7956c9a68",
+      "public_key_sha256": "4d9f11e402a23bdf7c39423c55bbf4739741dd93473107347a8bfea57fbfeb32",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Bluetooth/apex/key/com.android.bt": {
+      "role": "apex-payload/com.android.bt",
+      "kind": "avb",
+      "certificate_sha256": "b4d8a5cc4578b9660b9ee4ccebe00ebb8079a990caf988ff8670be62eba34f85",
+      "public_key_sha256": "8a7ba1f4bf7c924f4d4562c04509f0727056f539627c529b888a71dc338788b4",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure": {
+      "role": "apex-payload/com.android.configinfrastructure",
+      "kind": "avb",
+      "certificate_sha256": "865e8886174a51f915ca24888ad6ea156054cf6beea921d444fc77577a1f4163",
+      "public_key_sha256": "ff2fbe8012f12ab283c291439c1016586103a2aa08e3d02af4f3c2b1587dacb9",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/CrashRecovery/apex/com.android.crashrecovery": {
+      "role": "apex-payload/com.android.crashrecovery",
+      "kind": "avb",
+      "certificate_sha256": "b23120e09774a5690792f4ca13d84d4dd17ea8925c2a406a172fc937c907ac1f",
+      "public_key_sha256": "cb52a2847489fec2e7da7019b9c96affc068bbb8051f60d6a6ce2225115aeca7",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/DeviceLock/apex/com.android.devicelock": {
+      "role": "apex-payload/com.android.devicelock",
+      "kind": "avb",
+      "certificate_sha256": "e077e5cb3b2dfe03abcc41cbe05fdec26b74af1e49e798f92215405fc4171271",
+      "public_key_sha256": "bf00e70a2e31be1f662a2de09a6f28cc455d1dd40a7cecac0820e02c1c89e873",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/DnsResolver/apex/com.android.resolv": {
+      "role": "apex-payload/com.android.resolv",
+      "kind": "avb",
+      "certificate_sha256": "7fe7f433e541ba2682dce5d464d69262e17d0b7ab5bc205b2f0d271ead1c4191",
+      "public_key_sha256": "8f057eb0475f62d651ab2dc5a465f6bab2cfc2b6714ad52856810d6997c3ac85",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/HealthFitness/apex/com.android.healthfitness": {
+      "role": "apex-payload/com.android.healthfitness",
+      "kind": "avb",
+      "certificate_sha256": "0602146fa93c1d2641027bd583b4d61fd9a8e96cc6205983bd11133e2946a5f2",
+      "public_key_sha256": "110edc97f74843738306a5d6edd690f6bd60ec0942fd60aae22f7532a9695b05",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/IPsec/apex/com.android.ipsec": {
+      "role": "apex-payload/com.android.ipsec",
+      "kind": "avb",
+      "certificate_sha256": "75ea1586193a6155f0fd7a0ce40a02160da3bd6a79b90b87310816c93d84e6cf",
+      "public_key_sha256": "c2bfe46b4d2f25e488e2ad6ca7e5975bda9bc9c21be90411aba3b604bbbc738d",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/NeuralNetworks/apex/com.android.neuralnetworks": {
+      "role": "apex-payload/com.android.neuralnetworks",
+      "kind": "avb",
+      "certificate_sha256": "61854c56444ee55aa0ab20bf0e461e443a35397be7d5afa605e308eeda24c89e",
+      "public_key_sha256": "3092257c1d78c50a58b0f089ad3a128e53eaa904d9da821f6eb3a42e5f826b1d",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Nfc/apex/com.android.nfcservices": {
+      "role": "apex-payload/com.android.nfcservices",
+      "kind": "avb",
+      "certificate_sha256": "fa45ea164501a1bda1d30b3a550a76507ab3a90a46d7b168901535917ed7d8b8",
+      "public_key_sha256": "2c65b0896a82a86312f7bd708092cc7ec213984016003af9ef5972c21c37ef4c",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/NpuManager/apex/com.android.npumanager": {
+      "role": "apex-payload/com.android.npumanager",
+      "kind": "avb",
+      "certificate_sha256": "512dfb5547284fca262e38f95202b4e18b2ca26d0caa28abc868690c5a9483c3",
+      "public_key_sha256": "c9a576496ede9e64815f333e5a97ab63a959aef24959db163362fc20b111efa1",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Permission/com.android.permission": {
+      "role": "apex-payload/com.android.permission",
+      "kind": "avb",
+      "certificate_sha256": "c27bf412030c7232c33baa935fbc1be002faddf243a4a07cf2040f5d03194fac",
+      "public_key_sha256": "c20ea3d02c60c4cc26b59365df4d44738f3bbfa1b44ff4b0a163bd9fe6d87cf6",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Profiling/apex/com.android.profiling": {
+      "role": "apex-payload/com.android.profiling",
+      "kind": "avb",
+      "certificate_sha256": "6ac5b43f067bcfdae7c41791ea07de8ec77e64b38c1188ee3702032ccae32c4b",
+      "public_key_sha256": "8011802409ea60c4988d6a8b4d93d75a317c514e543d9b2372ebb6367a97da90",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd": {
+      "role": "apex-payload/com.android.rkpd",
+      "kind": "avb",
+      "certificate_sha256": "2c17feaa45b1037d2a0831f0c99c2e70ef712ba02f9918a1311d79dfa22d79ee",
+      "public_key_sha256": "621707da108a8f17dbd04832e7b3e187ca03b852256dd3b9aca705f3ff798677",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/RuntimeI18n/apex/com.android.i18n": {
+      "role": "apex-payload/com.android.i18n",
+      "kind": "avb",
+      "certificate_sha256": "2292e9d34aaa22c99a35b7bc6c0b1bea69044f3c05801d09755d58901197baa8",
+      "public_key_sha256": "7343a33f0b38673aaf6016a6e1c466d9d53070bb00a273a3259375d9c22281b2",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Scheduling/apex/com.android.scheduling": {
+      "role": "apex-payload/com.android.scheduling",
+      "kind": "avb",
+      "certificate_sha256": "08466a3a9dae375c37c857e53eceb44e6214b36a798e0c225e9733ac058620ed",
+      "public_key_sha256": "3fd904cdfbc30fd9baae83c822eb3b2b805a3e9f9de7f945cf9096ccf94a426e",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/SdkExtensions/com.android.sdkext": {
+      "role": "apex-payload/com.android.sdkext",
+      "kind": "avb",
+      "certificate_sha256": "f7542d006cf7c0c07fc7743bb4152f5a20d4315925f6d8392ad82ba1dceb9c43",
+      "public_key_sha256": "2a9254f694f406f8e37677590a1bef589d00594258ad201194b9a5ee0499fa66",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/StatsD/apex/com.android.os.statsd": {
+      "role": "apex-payload/com.android.os.statsd",
+      "kind": "avb",
+      "certificate_sha256": "174ebb8397d5c00f8d9b08b1bdfb1f58273cdf825dd3e4165a54e26e75e5ed29",
+      "public_key_sha256": "bd087a13f8c0ef630d9f58044bbdbbc03866dc377fd42182d8891e0b435832a6",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Telephony/apex/com.android.telephonycore": {
+      "role": "apex-payload/com.android.telephonycore",
+      "kind": "avb",
+      "certificate_sha256": "434e92bcbbc7724769f6484aae62cbc7f975d044b071e8931b8536547be7a90e",
+      "public_key_sha256": "de35d9d447b3889177322d4a67324b300a3cfe9f09e40686bfb0bd1da3d6e1a0",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/UprobeStats/apex/com.android.uprobestats": {
+      "role": "apex-payload/com.android.uprobestats",
+      "kind": "avb",
+      "certificate_sha256": "35e2599c98f0e9b7f5ee2cf896dc8a614d3879b4de3fbe16db6d81f77cbfc9d5",
+      "public_key_sha256": "afc00cf6cb225e2a57b84df8b5eabd8e935a45bb5bd345807dad78a5898f36de",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Uwb/apex/com.android.uwb": {
+      "role": "apex-payload/com.android.uwb",
+      "kind": "avb",
+      "certificate_sha256": "ff772fa83d55bde31781987565dc46b61eec22ddc5a9d39fdd685fccadcca3ed",
+      "public_key_sha256": "9b537cbdb6dd11f249973b47b822653302f51ccf1e9a964daf47e5bb059bcd91",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Virtualization/build/apex/com.android.virt": {
+      "role": "apex-payload/com.android.virt",
+      "kind": "avb",
+      "certificate_sha256": "39d796bf325723e9a230fc3f4ddaea5fc94d458cf4f474923e14908a4379c6a6",
+      "public_key_sha256": "43d1310016016eb3c4b6aa1ea7154363117e87978846fbaf38934470aa50c5cd",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Virtualization/build/compos/com.android.compos": {
+      "role": "apex-payload/com.android.compos",
+      "kind": "avb",
+      "certificate_sha256": "61ff06acb784fa670e1c1ab777da36ae89893b0e1714bab885d21c772ffa6e96",
+      "public_key_sha256": "5789779ec5d22dbfa4cdf1ea12899588c2d7d9441957beb9f7a5283e9ac0860c",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/WebApp/apex/com.android.webapp": {
+      "role": "apex-payload/com.android.webapp",
+      "kind": "avb",
+      "certificate_sha256": "17fc5717c50e561e018e1f3dc49633a3d03249edeb7048f822b8d229419f7f4e",
+      "public_key_sha256": "c849b558a9d92571c9df42581344cbd9581573e6d43a8365c8902a19726f25ef",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/Wifi/apex/com.android.wifi": {
+      "role": "apex-payload/com.android.wifi",
+      "kind": "avb",
+      "certificate_sha256": "01f9c4f6ba7f45edcbf1f0128fda7fd7230354484ccd928473196e0da4146f5c",
+      "public_key_sha256": "92fd8e95f67a85715ec1175aab627d64bf9a3d547e65315cf5d0a5a0faa20ea3",
+      "key_bits": 4096
+    },
+    "payload:packages/modules/adb/apex/com.android.adbd": {
+      "role": "apex-payload/com.android.adbd",
+      "kind": "avb",
+      "certificate_sha256": "5767d3791095eb8fc72c9e41296215605b90f23f2d0d72add42c8939ce7d68d7",
+      "public_key_sha256": "086dcc50f2073255b9a6f5fd9726e016144005d1ddada12999cca8249ae079c1",
+      "key_bits": 4096
+    },
+    "payload:packages/providers/MediaProvider/apex/com.android.mediaprovider": {
+      "role": "apex-payload/com.android.mediaprovider",
+      "kind": "avb",
+      "certificate_sha256": "4c7a992938db9b0d7268155434546b817d017e6cf091a919ef0f6fe93cbde3e8",
+      "public_key_sha256": "9dc19b8a8c5208b991c555b642e5ca05206826deec5c55e61b11f22e94ba2163",
+      "key_bits": 4096
+    },
+    "payload:system/timezone/apex/com.android.tzdata": {
+      "role": "apex-payload/com.android.tzdata",
+      "kind": "avb",
+      "certificate_sha256": "06e5abb71fc34cfdbe3f291fb4e335c8966e42d531615874b025bfcce57f81d6",
+      "public_key_sha256": "a9676339981a28414c4f1e37b063c6c84d6bdf8072933748028a28b3d3eb8a40",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/bluetooth": {
+      "role": "apk/bluetooth",
+      "kind": "certificate",
+      "certificate_sha256": "dfa40770a39cbc4040efead140b3b2fd39e3236b5fa48b279d5045cbfd4facfa",
+      "public_key_sha256": "bad8c43cb62eb3f9754af8ee3ad8099a3dcb471638f41d886659596a7f35b5c9",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/nfc": {
+      "role": "apk/nfc",
+      "kind": "certificate",
+      "certificate_sha256": "94969dbdbc2210a1b632c3d3dd5408c23910b7a9ed432c6573278eb40da98e4c",
+      "public_key_sha256": "b482f6646469de500c1e77a2675a8ee826975ab0da3627b609b93d6a9269a9e2",
+      "key_bits": 4096
+    },
+    "build/make/target/product/security/sdk_sandbox": {
+      "role": "apk/sdk_sandbox",
+      "kind": "certificate",
+      "certificate_sha256": "3a742b1270e6bfa0f7c83c5cf886167538c3785d273a967f5849aec5363dff39",
+      "public_key_sha256": "6297a600bd32303dcc3f00949d343ddfb26f31373bed6c6134e7498b3e8159ee",
+      "key_bits": 4096
+    },
+    "packages/modules/AdServices/adservices/apk/com.android.adservices.api": {
+      "role": "apk-extra/0f6dd998-com.android.adservices.api",
+      "kind": "certificate",
+      "certificate_sha256": "b71d16fc1eab540404116c5394957227bbd111dc884fde56b8fcb2e0a5d708cd",
+      "public_key_sha256": "ffe4656dd9b1e790fb3febd2189461dea30cb63e6d078b3e91a577b3d50d4892",
+      "key_bits": 4096
+    },
+    "packages/modules/AppSearch/apk/com.android.appsearch.apk": {
+      "role": "apk-extra/6ed418a6-com.android.appsearch.apk",
+      "kind": "certificate",
+      "certificate_sha256": "b37558520ba02f7bd1e7abdbf81f2c255f11453c9d02ada3dc361fba9af3f80e",
+      "public_key_sha256": "59a0fe3bbf7c4128cf250ba6266dc7f16d293b8aeb269d53bae682289221f6ff",
+      "key_bits": 4096
+    },
+    "packages/modules/Connectivity/service/ServiceConnectivityResources/resources-certs/com.android.connectivity.resources": {
+      "role": "apk-extra/9005d650-com.android.connectivity.resources",
+      "kind": "certificate",
+      "certificate_sha256": "79648ce11a7b09a3ffd3cffb8aa437a799a5112b68b6114bdf666dbfe02f51b3",
+      "public_key_sha256": "31e0323e85271af5727ca4c26ac75eb07964d62a991c7dcfa1a43722260089f6",
+      "key_bits": 4096
+    },
+    "packages/modules/HealthFitness/apk/com.android.healthconnect.controller": {
+      "role": "apk-extra/6c19501e-com.android.healthconnect.controller",
+      "kind": "certificate",
+      "certificate_sha256": "42fd9baa80b474671b48b6a214717fc6fc76847f2d716764c410a768c6c7458c",
+      "public_key_sha256": "77637de953c575e60662e2dde480e0df9b040bcaa2e12c01994d044a0ad81b19",
+      "key_bits": 4096
+    },
+    "packages/modules/HealthFitness/backuprestore/com.android.health.connect.backuprestore": {
+      "role": "apk-extra/248ef17a-com.android.health.connect.backuprestore",
+      "kind": "certificate",
+      "certificate_sha256": "8879785da834b4f4c4b64f6364308ea16b3f00ca42646448c3bd377eaa11cc96",
+      "public_key_sha256": "a0d4856460f8f146257224517de1d88a45ddd16f9ba8285617ab69fb3d2ca2ed",
+      "key_bits": 4096
+    },
+    "packages/modules/OnDevicePersonalization/federatedcompute/apk/com.android.federatedcompute": {
+      "role": "apk-extra/5db1a165-com.android.federatedcompute",
+      "kind": "certificate",
+      "certificate_sha256": "df02f83e6909513844a14e89eeab265a5799437ea45f73caaefaf2445e3924ad",
+      "public_key_sha256": "65924da1e2d486486a0bcd595e35a554a0ba9e6d1f590015d213f550f1276d38",
+      "key_bits": 4096
+    },
+    "packages/modules/Permission/SafetyCenter/Resources/com.android.safetycenter.resources": {
+      "role": "apk-extra/d4d39c99-com.android.safetycenter.resources",
+      "kind": "certificate",
+      "certificate_sha256": "65c4e818597698a7ad1971ec9823c4b24f7129814acb8391f4e6728b427f4683",
+      "public_key_sha256": "7b5aee4457d5c119db079d114390f59011df3ecdbc2e286c403e0ae2c6999d87",
+      "key_bits": 4096
+    },
+    "packages/modules/Telephony/apex/com.android.telecom.resources": {
+      "role": "apk-extra/9c791edb-com.android.telecom.resources",
+      "kind": "certificate",
+      "certificate_sha256": "c403f7d55fb480f664c8a17ed7a8bfa1d45cdf00e0ca4aad335e0e398a4546db",
+      "public_key_sha256": "7bda372c51d5cece0cb07077cec2ebcf67ba407ca31e1e114360de0a56c98bfe",
+      "key_bits": 4096
+    },
+    "packages/modules/Telephony/apex/com.android.telecomui": {
+      "role": "apk-extra/c57d0ceb-com.android.telecomui",
+      "kind": "certificate",
+      "certificate_sha256": "5236f564e3f4577fc813faa60ce6b1e48802018ce5d17ecfb1a10de074fb62af",
+      "public_key_sha256": "9f1686add40c0cbc4a07e63aa4dffc149f853523f26200f6baaa255f9d4e2029",
+      "key_bits": 4096
+    },
+    "packages/modules/Uwb/service/ServiceUwbResources/resources-certs/com.android.uwb.resources": {
+      "role": "apk-extra/aa50d81e-com.android.uwb.resources",
+      "kind": "certificate",
+      "certificate_sha256": "4fa0aff047c8ab7a6f79258143a051bb8576889602e89c5a4fc02dbc4c2907b0",
+      "public_key_sha256": "53ca6d11e333b2307f87bcfbc5e42ce96e487decacd8c9a4872f507c284d16b2",
+      "key_bits": 4096
+    },
+    "packages/modules/Wifi/OsuLogin/certs/com.android.hotspot2.osulogin": {
+      "role": "apk-extra/e9c6e824-com.android.hotspot2.osulogin",
+      "kind": "certificate",
+      "certificate_sha256": "15b6a8a343a91304ef59f006e28ef5e95dbb29307fb932ce895d1ac8f9a8a7d6",
+      "public_key_sha256": "249db8b81bd2534ebe5888d638c110abbb98f186a25211e51c20f182dfa1e6af",
+      "key_bits": 4096
+    },
+    "packages/modules/Wifi/WifiDialog/certs/com.android.wifi.dialog": {
+      "role": "apk-extra/f10b4bcb-com.android.wifi.dialog",
+      "kind": "certificate",
+      "certificate_sha256": "5b5948be722da9f0b06f23abfda6967153d4c79047de2c7b0da70a742ab27f8c",
+      "public_key_sha256": "25a91bb6ce40b0799229875f6639edc7f9b3d8aa94bc5e1f9b1d2daf6ad99200",
+      "key_bits": 4096
+    },
+    "packages/modules/Wifi/service/ServiceWifiResources/resources-certs/com.android.wifi.resources": {
+      "role": "apk-extra/5289d06d-com.android.wifi.resources",
+      "kind": "certificate",
+      "certificate_sha256": "633ef726e75a75a98f7d1a7e916589772dc962f7062da031f5933db26d58973d",
+      "public_key_sha256": "d80a5571829255e86f5bf0f1b3e688d4197f1f092cb5a193c93d119498900b98",
+      "key_bits": 4096
+    }
+  }
+}

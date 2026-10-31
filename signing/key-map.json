@@ -1,0 +1,826 @@
+{
+  "source_build": "754decc022b25740754389324cc878d094c34721",
+  "roles": {
+    "build/make/target/product/security/testkey": {
+      "role": "apk/releasekey",
+      "kind": "certificate"
+    },
+    "build/make/target/product/security/platform": {
+      "role": "apk/platform",
+      "kind": "certificate"
+    },
+    "build/make/target/product/security/shared": {
+      "role": "apk/shared",
+      "kind": "certificate"
+    },
+    "build/make/target/product/security/media": {
+      "role": "apk/media",
+      "kind": "certificate"
+    },
+    "build/make/target/product/security/networkstack": {
+      "role": "apk/networkstack",
+      "kind": "certificate"
+    },
+    "vendor/infinity/build/target/product/security/lineage": {
+      "role": "recovery/lineage",
+      "kind": "certificate"
+    },
+    "art/build/apex/com.android.art": {
+      "role": "apex-container/com.android.art",
+      "kind": "certificate"
+    },
+    "bionic/apex/com.android.runtime": {
+      "role": "apex-container/com.android.runtime",
+      "kind": "certificate"
+    },
+    "external/conscrypt/apex/com.android.conscrypt": {
+      "role": "apex-container/com.android.conscrypt",
+      "kind": "certificate"
+    },
+    "frameworks/av/apex/com.android.media.swcodec": {
+      "role": "apex-container/com.android.media.swcodec",
+      "kind": "certificate"
+    },
+    "frameworks/av/apex/com.android.media": {
+      "role": "apex-container/com.android.media",
+      "kind": "certificate"
+    },
+    "hardware/interfaces/apexkey/com.android.hardware": {
+      "role": "apex-container/com.android.hardware",
+      "kind": "certificate"
+    },
+    "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast": {
+      "role": "apex-container/com.android.cellbroadcast",
+      "kind": "certificate"
+    },
+    "packages/modules/AdServices/apex/com.android.adservices": {
+      "role": "apex-container/com.android.adservices",
+      "kind": "certificate"
+    },
+    "packages/modules/AppSearch/com.android.appsearch": {
+      "role": "apex-container/com.android.appsearch",
+      "kind": "certificate"
+    },
+    "packages/modules/Bluetooth/apex/key/com.android.bt": {
+      "role": "apex-container/com.android.bt",
+      "kind": "certificate"
+    },
+    "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure": {
+      "role": "apex-container/com.android.configinfrastructure",
+      "kind": "certificate"
+    },
+    "packages/modules/Connectivity/Tethering/apex/com.android.tethering": {
+      "role": "apex-payload/com.android.tethering",
+      "kind": "avb"
+    },
+    "packages/modules/CrashRecovery/apex/com.android.crashrecovery": {
+      "role": "apex-container/com.android.crashrecovery",
+      "kind": "certificate"
+    },
+    "packages/modules/DeviceLock/apex/com.android.devicelock": {
+      "role": "apex-container/com.android.devicelock",
+      "kind": "certificate"
+    },
+    "packages/modules/DnsResolver/apex/com.android.resolv": {
+      "role": "apex-container/com.android.resolv",
+      "kind": "certificate"
+    },
+    "packages/modules/HealthFitness/apex/com.android.healthfitness": {
+      "role": "apex-container/com.android.healthfitness",
+      "kind": "certificate"
+    },
+    "packages/modules/IPsec/apex/com.android.ipsec": {
+      "role": "apex-container/com.android.ipsec",
+      "kind": "certificate"
+    },
+    "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks": {
+      "role": "apex-container/com.android.neuralnetworks",
+      "kind": "certificate"
+    },
+    "packages/modules/Nfc/apex/com.android.nfcservices": {
+      "role": "apex-container/com.android.nfcservices",
+      "kind": "certificate"
+    },
+    "packages/modules/NpuManager/apex/com.android.npumanager": {
+      "role": "apex-container/com.android.npumanager",
+      "kind": "certificate"
+    },
+    "packages/modules/OnDevicePersonalization/apex/com.android.ondevicepersonalization": {
+      "role": "apex-payload/com.android.ondevicepersonalization",
+      "kind": "avb"
+    },
+    "packages/modules/Permission/com.android.permission": {
+      "role": "apex-container/com.android.permission",
+      "kind": "certificate"
+    },
+    "packages/modules/Profiling/apex/com.android.profiling": {
+      "role": "apex-container/com.android.profiling",
+      "kind": "certificate"
+    },
+    "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd": {
+      "role": "apex-container/com.android.rkpd",
+      "kind": "certificate"
+    },
+    "packages/modules/RuntimeI18n/apex/com.android.i18n": {
+      "role": "apex-container/com.android.i18n",
+      "kind": "certificate"
+    },
+    "packages/modules/Scheduling/apex/com.android.scheduling": {
+      "role": "apex-container/com.android.scheduling",
+      "kind": "certificate"
+    },
+    "packages/modules/SdkExtensions/com.android.sdkext": {
+      "role": "apex-container/com.android.sdkext",
+      "kind": "certificate"
+    },
+    "packages/modules/StatsD/apex/com.android.os.statsd": {
+      "role": "apex-container/com.android.os.statsd",
+      "kind": "certificate"
+    },
+    "packages/modules/Telephony/apex/com.android.telephonycore": {
+      "role": "apex-container/com.android.telephonycore",
+      "kind": "certificate"
+    },
+    "packages/modules/UprobeStats/apex/com.android.uprobestats": {
+      "role": "apex-container/com.android.uprobestats",
+      "kind": "certificate"
+    },
+    "packages/modules/Uwb/apex/com.android.uwb": {
+      "role": "apex-container/com.android.uwb",
+      "kind": "certificate"
+    },
+    "packages/modules/Virtualization/build/apex/com.android.virt": {
+      "role": "apex-container/com.android.virt",
+      "kind": "certificate"
+    },
+    "packages/modules/Virtualization/build/compos/com.android.compos": {
+      "role": "apex-container/com.android.compos",
+      "kind": "certificate"
+    },
+    "packages/modules/WebApp/apex/com.android.webapp": {
+      "role": "apex-container/com.android.webapp",
+      "kind": "certificate"
+    },
+    "packages/modules/Wifi/apex/com.android.wifi": {
+      "role": "apex-container/com.android.wifi",
+      "kind": "certificate"
+    },
+    "packages/modules/adb/apex/com.android.adbd": {
+      "role": "apex-container/com.android.adbd",
+      "kind": "certificate"
+    },
+    "packages/providers/MediaProvider/apex/com.android.mediaprovider": {
+      "role": "apex-container/com.android.mediaprovider",
+      "kind": "certificate"
+    },
+    "system/timezone/apex/com.android.tzdata": {
+      "role": "apex-container/com.android.tzdata",
+      "kind": "certificate"
+    },
+    "external/avb/test/data/testkey_rsa4096": {
+      "role": "avb/avb",
+      "kind": "avb"
+    },
+    "payload:art/build/apex/com.android.art": {
+      "role": "apex-payload/com.android.art",
+      "kind": "avb",
+      "original": "art/build/apex/com.android.art"
+    },
+    "payload:bionic/apex/com.android.runtime": {
+      "role": "apex-payload/com.android.runtime",
+      "kind": "avb",
+      "original": "bionic/apex/com.android.runtime"
+    },
+    "payload:external/conscrypt/apex/com.android.conscrypt": {
+      "role": "apex-payload/com.android.conscrypt",
+      "kind": "avb",
+      "original": "external/conscrypt/apex/com.android.conscrypt"
+    },
+    "payload:frameworks/av/apex/com.android.media.swcodec": {
+      "role": "apex-payload/com.android.media.swcodec",
+      "kind": "avb",
+      "original": "frameworks/av/apex/com.android.media.swcodec"
+    },
+    "payload:frameworks/av/apex/com.android.media": {
+      "role": "apex-payload/com.android.media",
+      "kind": "avb",
+      "original": "frameworks/av/apex/com.android.media"
+    },
+    "payload:hardware/interfaces/apexkey/com.android.hardware": {
+      "role": "apex-payload/com.android.hardware",
+      "kind": "avb",
+      "original": "hardware/interfaces/apexkey/com.android.hardware"
+    },
+    "payload:packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast": {
+      "role": "apex-payload/com.android.cellbroadcast",
+      "kind": "avb",
+      "original": "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast"
+    },
+    "payload:packages/modules/AdServices/apex/com.android.adservices": {
+      "role": "apex-payload/com.android.adservices",
+      "kind": "avb",
+      "original": "packages/modules/AdServices/apex/com.android.adservices"
+    },
+    "payload:packages/modules/AppSearch/com.android.appsearch": {
+      "role": "apex-payload/com.android.appsearch",
+      "kind": "avb",
+      "original": "packages/modules/AppSearch/com.android.appsearch"
+    },
+    "payload:packages/modules/Bluetooth/apex/key/com.android.bt": {
+      "role": "apex-payload/com.android.bt",
+      "kind": "avb",
+      "original": "packages/modules/Bluetooth/apex/key/com.android.bt"
+    },
+    "payload:packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure": {
+      "role": "apex-payload/com.android.configinfrastructure",
+      "kind": "avb",
+      "original": "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure"
+    },
+    "payload:packages/modules/CrashRecovery/apex/com.android.crashrecovery": {
+      "role": "apex-payload/com.android.crashrecovery",
+      "kind": "avb",
+      "original": "packages/modules/CrashRecovery/apex/com.android.crashrecovery"
+    },
+    "payload:packages/modules/DeviceLock/apex/com.android.devicelock": {
+      "role": "apex-payload/com.android.devicelock",
+      "kind": "avb",
+      "original": "packages/modules/DeviceLock/apex/com.android.devicelock"
+    },
+    "payload:packages/modules/DnsResolver/apex/com.android.resolv": {
+      "role": "apex-payload/com.android.resolv",
+      "kind": "avb",
+      "original": "packages/modules/DnsResolver/apex/com.android.resolv"
+    },
+    "payload:packages/modules/HealthFitness/apex/com.android.healthfitness": {
+      "role": "apex-payload/com.android.healthfitness",
+      "kind": "avb",
+      "original": "packages/modules/HealthFitness/apex/com.android.healthfitness"
+    },
+    "payload:packages/modules/IPsec/apex/com.android.ipsec": {
+      "role": "apex-payload/com.android.ipsec",
+      "kind": "avb",
+      "original": "packages/modules/IPsec/apex/com.android.ipsec"
+    },
+    "payload:packages/modules/NeuralNetworks/apex/com.android.neuralnetworks": {
+      "role": "apex-payload/com.android.neuralnetworks",
+      "kind": "avb",
+      "original": "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks"
+    },
+    "payload:packages/modules/Nfc/apex/com.android.nfcservices": {
+      "role": "apex-payload/com.android.nfcservices",
+      "kind": "avb",
+      "original": "packages/modules/Nfc/apex/com.android.nfcservices"
+    },
+    "payload:packages/modules/NpuManager/apex/com.android.npumanager": {
+      "role": "apex-payload/com.android.npumanager",
+      "kind": "avb",
+      "original": "packages/modules/NpuManager/apex/com.android.npumanager"
+    },
+    "payload:packages/modules/Permission/com.android.permission": {
+      "role": "apex-payload/com.android.permission",
+      "kind": "avb",
+      "original": "packages/modules/Permission/com.android.permission"
+    },
+    "payload:packages/modules/Profiling/apex/com.android.profiling": {
+      "role": "apex-payload/com.android.profiling",
+      "kind": "avb",
+      "original": "packages/modules/Profiling/apex/com.android.profiling"
+    },
+    "payload:packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd": {
+      "role": "apex-payload/com.android.rkpd",
+      "kind": "avb",
+      "original": "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd"
+    },
+    "payload:packages/modules/RuntimeI18n/apex/com.android.i18n": {
+      "role": "apex-payload/com.android.i18n",
+      "kind": "avb",
+      "original": "packages/modules/RuntimeI18n/apex/com.android.i18n"
+    },
+    "payload:packages/modules/Scheduling/apex/com.android.scheduling": {
+      "role": "apex-payload/com.android.scheduling",
+      "kind": "avb",
+      "original": "packages/modules/Scheduling/apex/com.android.scheduling"
+    },
+    "payload:packages/modules/SdkExtensions/com.android.sdkext": {
+      "role": "apex-payload/com.android.sdkext",
+      "kind": "avb",
+      "original": "packages/modules/SdkExtensions/com.android.sdkext"
+    },
+    "payload:packages/modules/StatsD/apex/com.android.os.statsd": {
+      "role": "apex-payload/com.android.os.statsd",
+      "kind": "avb",
+      "original": "packages/modules/StatsD/apex/com.android.os.statsd"
+    },
+    "payload:packages/modules/Telephony/apex/com.android.telephonycore": {
+      "role": "apex-payload/com.android.telephonycore",
+      "kind": "avb",
+      "original": "packages/modules/Telephony/apex/com.android.telephonycore"
+    },
+    "payload:packages/modules/UprobeStats/apex/com.android.uprobestats": {
+      "role": "apex-payload/com.android.uprobestats",
+      "kind": "avb",
+      "original": "packages/modules/UprobeStats/apex/com.android.uprobestats"
+    },
+    "payload:packages/modules/Uwb/apex/com.android.uwb": {
+      "role": "apex-payload/com.android.uwb",
+      "kind": "avb",
+      "original": "packages/modules/Uwb/apex/com.android.uwb"
+    },
+    "payload:packages/modules/Virtualization/build/apex/com.android.virt": {
+      "role": "apex-payload/com.android.virt",
+      "kind": "avb",
+      "original": "packages/modules/Virtualization/build/apex/com.android.virt"
+    },
+    "payload:packages/modules/Virtualization/build/compos/com.android.compos": {
+      "role": "apex-payload/com.android.compos",
+      "kind": "avb",
+      "original": "packages/modules/Virtualization/build/compos/com.android.compos"
+    },
+    "payload:packages/modules/WebApp/apex/com.android.webapp": {
+      "role": "apex-payload/com.android.webapp",
+      "kind": "avb",
+      "original": "packages/modules/WebApp/apex/com.android.webapp"
+    },
+    "payload:packages/modules/Wifi/apex/com.android.wifi": {
+      "role": "apex-payload/com.android.wifi",
+      "kind": "avb",
+      "original": "packages/modules/Wifi/apex/com.android.wifi"
+    },
+    "payload:packages/modules/adb/apex/com.android.adbd": {
+      "role": "apex-payload/com.android.adbd",
+      "kind": "avb",
+      "original": "packages/modules/adb/apex/com.android.adbd"
+    },
+    "payload:packages/providers/MediaProvider/apex/com.android.mediaprovider": {
+      "role": "apex-payload/com.android.mediaprovider",
+      "kind": "avb",
+      "original": "packages/providers/MediaProvider/apex/com.android.mediaprovider"
+    },
+    "payload:system/timezone/apex/com.android.tzdata": {
+      "role": "apex-payload/com.android.tzdata",
+      "kind": "avb",
+      "original": "system/timezone/apex/com.android.tzdata"
+    },
+    "build/make/target/product/security/bluetooth": {
+      "role": "apk/bluetooth",
+      "kind": "certificate"
+    },
+    "build/make/target/product/security/nfc": {
+      "role": "apk/nfc",
+      "kind": "certificate"
+    },
+    "build/make/target/product/security/sdk_sandbox": {
+      "role": "apk/sdk_sandbox",
+      "kind": "certificate"
+    },
+    "packages/modules/AdServices/adservices/apk/com.android.adservices.api": {
+      "role": "apk-extra/0f6dd998-com.android.adservices.api",
+      "kind": "certificate"
+    },
+    "packages/modules/AppSearch/apk/com.android.appsearch.apk": {
+      "role": "apk-extra/6ed418a6-com.android.appsearch.apk",
+      "kind": "certificate"
+    },
+    "packages/modules/Connectivity/service/ServiceConnectivityResources/resources-certs/com.android.connectivity.resources": {
+      "role": "apk-extra/9005d650-com.android.connectivity.resources",
+      "kind": "certificate"
+    },
+    "packages/modules/HealthFitness/apk/com.android.healthconnect.controller": {
+      "role": "apk-extra/6c19501e-com.android.healthconnect.controller",
+      "kind": "certificate"
+    },
+    "packages/modules/HealthFitness/backuprestore/com.android.health.connect.backuprestore": {
+      "role": "apk-extra/248ef17a-com.android.health.connect.backuprestore",
+      "kind": "certificate"
+    },
+    "packages/modules/OnDevicePersonalization/federatedcompute/apk/com.android.federatedcompute": {
+      "role": "apk-extra/5db1a165-com.android.federatedcompute",
+      "kind": "certificate"
+    },
+    "packages/modules/Permission/SafetyCenter/Resources/com.android.safetycenter.resources": {
+      "role": "apk-extra/d4d39c99-com.android.safetycenter.resources",
+      "kind": "certificate"
+    },
+    "packages/modules/Telephony/apex/com.android.telecom.resources": {
+      "role": "apk-extra/9c791edb-com.android.telecom.resources",
+      "kind": "certificate"
+    },
+    "packages/modules/Telephony/apex/com.android.telecomui": {
+      "role": "apk-extra/c57d0ceb-com.android.telecomui",
+      "kind": "certificate"
+    },
+    "packages/modules/Uwb/service/ServiceUwbResources/resources-certs/com.android.uwb.resources": {
+      "role": "apk-extra/aa50d81e-com.android.uwb.resources",
+      "kind": "certificate"
+    },
+    "packages/modules/Wifi/OsuLogin/certs/com.android.hotspot2.osulogin": {
+      "role": "apk-extra/e9c6e824-com.android.hotspot2.osulogin",
+      "kind": "certificate"
+    },
+    "packages/modules/Wifi/WifiDialog/certs/com.android.wifi.dialog": {
+      "role": "apk-extra/f10b4bcb-com.android.wifi.dialog",
+      "kind": "certificate"
+    },
+    "packages/modules/Wifi/service/ServiceWifiResources/resources-certs/com.android.wifi.resources": {
+      "role": "apk-extra/5289d06d-com.android.wifi.resources",
+      "kind": "certificate"
+    }
+  },
+  "apex": [
+    {
+      "name": "com.android.art.apex",
+      "public_key": "art/build/apex/com.android.art.avbpubkey",
+      "private_key": "art/build/apex/com.android.art.pem",
+      "container_certificate": "art/build/apex/com.android.art.x509.pem",
+      "container_private_key": "art/build/apex/com.android.art.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.runtime.apex",
+      "public_key": "bionic/apex/com.android.runtime.avbpubkey",
+      "private_key": "bionic/apex/com.android.runtime.pem",
+      "container_certificate": "bionic/apex/com.android.runtime.x509.pem",
+      "container_private_key": "bionic/apex/com.android.runtime.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.conscrypt.apex",
+      "public_key": "external/conscrypt/apex/com.android.conscrypt.avbpubkey",
+      "private_key": "external/conscrypt/apex/com.android.conscrypt.pem",
+      "container_certificate": "external/conscrypt/apex/com.android.conscrypt.x509.pem",
+      "container_private_key": "external/conscrypt/apex/com.android.conscrypt.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.media.swcodec.apex",
+      "public_key": "frameworks/av/apex/com.android.media.swcodec.avbpubkey",
+      "private_key": "frameworks/av/apex/com.android.media.swcodec.pem",
+      "container_certificate": "frameworks/av/apex/com.android.media.swcodec.x509.pem",
+      "container_private_key": "frameworks/av/apex/com.android.media.swcodec.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.media.apex",
+      "public_key": "frameworks/av/apex/com.android.media.avbpubkey",
+      "private_key": "frameworks/av/apex/com.android.media.pem",
+      "container_certificate": "frameworks/av/apex/com.android.media.x509.pem",
+      "container_private_key": "frameworks/av/apex/com.android.media.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.hardware.drm.clearkey.apex",
+      "public_key": "hardware/interfaces/apexkey/com.android.hardware.avbpubkey",
+      "private_key": "hardware/interfaces/apexkey/com.android.hardware.pem",
+      "container_certificate": "hardware/interfaces/apexkey/com.android.hardware.x509.pem",
+      "container_private_key": "hardware/interfaces/apexkey/com.android.hardware.pk8",
+      "partition": "vendor"
+    },
+    {
+      "name": "com.android.hardware.biometrics.fingerprint.virtual.apex",
+      "public_key": "hardware/interfaces/apexkey/com.android.hardware.avbpubkey",
+      "private_key": "hardware/interfaces/apexkey/com.android.hardware.pem",
+      "container_certificate": "hardware/interfaces/apexkey/com.android.hardware.x509.pem",
+      "container_private_key": "hardware/interfaces/apexkey/com.android.hardware.pk8",
+      "partition": "system_ext"
+    },
+    {
+      "name": "com.android.hardware.cas.apex",
+      "public_key": "hardware/interfaces/apexkey/com.android.hardware.avbpubkey",
+      "private_key": "hardware/interfaces/apexkey/com.android.hardware.pem",
+      "container_certificate": "hardware/interfaces/apexkey/com.android.hardware.x509.pem",
+      "container_private_key": "hardware/interfaces/apexkey/com.android.hardware.pk8",
+      "partition": "vendor"
+    },
+    {
+      "name": "com.android.cellbroadcast.apex",
+      "public_key": "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast.avbpubkey",
+      "private_key": "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast.pem",
+      "container_certificate": "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast.x509.pem",
+      "container_private_key": "packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.adservices.apex",
+      "public_key": "packages/modules/AdServices/apex/com.android.adservices.avbpubkey",
+      "private_key": "packages/modules/AdServices/apex/com.android.adservices.pem",
+      "container_certificate": "packages/modules/AdServices/apex/com.android.adservices.x509.pem",
+      "container_private_key": "packages/modules/AdServices/apex/com.android.adservices.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.appsearch.apex",
+      "public_key": "packages/modules/AppSearch/com.android.appsearch.avbpubkey",
+      "private_key": "packages/modules/AppSearch/com.android.appsearch.pem",
+      "container_certificate": "packages/modules/AppSearch/com.android.appsearch.x509.pem",
+      "container_private_key": "packages/modules/AppSearch/com.android.appsearch.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.bt.apex",
+      "public_key": "packages/modules/Bluetooth/apex/key/com.android.bt.avbpubkey",
+      "private_key": "packages/modules/Bluetooth/apex/key/com.android.bt.pem",
+      "container_certificate": "packages/modules/Bluetooth/apex/key/com.android.bt.x509.pem",
+      "container_private_key": "packages/modules/Bluetooth/apex/key/com.android.bt.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.configinfrastructure.apex",
+      "public_key": "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure.avbpubkey",
+      "private_key": "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure.pem",
+      "container_certificate": "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure.x509.pem",
+      "container_private_key": "packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.tethering.apex",
+      "public_key": "packages/modules/Connectivity/Tethering/apex/com.android.tethering.avbpubkey",
+      "private_key": "packages/modules/Connectivity/Tethering/apex/com.android.tethering.pem",
+      "container_certificate": "build/make/target/product/security/testkey.x509.pem",
+      "container_private_key": "build/make/target/product/security/testkey.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.crashrecovery.apex",
+      "public_key": "packages/modules/CrashRecovery/apex/com.android.crashrecovery.avbpubkey",
+      "private_key": "packages/modules/CrashRecovery/apex/com.android.crashrecovery.pem",
+      "container_certificate": "packages/modules/CrashRecovery/apex/com.android.crashrecovery.x509.pem",
+      "container_private_key": "packages/modules/CrashRecovery/apex/com.android.crashrecovery.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.devicelock.apex",
+      "public_key": "packages/modules/DeviceLock/apex/com.android.devicelock.avbpubkey",
+      "private_key": "packages/modules/DeviceLock/apex/com.android.devicelock.pem",
+      "container_certificate": "packages/modules/DeviceLock/apex/com.android.devicelock.x509.pem",
+      "container_private_key": "packages/modules/DeviceLock/apex/com.android.devicelock.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.resolv.apex",
+      "public_key": "packages/modules/DnsResolver/apex/com.android.resolv.avbpubkey",
+      "private_key": "packages/modules/DnsResolver/apex/com.android.resolv.pem",
+      "container_certificate": "packages/modules/DnsResolver/apex/com.android.resolv.x509.pem",
+      "container_private_key": "packages/modules/DnsResolver/apex/com.android.resolv.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.healthfitness.apex",
+      "public_key": "packages/modules/HealthFitness/apex/com.android.healthfitness.avbpubkey",
+      "private_key": "packages/modules/HealthFitness/apex/com.android.healthfitness.pem",
+      "container_certificate": "packages/modules/HealthFitness/apex/com.android.healthfitness.x509.pem",
+      "container_private_key": "packages/modules/HealthFitness/apex/com.android.healthfitness.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.ipsec.apex",
+      "public_key": "packages/modules/IPsec/apex/com.android.ipsec.avbpubkey",
+      "private_key": "packages/modules/IPsec/apex/com.android.ipsec.pem",
+      "container_certificate": "packages/modules/IPsec/apex/com.android.ipsec.x509.pem",
+      "container_private_key": "packages/modules/IPsec/apex/com.android.ipsec.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.neuralnetworks.apex",
+      "public_key": "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks.avbpubkey",
+      "private_key": "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks.pem",
+      "container_certificate": "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks.x509.pem",
+      "container_private_key": "packages/modules/NeuralNetworks/apex/com.android.neuralnetworks.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.nfcservices.apex",
+      "public_key": "packages/modules/Nfc/apex/com.android.nfcservices.avbpubkey",
+      "private_key": "packages/modules/Nfc/apex/com.android.nfcservices.pem",
+      "container_certificate": "packages/modules/Nfc/apex/com.android.nfcservices.x509.pem",
+      "container_private_key": "packages/modules/Nfc/apex/com.android.nfcservices.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.npumanager.apex",
+      "public_key": "packages/modules/NpuManager/apex/com.android.npumanager.avbpubkey",
+      "private_key": "packages/modules/NpuManager/apex/com.android.npumanager.pem",
+      "container_certificate": "packages/modules/NpuManager/apex/com.android.npumanager.x509.pem",
+      "container_private_key": "packages/modules/NpuManager/apex/com.android.npumanager.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.ondevicepersonalization.apex",
+      "public_key": "packages/modules/OnDevicePersonalization/apex/com.android.ondevicepersonalization.avbpubkey",
+      "private_key": "packages/modules/OnDevicePersonalization/apex/com.android.ondevicepersonalization.pem",
+      "container_certificate": "build/make/target/product/security/testkey.x509.pem",
+      "container_private_key": "build/make/target/product/security/testkey.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.permission.apex",
+      "public_key": "packages/modules/Permission/com.android.permission.avbpubkey",
+      "private_key": "packages/modules/Permission/com.android.permission.pem",
+      "container_certificate": "packages/modules/Permission/com.android.permission.x509.pem",
+      "container_private_key": "packages/modules/Permission/com.android.permission.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.profiling.apex",
+      "public_key": "packages/modules/Profiling/apex/com.android.profiling.avbpubkey",
+      "private_key": "packages/modules/Profiling/apex/com.android.profiling.pem",
+      "container_certificate": "packages/modules/Profiling/apex/com.android.profiling.x509.pem",
+      "container_private_key": "packages/modules/Profiling/apex/com.android.profiling.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.rkpd.apex",
+      "public_key": "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd.avbpubkey",
+      "private_key": "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd.pem",
+      "container_certificate": "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd.x509.pem",
+      "container_private_key": "packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.i18n.apex",
+      "public_key": "packages/modules/RuntimeI18n/apex/com.android.i18n.avbpubkey",
+      "private_key": "packages/modules/RuntimeI18n/apex/com.android.i18n.pem",
+      "container_certificate": "packages/modules/RuntimeI18n/apex/com.android.i18n.x509.pem",
+      "container_private_key": "packages/modules/RuntimeI18n/apex/com.android.i18n.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.scheduling.apex",
+      "public_key": "packages/modules/Scheduling/apex/com.android.scheduling.avbpubkey",
+      "private_key": "packages/modules/Scheduling/apex/com.android.scheduling.pem",
+      "container_certificate": "packages/modules/Scheduling/apex/com.android.scheduling.x509.pem",
+      "container_private_key": "packages/modules/Scheduling/apex/com.android.scheduling.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.sdkext.apex",
+      "public_key": "packages/modules/SdkExtensions/com.android.sdkext.avbpubkey",
+      "private_key": "packages/modules/SdkExtensions/com.android.sdkext.pem",
+      "container_certificate": "packages/modules/SdkExtensions/com.android.sdkext.x509.pem",
+      "container_private_key": "packages/modules/SdkExtensions/com.android.sdkext.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.os.statsd.apex",
+      "public_key": "packages/modules/StatsD/apex/com.android.os.statsd.avbpubkey",
+      "private_key": "packages/modules/StatsD/apex/com.android.os.statsd.pem",
+      "container_certificate": "packages/modules/StatsD/apex/com.android.os.statsd.x509.pem",
+      "container_private_key": "packages/modules/StatsD/apex/com.android.os.statsd.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.telephonycore.apex",
+      "public_key": "packages/modules/Telephony/apex/com.android.telephonycore.avbpubkey",
+      "private_key": "packages/modules/Telephony/apex/com.android.telephonycore.pem",
+      "container_certificate": "packages/modules/Telephony/apex/com.android.telephonycore.x509.pem",
+      "container_private_key": "packages/modules/Telephony/apex/com.android.telephonycore.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.uprobestats.apex",
+      "public_key": "packages/modules/UprobeStats/apex/com.android.uprobestats.avbpubkey",
+      "private_key": "packages/modules/UprobeStats/apex/com.android.uprobestats.pem",
+      "container_certificate": "packages/modules/UprobeStats/apex/com.android.uprobestats.x509.pem",
+      "container_private_key": "packages/modules/UprobeStats/apex/com.android.uprobestats.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.uwb.apex",
+      "public_key": "packages/modules/Uwb/apex/com.android.uwb.avbpubkey",
+      "private_key": "packages/modules/Uwb/apex/com.android.uwb.pem",
+      "container_certificate": "packages/modules/Uwb/apex/com.android.uwb.x509.pem",
+      "container_private_key": "packages/modules/Uwb/apex/com.android.uwb.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.virt.apex",
+      "public_key": "packages/modules/Virtualization/build/apex/com.android.virt.avbpubkey",
+      "private_key": "packages/modules/Virtualization/build/apex/com.android.virt.pem",
+      "container_certificate": "packages/modules/Virtualization/build/apex/com.android.virt.x509.pem",
+      "container_private_key": "packages/modules/Virtualization/build/apex/com.android.virt.pk8",
+      "partition": "system",
+      "sign_tool": "sign_virt_apex"
+    },
+    {
+      "name": "com.android.compos.apex",
+      "public_key": "packages/modules/Virtualization/build/compos/com.android.compos.avbpubkey",
+      "private_key": "packages/modules/Virtualization/build/compos/com.android.compos.pem",
+      "container_certificate": "packages/modules/Virtualization/build/compos/com.android.compos.x509.pem",
+      "container_private_key": "packages/modules/Virtualization/build/compos/com.android.compos.pk8",
+      "partition": "system_ext"
+    },
+    {
+      "name": "com.android.webapp.apex",
+      "public_key": "packages/modules/WebApp/apex/com.android.webapp.avbpubkey",
+      "private_key": "packages/modules/WebApp/apex/com.android.webapp.pem",
+      "container_certificate": "packages/modules/WebApp/apex/com.android.webapp.x509.pem",
+      "container_private_key": "packages/modules/WebApp/apex/com.android.webapp.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.wifi.apex",
+      "public_key": "packages/modules/Wifi/apex/com.android.wifi.avbpubkey",
+      "private_key": "packages/modules/Wifi/apex/com.android.wifi.pem",
+      "container_certificate": "packages/modules/Wifi/apex/com.android.wifi.x509.pem",
+      "container_private_key": "packages/modules/Wifi/apex/com.android.wifi.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.adbd.apex",
+      "public_key": "packages/modules/adb/apex/com.android.adbd.avbpubkey",
+      "private_key": "packages/modules/adb/apex/com.android.adbd.pem",
+      "container_certificate": "packages/modules/adb/apex/com.android.adbd.x509.pem",
+      "container_private_key": "packages/modules/adb/apex/com.android.adbd.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.mediaprovider.apex",
+      "public_key": "packages/providers/MediaProvider/apex/com.android.mediaprovider.avbpubkey",
+      "private_key": "packages/providers/MediaProvider/apex/com.android.mediaprovider.pem",
+      "container_certificate": "packages/providers/MediaProvider/apex/com.android.mediaprovider.x509.pem",
+      "container_private_key": "packages/providers/MediaProvider/apex/com.android.mediaprovider.pk8",
+      "partition": "system"
+    },
+    {
+      "name": "com.android.tzdata.apex",
+      "public_key": "system/timezone/apex/com.android.tzdata.avbpubkey",
+      "private_key": "system/timezone/apex/com.android.tzdata.pem",
+      "container_certificate": "system/timezone/apex/com.android.tzdata.x509.pem",
+      "container_private_key": "system/timezone/apex/com.android.tzdata.pk8",
+      "partition": "system"
+    }
+  ],
+  "payload_ids": {
+    "com.android.art.apex": "payload:art/build/apex/com.android.art",
+    "com.android.runtime.apex": "payload:bionic/apex/com.android.runtime",
+    "com.android.conscrypt.apex": "payload:external/conscrypt/apex/com.android.conscrypt",
+    "com.android.media.swcodec.apex": "payload:frameworks/av/apex/com.android.media.swcodec",
+    "com.android.media.apex": "payload:frameworks/av/apex/com.android.media",
+    "com.android.hardware.drm.clearkey.apex": "payload:hardware/interfaces/apexkey/com.android.hardware",
+    "com.android.hardware.biometrics.fingerprint.virtual.apex": "payload:hardware/interfaces/apexkey/com.android.hardware",
+    "com.android.hardware.cas.apex": "payload:hardware/interfaces/apexkey/com.android.hardware",
+    "com.android.cellbroadcast.apex": "payload:packages/apps/CellBroadcastReceiver/apex/com.android.cellbroadcast",
+    "com.android.adservices.apex": "payload:packages/modules/AdServices/apex/com.android.adservices",
+    "com.android.appsearch.apex": "payload:packages/modules/AppSearch/com.android.appsearch",
+    "com.android.bt.apex": "payload:packages/modules/Bluetooth/apex/key/com.android.bt",
+    "com.android.configinfrastructure.apex": "payload:packages/modules/ConfigInfrastructure/apex/com.android.configinfrastructure",
+    "com.android.tethering.apex": "packages/modules/Connectivity/Tethering/apex/com.android.tethering",
+    "com.android.crashrecovery.apex": "payload:packages/modules/CrashRecovery/apex/com.android.crashrecovery",
+    "com.android.devicelock.apex": "payload:packages/modules/DeviceLock/apex/com.android.devicelock",
+    "com.android.resolv.apex": "payload:packages/modules/DnsResolver/apex/com.android.resolv",
+    "com.android.healthfitness.apex": "payload:packages/modules/HealthFitness/apex/com.android.healthfitness",
+    "com.android.ipsec.apex": "payload:packages/modules/IPsec/apex/com.android.ipsec",
+    "com.android.neuralnetworks.apex": "payload:packages/modules/NeuralNetworks/apex/com.android.neuralnetworks",
+    "com.android.nfcservices.apex": "payload:packages/modules/Nfc/apex/com.android.nfcservices",
+    "com.android.npumanager.apex": "payload:packages/modules/NpuManager/apex/com.android.npumanager",
+    "com.android.ondevicepersonalization.apex": "packages/modules/OnDevicePersonalization/apex/com.android.ondevicepersonalization",
+    "com.android.permission.apex": "payload:packages/modules/Permission/com.android.permission",
+    "com.android.profiling.apex": "payload:packages/modules/Profiling/apex/com.android.profiling",
+    "com.android.rkpd.apex": "payload:packages/modules/RemoteKeyProvisioning/apex/com.android.rkpd",
+    "com.android.i18n.apex": "payload:packages/modules/RuntimeI18n/apex/com.android.i18n",
+    "com.android.scheduling.apex": "payload:packages/modules/Scheduling/apex/com.android.scheduling",
+    "com.android.sdkext.apex": "payload:packages/modules/SdkExtensions/com.android.sdkext",
+    "com.android.os.statsd.apex": "payload:packages/modules/StatsD/apex/com.android.os.statsd",
+    "com.android.telephonycore.apex": "payload:packages/modules/Telephony/apex/com.android.telephonycore",
+    "com.android.uprobestats.apex": "payload:packages/modules/UprobeStats/apex/com.android.uprobestats",
+    "com.android.uwb.apex": "payload:packages/modules/Uwb/apex/com.android.uwb",
+    "com.android.virt.apex": "payload:packages/modules/Virtualization/build/apex/com.android.virt",
+    "com.android.compos.apex": "payload:packages/modules/Virtualization/build/compos/com.android.compos",
+    "com.android.webapp.apex": "payload:packages/modules/WebApp/apex/com.android.webapp",
+    "com.android.wifi.apex": "payload:packages/modules/Wifi/apex/com.android.wifi",
+    "com.android.adbd.apex": "payload:packages/modules/adb/apex/com.android.adbd",
+    "com.android.mediaprovider.apex": "payload:packages/providers/MediaProvider/apex/com.android.mediaprovider",
+    "com.android.tzdata.apex": "payload:system/timezone/apex/com.android.tzdata"
+  },
+  "nested_apk_names": [
+    "AdServicesApk.apk",
+    "Bluetooth.apk",
+    "CellBroadcastApp.apk",
+    "CellBroadcastServiceModule.apk",
+    "CompOSPayloadApp.apk",
+    "DeviceLockController.apk",
+    "EmptyPayloadApp.apk",
+    "FederatedCompute.apk",
+    "HealthConnectBackupRestore.apk",
+    "HealthConnectController.apk",
+    "MediaProvider.apk",
+    "NfcNciApex.apk",
+    "OnDevicePersonalization.apk",
+    "OsuLogin.apk",
+    "PermissionController.apk",
+    "Photopicker.apk",
+    "SafetyCenterResources.apk",
+    "SdkSandbox.apk",
+    "ServiceConnectivityResources.apk",
+    "ServiceUwbResources.apk",
+    "ServiceWifiResources.apk",
+    "TelecomServiceResources.apk",
+    "TelecomUi.apk",
+    "TetheringNext.apk",
+    "VmTerminalApp.apk",
+    "WebAppService.apk",
+    "WifiDialog.apk",
+    "android.system.virtualmachine.res.apk",
+    "com.android.appsearch.apk.apk",
+    "rkpdapp.apk"
+  ]
+}
