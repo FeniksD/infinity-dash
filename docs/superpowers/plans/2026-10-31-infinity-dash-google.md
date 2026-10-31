@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Target `infinity_dash`, Android 17, `UNOFFICIAL`, current working `user` variant; maintain author identity FeniksD.
+- Target `infinity_dash`, Android 17, `UNOFFICIAL`, retain the existing launcher target `userdebug` (the device's runtime properties report `user`); maintain author identity FeniksD.
 - Use pinned `vendor/pixel/gms` commit `4d2eb0026075de0f6f4a95bc5818dacdd1c0e852`; do not update unrelated source repositories.
 - Keep MIUI Camera, Launcher3QuickStep, providers, IMS/eSIM, encryption, SELinux and existing kernel/vendor cohort.
 - Do not install root, alter charging, change bootloader state or import private attestation keys.

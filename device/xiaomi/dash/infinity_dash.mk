@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # Adaptation for Project Infinity X. Hardware configuration comes from dash/cnb.
 
-WITH_GAPPS := false
+WITH_GAPPS := true
 INFINITY_BUILD_TYPE := UNOFFICIAL
 INFINITY_MAINTAINER := feniksd
 
@@ -22,6 +22,20 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/xiaomi/dash/device.mk)
 $(call inherit-product, vendor/infinity/config/common_full_phone.mk)
+
+ifeq ($(WITH_GAPPS),true)
+# Google replacements; keep the device camera, launcher and system providers.
+PRODUCT_PACKAGES += \
+    CalendarGooglePrebuilt \
+    Photos \
+    GoogleDialer \
+    PrebuiltBugle \
+    com.google.android.dialer.support
+
+# Google Dialer declares this shared library as required in its manifest.
+PRODUCT_COPY_FILES += \
+    vendor/pixel/gms/common/proprietary/product/etc/permissions/com.google.android.dialer.support.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.google.android.dialer.support.xml
+endif
 
 PRODUCT_DEVICE := dash
 PRODUCT_NAME := infinity_dash

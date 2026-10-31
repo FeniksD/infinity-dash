@@ -1,5 +1,5 @@
 diff --git a/AndroidProducts.mk b/AndroidProducts.mk
-index 564d2a5..f5cf264 100644
+index 564d2a5407272c947138dcd133b1ef9b5f5d4a30..f5cf2646d2db1ffc689163eebb0cd88423df4333 100644
 --- a/AndroidProducts.mk
 +++ b/AndroidProducts.mk
 @@ -4,4 +4,7 @@
@@ -12,7 +12,7 @@ index 564d2a5..f5cf264 100644
 +COMMON_LUNCH_CHOICES := \
 +    infinity_dash-userdebug
 diff --git a/BoardConfig.mk b/BoardConfig.mk
-index a4490a1..7efafb8 100644
+index a4490a1f717e02d6c49afcf8e19979b1da8dee59..7efafb8136dd0076b2c3cff768c789e13d577bbe 100644
 --- a/BoardConfig.mk
 +++ b/BoardConfig.mk
 @@ -107,7 +107,7 @@ BOARD_PVMFWIMAGE_PARTITION_SIZE := 20971520
@@ -25,7 +25,7 @@ index a4490a1..7efafb8 100644
  
  BOARD_SUPER_PARTITION_SIZE := 9126805504
 diff --git a/device.mk b/device.mk
-index bbab002..0e7492b 100644
+index bbab00227410cacd07285668c31b600af6244cbd..0e7492b5fd40d9e8d7dfa2d099373861a9db90b3 100644
 --- a/device.mk
 +++ b/device.mk
 @@ -4,7 +4,7 @@
@@ -48,15 +48,15 @@ index bbab002..0e7492b 100644
  PRODUCT_PACKAGES += \
 diff --git a/infinity_dash.mk b/infinity_dash.mk
 new file mode 100644
-index 0000000..ef0de2e
+index 0000000000000000000000000000000000000000..0702d64d22088d3ccf722031a47ddc9261367449
 --- /dev/null
 +++ b/infinity_dash.mk
-@@ -0,0 +1,46 @@
+@@ -0,0 +1,60 @@
 +# SPDX-FileCopyrightText: The LineageOS Project
 +# SPDX-License-Identifier: Apache-2.0
 +# Adaptation for Project Infinity X. Hardware configuration comes from dash/cnb.
 +
-+WITH_GAPPS := false
++WITH_GAPPS := true
 +INFINITY_BUILD_TYPE := UNOFFICIAL
 +INFINITY_MAINTAINER := feniksd
 +
@@ -76,6 +76,20 @@ index 0000000..ef0de2e
 +$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 +$(call inherit-product, device/xiaomi/dash/device.mk)
 +$(call inherit-product, vendor/infinity/config/common_full_phone.mk)
++
++ifeq ($(WITH_GAPPS),true)
++# Google replacements; keep the device camera, launcher and system providers.
++PRODUCT_PACKAGES += \
++    CalendarGooglePrebuilt \
++    Photos \
++    GoogleDialer \
++    PrebuiltBugle \
++    com.google.android.dialer.support
++
++# Google Dialer declares this shared library as required in its manifest.
++PRODUCT_COPY_FILES += \
++    vendor/pixel/gms/common/proprietary/product/etc/permissions/com.google.android.dialer.support.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/com.google.android.dialer.support.xml
++endif
 +
 +PRODUCT_DEVICE := dash
 +PRODUCT_NAME := infinity_dash
@@ -99,7 +113,7 @@ index 0000000..ef0de2e
 +    SystemDevice=dash \
 +    SystemName=dash_global
 diff --git a/sepolicy/private/esimswitcher_app.te b/sepolicy/private/esimswitcher_app.te
-index 9c29f5f..4b8ec76 100644
+index 9c29f5f9acc422d8dfd84876cbbd0f262bfce244..4b8ec7697751e3961b0a52e0e24c52f0e50fba8f 100644
 --- a/sepolicy/private/esimswitcher_app.te
 +++ b/sepolicy/private/esimswitcher_app.te
 @@ -1,4 +1,4 @@
@@ -109,7 +123,7 @@ index 9c29f5f..4b8ec76 100644
  
  app_domain(esimswitcher_app)
 diff --git a/sepolicy/private/parts_app.te b/sepolicy/private/parts_app.te
-index 9b8d325..c5c6365 100644
+index 9b8d3251f4521b9af41fbf2da6a92243f0026a34..c5c63659981f084ead5311a1f5105c4d204ae776 100644
 --- a/sepolicy/private/parts_app.te
 +++ b/sepolicy/private/parts_app.te
 @@ -1,4 +1,4 @@
