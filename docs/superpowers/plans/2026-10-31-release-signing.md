@@ -57,4 +57,4 @@
 - [x] Check VINTF, AVB chains, payload signatures, whole-OTA signature and partition allowlist.
 - [x] Preserve a verified current-ROM rollback and record migration requirements.
 - [x] Only then carry out installation within the user's authorized scope, obtaining specific consent if a new data wipe is required.
-- [ ] Test live platform identity, Google certification and Basic/Device/Strong independently.
+- [x] Test live platform identity, Google certification and Basic/Device/Strong independently. Result: owner signature confirmed; Basic passes, Device/Strong and certification still fail.

@@ -163,11 +163,17 @@
     "vintf_verified": true,
     "presigned_package_identities_preserved": true,
     "unit_tests": 111,
-    "all_partial_update_versions_verified": true
+    "all_partial_update_versions_verified": true,
+    "runtime_platform_certificate_verified": true
   },
-  "installation_status": "recovery_installation_and_target_boot_images_verified",
-  "google_play_certification": "not_verified_on_this_release",
-  "play_integrity": "not_verified_on_this_release",
+  "installation_status": "booted_on_slot_b_and_runtime_platform_certificate_verified",
+  "google_play_certification": "not_certified",
+  "play_integrity": {
+    "basic": true,
+    "device": false,
+    "strong": false,
+    "fresh_licensed_tests": 6
+  },
   "requires_before_installation": [
     "Clean installation when changing platform signing keys",
     "Verified backups of current pvmfw_a and pvmfw_b"
