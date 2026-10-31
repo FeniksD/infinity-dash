@@ -98,3 +98,23 @@ index 0000000..ef0de2e
 +    DeviceProduct=dash_global \
 +    SystemDevice=dash \
 +    SystemName=dash_global
+diff --git a/sepolicy/private/esimswitcher_app.te b/sepolicy/private/esimswitcher_app.te
+index 9c29f5f..4b8ec76 100644
+--- a/sepolicy/private/esimswitcher_app.te
++++ b/sepolicy/private/esimswitcher_app.te
+@@ -1,4 +1,4 @@
+-type esimswitcher_app, domain;
++type esimswitcher_app, domain, coredomain;
+ typeattribute esimswitcher_app mlstrustedsubject;
+ 
+ app_domain(esimswitcher_app)
+diff --git a/sepolicy/private/parts_app.te b/sepolicy/private/parts_app.te
+index 9b8d325..c5c6365 100644
+--- a/sepolicy/private/parts_app.te
++++ b/sepolicy/private/parts_app.te
+@@ -1,4 +1,4 @@
+-type parts_app, domain;
++type parts_app, domain, coredomain;
+ typeattribute parts_app mlstrustedsubject;
+ 
+ app_domain(parts_app)
