@@ -54,6 +54,21 @@ class OtaInputTests(unittest.TestCase):
             with self.subTest(names=names), self.assertRaises(ValueError):
                 self.driver.prepare_partial_ota_input(self.root, names)
 
+    def test_partial_update_versions_cover_boot_and_preserve_existing_versions(self):
+        self.assertTrue(hasattr(self.driver, "complete_partition_versions"))
+        self.assertEqual(
+            self.driver.complete_partition_versions(
+                ["boot", "vendor"], {"vendor": "100"}, "200"
+            ),
+            {"boot": "200", "vendor": "100"},
+        )
+
+    def test_partial_update_versions_reject_invalid_or_foreign_values(self):
+        self.assertTrue(hasattr(self.driver, "complete_partition_versions"))
+        for existing, timestamp in (({}, "0"), ({"boot": "bad"}, "200"), ({"lk": "100"}, "200")):
+            with self.subTest(existing=existing, timestamp=timestamp), self.assertRaises(ValueError):
+                self.driver.complete_partition_versions(["boot"], existing, timestamp)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -7,6 +7,26 @@ import re
 import stat
 
 
+def complete_partition_versions(partitions, existing, release_timestamp):
+    """Fill omitted partial-update versions from the target release timestamp."""
+    if not partitions or len(set(partitions)) != len(partitions):
+        raise ValueError("Expected a nonempty unique partition list")
+    if any(not re.fullmatch(r"[a-z][a-z0-9_]*", name) for name in partitions):
+        raise ValueError("Invalid partition name")
+    timestamp = str(release_timestamp)
+    if not timestamp.isdecimal() or int(timestamp) <= 0:
+        raise ValueError("Invalid target release timestamp")
+    if set(existing) - set(partitions):
+        raise ValueError("Version refers to an excluded partition")
+    result = {}
+    for name in partitions:
+        value = str(existing.get(name) or timestamp)
+        if not value.isdecimal() or int(value) <= 0:
+            raise ValueError("Invalid partition version")
+        result[name] = value
+    return result
+
+
 def prepare_partial_ota_input(root, partitions):
     root = Path(root)
     if not partitions or len(set(partitions)) != len(partitions):

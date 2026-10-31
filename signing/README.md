@@ -48,3 +48,10 @@ silently ignores permission errors on read-only metadata; `--partial` alone can
 therefore leave the full firmware partition list in the payload. Check the exact
 list again at payload generation and in the final payload manifest. Never use
 this preparation helper on the original signed staging tree.
+
+Partial payloads also require per-partition versions. Prebuilt boot images may
+lack build properties, so the standard timestamp list can omit `boot` and other
+images. Use `complete_partition_versions()` to preserve known partition versions
+and fill missing ones with the target release timestamp before passing the list
+to `delta_generator --partition_timestamps`. Verify all versions in the final
+manifest: signature verification alone does not detect this install-time error.
