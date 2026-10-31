@@ -4,7 +4,7 @@
 
 Provide Google Play services and Play Store on the working Infinity X 4.1 / Android 17 build for POCO X8 Pro Max (`dash`). Gboard is required. Replace the corresponding bundled user applications with Google alternatives, while retaining the working MIUI Camera, Infinity launcher, hardware integration, encryption and recovery path.
 
-The user requested implementation and then said to continue. A concise application-set confirmation and a request for a working ADB connection are pending in chat. Preparation and validation can proceed; phone installation requires a connection and an explicit decision if another data wipe becomes necessary.
+The user requested implementation, said to continue, and explicitly confirmed this application set. Phone installation requires a stable connection and an explicit decision if another data wipe becomes necessary.
 
 ## Application selection
 
@@ -23,6 +23,14 @@ Additionally select these existing modules:
 Install the existing `com.google.android.dialer.support.xml` into the product permissions directory so PackageManager registers that library and the supported-dialer feature. Existing Google privileged-permission allowlists must cover the selected applications. If native build validation requires a matching Soong `uses_libs` declaration, add a narrowly scoped pinned GMS patch; never relax global library or permission checks.
 
 Use the Google modules' declared overrides to remove LatinIME, Contacts, DeskClock, ExactCalculator, Jelly, Glimpse and AOSP Dialer/Messaging from the resulting package set. Do not remove ContactsProvider, CalendarProvider, DocumentsUI, Telecom, IMS, eSIM components, permission controllers, XiaomiParts, MIUI Camera or Launcher3QuickStep. Google Calendar is an addition where no standalone calendar was bundled. Do not add unrelated optional Google applications.
+
+## Later user requirements: sound and status-bar preservation
+
+The user explicitly asked not to change notification/ringtone/alarm sounds in the build. GApps currently causes `vendor/extras/prebuilts.mk` to install and select different defaults. Add a device opt-out, `TARGET_KEEP_STOCK_SOUNDS := true`, around only that extras sound block; preserve upstream behavior when the flag is absent. Leave the usual Infinity/AOSP audio content and fallback defaults intact. The currently selected notification is OnTheHunt; changing Google applications must not silently choose a replacement tone.
+
+The user also requested camera-aligned status-bar content and Dynamic Island, reporting different vertical placement on the lock screen and unlocked screen. Runtime measurements show 504 dpi, a cutout center at y=85 px, a 132 px/42 dp regular status bar, and a separately overridden 48 dp portrait resource from `SBHeightOverlay`. Provide a product-partition device RRO replacing `SBHeightOverlay`, retaining its package identity and priority while making portrait height and portrait default height 54 dp (170 px at default density). Keep the existing 28 dp landscape resource and leave the default resource outside portrait to the existing device overlay. Do not alter cutout geometry, DPI, fonts, icons or hardware settings.
+
+Runtime acceptance must confirm both lock-screen and unlocked alignment; the numeric fit alone is not proof of visual correctness. A temporary APK update was rejected because the installed overlay is static, so no successful trial overlay was installed. The earlier temporary padding setting was verified restored to its original null value.
 
 ## Scope and safeguards
 

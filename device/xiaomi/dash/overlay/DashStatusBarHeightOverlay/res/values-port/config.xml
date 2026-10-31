@@ -1,0 +1,4 @@
+<resources>
+    <!-- At the default 504 dpi, 54 dp is 170 px: twice the cutout's 85 px center. -->
+    <dimen name="status_bar_height_default">54dp</dimen>
+</resources>

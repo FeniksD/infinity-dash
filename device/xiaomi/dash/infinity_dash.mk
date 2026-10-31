@@ -3,6 +3,7 @@
 # Adaptation for Project Infinity X. Hardware configuration comes from dash/cnb.
 
 WITH_GAPPS := true
+TARGET_KEEP_STOCK_SOUNDS := true
 INFINITY_BUILD_TYPE := UNOFFICIAL
 INFINITY_MAINTAINER := feniksd
 
@@ -22,6 +23,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit_only.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/xiaomi/dash/device.mk)
 $(call inherit-product, vendor/infinity/config/common_full_phone.mk)
+
+# Match the centered camera cutout in portrait on this device.
+PRODUCT_PACKAGES += DashStatusBarHeightOverlay
 
 ifeq ($(WITH_GAPPS),true)
 # Google replacements; keep the device camera, launcher and system providers.

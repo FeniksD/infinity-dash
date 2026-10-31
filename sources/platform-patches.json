@@ -15,6 +15,14 @@
       "files": {
         "scripts/check_boot_jars/package_allowed_list.txt": "source_overrides/build/soong/scripts/check_boot_jars/package_allowed_list.txt"
       }
+    },
+    {
+      "path": "vendor/extras",
+      "commit": "d0f743e963c41771a5bc7473b92d6d58caf6afb1",
+      "patch": "patches/0004-preserve-stock-sounds.patch",
+      "files": {
+        "prebuilts.mk": "source_overrides/vendor/extras/prebuilts.mk"
+      }
     }
   ]
 }

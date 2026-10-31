@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="status_bar_height_portrait">54dp</dimen>
+    <dimen name="status_bar_height_landscape">28dp</dimen>
+</resources>

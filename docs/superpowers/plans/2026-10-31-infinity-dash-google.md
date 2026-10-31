@@ -17,6 +17,7 @@
 - Keep MIUI Camera, Launcher3QuickStep, providers, IMS/eSIM, encryption, SELinux and existing kernel/vendor cohort.
 - Do not install root, alter charging, change bootloader state or import private attestation keys.
 - Preserve Vanilla artifacts and backups. A new wipe requires specific user approval; absence of ADB is not permission to skip checks.
+- Preserve the previous sound defaults; align portrait status-bar and island layout with the measured camera geometry without changing cutout/DPI.
 
 ## Review Focus
 
@@ -75,3 +76,16 @@
 - [ ] Use only the coherent selected Android image set and existing verified recovery/rollback checks; never flash the complete firmware-bearing OTA.
 - [ ] After boot, have the user sign in to Google. Verify Play Store installation/update, Gboard, selected application roles, providers and basic camera/telephony/eSIM/lighting.
 - [ ] Record Play certification and each observed Integrity verdict separately. Do not claim all checks passed from GApps installation alone.
+
+### Task 5: Incorporate later user sound and layout requirements
+
+**Execution order:** perform this before resuming Task 2 with the final source state. The first GApps draft was intentionally interrupted; keep its normal source post-verification intact.
+
+**Files:** `device/xiaomi/dash/infinity_dash.mk`, new `device/xiaomi/dash/overlay/DashStatusBarHeightOverlay/` RRO, updated reproducible device patch, `source_overrides/vendor/extras/prebuilts.mk`, `patches/0004-preserve-stock-sounds.patch`, `sources/platform-patches.json`, `tests/test_gapps_sounds.py`.
+
+- [ ] Reproduce the extras sound-default substitution using GNU make with GApps and the requested preservation flag.
+- [ ] Add the narrow opt-out and show RED-to-GREEN for the make evaluation; preserve absent-flag and Vanilla behavior.
+- [ ] Add the device RRO replacing only `SBHeightOverlay`, with 54 dp portrait/default-port and unchanged 28 dp landscape; keep the manifest resource-only.
+- [ ] Regenerate the complete upstream device patch, including the new overlay files.
+- [ ] Run all preparation tests, offline preflight, XML parsing and native RRO resource compilation. Expected: all pass; required sound assets/defaults remain those of Vanilla; no second overlay with the same package installed.
+- [ ] Review this new delta before controlled source promotion. Resume Task 2 only after the intentionally stopped draft completes source verification.

@@ -48,15 +48,16 @@ index bbab00227410cacd07285668c31b600af6244cbd..0e7492b5fd40d9e8d7dfa2d099373861
  PRODUCT_PACKAGES += \
 diff --git a/infinity_dash.mk b/infinity_dash.mk
 new file mode 100644
-index 0000000000000000000000000000000000000000..0702d64d22088d3ccf722031a47ddc9261367449
+index 0000000000000000000000000000000000000000..0b45f6c988abc44fff4b3779cfbfefe9c87d5c2d
 --- /dev/null
 +++ b/infinity_dash.mk
-@@ -0,0 +1,60 @@
+@@ -0,0 +1,64 @@
 +# SPDX-FileCopyrightText: The LineageOS Project
 +# SPDX-License-Identifier: Apache-2.0
 +# Adaptation for Project Infinity X. Hardware configuration comes from dash/cnb.
 +
 +WITH_GAPPS := true
++TARGET_KEEP_STOCK_SOUNDS := true
 +INFINITY_BUILD_TYPE := UNOFFICIAL
 +INFINITY_MAINTAINER := feniksd
 +
@@ -76,6 +77,9 @@ index 0000000000000000000000000000000000000000..0702d64d22088d3ccf722031a47ddc92
 +$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 +$(call inherit-product, device/xiaomi/dash/device.mk)
 +$(call inherit-product, vendor/infinity/config/common_full_phone.mk)
++
++# Match the centered camera cutout in portrait on this device.
++PRODUCT_PACKAGES += DashStatusBarHeightOverlay
 +
 +ifeq ($(WITH_GAPPS),true)
 +# Google replacements; keep the device camera, launcher and system providers.
@@ -112,6 +116,51 @@ index 0000000000000000000000000000000000000000..0702d64d22088d3ccf722031a47ddc92
 +    DeviceProduct=dash_global \
 +    SystemDevice=dash \
 +    SystemName=dash_global
+diff --git a/overlay/DashStatusBarHeightOverlay/Android.bp b/overlay/DashStatusBarHeightOverlay/Android.bp
+new file mode 100644
+index 0000000000000000000000000000000000000000..9380001e5c79b2bd3fae9ca820da654bb5ba921c
+--- /dev/null
++++ b/overlay/DashStatusBarHeightOverlay/Android.bp
+@@ -0,0 +1,6 @@
++runtime_resource_overlay {
++    name: "DashStatusBarHeightOverlay",
++    overrides: ["SBHeightOverlay"],
++    product_specific: true,
++    sdk_version: "current",
++}
+diff --git a/overlay/DashStatusBarHeightOverlay/AndroidManifest.xml b/overlay/DashStatusBarHeightOverlay/AndroidManifest.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..51d3894e26fe81e6f6658fe78045b80a8e71bd27
+--- /dev/null
++++ b/overlay/DashStatusBarHeightOverlay/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.android.statusbar.height"
++    android:versionCode="2"
++    android:versionName="1.1">
++    <overlay android:targetPackage="android" android:isStatic="true" android:priority="999" />
++    <application android:label="SB Height" android:hasCode="false" />
++</manifest>
+diff --git a/overlay/DashStatusBarHeightOverlay/res/values-port/config.xml b/overlay/DashStatusBarHeightOverlay/res/values-port/config.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..4e3317f539f6319d54f017ede0d8a55e523b2d8f
+--- /dev/null
++++ b/overlay/DashStatusBarHeightOverlay/res/values-port/config.xml
+@@ -0,0 +1,4 @@
++<resources>
++    <!-- At the default 504 dpi, 54 dp is 170 px: twice the cutout's 85 px center. -->
++    <dimen name="status_bar_height_default">54dp</dimen>
++</resources>
+diff --git a/overlay/DashStatusBarHeightOverlay/res/values/config.xml b/overlay/DashStatusBarHeightOverlay/res/values/config.xml
+new file mode 100644
+index 0000000000000000000000000000000000000000..b056af566df0f520479f222a93097e839e111edc
+--- /dev/null
++++ b/overlay/DashStatusBarHeightOverlay/res/values/config.xml
+@@ -0,0 +1,4 @@
++<resources>
++    <dimen name="status_bar_height_portrait">54dp</dimen>
++    <dimen name="status_bar_height_landscape">28dp</dimen>
++</resources>
 diff --git a/sepolicy/private/esimswitcher_app.te b/sepolicy/private/esimswitcher_app.te
 index 9c29f5f9acc422d8dfd84876cbbd0f262bfce244..4b8ec7697751e3961b0a52e0e24c52f0e50fba8f 100644
 --- a/sepolicy/private/esimswitcher_app.te

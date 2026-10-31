@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.statusbar.height"
+    android:versionCode="2"
+    android:versionName="1.1">
+    <overlay android:targetPackage="android" android:isStatic="true" android:priority="999" />
+    <application android:label="SB Height" android:hasCode="false" />
+</manifest>

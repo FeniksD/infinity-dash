@@ -1,0 +1,6 @@
+runtime_resource_overlay {
+    name: "DashStatusBarHeightOverlay",
+    overrides: ["SBHeightOverlay"],
+    product_specific: true,
+    sdk_version: "current",
+}
