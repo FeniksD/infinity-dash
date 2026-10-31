@@ -66,6 +66,16 @@ class PreparationTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("private signing", result.stdout)
 
+    def test_rejects_modified_integrity_profile(self):
+        root = self.fixture()
+        path = root / "device/xiaomi/dash/configs/integrity/pif.json"
+        data = json.loads(path.read_text())
+        data["MODEL"] = "unreviewed model"
+        path.write_text(json.dumps(data))
+        result = self.run_check(root)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("integrity configuration hash mismatch", result.stdout)
+
     def test_device_is_ported_and_preserves_hardware_identity(self):
         path = ROOT / "device/xiaomi/dash/infinity_dash.mk"
         self.assertTrue(path.exists(), "Infinity product is not prepared")

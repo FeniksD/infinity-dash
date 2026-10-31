@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "device": "dash",
+  "model": "2602BPC18G",
+  "factory_attestation_product": "dash_ru",
+  "tested_sdk": 37,
+  "keybox_url": "https://gitea.com/Evolution-X/keybox/raw/branch/main/keybox.xml",
+  "approved_keybox_sha256": "1e59118fbed898bb175a23bd1bc53e15f3e7e9f3282244ed61419fb41dbd4939",
+  "approved_keybox_expires": "2026-11-06T07:53:17+00:00",
+  "trusted_root_sha256": [
+    "cedb1cb6dc896ae5ec797348bce9286753c2b38ee71ce0fbe34a9a1248800dfc",
+    "6d9db4ce6c5c0b293166d08986e05774a8776ceb525d9e4329520de12ba4bcc0"
+  ],
+  "targets": [
+    "com.google.android.gms",
+    "com.android.vending",
+    "com.google.android.gsf"
+  ],
+  "pif_source": "https://raw.githubusercontent.com/KOWX712/PlayIntegrityFix/bot/device_prop/bluejay_beta.prop",
+  "pif_sha256": "b007cf496a19b5c9e490850fb72420c61c3e6463ea4f387a37f708093d14d2ef",
+  "gameprops_sha256": "baf6e344f7d3d345833ee0e1fc502ce172fef1aa082baf491cce8b3bb7c0ce88"
+}

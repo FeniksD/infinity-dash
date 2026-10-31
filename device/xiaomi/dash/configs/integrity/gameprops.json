@@ -1,0 +1,12 @@
+{
+  "games": {
+    "com.google.android.gms": {
+      "PRODUCT_FOR_ATTESTATION": "dash_ru"
+    },
+    "com.android.vending": {
+      "PRODUCT_FOR_ATTESTATION": "dash_ru"
+    }
+  },
+  "enabled": true,
+  "debug": false
+}

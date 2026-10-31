@@ -12,3 +12,6 @@ __pycache__/
 *.passphrase
 *.gpg
 signing/private/
+# Attestation keyboxes contain private keys even though their format is XML.
+*keybox*.xml
+settings-before-*.json

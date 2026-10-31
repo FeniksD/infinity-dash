@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "observed_utc": "2026-10-31T19:58:20.895000+00:00",
+  "device": "dash",
+  "model": "2602BPC18G",
+  "android_version": 17,
+  "rom": "Infinity X 4.1",
+  "ota_sha256": "2d51adbaaa53665c6c61f933872ef85de383d4f94eab56115da8f95ed6256e95",
+  "context": "Post-install runtime configuration using built-in PIF and TrickyStore; not an unconfigured ZIP result.",
+  "play_integrity": [
+    "MEETS_BASIC_INTEGRITY",
+    "MEETS_DEVICE_INTEGRITY",
+    "MEETS_STRONG_INTEGRITY"
+  ],
+  "app_recognition": "PLAY_RECOGNIZED",
+  "licensing": "LICENSED",
+  "google_play_certification": "certified",
+  "fresh_all_pass_tests": 2,
+  "approved_keybox_sha256": "1e59118fbed898bb175a23bd1bc53e15f3e7e9f3282244ed61419fb41dbd4939",
+  "keybox_leaf_expires_utc": "2026-11-06T07:53:17+00:00",
+  "keybox_source": "https://gitea.com/Evolution-X/keybox/raw/branch/main/keybox.xml",
+  "keybox_validation": [
+    "matching private/public key",
+    "valid chain signatures",
+    "trusted Google attestation root",
+    "not expired at verification",
+    "not listed in current Google revocation response"
+  ],
+  "configuration": {
+    "pif_profile": "Pixel 6a / bluejay_beta",
+    "spoofProvider": false,
+    "factory_attestation_product": "dash_ru",
+    "target_packages": [
+      "com.google.android.gms",
+      "com.android.vending",
+      "com.google.android.gsf"
+    ]
+  },
+  "private_key_material_in_report": false,
+  "rebuild_or_reflash_for_this_fix": false,
+  "evidence_sha256": {
+    "play-store-certified.png": "39c2119a5ad8c22a6727992f11be1738022f726256a290ef9aab8feb96190e2e",
+    "integrity-all-pass.png": "b186360411cc5f8de376deec2de2a85f3a0a032ea1ee172e33d90532e3342586"
+  },
+  "limits": [
+    "Result can change with certificate expiry/revocation and Google policy.",
+    "Does not establish that the bootloader is physically locked.",
+    "Public recipe is saved for future builds but is not automatically applied on boot."
+  ]
+}

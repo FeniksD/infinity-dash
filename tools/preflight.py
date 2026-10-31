@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate the portable preparation bundle without syncing/building Android."""
 import argparse
+import hashlib
 import json
 from pathlib import Path, PurePosixPath
 import re
@@ -104,6 +105,16 @@ def validate_bundle(root: Path) -> list[str]:
         errors.append("device filesystem still uses WITH_GMS instead of WITH_GAPPS")
     if "FILESYSTEM_TYPE_vendor=erofs" not in config:
         errors.append("vendor postinstall filesystem is not declared")
+    try:
+        integrity = device / "configs/integrity"
+        policy = json.loads((integrity / "policy.json").read_text())
+        for name in ("pif", "gameprops"):
+            raw = (integrity / (name + ".json")).read_bytes()
+            json.loads(raw)
+            if hashlib.sha256(raw).hexdigest() != policy[name + "_sha256"]:
+                errors.append("integrity configuration hash mismatch: " + name)
+    except (OSError, ValueError, KeyError) as exc:
+        errors.append("invalid integrity configuration: " + str(exc))
     return errors
 
 
@@ -115,7 +126,9 @@ def main() -> int:
     errors = validate_bundle(args.bundle_root.resolve())
     if args.source_root and not errors:
         errors += validate_checkouts(args.bundle_root.resolve(), args.source_root.resolve(), prepared=True)
-        for name in ("AndroidProducts.mk", "BoardConfig.mk", "device.mk", "infinity_dash.mk"):
+        for name in ("AndroidProducts.mk", "BoardConfig.mk", "device.mk", "infinity_dash.mk",
+                     "configs/integrity/pif.json", "configs/integrity/gameprops.json",
+                     "configs/integrity/policy.json"):
             actual = args.source_root / "device/xiaomi/dash" / name
             expected = args.bundle_root / "device/xiaomi/dash" / name
             if not actual.is_file() or actual.read_bytes() != expected.read_bytes():

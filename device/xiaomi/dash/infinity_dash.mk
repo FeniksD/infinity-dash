@@ -27,6 +27,12 @@ $(call inherit-product, vendor/infinity/config/common_full_phone.mk)
 # Match the centered camera cutout in portrait on this device.
 PRODUCT_PACKAGES += DashStatusBarHeightOverlay
 
+# Public, reviewed restore recipe. Attestation private keys are never bundled.
+PRODUCT_COPY_FILES += \
+    device/xiaomi/dash/configs/integrity/pif.json:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/infinity/integrity/pif.json \
+    device/xiaomi/dash/configs/integrity/gameprops.json:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/infinity/integrity/gameprops.json \
+    device/xiaomi/dash/configs/integrity/policy.json:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/infinity/integrity/policy.json
+
 ifeq ($(WITH_GAPPS),true)
 # Google replacements; keep the device camera, launcher and system providers.
 PRODUCT_PACKAGES += \

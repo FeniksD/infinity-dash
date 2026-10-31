@@ -167,12 +167,15 @@
     "runtime_platform_certificate_verified": true
   },
   "installation_status": "booted_on_slot_b_and_runtime_platform_certificate_verified",
-  "google_play_certification": "not_certified",
+  "google_play_certification": "certified_after_runtime_configuration",
   "play_integrity": {
     "basic": true,
-    "device": false,
-    "strong": false,
-    "fresh_licensed_tests": 6
+    "device": true,
+    "strong": true,
+    "fresh_all_pass_tests": 2,
+    "requires_post_install_configuration": true,
+    "evidence": "validation/2026-11-01-integrity.json",
+    "keybox_expires_utc": "2026-11-06T07:53:17+00:00"
   },
   "requires_before_installation": [
     "Clean installation when changing platform signing keys",
@@ -191,5 +194,14 @@
     "only_added_missing_partition_versions": true,
     "compressed_operation_data_unchanged": true,
     "compressed_data_sha256": "5d29aba4d9c5a5b0e4f0e9402a158296df1394f3ce8efbdac79e0ecf7601d209"
+  },
+  "initial_post_install_result": {
+    "google_play_certification": "not_certified",
+    "play_integrity": {
+      "basic": true,
+      "device": false,
+      "strong": false,
+      "fresh_licensed_tests": 6
+    }
   }
 }

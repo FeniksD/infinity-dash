@@ -57,10 +57,10 @@ index bbab00227410cacd07285668c31b600af6244cbd..f0f724f0239e832ea828cea38d76b9cb
      android.hardware.health-service.mediatek-recovery
 diff --git a/infinity_dash.mk b/infinity_dash.mk
 new file mode 100644
-index 0000000000000000000000000000000000000000..0b45f6c988abc44fff4b3779cfbfefe9c87d5c2d
+index 0000000000000000000000000000000000000000..1f5ac3c4546b54fe266fb89bc5db32e75042862c
 --- /dev/null
 +++ b/infinity_dash.mk
-@@ -0,0 +1,64 @@
+@@ -0,0 +1,70 @@
 +# SPDX-FileCopyrightText: The LineageOS Project
 +# SPDX-License-Identifier: Apache-2.0
 +# Adaptation for Project Infinity X. Hardware configuration comes from dash/cnb.
@@ -89,6 +89,12 @@ index 0000000000000000000000000000000000000000..0b45f6c988abc44fff4b3779cfbfefe9
 +
 +# Match the centered camera cutout in portrait on this device.
 +PRODUCT_PACKAGES += DashStatusBarHeightOverlay
++
++# Public, reviewed restore recipe. Attestation private keys are never bundled.
++PRODUCT_COPY_FILES += \
++    device/xiaomi/dash/configs/integrity/pif.json:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/infinity/integrity/pif.json \
++    device/xiaomi/dash/configs/integrity/gameprops.json:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/infinity/integrity/gameprops.json \
++    device/xiaomi/dash/configs/integrity/policy.json:$(TARGET_COPY_OUT_SYSTEM_EXT)/etc/infinity/integrity/policy.json
 +
 +ifeq ($(WITH_GAPPS),true)
 +# Google replacements; keep the device camera, launcher and system providers.
@@ -190,3 +196,78 @@ index 9b8d3251f4521b9af41fbf2da6a92243f0026a34..c5c63659981f084ead5311a1f5105c4d
  typeattribute parts_app mlstrustedsubject;
  
  app_domain(parts_app)
+diff --git a/configs/integrity/pif.json b/configs/integrity/pif.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..664bbd0f83296df417e1a25257e7ab98a144afdc
+--- /dev/null
++++ b/configs/integrity/pif.json
+@@ -0,0 +1,23 @@
++{
++  "FINGERPRINT": "google/bluejay_beta/bluejay:CANARY/ZP11.260918.007/16484274:user/release-keys",
++  "MANUFACTURER": "Google",
++  "MODEL": "Pixel 6a",
++  "SECURITY_PATCH": "2026-10-05",
++  "DEVICE_INITIAL_SDK_INT": "32",
++  "BRAND": "google",
++  "PRODUCT": "bluejay_beta",
++  "DEVICE": "bluejay",
++  "RELEASE": "CANARY",
++  "ID": "ZP11.260918.007",
++  "INCREMENTAL": "16484274",
++  "TYPE": "user",
++  "TAGS": "release-keys",
++  "spoofBuild": "true",
++  "spoofProps": "true",
++  "spoofProvider": "false",
++  "spoofSignature": "false",
++  "spoofVendingBuild": "true",
++  "spoofVendingSdk": "false",
++  "DEBUG": "false",
++  "ro.product.name_for_attestation": "dash_ru"
++}
+diff --git a/configs/integrity/gameprops.json b/configs/integrity/gameprops.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..1c220ec919f41f8cdad69cd64ff631b0a04ca8b5
+--- /dev/null
++++ b/configs/integrity/gameprops.json
+@@ -0,0 +1,12 @@
++{
++  "games": {
++    "com.google.android.gms": {
++      "PRODUCT_FOR_ATTESTATION": "dash_ru"
++    },
++    "com.android.vending": {
++      "PRODUCT_FOR_ATTESTATION": "dash_ru"
++    }
++  },
++  "enabled": true,
++  "debug": false
++}
+diff --git a/configs/integrity/policy.json b/configs/integrity/policy.json
+new file mode 100644
+index 0000000000000000000000000000000000000000..ac35bca7b6503681bc746e72d9afac77e7bf136d
+--- /dev/null
++++ b/configs/integrity/policy.json
+@@ -0,0 +1,22 @@
++{
++  "schema_version": 1,
++  "device": "dash",
++  "model": "2602BPC18G",
++  "factory_attestation_product": "dash_ru",
++  "tested_sdk": 37,
++  "keybox_url": "https://gitea.com/Evolution-X/keybox/raw/branch/main/keybox.xml",
++  "approved_keybox_sha256": "1e59118fbed898bb175a23bd1bc53e15f3e7e9f3282244ed61419fb41dbd4939",
++  "approved_keybox_expires": "2026-11-06T07:53:17+00:00",
++  "trusted_root_sha256": [
++    "cedb1cb6dc896ae5ec797348bce9286753c2b38ee71ce0fbe34a9a1248800dfc",
++    "6d9db4ce6c5c0b293166d08986e05774a8776ceb525d9e4329520de12ba4bcc0"
++  ],
++  "targets": [
++    "com.google.android.gms",
++    "com.android.vending",
++    "com.google.android.gsf"
++  ],
++  "pif_source": "https://raw.githubusercontent.com/KOWX712/PlayIntegrityFix/bot/device_prop/bluejay_beta.prop",
++  "pif_sha256": "b007cf496a19b5c9e490850fb72420c61c3e6463ea4f387a37f708093d14d2ef",
++  "gameprops_sha256": "baf6e344f7d3d345833ee0e1fc502ce172fef1aa082baf491cce8b3bb7c0ce88"
++}
