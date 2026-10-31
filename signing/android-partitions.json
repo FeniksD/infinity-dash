@@ -1,0 +1,10 @@
+{
+  "partitions": [
+    "boot", "init_boot", "vendor_boot", "dtbo",
+    "vbmeta", "vbmeta_system", "vbmeta_vendor",
+    "system", "system_ext", "product", "vendor", "odm",
+    "system_dlkm", "vendor_dlkm", "odm_dlkm", "pvmfw"
+  ],
+  "pvmfw_reason": "Embedded key must match the release-signed virtualization APEX and regenerated vbmeta_system.",
+  "required_before_installation": "Verified raw backups of pvmfw_a and pvmfw_b."
+}
