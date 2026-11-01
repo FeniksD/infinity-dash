@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import re
+import socket
 import ssl
 import stat
 
@@ -37,9 +38,11 @@ class Artifact:
         return os.fdopen(os.open(self.path, os.O_RDONLY | os.O_NOFOLLOW), 'rb')
 
 
-def make_server(address, artifact, token, tls_context=None):
+def make_server(address, artifact, token, tls_context=None, tcp_congestion=None):
     if not token or '\n' in token or '\r' in token:
         raise ValueError('Invalid token')
+    if tcp_congestion not in (None, 'reno', 'cubic', 'bbr'):
+        raise ValueError('Unreviewed TCP congestion algorithm')
     expected_auth = ('Bearer ' + token).encode()
 
     class Handler(BaseHTTPRequestHandler):
@@ -124,7 +127,17 @@ def make_server(address, artifact, token, tls_context=None):
                     raise
             return connection, peer
 
-    return Server(address, Handler)
+    server = Server(address, Handler, bind_and_activate=False)
+    try:
+        if tcp_congestion:
+            server.socket.setsockopt(socket.IPPROTO_TCP, socket.TCP_CONGESTION,
+                                     tcp_congestion.encode('ascii'))
+        server.server_bind()
+        server.server_activate()
+    except BaseException:
+        server.server_close()
+        raise
+    return server
 
 
 def main():
@@ -137,6 +150,7 @@ def main():
     parser.add_argument('--key', type=Path, required=True)
     parser.add_argument('--bind', default='0.0.0.0')
     parser.add_argument('--port', type=int, default=9443)
+    parser.add_argument('--tcp-congestion', choices=['reno', 'cubic', 'bbr'])
     args = parser.parse_args()
     if args.size <= 0 or not re.fullmatch('[0-9a-f]{64}', args.sha256):
         parser.error('Expected positive size and SHA256')
@@ -145,7 +159,7 @@ def main():
     context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     context.minimum_version = ssl.TLSVersion.TLSv1_2
     context.load_cert_chain(args.cert, args.key)
-    server = make_server((args.bind, args.port), artifact, token, context)
+    server = make_server((args.bind, args.port), artifact, token, context, args.tcp_congestion)
     print(json.dumps({'ready': True, 'bind': args.bind, 'port': args.port,
                       'verified_bytes': args.size, 'sha256': args.sha256}), flush=True)
     server.serve_forever()

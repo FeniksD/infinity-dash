@@ -4,6 +4,7 @@ from pathlib import Path
 import tempfile
 import threading
 import unittest
+import socket
 
 from ports.coloros17.serve_artifact import Artifact, make_server
 
@@ -66,6 +67,16 @@ class ArtifactServerTests(unittest.TestCase):
         link.symlink_to(self.path)
         with self.assertRaises((ValueError, OSError)):
             Artifact(link, len(self.data), hashlib.sha256(self.data).hexdigest())
+
+    @unittest.skipUnless(hasattr(socket, 'TCP_CONGESTION'), 'Linux TCP socket option')
+    def test_congestion_override_is_per_socket(self):
+        server = make_server(('127.0.0.1', 0), self.artifact, 'test-token', tcp_congestion='reno')
+        try:
+            self.assertEqual(server.socket.getsockopt(socket.IPPROTO_TCP, socket.TCP_CONGESTION, 32).split(b'\0')[0], b'reno')
+        finally:
+            server.server_close()
+        with self.assertRaises(ValueError):
+            make_server(('127.0.0.1', 0), self.artifact, 'test-token', tcp_congestion='unreviewed')
 
 
 if __name__ == '__main__':
