@@ -1,0 +1,38 @@
+{
+  "status": "verified_prerequisites_enrollment_still_under_investigation",
+  "native_hal": {
+    "descriptor": "android.hardware.biometrics.fingerprint.IFingerprint/default",
+    "interface_version": 4,
+    "sensor_type": 2,
+    "sensor_type_name": "UNDER_DISPLAY_ULTRASONIC",
+    "location": {
+      "x": 638,
+      "y": 2060,
+      "radius": 110
+    }
+  },
+  "properties": {
+    "vendor.fingerprint.aidl.support": "1",
+    "persist.vendor.fingerprint.sensor_type": "ultrasonic",
+    "persist.vendor.fingerprint.optical.iconsize": "220",
+    "persist.vendor.fingerprint.optical.iconlocation": "712"
+  },
+  "property_timing": "AIDL gate and sensor type must be available before system_server creates providers; setting the type afterward does not update cached framework SensorProps",
+  "feature_source": "patches/dash-fingerprint-features.xml",
+  "feature_destination": "/system/system_ext/etc/permissions/dash-fingerprint-features.xml",
+  "sepolicy_source": "patches/fingerprint-public-property-read.cil",
+  "sepolicy_target": "system_ext policy; original property type is already system_public_property_type",
+  "verified_results": [
+    "AIDL gate removes forced HIDL adapter and unblocks initial cleanup/challenges",
+    "native HAL and cached framework both report type2 after reload",
+    "feature selects NewFingerEnrollActivity rather than rear-scanner UI",
+    "scoped property read permission initializes OEM overlay renderer without disabling enforcing",
+    "UI geometry settings220/712 are accepted and icon appears at intended location"
+  ],
+  "not_verified": [
+    "successful fingerprint enrollment and authentication",
+    "permanent cold-boot integration"
+  ],
+  "next_investigation": "UI touch to standard AIDL Session.onPointerDown/UDFPS handler; no authentication or template bypass",
+  "source_integration_pending": true
+}
