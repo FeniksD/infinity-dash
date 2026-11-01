@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "unsigned_editable_ext4_lab_image",
+  "donor": "OPPO Find X9 Pro CN PLG110_17.0.0.105(CN01)",
+  "android_sdk": 37,
+  "construction_commit": "649cd91",
+  "raw": {
+    "filename": "ColorOS17-PLG110-dash-lab.img",
+    "bytes": 15169392640,
+    "sha256": "d6d6ecaea56f0b4128614533f289263379c83b3206c819de7c030fb2058410f3"
+  },
+  "gzip": {
+    "filename": "ColorOS17-PLG110-dash-lab.img.gz",
+    "bytes": 6866550221,
+    "sha256": "bd01f558269552d110422ec44bff2ff552861e632d7634c109bc44c5832b1357",
+    "decompressed_hash_verified": true
+  },
+  "validation": {
+    "filesystem_check_passed": true,
+    "metadata_verified_inodes": 14480,
+    "content_verified_files": 11219,
+    "strict_neverallow_audit_passed": false,
+    "full_apex_kernel_vintf_checked": false,
+    "phone_boot_tested": false
+  },
+  "avb_signed": false,
+  "phone_flashable_ota": false
+}

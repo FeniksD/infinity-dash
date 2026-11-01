@@ -2,6 +2,8 @@
 
 Status: official donor and signatures checked; the reviewed host construction adapter is implemented. The port is **not yet boot-tested**. Do not invoke the unmodified Mystic pipeline as a substitute.
 
+The first raw EXT4 candidate and its gzip are built and verified. [lab-image.json](lab-image.json) records their sizes, SHA-256 hashes and the limits of offline validation. The gzip is 6,866,550,221 bytes; it expands to 15,169,392,640 bytes. Construction verified 14,480 inode metadata records and all 11,219 regular-file contents. Successful construction does not establish that the image boots on `dash`.
+
 Donor: OPPO Find X9 Pro CN, `PLG110_17.0.0.105(CN01)`, Android17/SDK37. This is the same device family named by the earlier unofficial ColorOS16 dash port. `donor.json` records public provenance; expiring URL query signatures remain in private task cache.
 
 The manufacturer's OTA is 9,592,101,891 bytes. Its payload is marked partial, but the selected system/system_ext/product/my_* images have only replacement/zero operations and no source-image dependencies. They are suitable for image extraction without a previous OTA; the package must never be flashed directly to a POCO.
