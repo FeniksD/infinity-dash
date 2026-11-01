@@ -219,6 +219,7 @@ public final class UdfpsTouchBridgeCore {
     }
 
     public boolean armed() { return registered && target != null; }
+    public boolean ownsTarget(Target expected) { return registered && target != null && target == expected; }
     public boolean pointerHeld() { return held != null; }
     public long generation() { return generation; }
     /** Bounded diagnostic caller may report decisions; never includes coordinates or identifiers. */

@@ -44,8 +44,8 @@ public final class DashBridgeArtHarness {
                 "wrong class origin: " + type.getName());
     }
     public static void main(String[] args) throws Exception {
-        if (args.length != 3 || !"--verify-only".equals(args[0]))
-            throw new IllegalArgumentException("Use --verify-only CANDIDATE_JAR TEST_ONLY_DEX");
+        if ((args.length != 3 && args.length != 4) || !"--verify-only".equals(args[0]))
+            throw new IllegalArgumentException("Use --verify-only CANDIDATE_JAR TEST_ONLY_DEX [OPLUS_CANDIDATE_JAR]");
         ClassLoader loader = DashBridgeArtHarness.class.getClassLoader();
         Class.forName(DashUdfpsTouchBridge.class.getName(), false, loader);
         requireOrigin(DashBridgeArtHarness.class, args[2]);
@@ -63,12 +63,28 @@ public final class DashBridgeArtHarness {
         requireOrigin(RootedInputResources.class, args[1]);
         requireOrigin(RootedInputResources.Operations.class, args[1]);
         requireOrigin(RootedInputResourcesTest.class, args[2]);
+        requireOrigin(OemFingerprintUiCompat.class, args[1]);
+        requireOrigin(OemFingerprintUiCompat.Result.class, args[1]);
+        requireOrigin(OemFingerprintUiCompat.PointerCall.class, args[1]);
+        requireOrigin(OemFingerprintUiCompat.UiPort.class, args[1]);
+        requireOrigin(OemFingerprintUiCompat.OwnedRelay.class, args[1]);
+        requireOrigin(OemFingerprintUiCompatTest.class, args[2]);
         System.out.println("PASS exact class origins: production=candidate, tests=test-only DEX");
         Class<?> client = type("com.android.server.biometrics.sensors.BaseClientMonitor");
         require(client.getMethod("getContext").getReturnType() == Context.class, "client context");
         require(client.getMethod("getRequestId").getReturnType() == long.class, "request type");
         client.getMethod("getSensorId"); client.getMethod("getTargetUserId");
         client.getMethod("isAlreadyDone");
+        Class<?> acquisition = type("com.android.server.biometrics.sensors.AcquisitionClient");
+        require(type("com.android.server.biometrics.sensors.SensorOverlays")
+                .getMethod("show", int.class, int.class, acquisition).getReturnType() == void.class,
+                "exact OEM relay method signature");
+        require(DashUdfpsTouchBridge.class.getMethod("normalizeEnrollmentTotal", int.class)
+                .getReturnType() == int.class, "enrollment normalizer descriptor");
+        Class<?> providerExt = type("com.android.server.biometrics.sensors.fingerprint.aidl.FingerprintServiceProviderExtImpl");
+        require(providerExt.getMethod("getEnrollmentTotalTimes", int.class).getReturnType() == int.class,
+                "OEM enrollment getter descriptor");
+        if (args.length == 4) requireOrigin(providerExt, args[3]);
         Class<?> global = type("android.hardware.input.InputManagerGlobal");
         global.getMethod("getInstance");
         global.getMethod("monitorGestureInput", String.class, int.class);
@@ -147,6 +163,7 @@ public final class DashBridgeArtHarness {
         UdfpsTouchBridgeCoreTest.main(new String[0]);
         PassiveInputLeaseTest.main(new String[0]);
         RootedInputResourcesTest.main(new String[0]);
+        OemFingerprintUiCompatTest.main(new String[0]);
         System.out.println("PASS donor API reflection and PointerContext roundtrip; no HAL/input writes");
     }
 }

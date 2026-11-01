@@ -34,7 +34,7 @@ import java.util.List;
  * Core state belongs to the fingerprint Handler; input resources to a dedicated light looper.
  */
 @SuppressWarnings("deprecation")
-public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
+public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, OemFingerprintUiCompat.UiPort {
     private static final String TAG = "DashUdfpsTouchBridge";
     private static final String FLAG = "persist.sys.dash.udfps_touch_bridge";
     private static volatile DashUdfpsTouchBridge instance;
@@ -43,6 +43,8 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     private static final java.util.concurrent.atomic.AtomicInteger DIAGNOSTIC_COUNT =
             new java.util.concurrent.atomic.AtomicInteger();
     private static final java.util.concurrent.atomic.AtomicInteger FORWARD_DIAGNOSTIC_COUNT =
+            new java.util.concurrent.atomic.AtomicInteger();
+    private static final java.util.concurrent.atomic.AtomicInteger UI_DIAGNOSTIC_COUNT =
             new java.util.concurrent.atomic.AtomicInteger();
 
     private final Context context;
@@ -61,6 +63,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     private final HandlerThread inputThread;
     private final Handler inputHandler;
     private final PassiveInputLease inputLease;
+    private final OemFingerprintUiCompat.OwnedRelay uiRelay = new OemFingerprintUiCompat.OwnedRelay();
     private BroadcastReceiver receiver;
     private DisplayManager.DisplayListener displayListener;
     private boolean receiverRegistered;
@@ -273,6 +276,12 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
         } catch (Throwable failure) { return false; }
     }
 
+    /** Called only by the narrowly patched OEM enrollment-total getter. */
+    public static int normalizeEnrollmentTotal(int total) {
+        if (total > 0) return total;
+        return OemFingerprintUiCompat.normalizeEnrollmentTotal(total, gate());
+    }
+
     private void run(Runnable task) {
         try {
             if (Looper.myLooper() == handler.getLooper()) task.run();
@@ -308,6 +317,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
         return display == null ? -1 : display.getRotation();
     }
     @Override public boolean enabledForDash() { return gate(); }
+    @Override public boolean ownsTarget(UdfpsTouchBridgeCore.Target target) { return core.ownsTarget(target); }
     private boolean isDisplayReady(int displayId) {
         try {
             Display display = displays.getDisplay(displayId);
@@ -433,6 +443,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     }
 
     @Override public void unregister() {
+        uiRelay.forget();
         inputLease.close();
         diagnostic("input monitor release scheduled");
         if (displayRegistered) {
@@ -463,13 +474,34 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     @Override public void pointerDown(UdfpsTouchBridgeCore.Target target,
                                       UdfpsTouchBridgeCore.Motion motion) throws Exception {
         forwardDiagnostic("pointer DOWN attempt fromMove=" + (motion.action == UdfpsTouchBridgeCore.Action.MOVE));
-        down.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
-        forwardDiagnostic("pointer DOWN API returned");
+        OemFingerprintUiCompat.Result result = uiRelay.pointerThenRelay(() -> {
+            down.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
+            forwardDiagnostic("pointer DOWN API returned");
+        }, target, true, this);
+        uiRelayDiagnostic(true, result);
     }
     @Override public void pointerUp(UdfpsTouchBridgeCore.Target target,
                                     UdfpsTouchBridgeCore.Motion motion) throws Exception {
         forwardDiagnostic("pointer UP attempt");
-        up.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
-        forwardDiagnostic("pointer UP API returned");
+        OemFingerprintUiCompat.Result result = uiRelay.pointerThenRelay(() -> {
+            up.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
+            forwardDiagnostic("pointer UP API returned");
+        }, target, false, this);
+        uiRelayDiagnostic(false, result);
+    }
+    @Override public void relay(UdfpsTouchBridgeCore.Target target, int reason) throws Exception {
+        // Resolve lazily: presentation API absence must not prevent native touch forwarding.
+        Class<?> ownerType = Class.forName("com.android.server.biometrics.sensors.SensorOverlays");
+        Class<?> acquisitionType = Class.forName("com.android.server.biometrics.sensors.AcquisitionClient");
+        if (!ownerType.isInstance(target.overlayOwner) || !acquisitionType.isInstance(target.client))
+            throw new IllegalArgumentException("unsupported OEM overlay owner");
+        ownerType.getMethod("show", int.class, int.class, acquisitionType)
+                .invoke(target.overlayOwner, target.sensorId(), reason, target.client);
+    }
+    private static void uiRelayDiagnostic(boolean down, OemFingerprintUiCompat.Result result) {
+        try {
+            if (UI_DIAGNOSTIC_COUNT.getAndIncrement() < 8)
+                Log.i(TAG, "optional UI relay " + (down ? "DOWN" : "UP") + " result=" + result);
+        } catch (Throwable ignored) { }
     }
 }

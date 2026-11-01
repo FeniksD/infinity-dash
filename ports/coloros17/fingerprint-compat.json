@@ -1,5 +1,5 @@
 {
-  "status": "live_enrollment_authentication_and_retries_verified_ui_incomplete",
+  "status": "live_enrollment_ui_and_animations_verified_wake_activation_pending",
   "native_hal": {
     "descriptor": "android.hardware.biometrics.fingerprint.IFingerprint/default",
     "interface_version": 4,
@@ -29,18 +29,19 @@
     "scoped property read permission initializes OEM overlay renderer without disabling enforcing",
     "UI geometry settings220/712 are accepted and icon appears at intended location",
     "Native enrollment and real fingerprint authentication work with rooted passive input bridge",
-    "Repeated attempts preserved across OEM status notifications; wrong finger rejected, enrolled finger accepted in same active request"
+    "Repeated attempts preserved across OEM status notifications; wrong finger rejected, enrolled finger accepted in same active request",
+    "Enrollment UI and pressed animation work after unknown-count normalization and genuine pointer UI relay"
   ],
   "not_verified": [
-    "enrollment progress and completion UI",
-    "fingerprint animation",
-    "permanent cold-boot integration"
+    "activation of a pending fingerprint session after AOD wake",
+    "full screen-off/AOD authentication",
+    "permanent cold-boot image integration"
   ],
   "next_investigation": "UI touch to standard AIDL Session.onPointerDown/UDFPS handler; no authentication or template bypass",
   "source_integration_pending": true,
   "touch_bridge": {
     "source": "udfps/manifest.json",
-    "status": "live_enrollment_authentication_and_retries_verified_ui_incomplete",
+    "status": "live_enrollment_ui_and_animations_verified_wake_activation_pending",
     "deployment": "temporary bind mount only",
     "prerequisites": "existing property, feature and scoped SELinux changes remain required"
   }
