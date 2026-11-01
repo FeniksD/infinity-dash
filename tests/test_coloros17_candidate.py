@@ -1,4 +1,5 @@
 import contextlib
+import hashlib
 import io
 import json
 import os
@@ -10,7 +11,8 @@ import unittest
 from unittest.mock import patch
 
 from test_coloros17_compat import (
-    AFTER_GENFS, AFTER_INIT, GENFS, INIT, MATRIX, fixture, manifest, tree_snapshot,
+    AFTER_COMPOSER, AFTER_GENFS, AFTER_INIT, BEFORE_COMPOSER,
+    GENFS, INIT, MATRIX, fixture, manifest, tree_snapshot,
     tree_replacement,
 )
 from test_coloros17_merge import make_sources
@@ -90,6 +92,15 @@ def reject_state_commit(candidate, state_path):
 
 
 class CandidateGateTests(unittest.TestCase):
+    def setUp(self):
+        from ports.coloros17 import compat
+        # This suite imports the small compatibility fixture, not the 1.7 MB donor.
+        for name, data in (("COMPOSER_BEFORE_SHA256", BEFORE_COMPOSER),
+                           ("COMPOSER_AFTER_SHA256", AFTER_COMPOSER)):
+            context = patch.object(compat, name, hashlib.sha256(data).hexdigest())
+            context.start()
+            self.addCleanup(context.stop)
+
     def test_unreviewed_profile_stops_before_creating_work_files(self):
         from ports.coloros17.candidate import main
         with tempfile.TemporaryDirectory() as folder:

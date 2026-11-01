@@ -1,4 +1,4 @@
-"""Four exact source-tree compatibility fixes for official PLG110 ColorOS 17.
+"""Five exact source-tree compatibility fixes for official PLG110 ColorOS 17.
 
 This operates on an exclusively owned, quiescent canonical SAR tree, never an
 image, mount or device. Donor inode metadata lives in the supplied complete
@@ -25,6 +25,10 @@ SKIP_PARENT_PATH = "/system/system_ext/etc/init"
 SKIP_DIR_PATH = SKIP_PARENT_PATH + "/config"
 SKIP_MOUNT_PATH = SKIP_DIR_PATH + "/skip_mount.cfg"
 SKIP_MOUNT_BYTES = b"/system_ext\n/product\n"
+COMPOSER_POLICY_PATH = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
+COMPOSER_BEFORE_SHA256 = "a9176d643c44e2bade190fa39fca99d9962eb572aa6e94e907aab18cd3051251"
+COMPOSER_AFTER_SHA256 = "fe5c16850894a465381f568e0637610649378b11465d7b00a79f377f3236d528"
+_COMPOSER_RULE = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
 GENFS_BEFORE_SHA256 = "ce8b599e06d363155930549e845c0d4d234c0d9a5eb35a2f680ea6f51530b581"
 GENFS_AFTER_SHA256 = "a5fa3e379955f4209a38c161da7aebdc917b8c693ebd3992ae6eb57ab22d06e8"
 _POWER_LINES = (
@@ -127,6 +131,23 @@ def _init(data):
     return data.replace(_BOOTSTRAP, _RESTORECON + _BOOTSTRAP, 1), False
 
 
+def _composer_policy(data):
+    """Append only the proven service lookup permission to the pinned policy."""
+    digest = hashlib.sha256(data).hexdigest()
+    if digest == COMPOSER_AFTER_SHA256:
+        if not data.endswith(_COMPOSER_RULE) or data.count(_COMPOSER_RULE) != 1:
+            raise ValueError("composer lookup rule is ambiguous or not the exact appended rule")
+        return data, True
+    if digest != COMPOSER_BEFORE_SHA256:
+        raise ValueError("system_ext policy does not match the pinned official PLG110 donor")
+    if not data.endswith(b"\n") or _COMPOSER_RULE in data:
+        raise ValueError("system_ext policy is not an unmodified appendable donor input")
+    result = data + _COMPOSER_RULE
+    if hashlib.sha256(result).hexdigest() != COMPOSER_AFTER_SHA256:
+        raise ValueError("composer lookup policy differs from the reviewed result")
+    return result, False
+
+
 def _new_inode(records):
     used = {record["inode"] for record in records.values()}
     candidate = max(used) + 1
@@ -152,7 +173,7 @@ def _same_synthetic_record(records, path, kind, size, template):
 def _make_plan(tree, records, content_manifest):
     tree = _canonical_host(tree, exists=True)
     validate_tree(tree, records, content_manifest)
-    for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH):
+    for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH, COMPOSER_POLICY_PATH):
         if records.get(path, {}).get("kind") != "file":
             raise ValueError(f"compatibility input must be a regular file: {path}")
     if records.get(SKIP_PARENT_PATH, {}).get("kind") != "dir":
@@ -166,7 +187,7 @@ def _make_plan(tree, records, content_manifest):
     try:
         original = {}
         host_metadata = {}
-        for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH):
+        for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH, COMPOSER_POLICY_PATH):
             data, host = _read_regular(tree / path[1:])
             if _identity(data) != content_manifest[path]:
                 raise ValueError(f"file changed after manifest validation: {path}")
@@ -174,6 +195,7 @@ def _make_plan(tree, records, content_manifest):
         matrix, _ = _read_regular(_SOURCE_MATRIX)
         genfs, genfs_applied = _genfs(original[GENFS_PATH])
         init, init_applied = _init(original[INIT_PATH])
+        composer_policy, composer_applied = _composer_policy(original[COMPOSER_POLICY_PATH])
         matrix_exists = MATRIX_PATH in records
         if matrix_exists:
             if records[MATRIX_PATH]["kind"] != "file":
@@ -199,6 +221,8 @@ def _make_plan(tree, records, content_manifest):
                     or content_manifest.get(SKIP_MOUNT_PATH) != _identity(SKIP_MOUNT_BYTES)
                     or _read_regular(tree / SKIP_MOUNT_PATH[1:])[0] != SKIP_MOUNT_BYTES):
                 raise ValueError("unexpected existing skip-mount configuration")
+        if composer_applied and not (legacy_applied and skip_applied):
+            raise ValueError("composer lookup policy is present without the previous complete fixes")
     except OSError as exc:
         raise ValueError(f"cannot safely read compatibility input: {exc}") from exc
     final_records = copy.deepcopy(records)
@@ -238,7 +262,18 @@ def _make_plan(tree, records, content_manifest):
                                    "content": copy.deepcopy(content_manifest.get(path))} if skip_applied else None,
                         "after": {"record": copy.deepcopy(final_records[path]),
                                   "content": copy.deepcopy(final_contents.get(path))}})
-    report = {"status": "already_applied" if legacy_applied and skip_applied else "planned",
+    final_records[COMPOSER_POLICY_PATH]["size"] = len(composer_policy)
+    final_contents[COMPOSER_POLICY_PATH] = _identity(composer_policy)
+    changes.append({"path": COMPOSER_POLICY_PATH,
+                    "action": "unchanged" if composer_applied else "replace",
+                    "before": {"record": copy.deepcopy(records[COMPOSER_POLICY_PATH]),
+                               "content": copy.deepcopy(content_manifest[COMPOSER_POLICY_PATH])},
+                    "after": {"record": copy.deepcopy(final_records[COMPOSER_POLICY_PATH]),
+                              "content": copy.deepcopy(final_contents[COMPOSER_POLICY_PATH])}})
+    if not composer_applied:
+        writes.append({"kind": "file", "path": COMPOSER_POLICY_PATH, "data": composer_policy,
+                       "before": original[COMPOSER_POLICY_PATH], "host": host_metadata[COMPOSER_POLICY_PATH]})
+    report = {"status": "already_applied" if legacy_applied and skip_applied and composer_applied else "planned",
               "donor": "official PLG110 ColorOS 17", "canonical_tree": str(tree),
               "changes": changes, "final_records": final_records,
               "final_content_manifest": final_contents}

@@ -20,6 +20,10 @@ SKIP_PARENT = "/system/system_ext/etc/init"
 SKIP_DIR = SKIP_PARENT + "/config"
 SKIP_MOUNT = SKIP_DIR + "/skip_mount.cfg"
 SKIP_BYTES = b"/system_ext\n/product\n"
+COMPOSER_POLICY = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
+BEFORE_COMPOSER = b";; donor system_ext policy fixture\n(type surfaceflinger)\n(allow surfaceflinger existing_service (service_manager (find)))\n"
+COMPOSER_RULE = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
+AFTER_COMPOSER = BEFORE_COMPOSER + COMPOSER_RULE
 LABEL = b"u:object_r:system_file:s0\0".hex()
 # Exact, small official donor file: expectations are independent of the helper.
 BEFORE_GENFS = b'''(genfscon sysfs "/class/udc" (u object_r sysfs_udc ((s0) (s0))))
@@ -73,7 +77,8 @@ def tree_replacement(dst, kwargs, tree, name):
 
 def fixture(parent):
     tree = parent / "canonical"
-    files = {GENFS: BEFORE_GENFS, INIT: BEFORE_INIT, TEMPLATE: b'<compatibility-matrix version="1.0" type="framework"/>\n',
+    files = {GENFS: BEFORE_GENFS, INIT: BEFORE_INIT, COMPOSER_POLICY: BEFORE_COMPOSER,
+             TEMPLATE: b'<compatibility-matrix version="1.0" type="framework"/>\n',
              "/system/keep.bin": b"unchanged\x00binary\xff"}
     for name, data in files.items():
         path = tree / name[1:]
@@ -91,6 +96,8 @@ def fixture(parent):
     records[GENFS]["gid"] = 2000
     records[GENFS]["mode"] = 0o100640
     records[GENFS]["xattrs"] = {"security.selinux": b"u:object_r:sepolicy_file:s0\0".hex()}
+    records[COMPOSER_POLICY].update(uid=1111, gid=2222, mode=0o100640,
+                                    xattrs={"security.selinux": b"u:object_r:sepolicy_file:s0\0".hex()})
     return tree, records, contents
 
 
@@ -109,12 +116,39 @@ def legacy_fixture(parent):
     return tree, records, contents
 
 
+def four_fix_fixture(parent):
+    """The previous four-fix state, including its synthetic directory metadata."""
+    tree, records, contents = legacy_fixture(parent)
+    (tree / SKIP_DIR[1:]).mkdir(mode=0o755)
+    (tree / SKIP_DIR[1:]).chmod(0o755)
+    (tree / SKIP_MOUNT[1:]).write_bytes(SKIP_BYTES)
+    (tree / SKIP_MOUNT[1:]).chmod(0o644)
+    for name, kind, mode, size in ((SKIP_DIR, "dir", 0o40755, 0),
+                                   (SKIP_MOUNT, "file", 0o100644, 21)):
+        records[name] = {"uid": 0, "gid": 0, "mode": mode, "kind": kind,
+                         "inode": max(r["inode"] for r in records.values()) + 1,
+                         "size": size, "xattrs": {"security.selinux": LABEL}, "ext4_flags": 0}
+    contents[SKIP_MOUNT] = {"kind": "file", "size": 21,
+                            "sha256": hashlib.sha256(SKIP_BYTES).hexdigest()}
+    return tree, records, contents
+
+
 class CompatibilityTests(unittest.TestCase):
     def setUp(self):
         self.assertTrue(MODULE.is_file(), "compatibility helper is missing")
         spec = importlib.util.spec_from_file_location("coloros_compat", MODULE)
         self.api = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(self.api)
+        # A small independent fixture exercises the production hash guards;
+        # production uses the complete, inspected official donor file hashes.
+        before = patch.object(self.api, "COMPOSER_BEFORE_SHA256",
+                              "73bcc76a94158101159be8da63e8db4237a645a5819a0957221d10bafb0d2124", create=True)
+        after = patch.object(self.api, "COMPOSER_AFTER_SHA256",
+                             "e9fbac699d890b1a737959792a06cc40469b8c2b61159cc7a4fa9b2146f62ae8", create=True)
+        before.start()
+        after.start()
+        self.addCleanup(before.stop)
+        self.addCleanup(after.stop)
 
     def test_plan_preserves_other_bytes_and_metadata_and_adds_unique_inode(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -123,10 +157,10 @@ class CompatibilityTests(unittest.TestCase):
             before_tree = tree_snapshot(tree)
             plan = self.api.plan_compatibility(tree, records, contents)
             self.assertEqual(plan["status"], "planned")
-            self.assertEqual([c["path"] for c in plan["changes"]], [GENFS, INIT, MATRIX, SKIP_DIR, SKIP_MOUNT])
-            self.assertEqual([c["action"] for c in plan["changes"]], ["replace", "replace", "add", "add", "add"])
+            self.assertEqual([c["path"] for c in plan["changes"]], [GENFS, INIT, MATRIX, SKIP_DIR, SKIP_MOUNT, COMPOSER_POLICY])
+            self.assertEqual([c["action"] for c in plan["changes"]], ["replace", "replace", "add", "add", "add", "replace"])
             changed = plan["final_records"]
-            for name in (GENFS, INIT):
+            for name in (GENFS, INIT, COMPOSER_POLICY):
                 self.assertEqual({k: v for k, v in changed[name].items() if k != "size"},
                                  {k: v for k, v in records[name].items() if k != "size"})
             new = changed[MATRIX]
@@ -149,7 +183,7 @@ class CompatibilityTests(unittest.TestCase):
                              "a5fa3e379955f4209a38c161da7aebdc917b8c693ebd3992ae6eb57ab22d06e8")
             self.assertEqual(plan["changes"][0]["before"]["content"]["sha256"],
                              "ce8b599e06d363155930549e845c0d4d234c0d9a5eb35a2f680ea6f51530b581")
-            for name in set(records) - {GENFS, INIT}:
+            for name in set(records) - {GENFS, INIT, COMPOSER_POLICY}:
                 self.assertEqual(changed[name], records[name])
             self.assertEqual(records, before_records)
             self.assertEqual(contents, before_contents)
@@ -170,6 +204,8 @@ class CompatibilityTests(unittest.TestCase):
                              (ROOT / "ports/coloros17/patches/compatibility_matrix.dash-additions.xml").read_bytes())
             self.assertEqual((backup / GENFS[1:]).read_bytes(), BEFORE_GENFS)
             self.assertEqual((backup / INIT[1:]).read_bytes(), BEFORE_INIT)
+            self.assertEqual((backup / COMPOSER_POLICY[1:]).read_bytes(), BEFORE_COMPOSER)
+            self.assertEqual((tree / COMPOSER_POLICY[1:]).read_bytes(), AFTER_COMPOSER)
             self.assertFalse((backup / MATRIX[1:]).exists())
             self.assertTrue((tree / SKIP_MOUNT[1:]).is_file())
             self.assertEqual((tree / SKIP_MOUNT[1:]).read_bytes(), SKIP_BYTES)
@@ -178,7 +214,7 @@ class CompatibilityTests(unittest.TestCase):
             self.assertFalse((backup / SKIP_DIR[1:]).exists())
             self.assertEqual(json.loads(Path(report["report_path"]).read_text())["status"], "complete")
             for name, data in before_tree.items():
-                if "/" + name not in (GENFS, INIT):
+                if "/" + name not in (GENFS, INIT, COMPOSER_POLICY):
                     self.assertEqual(tree_snapshot(tree)[name], data)
             saved_report = Path(report["report_path"]).read_bytes()
             again = self.api.apply_compatibility(tree, report["final_records"],
@@ -187,7 +223,7 @@ class CompatibilityTests(unittest.TestCase):
             self.assertEqual(Path(report["report_path"]).read_bytes(), saved_report)
             self.assertEqual(again["final_records"], report["final_records"])
 
-    def test_legacy_three_fix_tree_adds_only_skip_mount_configuration(self):
+    def test_legacy_three_fix_tree_adds_skip_mount_and_composer_allow(self):
         with tempfile.TemporaryDirectory() as tmp:
             parent = Path(tmp)
             tree, records, contents = legacy_fixture(parent)
@@ -196,16 +232,128 @@ class CompatibilityTests(unittest.TestCase):
             report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
             self.assertEqual(report["status"], "complete")
             self.assertEqual([c["action"] for c in report["changes"]],
-                             ["unchanged", "unchanged", "unchanged", "add", "add"])
+                             ["unchanged", "unchanged", "unchanged", "add", "add", "replace"])
             self.assertEqual((tree / SKIP_MOUNT[1:]).read_bytes(), SKIP_BYTES)
-            for name in records:
+            for name in records.keys() - {COMPOSER_POLICY}:
                 self.assertEqual(report["final_records"][name], original_records[name])
-            for name in contents:
+            for name in contents.keys() - {COMPOSER_POLICY}:
                 self.assertEqual(report["final_content_manifest"][name], original_contents[name])
             self.assertEqual(os.readlink(tree / "system_ext"), "/system/system_ext")
             self.assertEqual(os.readlink(tree / "product"), "/system/product")
             self.assertEqual(records, original_records)
             self.assertEqual(contents, original_contents)
+
+    def test_four_fix_state_appends_only_the_exact_composer_allow(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents = four_fix_fixture(parent)
+            before_records = copy.deepcopy(records)
+            before_contents = copy.deepcopy(contents)
+            before_tree = tree_snapshot(tree)
+            report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
+            self.assertEqual(report["status"], "complete")
+            self.assertEqual([c["action"] for c in report["changes"]],
+                             ["unchanged"] * 5 + ["replace"])
+            expected_tree = dict(before_tree)
+            expected_tree[COMPOSER_POLICY[1:]] = AFTER_COMPOSER
+            self.assertEqual(tree_snapshot(tree), expected_tree)
+            for name in records:
+                expected = dict(before_records[name])
+                if name == COMPOSER_POLICY:
+                    expected["size"] = 199
+                self.assertEqual(report["final_records"][name], expected)
+            self.assertEqual(report["final_content_manifest"][COMPOSER_POLICY],
+                             {"kind": "file", "size": 199,
+                              "sha256": "e9fbac699d890b1a737959792a06cc40469b8c2b61159cc7a4fa9b2146f62ae8"})
+            self.assertEqual(records, before_records)
+            self.assertEqual(contents, before_contents)
+            again = self.api.apply_compatibility(tree, report["final_records"],
+                                                  report["final_content_manifest"], parent / "backups")
+            self.assertEqual(again["status"], "already_applied")
+
+    def test_composer_policy_rejects_changed_or_ambiguous_content_before_mutation(self):
+        for data in (BEFORE_COMPOSER + b";; unexpected change\n",
+                     AFTER_COMPOSER + COMPOSER_RULE, AFTER_COMPOSER + b";; trailing change\n",
+                     BEFORE_COMPOSER.replace(b"surfaceflinger", b"surfaceflingez"),
+                     COMPOSER_RULE + BEFORE_COMPOSER):
+            with self.subTest(data=data), tempfile.TemporaryDirectory() as tmp:
+                parent = Path(tmp)
+                tree, records, contents = four_fix_fixture(parent)
+                (tree / COMPOSER_POLICY[1:]).write_bytes(data)
+                records[COMPOSER_POLICY]["size"] = len(data)
+                contents[COMPOSER_POLICY] = {"kind": "file", "size": len(data),
+                                             "sha256": hashlib.sha256(data).hexdigest()}
+                before_tree = tree_snapshot(tree)
+                with self.assertRaises(ValueError):
+                    self.api.apply_compatibility(tree, records, contents, parent / "backups")
+                self.assertEqual(tree_snapshot(tree), before_tree)
+                self.assertFalse((parent / "backups").exists())
+
+    def test_composer_allow_without_the_previous_fixes_is_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents = fixture(parent)
+            (tree / COMPOSER_POLICY[1:]).write_bytes(AFTER_COMPOSER)
+            records[COMPOSER_POLICY]["size"] = len(AFTER_COMPOSER)
+            contents[COMPOSER_POLICY] = {"kind": "file", "size": len(AFTER_COMPOSER),
+                                         "sha256": hashlib.sha256(AFTER_COMPOSER).hexdigest()}
+            before_tree = tree_snapshot(tree)
+            with self.assertRaises(ValueError):
+                self.api.apply_compatibility(tree, records, contents, parent / "backups")
+            self.assertEqual(tree_snapshot(tree), before_tree)
+            self.assertFalse((parent / "backups").exists())
+
+    def test_composer_policy_requires_a_regular_file_and_current_manifest(self):
+        for bad in ("missing", "symlink", "stale-hash"):
+            with self.subTest(bad=bad), tempfile.TemporaryDirectory() as tmp:
+                parent = Path(tmp)
+                tree, records, contents = four_fix_fixture(parent)
+                target = tree / COMPOSER_POLICY[1:]
+                if bad == "stale-hash":
+                    target.write_bytes(AFTER_COMPOSER)
+                else:
+                    target.unlink()
+                    del records[COMPOSER_POLICY]
+                    del contents[COMPOSER_POLICY]
+                    if bad == "symlink":
+                        outside = parent / "outside-policy"
+                        outside.write_bytes(BEFORE_COMPOSER)
+                        target.symlink_to(outside)
+                        info = target.lstat()
+                        records[COMPOSER_POLICY] = {"uid": 0, "gid": 0, "mode": info.st_mode,
+                            "kind": "symlink", "inode": info.st_ino, "size": info.st_size,
+                            "xattrs": {"security.selinux": LABEL}, "symlink_target": str(outside)}
+                        contents[COMPOSER_POLICY] = {"kind": "symlink", "target": str(outside)}
+                before_tree = tree_snapshot(tree)
+                with self.assertRaises(ValueError):
+                    self.api.apply_compatibility(tree, records, contents, parent / "backups")
+                self.assertEqual(tree_snapshot(tree), before_tree)
+                self.assertFalse((parent / "backups").exists())
+
+    def test_four_fix_upgrade_interrupt_restores_the_previous_policy_and_all_metadata(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents = four_fix_fixture(parent)
+            before_tree = tree_snapshot(tree)
+            before_records, before_contents = copy.deepcopy(records), copy.deepcopy(contents)
+            replace = self.api.os.replace
+            interrupted = False
+            def replace_then_interrupt(src, dst, *args, **kwargs):
+                nonlocal interrupted
+                result = replace(src, dst, *args, **kwargs)
+                if tree_replacement(dst, kwargs, tree, COMPOSER_POLICY) and not interrupted:
+                    interrupted = True
+                    raise KeyboardInterrupt("after composer policy replacement")
+                return result
+            with patch.object(self.api.os, "replace", replace_then_interrupt):
+                with self.assertRaises(KeyboardInterrupt) as failure:
+                    self.api.apply_compatibility(tree, records, contents, parent / "backups")
+            report = failure.exception.compatibility_report
+            self.assertEqual(report["status"], "failed_rolled_back")
+            self.assertEqual(report["rollback_operations"], [COMPOSER_POLICY])
+            self.assertEqual(tree_snapshot(tree), before_tree)
+            self.assertEqual(records, before_records)
+            self.assertEqual(contents, before_contents)
 
     def test_skip_mount_requires_real_parent_and_no_unexpected_configuration(self):
         for bad in ("missing-parent", "symlink-parent", "empty-config", "symlink-config", "wrong-file"):
@@ -417,7 +565,7 @@ class CompatibilityTests(unittest.TestCase):
             self.assertEqual(failure.exception.report["rollback_operations"], [MATRIX, INIT, GENFS])
 
     def test_keyboard_interrupt_after_real_replace_rolls_back_each_target(self):
-        for target in (GENFS, INIT, MATRIX, SKIP_MOUNT):
+        for target in (GENFS, INIT, MATRIX, SKIP_MOUNT, COMPOSER_POLICY):
             with self.subTest(target=target), tempfile.TemporaryDirectory() as tmp:
                 parent = Path(tmp)
                 tree, records, contents = fixture(parent)
