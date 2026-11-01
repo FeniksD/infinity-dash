@@ -60,6 +60,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
     private final Method properties;
     private final Method getDisplayId;
     private final UdfpsTouchBridgeCore core;
+    private final UdfpsSessionCoordinator coordinator;
     private final HandlerThread inputThread;
     private final Handler inputHandler;
     private final PassiveInputLease inputLease;
@@ -95,11 +96,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
         getDisplayId = Class.forName("android.view.InputEvent").getMethod("getDisplayId");
         diagnostic("constructor fingerprint interface ready");
         core = new UdfpsTouchBridgeCore(this);
-        // One cheap process-lifetime callback; inactive bridge never registers an input listener.
-        Class.forName("android.os.SystemProperties").getMethod("addChangeCallback", Runnable.class)
-                .invoke(null, (Runnable) () -> {
-                    if (!enabledForDash()) invalidateAsync();
-                });
+        coordinator = new UdfpsSessionCoordinator(core, this);
         inputThread = new HandlerThread("DashUdfpsInput");
         inputThread.start();
         inputHandler = new Handler(inputThread.getLooper());
@@ -160,6 +157,18 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
                 invalidateRegistration(generation, "input_monitor_failure");
             }
         });
+        // All state and lease fields exist before any process-lifetime callback can run.
+        try {
+            installLifecycleObservers();
+            Class.forName("android.os.SystemProperties").getMethod("addChangeCallback", Runnable.class)
+                    .invoke(null, (Runnable) () -> {
+                        if (!enabledForDash()) invalidateAsync();
+                    });
+        } catch (Exception | LinkageError failure) {
+            removeLifecycleObservers();
+            inputThread.quitSafely();
+            throw failure;
+        }
     }
 
     private static final class BridgeInputReceiver extends InputEventReceiver {
@@ -215,7 +224,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
         DashUdfpsTouchBridge bridge = instance;
         if (bridge != null) bridge.run(() -> {
             diagnostic("session hide armedBefore=" + bridge.core.armed());
-            bridge.core.hide(owner, sensorId);
+            bridge.coordinator.hide(owner, sensorId);
             diagnostic("session hide armedAfter=" + bridge.core.armed());
         });
     }
@@ -223,32 +232,24 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
     private void arm(Object owner, int sensorId, int reason, Object client) {
         try {
             if (!udfpsType.isInstance(client)) {
-                diagnostic("arm suppressed: client type"); core.invalidate(); return;
-            }
-            if (!isDisplayReady(0)) {
-                Display d = displays.getDisplay(0);
-                diagnostic("arm suppressed: screen available=" + (d != null)
-                        + " on=" + (d != null && d.getState() == Display.STATE_ON)
-                        + " portrait=" + (d != null && d.getRotation() == 0)
-                        + " interactive=" + power.isInteractive());
-                core.invalidate(); return;
+                diagnostic("arm suppressed: client type"); coordinator.clear(); return;
             }
             long request = ((Number) clientType.getMethod("getRequestId").invoke(client)).longValue();
             int actualSensor = ((Number) clientType.getMethod("getSensorId").invoke(client)).intValue();
             int user = ((Number) clientType.getMethod("getTargetUserId").invoke(client)).intValue();
             if (sensorId != actualSensor) {
-                diagnostic("arm suppressed: sensor mismatch"); core.invalidate(); return;
+                diagnostic("arm suppressed: sensor mismatch"); coordinator.clear(); return;
             }
             Object selected = null;
             for (Object item : (List<?>) properties.invoke(fingerprintService, "android")) {
                 if (item.getClass().getField("sensorId").getInt(item) == sensorId) selected = item;
             }
             if (selected == null) {
-                diagnostic("arm suppressed: metadata absent"); core.invalidate(); return;
+                diagnostic("arm suppressed: metadata absent"); coordinator.clear(); return;
             }
             int type = selected.getClass().getField("sensorType").getInt(selected);
             if (type != 2) {
-                diagnostic("arm suppressed: unsupported sensor type"); core.invalidate(); return;
+                diagnostic("arm suppressed: unsupported sensor type"); coordinator.clear(); return;
             } // This verified Xiaomi ultrasonic sensor only.
             Object location = selected.getClass().getMethod("getLocation").invoke(selected);
             float x = location.getClass().getField("sensorLocationX").getInt(location);
@@ -261,8 +262,8 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
             diagnostic("arm preflight targetValid=" + target.valid()
                     + " clientLive=" + clientStillLive(target)
                     + " screenReady=" + displayReady(target));
-            core.show(target);
-            diagnostic("arm result registered=" + core.armed());
+            coordinator.show(target);
+            diagnostic("arm result pending=" + coordinator.hasPending() + " registered=" + core.armed());
         } catch (Throwable failure) { diagnosticFailure("arm", failure); failClosed(); }
     }
 
@@ -291,7 +292,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
 
     private void invalidateAsync() { run(() -> {
         diagnostic("session invalidate gate armedBefore=" + core.armed());
-        core.invalidate();
+        coordinator.clear();
         diagnostic("session invalidate gate armedAfter=" + core.armed());
     }); }
     private static void diagnostic(String message) {
@@ -308,7 +309,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
     private static void failClosed() {
         DashUdfpsTouchBridge bridge = instance;
         if (bridge != null) {
-            try { bridge.handler.post(bridge.core::invalidate); } catch (Throwable ignored) { }
+            try { bridge.handler.post(bridge.coordinator::clear); } catch (Throwable ignored) { }
         }
         Log.w(TAG, "Bridge unavailable; normal biometric lifecycle retained");
     }
@@ -343,6 +344,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
         diagnostic("listener registration entered");
         try { registerListeners(generation); }
         catch (Exception | LinkageError failure) {
+            coordinator.registrationFailed();
             diagnosticFailure("listener registration", failure);
             throw failure;
         }
@@ -350,32 +352,52 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
     private void registerListeners(long generation) throws Exception {
         inputLease.open(generation);
         diagnostic("input monitor creation scheduled");
+    }
+
+    private void installLifecycleObservers() {
         displayListener = new DisplayManager.DisplayListener() {
-            @Override public void onDisplayAdded(int id) { }
+            @Override public void onDisplayAdded(int id) {
+                if (id == 0) coordinator.readinessChanged();
+            }
             @Override public void onDisplayRemoved(int id) {
-                if (id == 0) invalidateRegistration(generation, "display_removed");
+                if (id == 0) coordinator.clear();
             }
             @Override public void onDisplayChanged(int id) {
-                if (id == 0 && !isDisplayReady(id)) invalidateRegistration(generation, "display_not_ready");
+                if (id == 0) coordinator.readinessChanged();
             }
         };
         displays.registerDisplayListener(displayListener, handler);
         displayRegistered = true;
-        diagnostic("display listener registered");
         receiver = new BroadcastReceiver() {
             @Override public void onReceive(Context ignored, Intent intent) {
                 String action = intent.getAction();
-                String reason = Intent.ACTION_SCREEN_OFF.equals(action) ? "screen_off"
-                        : Intent.ACTION_USER_SWITCHED.equals(action) ? "user_switch" : "shutdown";
-                invalidateRegistration(generation, reason);
+                if (Intent.ACTION_SCREEN_OFF.equals(action)) coordinator.suspend();
+                else if (Intent.ACTION_SCREEN_ON.equals(action) || Intent.ACTION_USER_PRESENT.equals(action))
+                    coordinator.screenOn();
+                else coordinator.clear();
             }
         };
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_OFF);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_USER_PRESENT);
         filter.addAction(Intent.ACTION_USER_SWITCHED);
         filter.addAction(Intent.ACTION_SHUTDOWN);
         context.registerReceiver(receiver, filter, null, handler, Context.RECEIVER_NOT_EXPORTED);
         receiverRegistered = true;
-        diagnostic("lifecycle receiver registered");
+        diagnostic("process-lifetime readiness observers registered");
+    }
+
+    private void removeLifecycleObservers() {
+        if (displayRegistered) {
+            displayRegistered = false;
+            try { displays.unregisterDisplayListener(displayListener); } catch (Throwable ignored) { }
+            displayListener = null;
+        }
+        if (receiverRegistered) {
+            receiverRegistered = false;
+            try { context.unregisterReceiver(receiver); } catch (Throwable ignored) { }
+            receiver = null;
+        }
     }
 
     private void snapshot(long generation, MotionEvent event,
@@ -412,7 +434,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
                         + " down=" + (action == UdfpsTouchBridgeCore.Action.DOWN)
                         + " up=" + (action == UdfpsTouchBridgeCore.Action.UP)
                         + " " + core.diagnosticState(generation, copy));
-                core.motion(generation, copy);
+                coordinator.motion(generation, copy);
                 if (sampled || beforeArmed != core.armed() || beforeHeld != core.pointerHeld())
                     diagnostic("snapshot result armed=" + core.armed() + " held=" + core.pointerHeld());
             });
@@ -429,7 +451,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
         run(() -> {
             diagnostic("gesture cancel " + reason + " current=" + (generation == core.generation())
                     + " armedBefore=" + core.armed());
-            core.motion(generation, canceled);
+            coordinator.motion(generation, canceled);
             diagnostic("gesture cancel armedAfter=" + core.armed() + " held=" + core.pointerHeld());
         });
     }
@@ -437,27 +459,16 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
         run(() -> {
             diagnostic("session invalidate " + reason + " current=" + (generation == core.generation())
                     + " armedBefore=" + core.armed());
-            core.invalidate(generation);
+            coordinator.captureFailure(generation);
             diagnostic("session invalidate armedAfter=" + core.armed());
         });
     }
 
     @Override public void unregister() {
+        coordinator.captureUnregistered();
         uiRelay.forget();
         inputLease.close();
         diagnostic("input monitor release scheduled");
-        if (displayRegistered) {
-            displayRegistered = false;
-            DisplayManager.DisplayListener listenerToRemove = displayListener;
-            displayListener = null;
-            try { displays.unregisterDisplayListener(listenerToRemove); } catch (Throwable ignored) { }
-        }
-        if (receiverRegistered) {
-            receiverRegistered = false;
-            BroadcastReceiver receiverToRemove = receiver;
-            receiver = null;
-            try { context.unregisterReceiver(receiverToRemove); } catch (Throwable ignored) { }
-        }
     }
 
     private Object pointerContext(UdfpsTouchBridgeCore.Motion motion) throws Exception {
@@ -474,20 +485,30 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port, Oe
     @Override public void pointerDown(UdfpsTouchBridgeCore.Target target,
                                       UdfpsTouchBridgeCore.Motion motion) throws Exception {
         forwardDiagnostic("pointer DOWN attempt fromMove=" + (motion.action == UdfpsTouchBridgeCore.Action.MOVE));
-        OemFingerprintUiCompat.Result result = uiRelay.pointerThenRelay(() -> {
-            down.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
-            forwardDiagnostic("pointer DOWN API returned");
-        }, target, true, this);
-        uiRelayDiagnostic(true, result);
+        try {
+            OemFingerprintUiCompat.Result result = uiRelay.pointerThenRelay(() -> {
+                down.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
+                forwardDiagnostic("pointer DOWN API returned");
+            }, target, true, this);
+            uiRelayDiagnostic(true, result);
+        } catch (Exception | LinkageError primaryFailure) {
+            coordinator.pointerFailed();
+            throw primaryFailure;
+        }
     }
     @Override public void pointerUp(UdfpsTouchBridgeCore.Target target,
                                     UdfpsTouchBridgeCore.Motion motion) throws Exception {
         forwardDiagnostic("pointer UP attempt");
-        OemFingerprintUiCompat.Result result = uiRelay.pointerThenRelay(() -> {
-            up.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
-            forwardDiagnostic("pointer UP API returned");
-        }, target, false, this);
-        uiRelayDiagnostic(false, result);
+        try {
+            OemFingerprintUiCompat.Result result = uiRelay.pointerThenRelay(() -> {
+                up.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
+                forwardDiagnostic("pointer UP API returned");
+            }, target, false, this);
+            uiRelayDiagnostic(false, result);
+        } catch (Exception | LinkageError primaryFailure) {
+            coordinator.pointerFailed();
+            throw primaryFailure;
+        }
     }
     @Override public void relay(UdfpsTouchBridgeCore.Target target, int reason) throws Exception {
         // Resolve lazily: presentation API absence must not prevent native touch forwarding.

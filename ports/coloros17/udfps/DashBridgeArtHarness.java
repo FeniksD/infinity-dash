@@ -69,6 +69,11 @@ public final class DashBridgeArtHarness {
         requireOrigin(OemFingerprintUiCompat.UiPort.class, args[1]);
         requireOrigin(OemFingerprintUiCompat.OwnedRelay.class, args[1]);
         requireOrigin(OemFingerprintUiCompatTest.class, args[2]);
+        requireOrigin(UdfpsSessionCoordinator.class, args[1]);
+        requireOrigin(UdfpsSessionCoordinatorTest.class, args[2]);
+        UdfpsSessionCoordinator.class.getMethod("screenOn");
+        UdfpsSessionCoordinator.class.getMethod("suspend");
+        UdfpsSessionCoordinator.class.getMethod("registrationFailed");
         System.out.println("PASS exact class origins: production=candidate, tests=test-only DEX");
         Class<?> client = type("com.android.server.biometrics.sensors.BaseClientMonitor");
         require(client.getMethod("getContext").getReturnType() == Context.class, "client context");
@@ -164,6 +169,7 @@ public final class DashBridgeArtHarness {
         PassiveInputLeaseTest.main(new String[0]);
         RootedInputResourcesTest.main(new String[0]);
         OemFingerprintUiCompatTest.main(new String[0]);
+        UdfpsSessionCoordinatorTest.main(new String[0]);
         System.out.println("PASS donor API reflection and PointerContext roundtrip; no HAL/input writes");
     }
 }

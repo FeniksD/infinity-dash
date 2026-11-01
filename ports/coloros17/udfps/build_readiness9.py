@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import zipfile
 
-ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/ui-compat-build8')
+ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/readiness-build9')
 CANON = pathlib.Path('/srv/infinity/coloros17/work/canonical/system/framework/services.jar')
 JAVA = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/java'
 JAVAC = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/javac'
@@ -36,16 +36,17 @@ assert digest(CANON.read_bytes()) == '105cc421668d81ac1c7bced968f0fbb32205a03781
 assert digest((CANON.parent / 'framework.jar').read_bytes()) == 'b162bebef34cc6650df503a39a51101679ccfef03d2f4c34615d04503c4b565d', 'Canonical donor framework.jar changed'
 
 classes = fresh('bridge-classes')
-names = ['UdfpsTouchBridgeCore', 'UdfpsTouchBridgeCoreTest', 'PassiveInputLease', 'PassiveInputLeaseTest', 'RootedInputResources', 'RootedInputResourcesTest', 'OemFingerprintUiCompat', 'OemFingerprintUiCompatTest', 'DashUdfpsTouchBridge', 'DashBridgeArtHarness']
+names = ['UdfpsTouchBridgeCore', 'UdfpsTouchBridgeCoreTest', 'PassiveInputLease', 'PassiveInputLeaseTest', 'RootedInputResources', 'RootedInputResourcesTest', 'OemFingerprintUiCompat', 'OemFingerprintUiCompatTest', 'UdfpsSessionCoordinator', 'UdfpsSessionCoordinatorTest', 'DashUdfpsTouchBridge', 'DashBridgeArtHarness']
 run([JAVAC, '-proc:none', '--release', '17', '-classpath', CP, '-d', classes,
      *[ROOT / (name + '.java') for name in names]])
 run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.UdfpsTouchBridgeCoreTest'])
 run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.PassiveInputLeaseTest'])
 run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.RootedInputResourcesTest'])
 run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.OemFingerprintUiCompatTest'])
+run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.UdfpsSessionCoordinatorTest'])
 all_classes = sorted(classes.rglob('*.class'))
-prod_classes = [p for p in all_classes if not p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'RootedInputResourcesTest', 'OemFingerprintUiCompatTest', 'DashBridgeArtHarness'))]
-test_classes = [p for p in all_classes if p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'RootedInputResourcesTest', 'OemFingerprintUiCompatTest', 'DashBridgeArtHarness'))]
+prod_classes = [p for p in all_classes if not p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'RootedInputResourcesTest', 'OemFingerprintUiCompatTest', 'UdfpsSessionCoordinatorTest', 'DashBridgeArtHarness'))]
+test_classes = [p for p in all_classes if p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'RootedInputResourcesTest', 'OemFingerprintUiCompatTest', 'UdfpsSessionCoordinatorTest', 'DashBridgeArtHarness'))]
 prod_cp = ROOT / 'bridge-production-classpath.jar'
 with zipfile.ZipFile(prod_cp, 'w') as z:
     for p in prod_classes: z.write(p, str(p.relative_to(classes)))
@@ -64,6 +65,8 @@ assert not any(x.startswith('Lcom/android/server/biometrics/sensors/dash/DashUdf
                or x.startswith('Lcom/android/server/biometrics/sensors/dash/RootedInputResources$')
                or x.startswith('Lcom/android/server/biometrics/sensors/dash/OemFingerprintUiCompat;')
                or x.startswith('Lcom/android/server/biometrics/sensors/dash/OemFingerprintUiCompat$')
+               or x.startswith('Lcom/android/server/biometrics/sensors/dash/UdfpsSessionCoordinator;')
+               or x.startswith('Lcom/android/server/biometrics/sensors/dash/UdfpsSessionCoordinator$')
                for x in harness_inventory), 'Test DEX shadows production definitions'
 
 original = ROOT / 'bridge-services-original'
@@ -163,6 +166,8 @@ summary = {
     'resource_checks': 19,
     'root_resource_checks': 21,
     'ui_compat_checks': 44,
+    'readiness_checks': 37,
+    'unchanged_companion_oplus_sha256': 'f0eefa5ea3f4ef7b819379ee52a4826cdaa20abdb761df3c4ac2664af8779057',
     'test_only_dex_inventory': harness_inventory,
     'art_harness_built_not_executed': True,
 }

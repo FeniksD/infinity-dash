@@ -1,5 +1,5 @@
 {
-  "status": "live_enrollment_ui_and_animations_verified_wake_activation_pending",
+  "status": "live_enrollment_animation_and_awake_unlock_verified",
   "native_hal": {
     "descriptor": "android.hardware.biometrics.fingerprint.IFingerprint/default",
     "interface_version": 4,
@@ -30,18 +30,18 @@
     "UI geometry settings220/712 are accepted and icon appears at intended location",
     "Native enrollment and real fingerprint authentication work with rooted passive input bridge",
     "Repeated attempts preserved across OEM status notifications; wrong finger rejected, enrolled finger accepted in same active request",
-    "Enrollment UI and pressed animation work after unknown-count normalization and genuine pointer UI relay"
+    "Enrollment UI and pressed animation work after unknown-count normalization and genuine pointer UI relay",
+    "Validated pending-session resume after screen wake without swiping to PIN; repeated reject then real accept verified"
   ],
   "not_verified": [
-    "activation of a pending fingerprint session after AOD wake",
-    "full screen-off/AOD authentication",
+    "direct authentication while display remains off/AOD",
     "permanent cold-boot image integration"
   ],
   "next_investigation": "UI touch to standard AIDL Session.onPointerDown/UDFPS handler; no authentication or template bypass",
   "source_integration_pending": true,
   "touch_bridge": {
     "source": "udfps/manifest.json",
-    "status": "live_enrollment_ui_and_animations_verified_wake_activation_pending",
+    "status": "live_enrollment_animation_and_awake_unlock_verified",
     "deployment": "temporary bind mount only",
     "prerequisites": "existing property, feature and scoped SELinux changes remain required"
   }

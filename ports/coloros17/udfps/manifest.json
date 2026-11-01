@@ -1,24 +1,26 @@
 {
-  "status": "live_enrollment_ui_and_animations_verified_wake_activation_pending",
+  "status": "live_enrollment_animation_and_awake_unlock_verified",
   "scope": "screen-on portrait dash only; passive input bridge forwards real finger events to the current standard fingerprint request",
   "source_sha256": {
-    "DashUdfpsTouchBridge.java": "7cd0ee781ebeeb33c8425dd4cb12cfef006177bc1fb390ca9b3cbb0af6b15b46",
+    "DashUdfpsTouchBridge.java": "43196929cd58515049e1005fb44cd4ec1f9fa5b2a4349e0bb5ea2ec41237032e",
     "UdfpsTouchBridgeCore.java": "559c750ff9e4ed43458544f9c4164923cc7870401e7789d898008f3635c42a12",
     "PassiveInputLease.java": "f50bc9013ff3e862e58b54fab4ef3ea6a660231f392a1f61264115e48d94d16b",
     "RootedInputResources.java": "cc23906b3fa94e0111a2c97ab6b11d8d70b94e2f676812be5bbfb869ec1f28c6",
     "OemFingerprintUiCompat.java": "c3baa353a184e81908a763e8a2c4f9ae4b947b0e82a3287cd0af7b16a39d57b6",
+    "UdfpsSessionCoordinator.java": "5b0772753636d7fe4db0cafcc3372ac4c59e9e3e4dace2541d6c43c64c1c039c",
     "UdfpsTouchBridgeCoreTest.java": "1c1c23ddfb76f6340854512630716aba172da34c85f634c77e80c0e3b9fb8b61",
     "PassiveInputLeaseTest.java": "eca6543644dbb91deeee55136896ee0681997a8894bae0f6ae835f9bfa34e5cb",
     "RootedInputResourcesTest.java": "eba59d84ba8e87972e533f58e33bf51330eefb034a507ed7c48adc08639d94a9",
     "OemFingerprintUiCompatTest.java": "e3b201835c28841deb9d59bb232233ac68d3fbd2e526794c2cf8c2eda35ef326",
-    "DashBridgeArtHarness.java": "09dbfe43abac833ea29721ada81f03755bd0df5d8481145361d77b561b19ca7f",
-    "build_ui_compat8.py": "d77497238b764668a3f625fc25ed7a328a2a68907d506d03812773e126a2e89d",
+    "UdfpsSessionCoordinatorTest.java": "7aaa399dd900f7bc8cf68a26a1527e7b54f61d9387a5cd2e90703d9c58322c62",
+    "DashBridgeArtHarness.java": "f579954f403d3f4e386bb934a8efa67afae1734308de813133e2d2035f12ec50",
+    "build_readiness9.py": "d8e42e16ff787bbbb35009fe757f89b92fc414f133ecb13e5c14f5972ce3ff87",
     "build_oplus_total8.py": "c2b6ca0c1ff5642bb275395c2ec6ef8ffa0e2892316219b120038bd1337094f2",
     "getEnrollmentTotalTimes.smali": "c2ee7bcae4ef58b258b85a2f5e7d2b76af3b33d89487bd5fabc6d6c2418f12d2"
   },
   "canonical_services_jar_sha256": "105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94",
-  "candidate_services_jar_sha256": "6fce9a04938fabea420604bc4aac30de08a15fdc85970d4a514a1ff077d819e9",
-  "test_only_harness_sha256": "26ba2b1fcd21af3022f64e1e3db06c936616c16d5858d72c5fd8c3603d5cd3bc",
+  "candidate_services_jar_sha256": "0f2ec63ffa251787fc570e19cdc7870f4051c5f14190c079c3e0dacec64913d1",
+  "test_only_harness_sha256": "b435fc42c485cb8da4c8e1a0235aceac1b034132ce6a7e5789b2098cd991ac3b",
   "property_gate": "persist.sys.dash.udfps_touch_bridge=true",
   "packaging": "Two SensorOverlays hooks in classes.dex; helpers in classes5.dex; remaining entries unchanged",
   "verification": [
@@ -33,12 +35,13 @@
     "Same active authentication request rejected three attempts and then accepted the enrolled finger without a screen cycle",
     "149 pure checks passed on actual ART with exact production/test class origins including Oplus getter",
     "Live OEM getter changed from invalid zero to unknown -1; genuine remaining=14 through zero completed enrollment",
-    "Owner confirms enrollment progress/completion screen and pressed animation now work"
+    "Owner confirms enrollment progress/completion screen and pressed animation now work",
+    "186 checks pass on actual ART, including 37 readiness/coordinator cases; Oplus companion unchanged",
+    "Owner confirms no-swipe wake unlock; native same request4 rejects an unenrolled finger then accepts enrolled finger; lockout remains zero"
   ],
   "limitations": [
-    "Lockscreen activation after AOD/early show still requires readiness reconciliation; candidate9 in progress",
-    "Complete screen-off/AOD authentication has not been verified",
-    "Not integrated in build_image.py or installed raw DSU image; runtime bind mounts are temporary"
+    "Direct authentication while the screen remains off/AOD is not implemented or fully verified; wake the screen first",
+    "Raw DSU image/build_image.py integration remains pending; current runtime bind mounts are temporary"
   ],
   "rebuild_notes": [
     "Build script is the exact reviewed lab builder and retains absolute lab paths.",
@@ -53,7 +56,7 @@
     "aosp_reference": "https://android.googlesource.com/platform/frameworks/base/+/12fb8ad349d93facbb5ca0b0924b74840755cf83/packages/SystemUI/src/com/android/systemui/biometrics/udfps/SinglePointerTouchProcessor.kt",
     "regression": "Old core failed entry regression; corrected core passes 52 checks, resource suite unchanged at 19"
   },
-  "last_live_result": "Owner confirms progress, completion UI and pressed animation; native enrollment remaining14..0 finished successfully. AOD-to-awake transition can leave same valid auth session without input monitor until bouncer creates a new session.",
+  "last_live_result": "C9 awake unlock, retry, UI animation and prior genuine enrollment verified. SELinux remains enforcing; two stored fingerprints present at final check.",
   "rooted_monitor": {
     "reason": "Oplus places FOD touchable windows as root-level siblings above normal display Input Overlays; native spy-window scan stops at first touched non-spy",
     "solution": "Own bufferless root-eligible container above FOD, containing only the bridge passive InputMonitor. Dispose receiver then monitor, remove and release owned root.",
@@ -79,5 +82,11 @@
   "pressed_ui": {
     "behavior": "Native pointer call first, then optional original SensorOverlays reason8/9 for exact current/live target; owned UP remains possible after opt-out or display transition",
     "does_not_modify": "HAL authentication results, enrollment templates or biometric strength"
+  },
+  "readiness": {
+    "behavior": "Keep validated overlay intent separate from input capture; process-lifetime observers suspend on screen-off and arm when ON/interactive/portrait, retaining same live client",
+    "safety": "Real hide/user switch/shutdown/opt-out/dead client and primary/setup failures clear pending; resume requires fresh real DOWN; no off/AOD input capture",
+    "confirmed_previous_failure": "AOD request15 survived wake with no input listener; bouncer Back made new request16 with listener",
+    "current_status": "Owner confirms unlock directly after screen wake, without bouncer swipe; live trace shows pending off-screen session resuming and genuine authentication."
   }
 }
