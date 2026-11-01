@@ -1,0 +1,24 @@
+{
+  "status": "live_tested_false_voltage_warning_resolved",
+  "target": "/system/framework/oplus-services.jar",
+  "class": "com/android/server/OplusBatteryService.smali",
+  "patch": "patches/0003-charger-invalid-diagnostic.patch",
+  "source_class_sha256": "bbd82b2fa17622677bf0b41e767a730cdd1589872e58e6b826c9f7c83fbdf297",
+  "patched_class_sha256": "5e83c640030f1b396c507215f1b921c82b2825ba494d86b2a2726dd8f31d6135",
+  "input_jar_sha256": "3a0597929f5f84d6899adce20b5cfeb70e27835dca3cebadb4ad0350fede3267",
+  "combined_haptics_charging_jar_sha256": "2a60e7f1318e7decdb7d02d382c1ae55c9e986d9fc2ddd6d6f0958073dac0ff7",
+  "behavior": "Ignore negative unavailable HAL diagnostic samples; retain last valid nonnegative fault mask. Valid zero and positive masks pass through unchanged. Log once per unavailable interval.",
+  "verified": [
+    "21 actual ART samples passed without HAL calls, constructors, broadcasts or charging writes",
+    "live battery broadcast notifycode=0 instead of -1",
+    "owner confirmed Voltage Error disappeared",
+    "SELinux stayed enforcing; no charger/thermal/kernel changes",
+    "only classes.dex changed; haptic classes2.dex byte-identical"
+  ],
+  "source_integration_pending": true,
+  "deployment": "temporary bind above haptic candidate, no rebuilt full image",
+  "limitations": [
+    "Does not manufacture missing Oplus charger diagnostics",
+    "Charging protection remains in retained kernel/vendor stack"
+  ]
+}
