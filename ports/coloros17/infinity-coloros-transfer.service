@@ -1,0 +1,27 @@
+[Unit]
+Description=Temporary authenticated ColorOS artifact transfer
+After=network-online.target
+
+[Service]
+Type=exec
+User=rombuild
+Group=rombuild
+ExecStartPre=+/usr/bin/python3 -I -B /run/infinity-coloros-transfer/lifecycle.py activate
+ExecStart=/usr/bin/python3 -I -B /run/infinity-coloros-transfer/server.py --file /srv/infinity/coloros17/transfer/coloros17.img.gz --size 6866550221 --sha256 bd01f558269552d110422ec44bff2ff552861e632d7634c109bc44c5832b1357 --token-file /run/infinity-coloros-transfer/private/token --cert /run/infinity-coloros-transfer/private/cert.pem --key /run/infinity-coloros-transfer/private/key.pem
+ExecStopPost=+/usr/bin/python3 -I -B /run/infinity-coloros-transfer/lifecycle.py cleanup
+TimeoutStartSec=180
+TimeoutStopSec=120
+RuntimeMaxSec=3h
+KillMode=control-group
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+CapabilityBoundingSet=
+RestrictAddressFamilies=AF_INET AF_UNIX AF_NETLINK
+MemoryMax=256M
+TasksMax=64
+UMask=0077
