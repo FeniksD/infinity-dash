@@ -38,6 +38,8 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
             new java.util.concurrent.atomic.AtomicBoolean();
     private static final java.util.concurrent.atomic.AtomicInteger DIAGNOSTIC_COUNT =
             new java.util.concurrent.atomic.AtomicInteger();
+    private static final java.util.concurrent.atomic.AtomicInteger FORWARD_DIAGNOSTIC_COUNT =
+            new java.util.concurrent.atomic.AtomicInteger();
 
     private final Context context;
     private final Handler handler;
@@ -243,6 +245,9 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     private static void diagnostic(String message) {
         if (DIAGNOSTIC_COUNT.getAndIncrement() < 64) Log.i(TAG, message);
     }
+    private static void forwardDiagnostic(String message) {
+        if (FORWARD_DIAGNOSTIC_COUNT.getAndIncrement() < 8) Log.i(TAG, message);
+    }
     private static void diagnosticFailure(String phase, Throwable failure) {
         Throwable cause = failure.getCause();
         diagnostic(phase + " failed: class=" + failure.getClass().getSimpleName()
@@ -414,10 +419,14 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     }
     @Override public void pointerDown(UdfpsTouchBridgeCore.Target target,
                                       UdfpsTouchBridgeCore.Motion motion) throws Exception {
+        forwardDiagnostic("pointer DOWN attempt fromMove=" + (motion.action == UdfpsTouchBridgeCore.Action.MOVE));
         down.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
+        forwardDiagnostic("pointer DOWN API returned");
     }
     @Override public void pointerUp(UdfpsTouchBridgeCore.Target target,
                                     UdfpsTouchBridgeCore.Motion motion) throws Exception {
+        forwardDiagnostic("pointer UP attempt");
         up.invoke(fingerprintService, target.requestId(), target.sensorId(), pointerContext(motion));
+        forwardDiagnostic("pointer UP API returned");
     }
 }

@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import zipfile
 
-ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/input-monitor-build4')
+ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/edge-entry-build5')
 CANON = pathlib.Path('/srv/infinity/coloros17/work/canonical/system/framework/services.jar')
 JAVA = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/java'
 JAVAC = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/javac'
@@ -31,6 +31,9 @@ def fresh(name):
     return p
 
 def digest(data): return hashlib.sha256(data).hexdigest()
+
+assert digest(CANON.read_bytes()) == '105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94', 'Canonical donor services.jar changed'
+assert digest((CANON.parent / 'framework.jar').read_bytes()) == 'b162bebef34cc6650df503a39a51101679ccfef03d2f4c34615d04503c4b565d', 'Canonical donor framework.jar changed'
 
 classes = fresh('bridge-classes')
 names = ['UdfpsTouchBridgeCore', 'UdfpsTouchBridgeCoreTest', 'PassiveInputLease', 'PassiveInputLeaseTest', 'DashUdfpsTouchBridge', 'DashBridgeArtHarness']
@@ -150,7 +153,7 @@ summary = {
     'original_classes_in_dex': len(original_paths),
     'semantic_roundtrip_differences': differences,
     'unchanged_jar_entries': unchanged_entries,
-    'core_checks': 37,
+    'core_checks': 52,
     'resource_checks': 19,
     'test_only_dex_inventory': harness_inventory,
     'art_harness_built_not_executed': True,

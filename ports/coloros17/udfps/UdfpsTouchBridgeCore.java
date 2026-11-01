@@ -84,6 +84,7 @@ public final class UdfpsTouchBridgeCore {
     private final Port port;
     private Target target;
     private Motion held;
+    private Motion observedDown;
     private long generation;
     private boolean registered;
     private boolean blockedGesture;
@@ -124,6 +125,7 @@ public final class UdfpsTouchBridgeCore {
                 stop();
             } else {
                 release(null);
+                observedDown = null;
                 blockedGesture = false;
             }
             return;
@@ -137,6 +139,7 @@ public final class UdfpsTouchBridgeCore {
         if (motion.pointerCount != 1 || motion.action == Action.POINTER_DOWN
                 || motion.action == Action.POINTER_UP) {
             release(motion);
+            observedDown = null;
             blockedGesture = true;
             return;
         }
@@ -146,29 +149,36 @@ public final class UdfpsTouchBridgeCore {
             case DOWN -> {
                 release(motion);
                 if (target == null) return;
-                blockedGesture = !target.contains(motion);
-                if (!blockedGesture) {
-                    held = motion; // Retain before Binder call, so failure can attempt release.
-                    try { port.pointerDown(target, motion); }
-                    catch (Exception | LinkageError e) { stop(); }
-                }
+                observedDown = motion;
+                blockedGesture = false;
+                if (target.contains(motion)) press(motion);
             }
             case MOVE -> {
-                if (held == null || blockedGesture) return;
-                if (motion.pointerId != held.pointerId) {
-                    release(motion); blockedGesture = true; return;
+                if (observedDown == null || blockedGesture) return;
+                if (motion.pointerId != observedDown.pointerId || motion.downTime != observedDown.downTime) {
+                    release(motion); observedDown = null; blockedGesture = true; return;
                 }
-                if (!target.contains(motion)) {
+                if (held == null) {
+                    if (target.contains(motion)) press(motion);
+                } else if (!target.contains(motion)) {
                     release(motion);
+                    observedDown = null;
                     blockedGesture = true; // Do not reenter until the next genuine DOWN.
                 } else held = motion;
             }
             case UP -> {
                 release(motion);
+                observedDown = null;
                 blockedGesture = false;
             }
             default -> { }
         }
+    }
+
+    private void press(Motion motion) {
+        held = motion; // Retain before Binder call, so failure can attempt release.
+        try { port.pointerDown(target, motion); }
+        catch (Exception | LinkageError e) { stop(); }
     }
 
     private void release(Motion latest) {
@@ -197,6 +207,7 @@ public final class UdfpsTouchBridgeCore {
         generation++;
         target = null;
         held = null;
+        observedDown = null;
         blockedGesture = false;
         if (registered) {
             registered = false;
@@ -210,7 +221,8 @@ public final class UdfpsTouchBridgeCore {
     /** Bounded diagnostic caller may report decisions; never includes coordinates or identifiers. */
     public String diagnosticState(long token, Motion motion) {
         return "armed=" + armed() + " sameGeneration=" + (token == generation)
-                + " held=" + pointerHeld() + " gestureBlocked=" + blockedGesture
+                + " held=" + pointerHeld() + " downObserved=" + (observedDown != null)
+                + " gestureBlocked=" + blockedGesture
                 + " sameDisplay=" + (target != null && target.displayId == motion.displayId)
                 + " inside=" + (target != null && target.contains(motion))
                 + " enabled=" + port.enabledForDash()

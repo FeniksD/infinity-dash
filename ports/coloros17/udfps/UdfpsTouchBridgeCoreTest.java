@@ -82,18 +82,48 @@ public final class UdfpsTouchBridgeCoreTest {
         check(p.motions.get(3).pointerId() == 4 && p.motions.get(3).downTime() == 100,
                 "new DOWN after lost UP releases original pointer and gesture");
     }
-    private static void testOutsideAndNoSlideIn() {
+    private static void testObservedDownMayEnterButNoReentry() {
         FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
         long g = b.show(target(7));
         b.motion(g, event(UdfpsTouchBridgeCore.Action.DOWN, 10, 10, 100));
         b.motion(g, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 200));
         b.motion(g, event(UdfpsTouchBridgeCore.Action.UP, 638, 2060, 300));
-        check(p.calls.isEmpty(), "unrelated drag crossing sensor never activates it");
+        check(p.calls.equals(List.of("down:7", "up:7")),
+                "observed single-pointer DOWN may enter sensor on MOVE");
+        check(p.motions.get(0).eventTime() == 200 && p.motions.get(0).downTime() == 100,
+                "entry uses actual MOVE time with original gesture downTime");
         b.motion(g, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 400));
         b.motion(g, event(UdfpsTouchBridgeCore.Action.MOVE, 800, 2060, 500));
         b.motion(g, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 600));
         b.motion(g, event(UdfpsTouchBridgeCore.Action.UP, 638, 2060, 700));
-        check(p.calls.equals(List.of("down:7", "up:7")), "leaving circle releases, no reentry");
+        check(p.calls.equals(List.of("down:7", "up:7", "down:7", "up:7")),
+                "leaving circle releases, no reentry before a fresh DOWN");
+    }
+    private static void testPendingGestureIdentityAndInvalidation() {
+        for (int kind = 0; kind < 6; kind++) {
+            FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
+            long g = b.show(target(7));
+            if (kind != 0) b.motion(g, event(UdfpsTouchBridgeCore.Action.DOWN, 10, 10, 100));
+            if (kind == 1) b.motion(g, new UdfpsTouchBridgeCore.Motion(UdfpsTouchBridgeCore.Action.MOVE,
+                    0, 0, true, 8, 1, 638, 2060, 12, 20, 0, 150, 100));
+            if (kind == 2) b.motion(g, new UdfpsTouchBridgeCore.Motion(UdfpsTouchBridgeCore.Action.MOVE,
+                    0, 0, true, 4, 1, 638, 2060, 12, 20, 0, 150, 101));
+            if (kind == 3) b.motion(g, event(UdfpsTouchBridgeCore.Action.UP, 10, 10, 150));
+            if (kind == 4) b.motion(g, new UdfpsTouchBridgeCore.Motion(UdfpsTouchBridgeCore.Action.CANCEL,
+                    -1, -1, false, -1, 0, Float.NaN, Float.NaN, 0, 0, 0, 150, 100));
+            if (kind == 5) b.motion(g, new UdfpsTouchBridgeCore.Motion(UdfpsTouchBridgeCore.Action.POINTER_DOWN,
+                    0, 0, true, 4, 2, 10, 10, 12, 20, 0, 150, 100));
+            b.motion(g, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 200));
+            check(p.calls.isEmpty(), "orphan/mismatched/ended/cancelled/multitouch MOVE cannot enter");
+            b.motion(g, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 300));
+            check(p.calls.equals(List.of("down:7")), "fresh DOWN restores eligibility after invalid gesture");
+        }
+        FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
+        long old = b.show(target(7)); b.motion(old, event(UdfpsTouchBridgeCore.Action.DOWN, 10, 10, 100));
+        long next = b.show(target(8));
+        b.motion(old, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 200));
+        b.motion(next, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 200));
+        check(p.calls.isEmpty(), "pending DOWN cannot cross session generation");
     }
     private static void testHideOptOutAndOwnership() {
         FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
@@ -151,6 +181,14 @@ public final class UdfpsTouchBridgeCoreTest {
         c.hide(OWNER, 0);
         check(!c.armed() && !q.registered && q.calls.equals(List.of("down:9", "up:9")),
                 "failed up does not leak listener or duplicate release");
+        FakePort release = new FakePort(); UdfpsTouchBridgeCore failed = new UdfpsTouchBridgeCore(release);
+        long token = failed.show(target(10));
+        failed.motion(token, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 100));
+        release.throwUp = true;
+        failed.motion(token, event(UdfpsTouchBridgeCore.Action.DOWN, 10, 10, 200));
+        failed.motion(token, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 300));
+        check(!failed.armed() && release.calls.equals(List.of("down:10", "up:10")),
+                "release failure clears target and cannot rearm pending entry");
     }
     private static void testSyntheticCancelWithoutFingerMetadata() {
         FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
@@ -225,7 +263,8 @@ public final class UdfpsTouchBridgeCoreTest {
         testUnrelatedMultitouchCannotDestroyOverlay(); testHeldMultitouchReleasesOnlyGesture();
         testNoninteractiveDisplayCannotCapture();
         testSyntheticCancelWithoutFingerMetadata();
-        testGateAndInvalidTarget(); testRealDownUpAndDwell(); testOutsideAndNoSlideIn();
+        testGateAndInvalidTarget(); testRealDownUpAndDwell(); testObservedDownMayEnterButNoReentry();
+        testPendingGestureIdentityAndInvalidation();
         testHideOptOutAndOwnership(); testReplacementAndStaleQueue();
         testRotateStillStopsSession(); testSourceFilterAndFailures();
         System.out.println("PASS " + checks + " lifecycle and input checks; no device access");
