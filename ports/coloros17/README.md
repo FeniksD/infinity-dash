@@ -34,4 +34,6 @@ Pinned toolkit: [MysticGSI](https://github.com/MysticGSI/mysticgsi/tree/b906057b
 
 The first candidate targets DSU, preserving the working Infinity base. Later iterations should modify only the inactive DSU copy and corresponding canonical host files, with rollback, verified metadata and an explicit AVB policy.
 
+For the laboratory transfer, `serve_artifact.py` serves one hash-verified file with a bearer token and pinned TLS. The runtime systemd unit uses privileged lifecycle hooks to add and remove one source-restricted firewall rule while keeping the original guard baseline intact. Do not install this example as a permanent public download service. Its optional `--tcp-congestion bbr` selects BBR only for the transfer socket; it requires an available, allowed kernel implementation and does not change the global TCP default.
+
 Design and current task checklist: `docs/superpowers/specs/2026-11-01-coloros17-dsu-design.md` and `docs/superpowers/plans/2026-11-01-coloros17-dsu.md`.
