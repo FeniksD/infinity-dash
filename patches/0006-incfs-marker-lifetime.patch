@@ -1,0 +1,15 @@
+diff --git a/services/incremental/IncrementalService.cpp b/services/incremental/IncrementalService.cpp
+--- a/services/incremental/IncrementalService.cpp
++++ b/services/incremental/IncrementalService.cpp
+@@ -238,9 +238,9 @@
+ }
+ 
+ static bool checkReadLogsDisabledMarker(std::string_view root) {
+-    const auto markerPath = path::c_str(path::join(root, constants().readLogsDisabledMarkerName));
++    const auto markerPath = path::join(root, constants().readLogsDisabledMarkerName);
+     struct stat st;
+-    return (::stat(markerPath, &st) == 0);
++    return (::stat(markerPath.c_str(), &st) == 0);
+ }
+ 
+ } // namespace

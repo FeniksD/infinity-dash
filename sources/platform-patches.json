@@ -15,6 +15,14 @@
       "files": {
         "scripts/check_boot_jars/package_allowed_list.txt": "source_overrides/build/soong/scripts/check_boot_jars/package_allowed_list.txt"
       }
+    },
+    {
+      "path": "frameworks/base",
+      "commit": "376ae8444e798ed5dffeba922e518ac603b759bb",
+      "patch": "patches/0006-incfs-marker-lifetime.patch",
+      "files": {
+        "services/incremental/IncrementalService.cpp": "source_overrides/frameworks/base/services/incremental/IncrementalService.cpp"
+      }
     }
   ]
 }
