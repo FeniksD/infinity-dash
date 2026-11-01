@@ -38,11 +38,12 @@
     "permanent cold-boot image integration"
   ],
   "next_investigation": "UI touch to standard AIDL Session.onPointerDown/UDFPS handler; no authentication or template bypass",
-  "source_integration_pending": true,
+  "source_integration_pending": false,
   "touch_bridge": {
     "source": "udfps/manifest.json",
     "status": "live_enrollment_animation_and_awake_unlock_verified",
-    "deployment": "temporary bind mount only",
+    "deployment": "runtime bundle stage plus current temporary live bind",
     "prerequisites": "existing property, feature and scoped SELinux changes remain required"
-  }
+  },
+  "cold_boot_validation_pending": true
 }

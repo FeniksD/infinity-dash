@@ -1,0 +1,15 @@
+# Retained dash AIDL fingerprint HAL; set its framework selector before zygote.
+on early-init
+    setprop vendor.fingerprint.aidl.support 1
+
+# Main init loads saved properties before this system_ext post-fs-data action.
+# Run synchronously here: property-triggered actions can queue after zygote-start.
+on post-fs-data
+    setprop vendor.fingerprint.aidl.support 1
+    setprop persist.vendor.fingerprint.sensor_type ultrasonic
+    setprop persist.vendor.fingerprint.optical.iconsize 220
+    setprop persist.vendor.fingerprint.optical.iconlocation 712
+
+    # ExpandProps uses the default only for an empty value; preserve explicit false.
+    setprop persist.sys.dash.udfps_touch_bridge ${persist.sys.dash.udfps_touch_bridge:-true}
+    setprop persist.sys.dash.haptic_fallback ${persist.sys.dash.haptic_fallback:-true}

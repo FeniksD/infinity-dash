@@ -1,16 +1,27 @@
 {
-  "status": "verified_NVM_access_fix_cellular_still_unresolved",
+  "status": "radio_product_name_fix_live_verified_incoming_and_sms_pending",
   "policy_fragment": "patches/rild-dsu-metadata-read.cil",
   "reason": "Retained libnvram calls ReadDefaultFstab; missing DSU metadata access aborted NVM_Init before PRODUCT_INFO read.",
   "verified": [
     "DSU libfstab EACCES eliminated",
     "PRODUCT_INFO descriptor failure eliminated; normal read-only completion observed",
-    "No NV write permission added; special LID61 uses O_RDONLY"
+    "No NV write permission added; special LID61 uses O_RDONLY",
+    "Both SIMs register LTE after the one-property correction",
+    "Owner confirms mobile internet and outgoing calls"
   ],
   "not_fixed": [
-    "SYS_NV_SIG_ERR indications still occur after a fresh modem boot",
-    "No successful radio-on confirmation; cellular registration unavailable"
+    "Incoming calls not yet confirmed working",
+    "SMS delivery pending recovery from guest storage-full",
+    "SystemUI signal bars do not reflect standard LTE levels"
   ],
-  "next_step": "Compare same full-modem startup against working Infinity after preserving current DSU modifications",
-  "source_integration_pending": true
+  "next_step": "Preserve product correction in image, restore guest storage capacity, then capture incoming-call and SMS delivery boundaries",
+  "source_integration_pending": false,
+  "hardware_product_name": {
+    "property": "ro.product.vendor.name",
+    "donor_value": "PLG110",
+    "retained_value": "dash_global",
+    "recipe_path": "/my_manifest/build.prop",
+    "evidence": "CCCI RPC requested this property during modem critical-data verification; corrected run had no new NV-signature errors and successful radio-on confirmations"
+  },
+  "cold_boot_validation_pending": true
 }

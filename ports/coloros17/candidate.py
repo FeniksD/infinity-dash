@@ -16,6 +16,7 @@ import uuid
 from .preflight import validate
 from .merge import apply_merge, plan_merge
 from .compat import apply_compatibility, plan_compatibility
+from .runtime_bundle import apply_runtime_bundle, plan_runtime_bundle
 from .build_image import build_image, validate_tree
 
 HERE = Path(__file__).resolve().parent
@@ -83,11 +84,11 @@ def _load_state(work):
         raise ValueError("Invalid final manifest state")
     pending = state["pending"]
     if pending is not None:
-        if not isinstance(pending, dict) or pending.get("stage") not in {"merge", "patch"}:
+        if not isinstance(pending, dict) or pending.get("stage") not in {"merge", "patch", "runtime", "camera"}:
             raise ValueError("Invalid pending transformation state; recovery required")
         if _matches(tree, pending.get("after")):
             state["current"] = pending["after"]
-        elif pending["stage"] == "patch" and _matches(tree, state["current"]):
+        elif pending["stage"] in {"patch", "runtime", "camera"} and _matches(tree, state["current"]):
             pass
         elif (pending["stage"] == "merge" and state["current"] is None
               and not os.path.lexists(tree) and isinstance(pending.get("sources"), dict)
@@ -170,15 +171,36 @@ def _verify_receipts(base, donor):
         raise ValueError("OTA signature consistency verification must match the pinned donor")
 
 
+def _compatibility_plan(tree, pair, artifacts, runtime_enabled):
+    try:
+        return plan_compatibility(tree, pair["records"], pair["contents"])
+    except ValueError:
+        if not runtime_enabled:
+            raise
+        runtime = plan_runtime_bundle(tree, pair["records"], pair["contents"], artifacts)
+        if runtime["status"] != "already_applied":
+            raise ValueError("Incomplete compatibility/runtime state")
+        return plan_compatibility(tree, pair["records"], pair["contents"],
+                                  runtime_policy_sha256=runtime["policy_sha256"])
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--profile", type=Path, default=HERE / "profile.json")
-    parser.add_argument("--stage", choices=["merge", "patch", "build"], required=True)
+    parser.add_argument("--stage", choices=["merge", "patch", "runtime", "build"], required=True)
+    parser.add_argument("--runtime-artifacts", type=Path,
+                        help="Pinned JAR directory (default: BASE/inputs/runtime)")
+    parser.add_argument("--output", type=Path,
+                        help="New image destination (build stage only)")
     args = parser.parse_args(argv)
     profile = read_json(args.profile)
     validate(read_json(HERE / "donor-metadata.json"), read_json(HERE / "payload-summary.json"), profile)
+    runtime_enabled = profile.get("runtime_bundle_required", True)
+    if type(runtime_enabled) is not bool:
+        raise ValueError("runtime_bundle_required must be a boolean")
     base = args.base.resolve(strict=True)
+    artifacts = args.runtime_artifacts if args.runtime_artifacts is not None else base / "inputs/runtime"
     work = base / "work"
     _verify_receipts(base, read_json(HERE / "donor.json"))
     state_path = work / "final-state.json"
@@ -203,7 +225,7 @@ def main(argv=None):
         pair = state["current"]
         if pair is None:
             raise ValueError("Merge must complete before compatibility patching")
-        plan = plan_compatibility(tree, pair["records"], pair["contents"])
+        plan = _compatibility_plan(tree, pair, artifacts, runtime_enabled)
         if plan["status"] == "already_applied":
             report = {"status": "already_applied", "stage": "patch", "report": None}
         else:
@@ -216,11 +238,35 @@ def main(argv=None):
             state.update(current=after, pending=None)
             write_json(state_path, state)
             report = {"status": result["status"], "stage": "patch", "report": result["report_path"]}
+    elif args.stage == "runtime":
+        pair = state["current"]
+        if pair is None:
+            raise ValueError("Merge must complete before the runtime bundle")
+        compatibility = _compatibility_plan(tree, pair, artifacts, True)
+        if compatibility["status"] != "already_applied":
+            raise ValueError("Compatibility patches must precede the runtime bundle")
+        plan = plan_runtime_bundle(tree, pair["records"], pair["contents"], artifacts)
+        if plan["status"] == "already_applied":
+            report = {"status": "already_applied", "stage": "runtime", "report": None}
+        else:
+            after = {"records": plan["final_records"], "contents": plan["final_content_manifest"]}
+            backup = work / ("runtime-backup-" + uuid.uuid4().hex)
+            state["pending"] = {"stage": "runtime", "after": after, "backup_dir": str(backup)}
+            write_json(state_path, state)
+            result = apply_runtime_bundle(tree, pair["records"], pair["contents"], artifacts, backup)
+            _validate_pair(tree, after)
+            state.update(current=after, pending=None)
+            write_json(state_path, state)
+            report = {"status": result["status"], "stage": "runtime", "report": result["report_path"]}
     else:
         pair = state["current"]
         if pair is None:
             raise ValueError("Merge must complete before building")
-        plan = plan_compatibility(tree, pair["records"], pair["contents"])
+        if runtime_enabled:
+            runtime = plan_runtime_bundle(tree, pair["records"], pair["contents"], artifacts)
+            if runtime["status"] != "already_applied":
+                raise ValueError("Required runtime bundle must be applied before building")
+        plan = _compatibility_plan(tree, pair, artifacts, runtime_enabled)
         if plan["status"] != "already_applied":
             raise ValueError("Required compatibility patches must be applied before building")
         native = read_json(HERE / "native-tools.json")
@@ -229,8 +275,9 @@ def main(argv=None):
         for name in ["debugfs", "e2fsck"]:
             paths[name] = native["system_tools"][name]["path"]
             hashes[name] = native["system_tools"][name]["sha256"]
+        output = args.output if args.output is not None else base / "output/ColorOS17-PLG110-dash-lab.img"
         result = build_image(tree, pair["records"], pair["contents"],
-                             base / "output/ColorOS17-PLG110-dash-lab.img", base / "sources/mysticgsi",
+                             output, base / "sources/mysticgsi",
                              paths, hashes)
         report = {key: result.get(key) for key in ["status", "output", "image_bytes", "sha256", "report_path"]}
         report.update({key: result[key] for key in ("post_publish_warning", "report_save_error")

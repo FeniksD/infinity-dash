@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "bundle_id": "infinity-dash-miuicamera-6.3.006290.7",
+  "archive_sha256": "389dd9e23bb969d3b00cefa7b564e1363384055711b59ff64d4aef7ed3f0eae3",
+  "apk": {
+    "package": "com.android.camera",
+    "version_name": "6.3.006290.7",
+    "version_code": 630062907,
+    "min_sdk": 29,
+    "target_sdk": 35,
+    "shared_user_id": null,
+    "extract_native_libs": false,
+    "embedded_arm64_libraries": 46,
+    "signer_sha256": "c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8",
+    "signature_preserved": true
+  },
+  "metadata_template": "/system/etc/vintf/compatibility_matrix.device.xml",
+  "files": [
+    {
+      "path": "/system/priv-app/MiuiCamera/MiuiCamera.apk",
+      "source": "payload/system/priv-app/MiuiCamera/MiuiCamera.apk",
+      "size": 175012152,
+      "sha256": "4e5387a5b0a79890813b490fa8df012fa6037a66b672896f226a04eaa890a16c"
+    },
+    {
+      "path": "/system/lib64/libgui_shim_miuicamera.so",
+      "source": "payload/system/lib64/libgui_shim_miuicamera.so",
+      "size": 35232,
+      "sha256": "fa1f6caa25cf2dc60e84ff0b08b75d19f55e87d64caa502cc0c61baec078a0bc"
+    },
+    {
+      "path": "/system/system_ext/lib64/libcamera_algoup_jni.xiaomi.so",
+      "source": "payload/system_ext/lib64/libcamera_algoup_jni.xiaomi.so",
+      "size": 71681,
+      "sha256": "78b5ba96ebae1c191cdd5baa1bb158e1b6a8042cb263a3490913703979ceeac5"
+    },
+    {
+      "path": "/system/system_ext/lib64/libcamera_ispinterface_jni.xiaomi.so",
+      "source": "payload/system_ext/lib64/libcamera_ispinterface_jni.xiaomi.so",
+      "size": 218721,
+      "sha256": "a1a7117104a6fd43bbe34611a02c3c92f6ef4e12e501c3f6371eb60b4ebffa97"
+    },
+    {
+      "path": "/system/system_ext/lib64/libcamera_mianode_jni.xiaomi.so",
+      "source": "payload/system_ext/lib64/libcamera_mianode_jni.xiaomi.so",
+      "size": 143233,
+      "sha256": "ddb1ef94c340057318e6a859a5fedc907ac58779b4cd236f5d5199bef3de4297"
+    },
+    {
+      "path": "/system/system_ext/lib64/libmtkisp_metadata_sys.so",
+      "source": "payload/system_ext/lib64/libmtkisp_metadata_sys.so",
+      "size": 35336,
+      "sha256": "96a45c836ecc0febfdca70ce40cf91d034d22457f94425ba4a56341c971af6f1"
+    },
+    {
+      "path": "/system/system_ext/lib64/vendor.mediatek.hardware.camera.isphal-V1-ndk.so",
+      "source": "payload/system_ext/lib64/vendor.mediatek.hardware.camera.isphal-V1-ndk.so",
+      "size": 118640,
+      "sha256": "5b1a863b85c766f7330f464402c31dff2d9dd956f0bc9a23187606bd9ee8a31d"
+    },
+    {
+      "path": "/system/system_ext/lib64/vendor.mediatek.hardware.camera.isphal@1.0.so",
+      "source": "payload/system_ext/lib64/vendor.mediatek.hardware.camera.isphal@1.0.so",
+      "size": 202600,
+      "sha256": "8d7b493053d4babf5731222be388eb19f6cad571b2bce85b35c05b2438839b7a"
+    },
+    {
+      "path": "/system/etc/permissions/privapp-permissions-miuicamera.xml",
+      "source": "payload/system/etc/permissions/privapp-permissions-miuicamera.xml",
+      "size": 1013,
+      "sha256": "440933ff09f6daf5ddf6d8becb825af67988645c237f8e4e45afc4a2df763bc6"
+    },
+    {
+      "path": "/system/etc/sysconfig/miuicamera-hiddenapi-package-allowlist.xml",
+      "source": "payload/system/etc/sysconfig/miuicamera-hiddenapi-package-allowlist.xml",
+      "size": 122,
+      "sha256": "07dc71c08e623be30b1f681084139dfaede011484e2f9fe848c99a839ad6064b"
+    },
+    {
+      "path": "/system/etc/public.libraries-xiaomi.txt",
+      "source": "payload/system/etc/public.libraries-xiaomi.txt",
+      "size": 63,
+      "sha256": "fe78340ebb92ef44a217711664c035d33717ca56918d2ac0939e73ec818e0db6"
+    }
+  ],
+  "default_camera_changed": false,
+  "properties_changed": false
+}

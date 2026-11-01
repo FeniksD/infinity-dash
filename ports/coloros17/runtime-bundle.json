@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "bundle_id": "dash-c9-services-c8-oplus-radio-dash-global",
+  "artifacts": [
+    {
+      "file": "services.jar",
+      "path": "/system/framework/services.jar",
+      "source_sha256": "105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94",
+      "sha256": "0f2ec63ffa251787fc570e19cdc7870f4051c5f14190c079c3e0dacec64913d1",
+      "size": 44705735
+    },
+    {
+      "file": "oplus-services.jar",
+      "path": "/system/framework/oplus-services.jar",
+      "source_sha256": "8b5310eb659073e1dc2127c94133f75f6a325e06780a43eec8cca89a945b0af4",
+      "sha256": "f0eefa5ea3f4ef7b819379ee52a4826cdaa20abdb761df3c4ac2664af8779057",
+      "size": 30400845
+    }
+  ],
+  "additions": [
+    {
+      "path": "/system/system_ext/etc/permissions/dash-fingerprint-features.xml",
+      "source": "patches/dash-fingerprint-features.xml",
+      "sha256": "24e7b7614b214e866cfc9496333df313821a6ee902cf18039ab178dd81402480"
+    },
+    {
+      "path": "/system/system_ext/etc/init/dash-runtime-compat.rc",
+      "source": "patches/dash-runtime-compat.rc",
+      "sha256": "da85d40e5cc3eadd9e8e73f57b4e58b9704d99c1404abffe30f700e65ab7c95b"
+    }
+  ],
+  "policy": {
+    "path": "/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+    "source_sha256": "799bb07e4a6296eff3af52a15f03edd0c56e21001b1b096a002de4d9dae8fbcc",
+    "sha256": "ea429fa56fda93a29fa1f9167aef6d2edba445ded8a2b1ba2f513bd628d720fd",
+    "fragments": [
+      {
+        "source": "patches/fingerprint-public-property-read.cil",
+        "sha256": "69eb7abd682f8cb653a1c75e213b8c7762b07602395ac7e44974a3001467b865"
+      },
+      {
+        "source": "patches/rild-dsu-metadata-read.cil",
+        "sha256": "c4dd32c6e2915a19516483b621de7a86b8c93b0d315b77af06032d5d9a2ffa21"
+      }
+    ],
+    "mapping_path": "/system/system_ext/etc/selinux/mapping/202604.cil",
+    "mapping_sha256": "d4bcd93a10df6b2188a32a9e84b5928e26a1cc2a0540a68f3a23a1bf5ad60c8b",
+    "stamp_path": "/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256",
+    "accepted_source_stamp_sha256": [
+      "6070d6438a144ac342d87da1792132c7389a08103dcc000e1709ca01441fa441",
+      "06523f41b25217302765d72c47b16475ce6805dd0396e62ef799161f7a5f6eee"
+    ],
+    "stamp_rule": "sha256(policy_bytes + mapping_bytes) + newline"
+  },
+  "metadata_template": "/system/etc/vintf/compatibility_matrix.device.xml",
+  "radio_product_override": {
+    "path": "/my_manifest/build.prop",
+    "source_sha256": "1b956fd725f3ae5cd2441d9296c1402c5488ce5587c32db48cf6a324d06be3c3",
+    "source_size": 5032,
+    "sha256": "41e6c240f05e7afb006457f1745f47a2897936863785dd6407fb5f9a00008867",
+    "size": 5037,
+    "source_line": "ro.product.vendor.name=PLG110\n",
+    "replacement_line": "ro.product.vendor.name=dash_global\n"
+  }
+}

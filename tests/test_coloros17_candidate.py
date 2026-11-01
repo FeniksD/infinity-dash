@@ -39,6 +39,7 @@ def prepare(base):
         'cryptographic_signature_valid': True, 'archive_sha256': donor['archive_sha256']})
     config = candidate.read_json(ROOT / 'ports/coloros17/profile.json')
     config['pipeline_adapter_ready'] = True
+    config['runtime_bundle_required'] = False  # Legacy fixtures contain no runtime JAR inputs.
     save(base / 'profile.json', config)
     (base / 'work').mkdir(exist_ok=True)
     return config
@@ -154,6 +155,23 @@ class CandidateGateTests(unittest.TestCase):
                     self.assertEqual(result, 0)
                     self.assertEqual(json.loads(output.getvalue()), completed)
                     self.assertEqual(tree_snapshot(tree), before)
+
+    def test_build_honors_explicit_output_without_replacing_the_baseline(self):
+        from ports.coloros17 import candidate
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            legacy_tree(base)
+            run_stage(base, 'patch')
+            output = base / 'output' / 'runtime-candidate.img'
+            baseline = base / 'output' / 'ColorOS17-PLG110-dash-lab.img'
+            baseline.parent.mkdir()
+            baseline.write_bytes(b'preserved baseline')
+            with patch.object(candidate, 'build_image', return_value={'status': 'complete'}) as build, \
+                    contextlib.redirect_stdout(io.StringIO()):
+                candidate.main(['--base', str(base), '--profile', str(base / 'profile.json'),
+                                '--stage', 'build', '--output', str(output)])
+            self.assertEqual(build.call_args.args[3], output)
+            self.assertEqual(baseline.read_bytes(), b'preserved baseline')
 
     def test_receipts_require_literal_true_and_exact_donor_binding(self):
         cases = [

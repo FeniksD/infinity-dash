@@ -142,9 +142,16 @@ def _init(data):
     return data.replace(_BOOTSTRAP, _RESTORECON + _BOOTSTRAP, 1), False
 
 
-def _composer_policy(data):
+def _composer_policy(data, runtime_policy_sha256=None):
     """Use the vendor client attribute, migrating the exact temporary direct allow."""
     digest = hashlib.sha256(data).hexdigest()
+    # Caller must first validate the complete pinned runtime bundle.
+    if runtime_policy_sha256 is not None:
+        from ports.coloros17.runtime_bundle import _load_manifest
+        if runtime_policy_sha256 != _load_manifest()["policy"]["sha256"]:
+            raise ValueError("runtime policy hash is not the pinned bundle result")
+        if digest == runtime_policy_sha256:
+            return data, True
     if digest == COMPOSER_AFTER_SHA256:
         if (not data.endswith(_COMPOSER_RULE) or data.count(_COMPOSER_RULE) != 1
                 or _COMPOSER_LEGACY_ALLOW in data):
@@ -187,7 +194,7 @@ def _same_synthetic_record(records, path, kind, size, template):
             and not any(r["inode"] == inode for p, r in records.items() if p != path))
 
 
-def _make_plan(tree, records, content_manifest):
+def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None):
     tree = _canonical_host(tree, exists=True)
     validate_tree(tree, records, content_manifest)
     for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH, COMPOSER_POLICY_PATH):
@@ -212,7 +219,7 @@ def _make_plan(tree, records, content_manifest):
         matrix, _ = _read_regular(_SOURCE_MATRIX)
         genfs, genfs_applied = _genfs(original[GENFS_PATH])
         init, init_applied = _init(original[INIT_PATH])
-        composer_policy, composer_applied = _composer_policy(original[COMPOSER_POLICY_PATH])
+        composer_policy, composer_applied = _composer_policy(original[COMPOSER_POLICY_PATH], runtime_policy_sha256)
         matrix_exists = MATRIX_PATH in records
         if matrix_exists:
             if records[MATRIX_PATH]["kind"] != "file":
@@ -319,9 +326,9 @@ def _make_plan(tree, records, content_manifest):
     return tree, report, writes
 
 
-def plan_compatibility(tree, records, content_manifest):
+def plan_compatibility(tree, records, content_manifest, *, runtime_policy_sha256=None):
     """Validate the complete tree and return an immutable-input, JSON-safe plan."""
-    return _make_plan(tree, records, content_manifest)[1]
+    return _make_plan(tree, records, content_manifest, runtime_policy_sha256)[1]
 
 
 def _atomic_write(path, data, host=None):
@@ -432,6 +439,14 @@ def apply_compatibility(tree, records, content_manifest, backup_dir):
     manifest is returned for a failed operation.
     """
     tree, report, writes = _make_plan(tree, records, content_manifest)
+    return apply_change_plan(tree, records, content_manifest, report, writes, backup_dir)
+
+
+def apply_change_plan(tree, records, content_manifest, report, writes, backup_dir, *,
+                      report_name="compatibility-report.json", error_type=CompatibilityError,
+                      operation="compatibility patch"):
+    """Commit a validated plan through the existing journalled no-follow writer."""
+    tree = _canonical_host(tree, exists=True)
     backup = _canonical_host(backup_dir, exists=False)
     if backup == tree or tree in backup.parents or not backup.parent.is_dir():
         raise ValueError("backup_dir must be outside the tree with an existing parent")
@@ -440,7 +455,7 @@ def apply_compatibility(tree, records, content_manifest, backup_dir):
         return report
     if backup.exists():
         raise ValueError("backup_dir must be fresh when changes are required")
-    report.update(backup_dir=str(backup), report_path=str(backup / "compatibility-report.json"),
+    report.update(backup_dir=str(backup), report_path=str(backup / report_name),
                   applied=[], rollback_operations=[], rollback_errors=[])
     attempted = []
     try:
@@ -521,4 +536,4 @@ def apply_compatibility(tree, records, content_manifest, backup_dir):
         if not isinstance(exc, Exception):
             exc.compatibility_report = report
             raise
-        raise CompatibilityError(f"compatibility patch failed ({report['status']}): {exc}", report) from exc
+        raise error_type(f"{operation} failed ({report['status']}): {exc}", report) from exc
