@@ -1,0 +1,33 @@
+{
+  "status": "built_and_verified_not_installed",
+  "source_commit": "a76616c5e9c5d1c47b4c360431ba33f4da353ff8",
+  "image": {
+    "path": "ColorOS17-PLG110-dash-runtime-a76616c.img",
+    "bytes": 15359614976,
+    "sha256": "13bf51e06f458ec4be371ee3b00f368afd746c691f459c240f59175003ddcd6b",
+    "metadata_verified_inodes": 14497,
+    "content_verified_files": 11234
+  },
+  "delta": {
+    "path": "ColorOS17-dash-a76616c-dsu-delta.tar.gz",
+    "bytes": 145232356,
+    "sha256": "1413b7bed49f90d6d55c6244178a074deb5de00a810263e54d06dba546101831",
+    "entries": 26
+  },
+  "canonical_state_sha256": "ceaa2d7a5600a6180e864dce96b2dfd4df2284f85c4b70fb2bf35c187417aaf0",
+  "validation": {
+    "source_tests": 136,
+    "source_tests_skipped": 12,
+    "init_verifier_exit": 0,
+    "runtime_policy_compile_exit": 0,
+    "permissive_domains": []
+  },
+  "phone_cold_boot_verified": false,
+  "camera_runtime_verified": false,
+  "pending": [
+    "inactive DSU installation",
+    "userdata capacity expansion",
+    "incoming call and SMS delivery",
+    "Face Unlock engine/device integration"
+  ]
+}
