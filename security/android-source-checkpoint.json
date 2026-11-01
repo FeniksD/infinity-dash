@@ -1,0 +1,30 @@
+{
+  "description": "Existing full Android source SHA-256 inventory, independently pinned by the earlier local build guard baseline; copied locally and verified again 2026-11-01.",
+  "inventory_uncompressed_sha256": "4d9565001d7ca14bcba3baafc090d008e81dfd5031868c04cb413326e5805fb1",
+  "inventory_compressed_sha256": "4df60201ba0009d6227a55b4309a85c2612a055578d0775f2d8f1971f9d5af26",
+  "inventory_compressed_bytes": 86971167,
+  "entries": {
+    "file": 1673879,
+    "directory": 328397,
+    "link": 5894,
+    "image-link": 3
+  },
+  "source_root": "/srv/infinity/android",
+  "remote_inventory": "/srv/infinity/verified-sources/source-inventory-initial.jsonl",
+  "local_inventory_relative": ".cache/trusted-source-locks/android-source-4d9565001d7c.jsonl.gz",
+  "local_baseline_relative": ".cache/gapps-build-control-754decc/baseline.json",
+  "baseline_sha256": "5bec3ea585b80c8e1ea9d1f60561692abd907adbe7cffa4c04673be3ba32dc97",
+  "excluded_non_source_roots": [
+    ".repo",
+    ".git",
+    "out",
+    ".infinity-dash-logs"
+  ],
+  "logical_file_bytes": 111740101110,
+  "logical_file_GiB": 104.07,
+  "notes": [
+    "Inventory records every regular source file SHA-256, size and mode; directory metadata and symlink targets are recorded separately.",
+    "This supplements Git revision pins. It does not claim an independent reproducible binary rebuild.",
+    "The large inventory remains in private cache rather than Git; this small anchor is versioned."
+  ]
+}
