@@ -1,0 +1,37 @@
+{
+  "status": "experimental_live_test_pending_owner_enrollment",
+  "scope": "screen-on portrait dash only; passive input bridge forwards real finger events to the current standard fingerprint request",
+  "source_sha256": {
+    "DashUdfpsTouchBridge.java": "d1116065dfe4c6c96ab1326664a3bee68cbafebcb05037e9dc79cc8e2ddc1716",
+    "UdfpsTouchBridgeCore.java": "e32240a0ddfa2f2a6262a0b08f76516fc67c0ab6c5d21081bc9079df5961c8d3",
+    "PassiveInputLease.java": "f50bc9013ff3e862e58b54fab4ef3ea6a660231f392a1f61264115e48d94d16b",
+    "UdfpsTouchBridgeCoreTest.java": "9a0b2722e66e9979bbeac410fba2718afb352634df1dc9871a6ee371e7211247",
+    "PassiveInputLeaseTest.java": "eca6543644dbb91deeee55136896ee0681997a8894bae0f6ae835f9bfa34e5cb",
+    "DashBridgeArtHarness.java": "3fab02e7e7c0f1f94edef7a76c2e6003713b200dae46f059cba2ec9ba3a65505",
+    "build_input_monitor4.py": "980d3bf07566bf4e6d408c17990a140c86eb391e00e2e8e0a99a8e621550170f"
+  },
+  "canonical_services_jar_sha256": "105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94",
+  "candidate_services_jar_sha256": "0c6205271b268868e96ebbd1a4a8f8955c26434ca6faa3a9f1759a8edebd9e76",
+  "test_only_harness_sha256": "967731fd3202fcf951e64413047dad41e87039a4d02d52c5890c9f2e574157f1",
+  "property_gate": "persist.sys.dash.udfps_touch_bridge=true",
+  "packaging": "Two SensorOverlays hooks in classes.dex; helpers in classes5.dex; remaining entries unchanged",
+  "verification": [
+    "ART class origin verification: production from exact candidate, tests from test-only DEX",
+    "37 core lifecycle and motion checks passed on device",
+    "19 resource ownership checks passed on device",
+    "Donor APIs and PointerContext parcel verified without invoking HAL",
+    "Live system_server restarted, enrollment UI available and InputMonitor receiver created"
+  ],
+  "limitations": [
+    "Enrollment and authentication are not yet validated",
+    "No AOD or screen-off authentication",
+    "No template, trusted authenticator, or HAL success emulation",
+    "Not integrated in build_image.py or the installed raw DSU image"
+  ],
+  "rebuild_notes": [
+    "Build script is the exact reviewed lab builder and retains absolute lab paths.",
+    "Stage these source files in its ROOT and verify the canonical donor hash before running.",
+    "Uses Android build-tree JDK21, smali/baksmali, R8 and framework/services classpath; no full Android rebuild.",
+    "Keep tests in separate DEX: they must never shadow production classes during ART verification."
+  ]
+}
