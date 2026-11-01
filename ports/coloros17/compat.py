@@ -27,8 +27,12 @@ SKIP_MOUNT_PATH = SKIP_DIR_PATH + "/skip_mount.cfg"
 SKIP_MOUNT_BYTES = b"/system_ext\n/product\n"
 COMPOSER_POLICY_PATH = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
 COMPOSER_BEFORE_SHA256 = "a9176d643c44e2bade190fa39fca99d9962eb572aa6e94e907aab18cd3051251"
-COMPOSER_AFTER_SHA256 = "fe5c16850894a465381f568e0637610649378b11465d7b00a79f377f3236d528"
-_COMPOSER_RULE = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
+COMPOSER_LEGACY_ALLOW_SHA256 = "fe5c16850894a465381f568e0637610649378b11465d7b00a79f377f3236d528"
+COMPOSER_AFTER_SHA256 = "799bb07e4a6296eff3af52a15f03edd0c56e21001b1b096a002de4d9dae8fbcc"
+# Vendor grants service discovery to this attribute and excludes its members
+# from the corresponding neverallow; a standalone direct allow is insufficient.
+_COMPOSER_RULE = b"(typeattributeset hal_mtk_composer_ext_client (surfaceflinger))\n"
+_COMPOSER_LEGACY_ALLOW = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
 GENFS_BEFORE_SHA256 = "ce8b599e06d363155930549e845c0d4d234c0d9a5eb35a2f680ea6f51530b581"
 GENFS_AFTER_SHA256 = "a5fa3e379955f4209a38c161da7aebdc917b8c693ebd3992ae6eb57ab22d06e8"
 _POWER_LINES = (
@@ -132,19 +136,25 @@ def _init(data):
 
 
 def _composer_policy(data):
-    """Append only the proven service lookup permission to the pinned policy."""
+    """Use the vendor client attribute, migrating the exact temporary direct allow."""
     digest = hashlib.sha256(data).hexdigest()
     if digest == COMPOSER_AFTER_SHA256:
-        if not data.endswith(_COMPOSER_RULE) or data.count(_COMPOSER_RULE) != 1:
-            raise ValueError("composer lookup rule is ambiguous or not the exact appended rule")
+        if (not data.endswith(_COMPOSER_RULE) or data.count(_COMPOSER_RULE) != 1
+                or _COMPOSER_LEGACY_ALLOW in data):
+            raise ValueError("composer client attribute is ambiguous or not the exact appended rule")
         return data, True
+    if digest == COMPOSER_LEGACY_ALLOW_SHA256:
+        if not data.endswith(_COMPOSER_LEGACY_ALLOW) or data.count(_COMPOSER_LEGACY_ALLOW) != 1:
+            raise ValueError("temporary composer direct allow is not the exact appended rule")
+        data = data[:-len(_COMPOSER_LEGACY_ALLOW)]
+        digest = hashlib.sha256(data).hexdigest()
     if digest != COMPOSER_BEFORE_SHA256:
-        raise ValueError("system_ext policy does not match the pinned official PLG110 donor")
-    if not data.endswith(b"\n") or _COMPOSER_RULE in data:
+        raise ValueError("system_ext policy does not match a pinned supported input")
+    if not data.endswith(b"\n") or _COMPOSER_RULE in data or _COMPOSER_LEGACY_ALLOW in data:
         raise ValueError("system_ext policy is not an unmodified appendable donor input")
     result = data + _COMPOSER_RULE
     if hashlib.sha256(result).hexdigest() != COMPOSER_AFTER_SHA256:
-        raise ValueError("composer lookup policy differs from the reviewed result")
+        raise ValueError("composer client policy differs from the reviewed result")
     return result, False
 
 
@@ -221,8 +231,10 @@ def _make_plan(tree, records, content_manifest):
                     or content_manifest.get(SKIP_MOUNT_PATH) != _identity(SKIP_MOUNT_BYTES)
                     or _read_regular(tree / SKIP_MOUNT_PATH[1:])[0] != SKIP_MOUNT_BYTES):
                 raise ValueError("unexpected existing skip-mount configuration")
-        if composer_applied and not (legacy_applied and skip_applied):
-            raise ValueError("composer lookup policy is present without the previous complete fixes")
+        composer_migration = (hashlib.sha256(original[COMPOSER_POLICY_PATH]).hexdigest()
+                              == COMPOSER_LEGACY_ALLOW_SHA256)
+        if (composer_applied or composer_migration) and not (legacy_applied and skip_applied):
+            raise ValueError("composer client policy is present without the previous complete fixes")
     except OSError as exc:
         raise ValueError(f"cannot safely read compatibility input: {exc}") from exc
     final_records = copy.deepcopy(records)

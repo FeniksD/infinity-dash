@@ -22,7 +22,9 @@ SKIP_MOUNT = SKIP_DIR + "/skip_mount.cfg"
 SKIP_BYTES = b"/system_ext\n/product\n"
 COMPOSER_POLICY = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
 BEFORE_COMPOSER = b";; donor system_ext policy fixture\n(type surfaceflinger)\n(allow surfaceflinger existing_service (service_manager (find)))\n"
-COMPOSER_RULE = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
+DIRECT_COMPOSER_RULE = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
+DIRECT_COMPOSER = BEFORE_COMPOSER + DIRECT_COMPOSER_RULE
+COMPOSER_RULE = b"(typeattributeset hal_mtk_composer_ext_client (surfaceflinger))\n"
 AFTER_COMPOSER = BEFORE_COMPOSER + COMPOSER_RULE
 LABEL = b"u:object_r:system_file:s0\0".hex()
 # Exact, small official donor file: expectations are independent of the helper.
@@ -143,11 +145,15 @@ class CompatibilityTests(unittest.TestCase):
         # production uses the complete, inspected official donor file hashes.
         before = patch.object(self.api, "COMPOSER_BEFORE_SHA256",
                               "73bcc76a94158101159be8da63e8db4237a645a5819a0957221d10bafb0d2124", create=True)
+        legacy = patch.object(self.api, "COMPOSER_LEGACY_ALLOW_SHA256",
+                              "e9fbac699d890b1a737959792a06cc40469b8c2b61159cc7a4fa9b2146f62ae8", create=True)
         after = patch.object(self.api, "COMPOSER_AFTER_SHA256",
-                             "e9fbac699d890b1a737959792a06cc40469b8c2b61159cc7a4fa9b2146f62ae8", create=True)
+                             "5c3cdaaa7399edb38f0a174c6da798234a1bb6d89aed8adde9e03d55b688990b", create=True)
         before.start()
+        legacy.start()
         after.start()
         self.addCleanup(before.stop)
+        self.addCleanup(legacy.stop)
         self.addCleanup(after.stop)
 
     def test_plan_preserves_other_bytes_and_metadata_and_adds_unique_inode(self):
@@ -223,7 +229,7 @@ class CompatibilityTests(unittest.TestCase):
             self.assertEqual(Path(report["report_path"]).read_bytes(), saved_report)
             self.assertEqual(again["final_records"], report["final_records"])
 
-    def test_legacy_three_fix_tree_adds_skip_mount_and_composer_allow(self):
+    def test_legacy_three_fix_tree_adds_skip_mount_and_composer_client_attribute(self):
         with tempfile.TemporaryDirectory() as tmp:
             parent = Path(tmp)
             tree, records, contents = legacy_fixture(parent)
@@ -243,7 +249,7 @@ class CompatibilityTests(unittest.TestCase):
             self.assertEqual(records, original_records)
             self.assertEqual(contents, original_contents)
 
-    def test_four_fix_state_appends_only_the_exact_composer_allow(self):
+    def test_four_fix_state_appends_only_the_exact_composer_client_attribute(self):
         with tempfile.TemporaryDirectory() as tmp:
             parent = Path(tmp)
             tree, records, contents = four_fix_fixture(parent)
@@ -260,22 +266,72 @@ class CompatibilityTests(unittest.TestCase):
             for name in records:
                 expected = dict(before_records[name])
                 if name == COMPOSER_POLICY:
-                    expected["size"] = 199
+                    expected["size"] = 186
                 self.assertEqual(report["final_records"][name], expected)
             self.assertEqual(report["final_content_manifest"][COMPOSER_POLICY],
-                             {"kind": "file", "size": 199,
-                              "sha256": "e9fbac699d890b1a737959792a06cc40469b8c2b61159cc7a4fa9b2146f62ae8"})
+                             {"kind": "file", "size": 186,
+                              "sha256": "5c3cdaaa7399edb38f0a174c6da798234a1bb6d89aed8adde9e03d55b688990b"})
             self.assertEqual(records, before_records)
             self.assertEqual(contents, before_contents)
             again = self.api.apply_compatibility(tree, report["final_records"],
                                                   report["final_content_manifest"], parent / "backups")
             self.assertEqual(again["status"], "already_applied")
 
+    def test_temporary_direct_allow_is_replaced_by_the_client_attribute(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents = four_fix_fixture(parent)
+            (tree / COMPOSER_POLICY[1:]).write_bytes(DIRECT_COMPOSER)
+            records[COMPOSER_POLICY]["size"] = len(DIRECT_COMPOSER)
+            contents[COMPOSER_POLICY] = {"kind": "file", "size": len(DIRECT_COMPOSER),
+                                         "sha256": hashlib.sha256(DIRECT_COMPOSER).hexdigest()}
+            before_tree = tree_snapshot(tree)
+            before_record = copy.deepcopy(records[COMPOSER_POLICY])
+            report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
+            self.assertEqual(report["status"], "complete")
+            self.assertEqual([c["action"] for c in report["changes"]], ["unchanged"] * 5 + ["replace"])
+            expected = dict(before_tree)
+            expected[COMPOSER_POLICY[1:]] = AFTER_COMPOSER
+            self.assertEqual(tree_snapshot(tree), expected)
+            self.assertNotIn(DIRECT_COMPOSER_RULE, (tree / COMPOSER_POLICY[1:]).read_bytes())
+            self.assertEqual((parent / "backups" / COMPOSER_POLICY[1:]).read_bytes(), DIRECT_COMPOSER)
+            before_record["size"] = len(AFTER_COMPOSER)
+            self.assertEqual(report["final_records"][COMPOSER_POLICY], before_record)
+            again = self.api.apply_compatibility(tree, report["final_records"],
+                                                  report["final_content_manifest"], parent / "backups")
+            self.assertEqual(again["status"], "already_applied")
+
+    def test_temporary_direct_allow_migration_interrupt_restores_that_exact_input(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents = four_fix_fixture(parent)
+            (tree / COMPOSER_POLICY[1:]).write_bytes(DIRECT_COMPOSER)
+            records[COMPOSER_POLICY]["size"] = len(DIRECT_COMPOSER)
+            contents[COMPOSER_POLICY] = {"kind": "file", "size": len(DIRECT_COMPOSER),
+                                         "sha256": hashlib.sha256(DIRECT_COMPOSER).hexdigest()}
+            before_tree = tree_snapshot(tree)
+            replace = self.api.os.replace
+            interrupted = False
+            def replace_then_interrupt(src, dst, *args, **kwargs):
+                nonlocal interrupted
+                result = replace(src, dst, *args, **kwargs)
+                if tree_replacement(dst, kwargs, tree, COMPOSER_POLICY) and not interrupted:
+                    interrupted = True
+                    raise KeyboardInterrupt("after temporary allow migration")
+                return result
+            with patch.object(self.api.os, "replace", replace_then_interrupt):
+                with self.assertRaises(KeyboardInterrupt) as failure:
+                    self.api.apply_compatibility(tree, records, contents, parent / "backups")
+            self.assertEqual(failure.exception.compatibility_report["status"], "failed_rolled_back")
+            self.assertEqual(tree_snapshot(tree), before_tree)
+            self.assertEqual((tree / COMPOSER_POLICY[1:]).read_bytes(), DIRECT_COMPOSER)
+
     def test_composer_policy_rejects_changed_or_ambiguous_content_before_mutation(self):
         for data in (BEFORE_COMPOSER + b";; unexpected change\n",
                      AFTER_COMPOSER + COMPOSER_RULE, AFTER_COMPOSER + b";; trailing change\n",
                      BEFORE_COMPOSER.replace(b"surfaceflinger", b"surfaceflingez"),
-                     COMPOSER_RULE + BEFORE_COMPOSER):
+                     COMPOSER_RULE + BEFORE_COMPOSER, DIRECT_COMPOSER + DIRECT_COMPOSER_RULE,
+                     DIRECT_COMPOSER + COMPOSER_RULE):
             with self.subTest(data=data), tempfile.TemporaryDirectory() as tmp:
                 parent = Path(tmp)
                 tree, records, contents = four_fix_fixture(parent)
@@ -289,19 +345,20 @@ class CompatibilityTests(unittest.TestCase):
                 self.assertEqual(tree_snapshot(tree), before_tree)
                 self.assertFalse((parent / "backups").exists())
 
-    def test_composer_allow_without_the_previous_fixes_is_rejected(self):
-        with tempfile.TemporaryDirectory() as tmp:
-            parent = Path(tmp)
-            tree, records, contents = fixture(parent)
-            (tree / COMPOSER_POLICY[1:]).write_bytes(AFTER_COMPOSER)
-            records[COMPOSER_POLICY]["size"] = len(AFTER_COMPOSER)
-            contents[COMPOSER_POLICY] = {"kind": "file", "size": len(AFTER_COMPOSER),
-                                         "sha256": hashlib.sha256(AFTER_COMPOSER).hexdigest()}
-            before_tree = tree_snapshot(tree)
-            with self.assertRaises(ValueError):
-                self.api.apply_compatibility(tree, records, contents, parent / "backups")
-            self.assertEqual(tree_snapshot(tree), before_tree)
-            self.assertFalse((parent / "backups").exists())
+    def test_composer_policy_without_the_previous_fixes_is_rejected(self):
+        for data in (AFTER_COMPOSER, DIRECT_COMPOSER):
+            with self.subTest(data=data), tempfile.TemporaryDirectory() as tmp:
+                parent = Path(tmp)
+                tree, records, contents = fixture(parent)
+                (tree / COMPOSER_POLICY[1:]).write_bytes(data)
+                records[COMPOSER_POLICY]["size"] = len(data)
+                contents[COMPOSER_POLICY] = {"kind": "file", "size": len(data),
+                                             "sha256": hashlib.sha256(data).hexdigest()}
+                before_tree = tree_snapshot(tree)
+                with self.assertRaises(ValueError):
+                    self.api.apply_compatibility(tree, records, contents, parent / "backups")
+                self.assertEqual(tree_snapshot(tree), before_tree)
+                self.assertFalse((parent / "backups").exists())
 
     def test_composer_policy_requires_a_regular_file_and_current_manifest(self):
         for bad in ("missing", "symlink", "stale-hash"):
