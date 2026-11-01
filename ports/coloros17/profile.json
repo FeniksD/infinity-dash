@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "rom_type": "coloros",
+  "sdk": 37,
+  "product": "PLG110",
+  "version": "PLG110_17.0.0.105(CN01)",
+  "required_partitions": [
+    "system",
+    "system_ext",
+    "product",
+    "my_product",
+    "my_engineering",
+    "my_stock",
+    "my_heytap",
+    "my_carrier",
+    "my_region",
+    "my_bigball",
+    "my_manifest"
+  ],
+  "pipeline_adapter_ready": false,
+  "readiness_note": "Source audit complete; safe transformation adapter and device-specific policy still require implementation. This profile must fail closed.",
+  "use_stock_init": true,
+  "add_vendor_stuff": false,
+  "debloat": {},
+  "allow_insecure_adb": false,
+  "allow_permissive_selinux": false,
+  "allow_unreviewed_binary_patches": false,
+  "mystic_commit": "b906057b9909d9ec3272feb9c53306f7bd4912f0"
+}

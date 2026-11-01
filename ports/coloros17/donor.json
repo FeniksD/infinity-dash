@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "model": "OPPO Find X9 Pro CN",
+  "product": "PLG110",
+  "version": "PLG110_17.0.0.105(CN01)",
+  "android_release": "17",
+  "sdk": 37,
+  "security_patch": "2026-09-01",
+  "archive_bytes": 9592101891,
+  "expected_md5": "075a8e3e763ae954628f260e80d5723d",
+  "expected_payload_sha256": "2f308fbc7a3ac2b592fecf6577d947b04a18e982ada70aba7fcfdc371b4be577",
+  "source_host": "gauss-compota-c-cn.allawnfs.com",
+  "source_object": "https://gauss-compota-c-cn.allawnfs.com/remove-e690e295dc00ca70915ae2d82d0d092b/g-10eab6008d5642cf42abd2aa41f847cb/component-ota/26/10/05/d90ff8264c234ab1b811eade2751ec0a.zip",
+  "discovery_index": "https://fwatlas.com/download/6068/plg110-17-0-0-105-cn01-plg110-11-c-61-1610-202610051306",
+  "source_provenance": "Direct validated TLS to www.oppo.com and gauss-compota-c-cn.allawnfs.com yields organization-validated DigiCert/GeoTrust certificates with same HeyTap organization and both *.oppo.com and *.allawnfs.com SANs. Package content metadata read via HTTP206; independent of FWAtlas labels.",
+  "ota_metadata": {
+    "android_version": "17",
+    "build_type": "user",
+    "display_os_version": "17.0",
+    "forbid_ota_local_update": "false",
+    "google_patch": "20260901",
+    "oplus_disable_postinstall": "no",
+    "oplus_hex_nv_id": "97",
+    "oplus_project_numbers": "24081",
+    "os_version": "V17.0.0",
+    "ota-id": "PLG110_11.C.61_1610_202610051306",
+    "ota-property-files": "payload_metadata.bin:61:347324,payload.bin:61:9592095570,payload_properties.txt:9592095683:429,care_map.pb:9592096153:654,metadata:9592097888:1171,metadata.pb:9592096869:960       ",
+    "ota-required-cache": "0",
+    "ota-streaming-property-files": "payload.bin:61:9592095570,payload_properties.txt:9592095683:429,care_map.pb:9592096153:654,metadata:9592097888:1171,metadata.pb:9592096869:960       ",
+    "ota-type": "AB",
+    "ota_root_or_debug": "false",
+    "ota_version": "PLG110_11.C.61_1610_202610051306",
+    "patch_type": "1",
+    "post-build": "OPPO/PLG110/OP5E11L1:17/CP2A.260605.016/B.3d69f90-172f6c1-176b97a:user/release-keys",
+    "post-build-incremental": "B.3d69f90-172f6c1-176b97a",
+    "post-sdk-level": "37",
+    "post-security-patch-level": "2026-09-01",
+    "post-timestamp": "1791045801",
+    "pre-device": "OP5E11L1",
+    "product_name": "PLG110",
+    "reserve-image-size": "0",
+    "security_patch": "2026-09-01",
+    "security_patch_vendor": "2026-09-01",
+    "version_name": "PLG110_17.0.0.105(CN01)",
+    "version_name_show": "PLG110_17.0.0.105(CN01)",
+    "wipe": "0"
+  },
+  "payload_note": "Both payloads major=2 minor=9 partial_update=true. All included partitions have replacement-only operations with no old_partition_info/source extents. Self-contained partition-image donors, not full-flash/factory packages.",
+  "selected_images": [
+    {
+      "name": "system",
+      "bytes": 1061126144
+    },
+    {
+      "name": "system_ext",
+      "bytes": 1087647744
+    },
+    {
+      "name": "product",
+      "bytes": 152326144
+    },
+    {
+      "name": "my_product",
+      "bytes": 1313992704
+    },
+    {
+      "name": "my_engineering",
+      "bytes": 335872
+    },
+    {
+      "name": "my_stock",
+      "bytes": 4713377792
+    },
+    {
+      "name": "my_heytap",
+      "bytes": 335872
+    },
+    {
+      "name": "my_carrier",
+      "bytes": 335872
+    },
+    {
+      "name": "my_region",
+      "bytes": 7254016
+    },
+    {
+      "name": "my_bigball",
+      "bytes": 335872
+    },
+    {
+      "name": "my_manifest",
+      "bytes": 696320
+    }
+  ],
+  "archive_sha256": null,
+  "validation_status": "metadata verified; full archive download in progress; signature not verified; not ready to flash"
+}

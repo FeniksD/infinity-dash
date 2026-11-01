@@ -1,0 +1,496 @@
+{
+  "magic": "CrAU",
+  "major_version": 2,
+  "manifest_size": 346777,
+  "metadata_signature_size": 523,
+  "minor_version": 9,
+  "partial_update": true,
+  "metadata_hash_matches": true,
+  "operation_counts": {
+    "REPLACE_XZ": 5475,
+    "REPLACE": 412,
+    "REPLACE_BZ": 105,
+    "ZERO": 190
+  },
+  "partitions": [
+    {
+      "name": "system",
+      "size": 1061126144,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 502,
+        "REPLACE": 3,
+        "REPLACE_BZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "system_ext",
+      "size": 1087647744,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 488,
+        "REPLACE_BZ": 15,
+        "REPLACE": 16
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "product",
+      "size": 152326144,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 72,
+        "REPLACE": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vbmeta_system",
+      "size": 4096,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "boot",
+      "size": 67108864,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 10,
+        "ZERO": 21,
+        "REPLACE_BZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vendor",
+      "size": 739094528,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 339,
+        "REPLACE": 4,
+        "REPLACE_BZ": 10
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_product",
+      "size": 1313992704,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 469,
+        "REPLACE": 155,
+        "REPLACE_BZ": 2,
+        "ZERO": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_engineering",
+      "size": 335872,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_stock",
+      "size": 4713377792,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2054,
+        "REPLACE": 184,
+        "REPLACE_BZ": 4,
+        "ZERO": 6
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_heytap",
+      "size": 335872,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_carrier",
+      "size": 335872,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_region",
+      "size": 7254016,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 4
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_bigball",
+      "size": 335872,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "my_manifest",
+      "size": 696320,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "odm",
+      "size": 3303178240,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1345,
+        "REPLACE_BZ": 55,
+        "REPLACE": 43,
+        "ZERO": 133
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "preloader_raw",
+      "size": 1236992,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "apusys",
+      "size": 2400256,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "audio_dsp",
+      "size": 22695936,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 9,
+        "ZERO": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "ccu",
+      "size": 106496,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "connsys_gnss",
+      "size": 3874816,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "dpm",
+      "size": 1384448,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "dtbo",
+      "size": 4988928,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 3
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "gpueb",
+      "size": 1323008,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "gz",
+      "size": 3768320,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "ise",
+      "size": 528384,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "emiupfw",
+      "size": 196608,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "lk",
+      "size": 10596352,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 6
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "logo",
+      "size": 6328320,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 4
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "mcf_ota",
+      "size": 33554432,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 6,
+        "ZERO": 10
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "mcupm",
+      "size": 2347008,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "modem",
+      "size": 181768192,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 68,
+        "REPLACE_BZ": 14,
+        "REPLACE": 5
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "mvpu_algo",
+      "size": 61440,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "pi_img",
+      "size": 528384,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "pvmfw",
+      "size": 2097152,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "rot_boot_fmc",
+      "size": 102400,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "rot_boot_fw",
+      "size": 167936,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "rotfw",
+      "size": 172032,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "scp",
+      "size": 12300288,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 6
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "spmfw",
+      "size": 36864,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "sspm",
+      "size": 409600,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "tee",
+      "size": 3522560,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vcp",
+      "size": 2555904,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "init_boot",
+      "size": 8388608,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 2,
+        "ZERO": 1,
+        "REPLACE_BZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vbmeta",
+      "size": 8192,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vbmeta_vendor",
+      "size": 4096,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vendor_boot",
+      "size": 100663296,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 31,
+        "ZERO": 16,
+        "REPLACE_BZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "cdt_engineering",
+      "size": 1048576,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_BZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "odm_dlkm",
+      "size": 348160,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "system_dlkm",
+      "size": 14512128,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 6,
+        "REPLACE": 1
+      },
+      "operations_with_source_extents": 0
+    },
+    {
+      "name": "vendor_dlkm",
+      "size": 31797248,
+      "old_partition_info_present": false,
+      "operations": {
+        "REPLACE_XZ": 16
+      },
+      "operations_with_source_extents": 0
+    }
+  ],
+  "downloaded_bytes": 347324,
+  "note": "No payload data or images executed. Metadata hash is self-consistency only; full payload hash/signature not checked."
+}

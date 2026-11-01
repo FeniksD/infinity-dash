@@ -1,0 +1,23 @@
+# ColorOS 17 / dash work area
+
+Status: official donor selected and metadata verified; port is **not yet build-ready or boot-tested**. The profile intentionally refuses transformation until the safe adapter is implemented. Do not invoke the unmodified Mystic pipeline as a substitute.
+
+Donor: OPPO Find X9 Pro CN, `PLG110_17.0.0.105(CN01)`, Android17/SDK37. This is the same device family named by the earlier unofficial ColorOS16 dash port. `donor.json` records public provenance; expiring URL query signatures remain in private task cache.
+
+The manufacturer's OTA is 9,592,101,891 bytes. Its payload is marked partial, but the selected system/system_ext/product/my_* images have only replacement/zero operations and no source-image dependencies. They are suitable for image extraction without a previous OTA; the package must never be flashed directly to a POCO.
+
+The preflight is read-only:
+
+```sh
+python3 -B ports/coloros17/preflight.py \
+  --metadata ports/coloros17/donor-metadata.json \
+  --payload-summary ports/coloros17/payload-summary.json
+```
+
+At the current stage it must report that the ColorOS17 adapter is not reviewed. Changing that flag alone does not implement the adapter or establish safety.
+
+Pinned toolkit: [MysticGSI](https://github.com/MysticGSI/mysticgsi/tree/b906057b9909d9ec3272feb9c53306f7bd4912f0). There is no `37/coloros` profile at this commit. Its stock pipeline also performs broad removals, disables security properties and can install permissive-SELinux helpers, so this port will use explicit, reviewed transformations instead. Original authorship must be preserved.
+
+The first candidate targets DSU, preserving the working Infinity base. Later iterations should modify only the inactive DSU copy and corresponding canonical host files, with rollback, verified metadata and an explicit AVB policy.
+
+Design and current task checklist: `docs/superpowers/specs/2026-11-01-coloros17-dsu-design.md` and `docs/superpowers/plans/2026-11-01-coloros17-dsu.md`.
