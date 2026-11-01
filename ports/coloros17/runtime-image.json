@@ -1,5 +1,5 @@
 {
-  "status": "built_and_verified_not_installed",
+  "status": "installed_delta_and_cold_boot_verified",
   "source_commit": "a76616c5e9c5d1c47b4c360431ba33f4da353ff8",
   "image": {
     "path": "ColorOS17-PLG110-dash-runtime-a76616c.img",
@@ -22,12 +22,24 @@
     "runtime_policy_compile_exit": 0,
     "permissive_domains": []
   },
-  "phone_cold_boot_verified": false,
+  "phone_cold_boot_verified": true,
   "camera_runtime_verified": false,
   "pending": [
-    "inactive DSU installation",
-    "userdata capacity expansion",
-    "incoming call and SMS delivery",
-    "Face Unlock engine/device integration"
-  ]
+    "incoming call and SMS delivery with sufficient userdata capacity",
+    "MIUI Camera runtime validation",
+    "Face Unlock engine/device integration",
+    "eSIM management UI integration"
+  ],
+  "installed_dsu": {
+    "bytes": 15169392640,
+    "sha256": "55af46c4b593fafc862a6f90ee6ad1bc691bced9c59404e13327a63f66193888",
+    "verified_metadata_records": 14497,
+    "verified_regular_files": 11234,
+    "rw_and_ro_audits_passed": true,
+    "read_only_fsck_exit": 0,
+    "userdata_bytes": 34359738368,
+    "userdata_reset_authorized": true,
+    "system_hash_unchanged_across_userdata_reset": true,
+    "fingerprint_enrollment_and_repeated_unlock_owner_verified_after_reset": true
+  }
 }
