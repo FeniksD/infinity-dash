@@ -1,0 +1,90 @@
+--- a/com/android/server/vibrator/VibrationStepConductorExtImpl.smali
++++ b/com/android/server/vibrator/VibrationStepConductorExtImpl.smali
+@@ -100,6 +100,26 @@
+     .param p6, "segmentIndex"    # I
+     .param p7, "previousStepVibratorOffTimeout"    # J
+ 
++    # dash: opt-in standard-HAL fallback for donor-only Oplus segments.
++    const-string v0, "persist.sys.dash.haptic_fallback"
++    const/4 v1, 0x0
++    invoke-static {v0, v1}, Landroid/os/SystemProperties;->getBoolean(Ljava/lang/String;Z)Z
++    move-result v0
++    if-eqz v0, :dash_original_path
++    instance-of v0, p1, Landroid/os/vibrator/OplusPrebakedSegment;
++    if-eqz v0, :dash_original_path
++    move-object/from16 v0, p5
++    invoke-static {v0}, Lcom/android/server/vibrator/VibrationStepConductorExtImpl;->convertDashHapticSegments(Landroid/os/VibrationEffect$Composed;)Landroid/os/VibrationEffect$Composed;
++    move-result-object v6
++    new-instance v1, Lcom/android/server/vibrator/SetAmplitudeVibratorStep;
++    iget-object v2, p0, Lcom/android/server/vibrator/VibrationStepConductorExtImpl;->mVibrationStepConductor:Lcom/android/server/vibrator/VibrationStepConductor;
++    move-wide/from16 v3, p2
++    move-object/from16 v5, p4
++    move/from16 v7, p6
++    move-wide/from16 v8, p7
++    invoke-direct/range {v1 .. v9}, Lcom/android/server/vibrator/SetAmplitudeVibratorStep;-><init>(Lcom/android/server/vibrator/VibrationStepConductor;JLcom/android/server/vibrator/HalVibrator;Landroid/os/VibrationEffect$Composed;IJ)V
++    return-object v1
++    :dash_original_path
+     .line 78
+     iget-boolean v0, p0, Lcom/android/server/vibrator/VibrationStepConductorExtImpl;->mIsLinearMotorVibratorSupported:Z
+ 
+@@ -292,3 +312,60 @@
+     :goto_27
+     return-void
+ .end method
++
++.method private static convertDashHapticSegments(Landroid/os/VibrationEffect$Composed;)Landroid/os/VibrationEffect$Composed;
++    .locals 14
++    move-object v11, p0
++    invoke-virtual {v11}, Landroid/os/VibrationEffect$Composed;->getSegments()Ljava/util/List;
++    move-result-object v0
++    new-instance v10, Ljava/util/ArrayList;
++    invoke-direct {v10, v0}, Ljava/util/ArrayList;-><init>(Ljava/util/Collection;)V
++    invoke-virtual {v10}, Ljava/util/ArrayList;->size()I
++    move-result v13
++    const/4 v12, 0x0
++    :dash_loop
++    if-ge v12, v13, :dash_done
++    invoke-virtual {v10, v12}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
++    move-result-object v9
++    instance-of v8, v9, Landroid/os/vibrator/OplusPrebakedSegment;
++    if-eqz v8, :dash_next
++    check-cast v9, Landroid/os/vibrator/OplusPrebakedSegment;
++    invoke-virtual {v9}, Landroid/os/vibrator/OplusPrebakedSegment;->getDuration()J
++    move-result-wide v6
++    const-wide/16 v0, 0x0
++    invoke-static {v6, v7, v0, v1}, Ljava/lang/Math;->max(JJ)J
++    move-result-wide v6
++    const-wide/32 v0, 0x7fffffff
++    invoke-static {v6, v7, v0, v1}, Ljava/lang/Math;->min(JJ)J
++    move-result-wide v6
++    invoke-virtual {v9}, Landroid/os/vibrator/OplusPrebakedSegment;->getEffectStrength()I
++    move-result v8
++    const/high16 v4, 0x3f800000
++    if-ltz v8, :dash_default_amplitude
++    int-to-float v4, v8
++    const/high16 v5, 0x45160000
++    div-float/2addr v4, v5
++    const/high16 v8, 0x3f800000
++    invoke-static {v4, v8}, Ljava/lang/Math;->min(FF)F
++    move-result v4
++    :dash_default_amplitude
++    invoke-virtual {v9}, Landroid/os/vibrator/OplusPrebakedSegment;->getRealWaveformId()I
++    move-result v8
++    const/4 v5, -0x1
++    if-ne v8, v5, :dash_waveform
++    const/4 v4, 0x0
++    :dash_waveform
++    long-to-int v5, v6
++    new-instance v3, Landroid/os/vibrator/StepSegment;
++    invoke-direct {v3, v4, v5}, Landroid/os/vibrator/StepSegment;-><init>(FI)V
++    invoke-virtual {v10, v12, v3}, Ljava/util/ArrayList;->set(ILjava/lang/Object;)Ljava/lang/Object;
++    :dash_next
++    add-int/lit8 v12, v12, 0x1
++    goto :dash_loop
++    :dash_done
++    invoke-virtual {v11}, Landroid/os/VibrationEffect$Composed;->getRepeatIndex()I
++    move-result v13
++    new-instance v5, Landroid/os/VibrationEffect$Composed;
++    invoke-direct {v5, v10, v13}, Landroid/os/VibrationEffect$Composed;-><init>(Ljava/util/List;I)V
++    return-object v5
++.end method

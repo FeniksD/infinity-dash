@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "status": "experimental_live_tested_basic_feedback",
+  "target": "/system/framework/oplus-services.jar",
+  "source_jar_sha256": "8b5310eb659073e1dc2127c94133f75f6a325e06780a43eec8cca89a945b0af4",
+  "source_dex": "classes2.dex",
+  "source_class": "com/android/server/vibrator/VibrationStepConductorExtImpl.smali",
+  "source_class_sha256": "7e9c2d33ba662ec165205159dc749f8a9d828b73533f54a1d0583fc3e8115510",
+  "patched_class_sha256": "5deaf285a6c2e27c7a07ba8e4d3d35225c31dfe02393fce95b1fcac8a517591c",
+  "patched_jar_sha256": "3a0597929f5f84d6899adce20b5cfeb70e27835dca3cebadb4ad0350fede3267",
+  "runtime_property": "persist.sys.dash.haptic_fallback",
+  "runtime_property_value": "true",
+  "source_patch": "ports/coloros17/patches/0002-dash-haptic-aosp-fallback.patch",
+  "verification": {
+    "classes_roundtripped": 3374,
+    "changed_behavior_class_only": "com/android/server/vibrator/VibrationStepConductorExtImpl.smali",
+    "normalization_only": "com/android/server/oplus/DumpObject.smali: explicit default false omitted; value stays false",
+    "other_zip_entry_contents_unchanged": true,
+    "actual_device_art_mapping_tests": "passed; pauses, repeat, original immutability, existing standard segments, strength and duration bounds",
+    "dex2oat_verify_exit_code": 0,
+    "user_feedback": "button feedback works with varying strength and duration; volume slider strength follows volume"
+  },
+  "scope": "OplusPrebakedSegment to standard StepSegment fallback; preserves silence and controls amplitude/duration through existing framework scheduling",
+  "limits": [
+    "RichTapPatternHe and synchronized O-Haptics demo are not converted",
+    "No claim of matching proprietary waveforms or Crisp/Gentle styles",
+    "Native image recipe has not yet integrated this optional JAR-rebuild stage",
+    "Current phone test uses a temporary bind mount; reboot removes the bind"
+  ],
+  "rebuild_steps": [
+    "Disassemble classes2.dex from the pinned source JAR with the reviewed baksmali tool",
+    "Verify source class SHA-256, apply the source patch with -p1, verify patched class SHA-256",
+    "Assemble classes2.dex with API37; roundtrip all classes and permit only the documented change and default-false normalization",
+    "Replace only classes2.dex in a new JAR, preserving other entry contents; align DEX entries before release",
+    "Run the device probe and dex2oat verify, preserve system_file/root:root metadata, and set the opt-in property for a controlled test"
+  ]
+}
