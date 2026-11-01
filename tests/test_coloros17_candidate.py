@@ -120,6 +120,30 @@ class CandidateGateTests(unittest.TestCase):
                     run_stage(base, 'build')
                 self.assertEqual(list((base / 'output').glob('*')), [])
 
+    def test_completed_build_cli_preserves_optional_publication_warnings(self):
+        from ports.coloros17 import candidate
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            tree, _, _ = legacy_tree(base)
+            run_stage(base, 'patch')
+            before = tree_snapshot(tree)
+            for warnings in ({}, {'post_publish_warning': 'KeyboardInterrupt: after publication'},
+                             {'report_save_error': 'OSError: report storage unavailable'},
+                             {'post_publish_warning': 'KeyboardInterrupt: after publication',
+                              'report_save_error': 'OSError: report storage unavailable'}):
+                with self.subTest(warnings=warnings):
+                    completed = {'status': 'complete', 'output': str(base / 'output/lab.img'),
+                                 'image_bytes': 4096, 'sha256': 'a' * 64,
+                                 'report_path': str(base / 'output/report.json'), **warnings}
+                    output = io.StringIO()
+                    with patch.object(candidate, 'build_image', return_value=completed), \
+                            contextlib.redirect_stdout(output):
+                        result = candidate.main(['--base', str(base), '--profile', str(base / 'profile.json'),
+                                                 '--stage', 'build'])
+                    self.assertEqual(result, 0)
+                    self.assertEqual(json.loads(output.getvalue()), completed)
+                    self.assertEqual(tree_snapshot(tree), before)
+
     def test_receipts_require_literal_true_and_exact_donor_binding(self):
         cases = [
             ('inputs/download-verification.json', 'md5_matches', 'false'),

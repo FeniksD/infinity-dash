@@ -233,6 +233,8 @@ def main(argv=None):
                              base / "output/ColorOS17-PLG110-dash-lab.img", base / "sources/mysticgsi",
                              paths, hashes)
         report = {key: result.get(key) for key in ["status", "output", "image_bytes", "sha256", "report_path"]}
+        report.update({key: result[key] for key in ("post_publish_warning", "report_save_error")
+                       if key in result})
     print(json.dumps(report, indent=2))
     return 0
 
