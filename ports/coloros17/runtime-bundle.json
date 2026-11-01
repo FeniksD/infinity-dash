@@ -26,7 +26,7 @@
     {
       "path": "/system/system_ext/etc/init/dash-runtime-compat.rc",
       "source": "patches/dash-runtime-compat.rc",
-      "sha256": "da85d40e5cc3eadd9e8e73f57b4e58b9704d99c1404abffe30f700e65ab7c95b"
+      "sha256": "6a05eeee7a0b58ee6380d8094e04e6758ae6d054765e88a8a38a7826b47d02af"
     }
   ],
   "policy": {

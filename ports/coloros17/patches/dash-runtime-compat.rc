@@ -1,6 +1,8 @@
 # Retained dash AIDL fingerprint HAL; set its framework selector before zygote.
 on early-init
     setprop vendor.fingerprint.aidl.support 1
+    # Preserve the retained Infinity modem software-version baseline.
+    setprop ro.vendor.imeisv 05
 
 # Main init loads saved properties before this system_ext post-fs-data action.
 # Run synchronously here: property-triggered actions can queue after zygote-start.

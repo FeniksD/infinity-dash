@@ -98,7 +98,8 @@ class RuntimeBundleTests(unittest.TestCase):
             else:
                 actions[current].append(line.split())
         self.assertEqual(set(actions), {"early-init", "post-fs-data"})
-        self.assertEqual(actions["early-init"], [["setprop", "vendor.fingerprint.aidl.support", "1"]])
+        self.assertEqual(actions["early-init"], [["setprop", "vendor.fingerprint.aidl.support", "1"],
+                                                 ["setprop", "ro.vendor.imeisv", "05"]])
         expected = {
             "vendor.fingerprint.aidl.support": "1",
             "persist.vendor.fingerprint.sensor_type": "ultrasonic",
