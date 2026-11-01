@@ -2,6 +2,14 @@
 # Run through authorized root to bind this download to Wi-Fi, independently of VPN.
 set -u
 umask 077
+# Android mksh's builtin test overflows on ordinary multi-GiB image sizes.
+size_test() {
+    if [ -x /system/bin/toybox ]; then
+        /system/bin/toybox test "$@"
+    else
+        /usr/bin/test "$@"
+    fi
+}
 [ "$#" -eq 4 ] || exit 64
 config=$1
 target=$2
@@ -9,7 +17,7 @@ expected_size=$3
 expected_sha=$4
 partial=$target.part
 case "$expected_size" in ''|*[!0-9]*) exit 64;; esac
-[ "$expected_size" -gt 0 ] || exit 64
+size_test "$expected_size" -gt 0 || exit 64
 [ "${#expected_sha}" -eq 64 ] || exit 64
 case "$expected_sha" in *[!0-9a-f]*) exit 64;; esac
 [ -r "$config" ] || exit 66
@@ -29,8 +37,8 @@ while [ "$attempt" -le 12 ]; do
         [ -f "$partial" ] && [ "$(stat -c %h "$partial")" = 1 ] || exit 73
         have=$(stat -c %s "$partial") || exit 74
     fi
-    [ "$have" -le "$expected_size" ] || exit 65
-    if [ "$have" -eq "$expected_size" ]; then
+    size_test "$have" -le "$expected_size" || exit 65
+    if size_test "$have" -eq "$expected_size"; then
         code=0
         break
     fi
@@ -48,7 +56,7 @@ while [ "$attempt" -le 12 ]; do
     [ "$attempt" -gt 12 ] || sleep 5
 done
 [ "$code" -eq 0 ] || exit "$code"
-[ "$(stat -c %s "$partial")" -eq "$expected_size" ] || exit 65
+size_test "$(stat -c %s "$partial")" -eq "$expected_size" || exit 65
 actual=$(sha256sum "$partial") || exit 74
 actual=${actual%% *}
 [ "$actual" = "$expected_sha" ] || exit 65
