@@ -1,4 +1,4 @@
-"""Three exact source-tree compatibility changes for official PLG110 ColorOS 17.
+"""Four exact source-tree compatibility fixes for official PLG110 ColorOS 17.
 
 This operates on an exclusively owned, quiescent canonical SAR tree, never an
 image, mount or device. Donor inode metadata lives in the supplied complete
@@ -21,6 +21,10 @@ GENFS_PATH = "/system/etc/selinux/plat_sepolicy_genfs_202604.cil"
 INIT_PATH = "/system/etc/init/hw/init.rc"
 MATRIX_PATH = "/system/etc/vintf/compatibility_matrix.dash-additions.xml"
 TEMPLATE_PATH = "/system/etc/vintf/compatibility_matrix.device.xml"
+SKIP_PARENT_PATH = "/system/system_ext/etc/init"
+SKIP_DIR_PATH = SKIP_PARENT_PATH + "/config"
+SKIP_MOUNT_PATH = SKIP_DIR_PATH + "/skip_mount.cfg"
+SKIP_MOUNT_BYTES = b"/system_ext\n/product\n"
 GENFS_BEFORE_SHA256 = "ce8b599e06d363155930549e845c0d4d234c0d9a5eb35a2f680ea6f51530b581"
 GENFS_AFTER_SHA256 = "a5fa3e379955f4209a38c161da7aebdc917b8c693ebd3992ae6eb57ab22d06e8"
 _POWER_LINES = (
@@ -131,12 +135,28 @@ def _new_inode(records):
     return candidate
 
 
+def _synthetic_record(kind, inode, size, template):
+    return {"uid": 0, "gid": 0, "mode": 0o40755 if kind == "dir" else 0o100644,
+            "inode": inode, "size": size, "kind": kind, "ext4_flags": 0,
+            "xattrs": copy.deepcopy(template["xattrs"])}
+
+
+def _same_synthetic_record(records, path, kind, size, template):
+    current = records.get(path, {})
+    inode = current.get("inode")
+    expected = _synthetic_record(kind, inode, size, template)
+    return (current == expected
+            and not any(r["inode"] == inode for p, r in records.items() if p != path))
+
+
 def _make_plan(tree, records, content_manifest):
     tree = _canonical_host(tree, exists=True)
     validate_tree(tree, records, content_manifest)
     for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH):
         if records.get(path, {}).get("kind") != "file":
             raise ValueError(f"compatibility input must be a regular file: {path}")
+    if records.get(SKIP_PARENT_PATH, {}).get("kind") != "dir":
+        raise ValueError(f"skip-mount parent must already be a real directory: {SKIP_PARENT_PATH}")
     template = records[TEMPLATE_PATH]
     if (template["uid"] != 0 or template["gid"] != 0 or template["mode"] != 0o100644
             or set(template["xattrs"]) != {"security.selinux"}
@@ -166,34 +186,59 @@ def _make_plan(tree, records, content_manifest):
                     or any(r["inode"] == expected["inode"] for p, r in records.items()
                            if p != MATRIX_PATH)):
                 raise ValueError("unexpected existing VINTF addition")
-        if any((genfs_applied, init_applied, matrix_exists)) and not all(
-                (genfs_applied, init_applied, matrix_exists)):
+        legacy_applied = genfs_applied and init_applied and matrix_exists
+        if any((genfs_applied, init_applied, matrix_exists)) and not legacy_applied:
             raise ValueError("partial compatibility state; require all original or all reviewed results")
+        skip_applied = SKIP_DIR_PATH in records or SKIP_MOUNT_PATH in records
+        if skip_applied:
+            if (not legacy_applied
+                    or not _same_synthetic_record(records, SKIP_DIR_PATH, "dir", 0, template)
+                    or not _same_synthetic_record(records, SKIP_MOUNT_PATH, "file",
+                                                  len(SKIP_MOUNT_BYTES), template)
+                    or {p for p in records if p.startswith(SKIP_DIR_PATH + "/")} != {SKIP_MOUNT_PATH}
+                    or content_manifest.get(SKIP_MOUNT_PATH) != _identity(SKIP_MOUNT_BYTES)
+                    or _read_regular(tree / SKIP_MOUNT_PATH[1:])[0] != SKIP_MOUNT_BYTES):
+                raise ValueError("unexpected existing skip-mount configuration")
     except OSError as exc:
         raise ValueError(f"cannot safely read compatibility input: {exc}") from exc
     final_records = copy.deepcopy(records)
     final_contents = copy.deepcopy(content_manifest)
     transformed = {GENFS_PATH: genfs, INIT_PATH: init, MATRIX_PATH: matrix}
-    already_applied = genfs_applied and init_applied and matrix_exists
     changes = []
     writes = []
     for path, data in transformed.items():
         before = ({"record": copy.deepcopy(records[path]),
                    "content": copy.deepcopy(content_manifest[path])} if path in records else None)
-        if path == MATRIX_PATH and not already_applied:
+        if path == MATRIX_PATH and not legacy_applied:
             final_records[path] = copy.deepcopy(template)
-            final_records[path]["inode"] = _new_inode(records)
+            final_records[path]["inode"] = _new_inode(final_records)
         final_records[path]["size"] = len(data)
         final_contents[path] = _identity(data)
         changes.append({"path": path,
-                        "action": "unchanged" if already_applied else "replace" if before else "add",
+                        "action": "unchanged" if legacy_applied else "replace" if before else "add",
                         "before": before,
                         "after": {"record": copy.deepcopy(final_records[path]),
                                   "content": copy.deepcopy(final_contents[path])}})
-        if not already_applied:
-            writes.append({"path": path, "data": data, "before": original.get(path),
+        if not legacy_applied:
+            writes.append({"kind": "file", "path": path, "data": data, "before": original.get(path),
                            "host": host_metadata[TEMPLATE_PATH if path == MATRIX_PATH else path]})
-    report = {"status": "already_applied" if already_applied else "planned",
+    for path, kind, data in ((SKIP_DIR_PATH, "dir", None),
+                             (SKIP_MOUNT_PATH, "file", SKIP_MOUNT_BYTES)):
+        if not skip_applied:
+            final_records[path] = _synthetic_record(kind, _new_inode(final_records),
+                                                     len(data) if data is not None else 0, template)
+            if kind == "file":
+                final_contents[path] = _identity(data)
+            write = {"kind": kind, "path": path, "before": None}
+            if kind == "file":
+                write.update(data=data, host=dict(host_metadata[TEMPLATE_PATH], mode=0o644))
+            writes.append(write)
+        changes.append({"path": path, "action": "unchanged" if skip_applied else "add",
+                        "before": {"record": copy.deepcopy(records[path]),
+                                   "content": copy.deepcopy(content_manifest.get(path))} if skip_applied else None,
+                        "after": {"record": copy.deepcopy(final_records[path]),
+                                  "content": copy.deepcopy(final_contents.get(path))}})
+    report = {"status": "already_applied" if legacy_applied and skip_applied else "planned",
               "donor": "official PLG110 ColorOS 17", "canonical_tree": str(tree),
               "changes": changes, "final_records": final_records,
               "final_content_manifest": final_contents}
@@ -263,12 +308,52 @@ def _unlink(path):
         os.close(parent)
 
 
+def _directory_state(path):
+    parent = _open_parent(path)
+    try:
+        try:
+            info = os.stat(Path(path).name, dir_fd=parent, follow_symlinks=False)
+        except FileNotFoundError:
+            return None
+        if not stat.S_ISDIR(info.st_mode):
+            raise ValueError(f"expected a real directory: {path}")
+        return info.st_dev, info.st_ino
+    finally:
+        os.close(parent)
+
+
+def _mkdir(path):
+    parent = _open_parent(path)
+    try:
+        os.mkdir(Path(path).name, mode=0o755, dir_fd=parent)
+        descriptor = os.open(Path(path).name, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                             dir_fd=parent)
+        try:
+            os.fchmod(descriptor, 0o755)
+            os.fsync(descriptor)
+        finally:
+            os.close(descriptor)
+        os.fsync(parent)
+    finally:
+        os.close(parent)
+
+
+def _rmdir(path):
+    parent = _open_parent(path)
+    try:
+        # Never remove unrelated contents while recovering an interrupted mkdir.
+        os.rmdir(Path(path).name, dir_fd=parent)
+        os.fsync(parent)
+    finally:
+        os.close(parent)
+
+
 def apply_compatibility(tree, records, content_manifest, backup_dir):
     """Apply only the reviewed changes, or roll them back on operational failure.
 
     ``backup_dir`` must be an explicit directory outside the canonical tree
-    with an existing parent, and must be fresh when changes are required. Original files and a precise journal remain
-    there after success or failure. An incomplete rollback raises
+    with an existing parent, and must be fresh when changes are required.
+    Original files and a precise journal remain there after success or failure. An incomplete rollback raises
     CompatibilityError with status ``failed_needs_recovery``; no updated
     manifest is returned for a failed operation.
     """
@@ -299,14 +384,21 @@ def apply_compatibility(tree, records, content_manifest, backup_dir):
         _journal(report)
         for write in writes:
             destination = tree / write["path"][1:]
-            if _current_bytes(destination) != write["before"]:
+            current = (_directory_state(destination) if write["kind"] == "dir"
+                       else _current_bytes(destination))
+            if current != write["before"]:
                 raise OSError(f"target changed before replacement: {write['path']}")
             attempted.append(write)
             report["pending"] = write["path"]
             _journal(report)
-            _atomic_write(destination, write["data"], write["host"])
-            if _read_regular(destination)[0] != write["data"]:
-                raise OSError(f"replacement verification failed: {write['path']}")
+            if write["kind"] == "dir":
+                _mkdir(destination)
+                if _directory_state(destination) is None:
+                    raise OSError(f"directory creation verification failed: {write['path']}")
+            else:
+                _atomic_write(destination, write["data"], write["host"])
+                if _read_regular(destination)[0] != write["data"]:
+                    raise OSError(f"replacement verification failed: {write['path']}")
             report["applied"].append(write["path"])
             report["pending"] = None
             _journal(report)
@@ -321,17 +413,21 @@ def apply_compatibility(tree, records, content_manifest, backup_dir):
         for write in reversed(attempted):
             destination = tree / write["path"][1:]
             try:
-                current = _current_bytes(destination)
-                if current != write["before"]:
-                    if current != write["data"]:
-                        raise OSError("target differs from both original and intended bytes")
-                    if write["before"] is None:
-                        _unlink(destination)
-                    else:
-                        saved = _read_regular(backup / write["path"][1:])[0]
-                        if saved != write["before"]:
-                            raise OSError("backup differs from original bytes")
-                        _atomic_write(destination, saved, write["host"])
+                if write["kind"] == "dir":
+                    if _directory_state(destination) is not None:
+                        _rmdir(destination)
+                else:
+                    current = _current_bytes(destination)
+                    if current != write["before"]:
+                        if current != write["data"]:
+                            raise OSError("target differs from both original and intended bytes")
+                        if write["before"] is None:
+                            _unlink(destination)
+                        else:
+                            saved = _read_regular(backup / write["path"][1:])[0]
+                            if saved != write["before"]:
+                                raise OSError("backup differs from original bytes")
+                            _atomic_write(destination, saved, write["host"])
                 report["rollback_operations"].append(write["path"])
             except BaseException as rollback_exc:
                 report["rollback_errors"].append(
