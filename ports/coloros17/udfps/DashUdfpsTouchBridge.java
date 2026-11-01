@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.display.DisplayManager;
+import android.hardware.display.DisplayManagerGlobal;
+import android.graphics.Rect;
 import android.hardware.input.InputManagerGlobal;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -14,6 +16,8 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
+import android.view.DisplayInfo;
+import android.view.SurfaceControl;
 import android.view.InputDevice;
 import android.view.InputChannel;
 import android.view.InputEvent;
@@ -99,15 +103,53 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
         inputLease = new PassiveInputLease(task -> {
             if (!inputHandler.post(task)) throw new IllegalStateException("input looper stopped");
         }, new PassiveInputLease.Factory() {
-            @Override public Object createMonitor(long generation) {
-                return InputManagerGlobal.getInstance().monitorGestureInput("DashUdfpsBridge", 0);
+            @Override public Object createMonitor(long generation) throws Exception {
+                return RootedInputResources.create(new RootedInputResources.Operations() {
+                    @Override public Object createRoot() {
+                        return new SurfaceControl.Builder().setName("DashUdfpsInputRoot")
+                                .setContainerLayer().build();
+                    }
+                    @Override public Object createMonitor() {
+                        return InputManagerGlobal.getInstance().monitorGestureInput("DashUdfpsBridge", 0);
+                    }
+                    @Override public void configure(Object root, Object monitor) {
+                        DisplayInfo info = DisplayManagerGlobal.getInstance().getDisplayInfo(0);
+                        if (info == null || info.rotation != 0 || info.logicalWidth <= 0 || info.logicalHeight <= 0)
+                            throw new IllegalStateException("portrait display unavailable");
+                        SurfaceControl ownRoot = (SurfaceControl) root;
+                        SurfaceControl ownMonitor = ((InputMonitor) monitor).getSurface();
+                        Rect crop = new Rect(0, 0, info.logicalWidth, info.logicalHeight);
+                        try (SurfaceControl.Transaction transaction = new SurfaceControl.Transaction()) {
+                            transaction.setLayerStack(ownRoot, info.layerStack);
+                            transaction.setLayer(ownRoot, Integer.MAX_VALUE);
+                            transaction.setPosition(ownRoot, 0f, 0f);
+                            transaction.setCrop(ownRoot, crop);
+                            transaction.show(ownRoot);
+                            transaction.reparent(ownMonitor, ownRoot);
+                            transaction.setLayer(ownMonitor, 1);
+                            transaction.setPosition(ownMonitor, 0f, 0f);
+                            transaction.setCrop(ownMonitor, crop);
+                            transaction.show(ownMonitor);
+                            transaction.apply();
+                        }
+                    }
+                    @Override public void disposeMonitor(Object monitor) { ((InputMonitor) monitor).dispose(); }
+                    @Override public void removeRoot(Object root) {
+                        try (SurfaceControl.Transaction transaction = new SurfaceControl.Transaction()) {
+                            transaction.remove((SurfaceControl) root);
+                            transaction.apply();
+                        }
+                    }
+                    @Override public void releaseRoot(Object root) { ((SurfaceControl) root).release(); }
+                });
             }
             @Override public Object createReceiver(Object monitor, long generation) {
                 return new BridgeInputReceiver(DashUdfpsTouchBridge.this,
-                        ((InputMonitor) monitor).getInputChannel(), inputThread.getLooper(), generation);
+                        ((InputMonitor) ((RootedInputResources) monitor).monitor()).getInputChannel(),
+                        inputThread.getLooper(), generation);
             }
             @Override public void disposeReceiver(Object receiver) { ((InputEventReceiver) receiver).dispose(); }
-            @Override public void disposeMonitor(Object monitor) { ((InputMonitor) monitor).dispose(); }
+            @Override public void disposeMonitor(Object monitor) throws Exception { ((RootedInputResources) monitor).close(); }
         }, new PassiveInputLease.Observer() {
             @Override public void ready(long generation) { diagnostic("input monitor receiver ready"); }
             @Override public void failed(long generation, Throwable failure) {

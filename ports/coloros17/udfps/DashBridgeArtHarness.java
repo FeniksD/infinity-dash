@@ -60,6 +60,9 @@ public final class DashBridgeArtHarness {
         requireOrigin(PassiveInputLease.Observer.class, args[1]);
         requireOrigin(PassiveInputLease.Scheduler.class, args[1]);
         requireOrigin(PassiveInputLeaseTest.class, args[2]);
+        requireOrigin(RootedInputResources.class, args[1]);
+        requireOrigin(RootedInputResources.Operations.class, args[1]);
+        requireOrigin(RootedInputResourcesTest.class, args[2]);
         System.out.println("PASS exact class origins: production=candidate, tests=test-only DEX");
         Class<?> client = type("com.android.server.biometrics.sensors.BaseClientMonitor");
         require(client.getMethod("getContext").getReturnType() == Context.class, "client context");
@@ -71,6 +74,25 @@ public final class DashBridgeArtHarness {
         global.getMethod("monitorGestureInput", String.class, int.class);
         Class<?> monitor = type("android.view.InputMonitor");
         monitor.getMethod("getInputChannel"); monitor.getMethod("dispose");
+        monitor.getMethod("getSurface");
+        Class<?> surface = type("android.view.SurfaceControl");
+        surface.getMethod("release");
+        Class<?> builder = type("android.view.SurfaceControl$Builder");
+        builder.getConstructor(); builder.getMethod("setName", String.class);
+        builder.getMethod("setContainerLayer"); builder.getMethod("build");
+        Class<?> transaction = type("android.view.SurfaceControl$Transaction");
+        transaction.getMethod("reparent", surface, surface);
+        transaction.getMethod("setLayerStack", surface, int.class);
+        transaction.getMethod("setLayer", surface, int.class);
+        transaction.getMethod("setCrop", surface, type("android.graphics.Rect"));
+        transaction.getMethod("setPosition", surface, float.class, float.class);
+        transaction.getMethod("show", surface); transaction.getMethod("remove", surface);
+        transaction.getMethod("apply"); transaction.getMethod("close");
+        Class<?> displayGlobal = type("android.hardware.display.DisplayManagerGlobal");
+        displayGlobal.getMethod("getInstance"); displayGlobal.getMethod("getDisplayInfo", int.class);
+        Class<?> displayInfo = type("android.view.DisplayInfo");
+        for (String field : new String[] {"layerStack", "logicalWidth", "logicalHeight", "rotation"})
+            displayInfo.getField(field);
         Class<?> inputEvent = type("android.view.InputEvent");
         Class<?> eventReceiver = type("android.view.InputEventReceiver");
         eventReceiver.getConstructor(type("android.view.InputChannel"), type("android.os.Looper"));
@@ -124,6 +146,7 @@ public final class DashBridgeArtHarness {
         } finally { parcel.recycle(); }
         UdfpsTouchBridgeCoreTest.main(new String[0]);
         PassiveInputLeaseTest.main(new String[0]);
+        RootedInputResourcesTest.main(new String[0]);
         System.out.println("PASS donor API reflection and PointerContext roundtrip; no HAL/input writes");
     }
 }

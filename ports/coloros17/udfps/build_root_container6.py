@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import zipfile
 
-ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/edge-entry-build5')
+ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/root-container-build6')
 CANON = pathlib.Path('/srv/infinity/coloros17/work/canonical/system/framework/services.jar')
 JAVA = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/java'
 JAVAC = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/javac'
@@ -36,14 +36,15 @@ assert digest(CANON.read_bytes()) == '105cc421668d81ac1c7bced968f0fbb32205a03781
 assert digest((CANON.parent / 'framework.jar').read_bytes()) == 'b162bebef34cc6650df503a39a51101679ccfef03d2f4c34615d04503c4b565d', 'Canonical donor framework.jar changed'
 
 classes = fresh('bridge-classes')
-names = ['UdfpsTouchBridgeCore', 'UdfpsTouchBridgeCoreTest', 'PassiveInputLease', 'PassiveInputLeaseTest', 'DashUdfpsTouchBridge', 'DashBridgeArtHarness']
+names = ['UdfpsTouchBridgeCore', 'UdfpsTouchBridgeCoreTest', 'PassiveInputLease', 'PassiveInputLeaseTest', 'RootedInputResources', 'RootedInputResourcesTest', 'DashUdfpsTouchBridge', 'DashBridgeArtHarness']
 run([JAVAC, '-proc:none', '--release', '17', '-classpath', CP, '-d', classes,
      *[ROOT / (name + '.java') for name in names]])
 run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.UdfpsTouchBridgeCoreTest'])
 run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.PassiveInputLeaseTest'])
+run([JAVA, '-cp', classes, 'com.android.server.biometrics.sensors.dash.RootedInputResourcesTest'])
 all_classes = sorted(classes.rglob('*.class'))
-prod_classes = [p for p in all_classes if not p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'DashBridgeArtHarness'))]
-test_classes = [p for p in all_classes if p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'DashBridgeArtHarness'))]
+prod_classes = [p for p in all_classes if not p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'RootedInputResourcesTest', 'DashBridgeArtHarness'))]
+test_classes = [p for p in all_classes if p.name.startswith(('UdfpsTouchBridgeCoreTest', 'PassiveInputLeaseTest', 'RootedInputResourcesTest', 'DashBridgeArtHarness'))]
 prod_cp = ROOT / 'bridge-production-classpath.jar'
 with zipfile.ZipFile(prod_cp, 'w') as z:
     for p in prod_classes: z.write(p, str(p.relative_to(classes)))
@@ -58,6 +59,8 @@ assert not any(x.startswith('Lcom/android/server/biometrics/sensors/dash/DashUdf
                or x.startswith('Lcom/android/server/biometrics/sensors/dash/UdfpsTouchBridgeCore$')
                or x.startswith('Lcom/android/server/biometrics/sensors/dash/PassiveInputLease;')
                or x.startswith('Lcom/android/server/biometrics/sensors/dash/PassiveInputLease$')
+               or x.startswith('Lcom/android/server/biometrics/sensors/dash/RootedInputResources;')
+               or x.startswith('Lcom/android/server/biometrics/sensors/dash/RootedInputResources$')
                for x in harness_inventory), 'Test DEX shadows production definitions'
 
 original = ROOT / 'bridge-services-original'
@@ -155,6 +158,7 @@ summary = {
     'unchanged_jar_entries': unchanged_entries,
     'core_checks': 52,
     'resource_checks': 19,
+    'root_resource_checks': 21,
     'test_only_dex_inventory': harness_inventory,
     'art_harness_built_not_executed': True,
 }
