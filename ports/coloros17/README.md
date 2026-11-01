@@ -1,6 +1,6 @@
 # ColorOS 17 / dash work area
 
-Status: official donor and signatures checked; the reviewed host construction adapter is implemented. The port is **not yet boot-tested**. Do not invoke the unmodified Mystic pipeline as a substitute.
+Status: official donor and signatures checked; the reviewed host construction adapter is implemented. The phone now reaches **ColorOS boot animation** after the mount fix; setup completion and hardware testing remain unconfirmed. Do not invoke the unmodified Mystic pipeline as a substitute.
 
 The first raw EXT4 candidate and its gzip are built and verified. [lab-image.json](lab-image.json) records their sizes, SHA-256 hashes and the limits of offline validation. The gzip is 6,866,550,221 bytes; it expands to 15,169,392,640 bytes. Construction verified 14,480 inode metadata records and all 11,219 regular-file contents. Successful construction does not establish that the image boots on `dash`.
 
@@ -26,7 +26,7 @@ python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage p
 python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage build
 ```
 
-The stages retain a recovery journal and atomically publish the metadata/content pair. Files are moved on the same filesystem, preserving the original raw images without duplicating the full unpacked tree. Only three compatibility changes are included: remove two conflicting powercap genfs rules, restore the loop-control label before APEX bootstrap, and add optional declarations for the retained dash HALs.
+The stages retain a recovery journal and atomically publish the metadata/content pair. Files are moved on the same filesystem, preserving the original raw images without duplicating the full unpacked tree. Four compatibility fixes are included: remove two conflicting powercap genfs rules, restore the loop-control label before APEX bootstrap, add optional declarations for the retained dash HALs, and install the standard monolithic-GSI `skip_mount.cfg` for `/system_ext` and `/product`.
 
 The output is an **unsigned, editable EXT4 laboratory image**, not an OPPO-signed update or a production ROM. The original `/my_reserve` directory has no label; a temporary build label is removed and verified afterward. SELinux policies compile in the mode used by the unmodified donor init and contain no permissive domains, but the stricter build-time neverallow audit still reports retained-vendor conflicts. Full APEX/kernel VINTF checks and device tests remain outstanding.
 
@@ -37,3 +37,5 @@ The first candidate targets DSU, preserving the working Infinity base. Later ite
 For the laboratory transfer, `serve_artifact.py` serves one hash-verified file with a bearer token and pinned TLS. The runtime systemd unit uses privileged lifecycle hooks to add and remove one source-restricted firewall rule while keeping the original guard baseline intact. Do not install this example as a permanent public download service. Its optional `--tcp-congestion bbr` selects BBR only for the transfer socket; it requires an available, allowed kernel implementation and does not change the global TCP default.
 
 Design and current task checklist: `docs/superpowers/specs/2026-11-01-coloros17-dsu-design.md` and `docs/superpowers/plans/2026-11-01-coloros17-dsu.md`.
+
+The existing gzip predates `skip_mount.cfg`. Its hashes identify the preserved base image, not the patched phone variant; see `post_build_dsu_patch` in `lab-image.json`. No replacement archive has been built.

@@ -24,5 +24,13 @@
     "phone_boot_tested": false
   },
   "avb_signed": false,
-  "phone_flashable_ota": false
+  "phone_flashable_ota": false,
+  "post_build_dsu_patch": {
+    "required_for_monolithic_layout": true,
+    "path": "/system/system_ext/etc/init/config/skip_mount.cfg",
+    "contents": "/system_ext\n/product\n",
+    "config_sha256": "12d3c7ac2381a1408861e0b5d0c37b4e5ef79c001d8db788b9d8946538bf55db",
+    "checked_phone_variant_sha256": "3c91989f5becfe6d0f8a3f20c39cfab8f4fcaaae15a490034a4cec99b32f44b9",
+    "note": "Existing gzip is the original base and does not include this fix. Recipe/canonical tree and installed DSU are updated; no new image build was requested."
+  }
 }
