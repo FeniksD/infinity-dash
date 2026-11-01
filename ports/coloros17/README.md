@@ -1,6 +1,6 @@
 # ColorOS 17 / dash work area
 
-Status: official donor and signatures checked; the reviewed host construction adapter is implemented. The phone now reaches **ColorOS boot animation** after the mount fix; setup completion and hardware testing remain unconfirmed. Do not invoke the unmodified Mystic pipeline as a substitute.
+Status: the official donor is booting to the ColorOS 17 desktop through DSU on dash. The owner reports working applications, Wi-Fi, 120 Hz animations, screen recording and USB file transfer. Cellular service and vibration remain broken. This is a laboratory port, not a release. Do not invoke the unmodified Mystic pipeline as a substitute.
 
 The first raw EXT4 candidate and its gzip are built and verified. [lab-image.json](lab-image.json) records their sizes, SHA-256 hashes and the limits of offline validation. The gzip is 6,866,550,221 bytes; it expands to 15,169,392,640 bytes. Construction verified 14,480 inode metadata records and all 11,219 regular-file contents. Successful construction does not establish that the image boots on `dash`.
 
@@ -26,7 +26,7 @@ python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage p
 python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage build
 ```
 
-The stages retain a recovery journal and atomically publish the metadata/content pair. Files are moved on the same filesystem, preserving the original raw images without duplicating the full unpacked tree. Four compatibility fixes are included: remove two conflicting powercap genfs rules, restore the loop-control label before APEX bootstrap, add optional declarations for the retained dash HALs, and install the standard monolithic-GSI `skip_mount.cfg` for `/system_ext` and `/product`.
+The stages retain a recovery journal and atomically publish the metadata/content pair. Files are moved on the same filesystem, preserving the original raw images without duplicating the full unpacked tree. Six compatibility fixes are included: remove two conflicting powercap genfs rules, restore the loop-control label before APEX bootstrap, add optional declarations for the retained dash HALs, install the standard monolithic-GSI `skip_mount.cfg` for `/system_ext` and `/product`, grant SurfaceFlinger the existing vendor composer-client role, and install the power-key telemetry workaround described below.
 
 The output is an **unsigned, editable EXT4 laboratory image**, not an OPPO-signed update or a production ROM. The original `/my_reserve` directory has no label; a temporary build label is removed and verified afterward. SELinux policies compile in the mode used by the unmodified donor init and contain no permissive domains, but the stricter build-time neverallow audit still reports retained-vendor conflicts. Full APEX/kernel VINTF checks and device tests remain outstanding.
 
@@ -39,3 +39,10 @@ For the laboratory transfer, `serve_artifact.py` serves one hash-verified file w
 Design and current task checklist: `docs/superpowers/specs/2026-11-01-coloros17-dsu-design.md` and `docs/superpowers/plans/2026-11-01-coloros17-dsu.md`.
 
 The existing gzip predates `skip_mount.cfg`. Its hashes identify the preserved base image, not the patched phone variant; see `post_build_dsu_patch` in `lab-image.json`. No replacement archive has been built.
+
+Runtime findings from 2026-11-01:
+
+- Physical power-key events were delayed by about 5.02 seconds inside the donor's `saupwkProcessKey`, waiting for absent `IOplusProject/default`. Setting `persist.sys.saupwk_test=true` bypasses this optional telemetry path; the owner confirmed the button became responsive. The recipe now installs `system_ext/etc/init/dash-power-key.rc`, which reapplies this setting after persisted properties load. The init integration is source-tested; the new RC has not yet been boot-tested in a rebuilt image. The separate composer-client policy change reduced measured display-power transitions from about 2.4 seconds to 0.2–0.3 seconds.
+- Both SIMs work in the retained Infinity base, but ColorOS still reports radio power off. Restoring the base's `ro.vendor.imeisv=05` in the installed DSU did not restore service and is not promoted as a recipe fix. No modem or NV partition was changed.
+- The charging warning has a traced compatibility cause: absent `vendor.oplus.hardware.charger.ICharger/default` returns `-1`, BatteryService publishes that as `notifycode`, and SystemUI treats bit 1 as overvoltage. The observed USB input was about 4.82 V. This does not establish all future charging conditions are safe. A fix must represent unavailable diagnostics separately and preserve real fault notifications and kernel protections; no charging protection has been disabled.
+- The first standard 200 ms vibration request completed in framework history but produced no vibration according to the owner. The donor logs failures obtaining the Oplus vibrator extension. A direct standard-HAL pulse was issued separately; physical confirmation is pending.

@@ -21,6 +21,11 @@ SKIP_DIR = SKIP_PARENT + "/config"
 SKIP_MOUNT = SKIP_DIR + "/skip_mount.cfg"
 SKIP_BYTES = b"/system_ext\n/product\n"
 COMPOSER_POLICY = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
+POWER_KEY_INIT = "/system/system_ext/etc/init/dash-power-key.rc"
+POWER_KEY_BYTES = (b"# Avoid a five-second wait for the absent OplusProject service on dash.\n"
+                   b"# Apply after saved properties load; only skip optional power-key telemetry.\n"
+                   b"on property:ro.persistent_properties.ready=true\n"
+                   b"    setprop persist.sys.saupwk_test true\n")
 BEFORE_COMPOSER = b";; donor system_ext policy fixture\n(type surfaceflinger)\n(allow surfaceflinger existing_service (service_manager (find)))\n"
 DIRECT_COMPOSER_RULE = b"(allow surfaceflinger mtk_hal_composer_ext_service (service_manager (find)))\n"
 DIRECT_COMPOSER = BEFORE_COMPOSER + DIRECT_COMPOSER_RULE
@@ -136,6 +141,43 @@ def four_fix_fixture(parent):
 
 
 class CompatibilityTests(unittest.TestCase):
+    def test_power_key_workaround_is_installed_after_persisted_properties_load(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents = four_fix_fixture(parent)
+            report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
+            target = tree / POWER_KEY_INIT[1:]
+            self.assertTrue(target.is_file(), "power-key workaround is missing from the image recipe")
+            self.assertEqual(target.read_bytes(), POWER_KEY_BYTES)
+            record = report["final_records"][POWER_KEY_INIT]
+            self.assertEqual((record["uid"], record["gid"], record["mode"]), (0, 0, 0o100644))
+            self.assertEqual(record["xattrs"], {"security.selinux": LABEL})
+            again = self.api.apply_compatibility(tree, report["final_records"],
+                                                report["final_content_manifest"], parent / "backups")
+            self.assertEqual(again["status"], "already_applied")
+
+    def test_changed_existing_power_key_configuration_is_rejected(self):
+        for damage in ("bytes", "mode"):
+            with self.subTest(damage=damage), tempfile.TemporaryDirectory() as tmp:
+                parent = Path(tmp)
+                tree, records, contents = four_fix_fixture(parent)
+                first = self.api.apply_compatibility(tree, records, contents, parent / "first")
+                records, contents = first["final_records"], first["final_content_manifest"]
+                target = tree / POWER_KEY_INIT[1:]
+                if damage == "bytes":
+                    data = POWER_KEY_BYTES.replace(b"saupwk_test true", b"saupwk_test false")
+                    target.write_bytes(data)
+                    records[POWER_KEY_INIT]["size"] = len(data)
+                    contents[POWER_KEY_INIT] = {"kind": "file", "size": len(data),
+                                                "sha256": hashlib.sha256(data).hexdigest()}
+                else:
+                    records[POWER_KEY_INIT]["mode"] = 0o100666
+                before = tree_snapshot(tree)
+                with self.assertRaises(ValueError):
+                    self.api.apply_compatibility(tree, records, contents, parent / "second")
+                self.assertEqual(tree_snapshot(tree), before)
+                self.assertFalse((parent / "second").exists())
+
     def setUp(self):
         self.assertTrue(MODULE.is_file(), "compatibility helper is missing")
         spec = importlib.util.spec_from_file_location("coloros_compat", MODULE)
@@ -163,8 +205,8 @@ class CompatibilityTests(unittest.TestCase):
             before_tree = tree_snapshot(tree)
             plan = self.api.plan_compatibility(tree, records, contents)
             self.assertEqual(plan["status"], "planned")
-            self.assertEqual([c["path"] for c in plan["changes"]], [GENFS, INIT, MATRIX, SKIP_DIR, SKIP_MOUNT, COMPOSER_POLICY])
-            self.assertEqual([c["action"] for c in plan["changes"]], ["replace", "replace", "add", "add", "add", "replace"])
+            self.assertEqual([c["path"] for c in plan["changes"]], [GENFS, INIT, MATRIX, SKIP_DIR, SKIP_MOUNT, COMPOSER_POLICY, POWER_KEY_INIT])
+            self.assertEqual([c["action"] for c in plan["changes"]], ["replace", "replace", "add", "add", "add", "replace", "add"])
             changed = plan["final_records"]
             for name in (GENFS, INIT, COMPOSER_POLICY):
                 self.assertEqual({k: v for k, v in changed[name].items() if k != "size"},
@@ -174,13 +216,14 @@ class CompatibilityTests(unittest.TestCase):
                              {k: v for k, v in records[TEMPLATE].items() if k not in ("inode", "size")})
             self.assertNotIn(new["inode"], {r["inode"] for r in records.values()})
             for name, kind, mode, size in ((SKIP_DIR, "dir", 0o40755, 0),
-                                           (SKIP_MOUNT, "file", 0o100644, 21)):
+                                           (SKIP_MOUNT, "file", 0o100644, 21),
+                                           (POWER_KEY_INIT, "file", 0o100644, len(POWER_KEY_BYTES))):
                 self.assertEqual((changed[name]["kind"], changed[name]["mode"], changed[name]["size"]),
                                  (kind, mode, size))
                 self.assertEqual((changed[name]["uid"], changed[name]["gid"]), (0, 0))
                 self.assertEqual(changed[name]["xattrs"], {"security.selinux": LABEL})
-            new_inodes = {changed[name]["inode"] for name in (MATRIX, SKIP_DIR, SKIP_MOUNT)}
-            self.assertEqual(len(new_inodes), 3)
+            new_inodes = {changed[name]["inode"] for name in (MATRIX, SKIP_DIR, SKIP_MOUNT, POWER_KEY_INIT)}
+            self.assertEqual(len(new_inodes), 4)
             self.assertTrue(new_inodes.isdisjoint({r["inode"] for r in records.values()}))
             self.assertNotIn(SKIP_DIR, plan["final_content_manifest"])
             self.assertEqual(plan["final_content_manifest"][SKIP_MOUNT],
@@ -238,7 +281,7 @@ class CompatibilityTests(unittest.TestCase):
             report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
             self.assertEqual(report["status"], "complete")
             self.assertEqual([c["action"] for c in report["changes"]],
-                             ["unchanged", "unchanged", "unchanged", "add", "add", "replace"])
+                             ["unchanged", "unchanged", "unchanged", "add", "add", "replace", "add"])
             self.assertEqual((tree / SKIP_MOUNT[1:]).read_bytes(), SKIP_BYTES)
             for name in records.keys() - {COMPOSER_POLICY}:
                 self.assertEqual(report["final_records"][name], original_records[name])
@@ -259,9 +302,10 @@ class CompatibilityTests(unittest.TestCase):
             report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
             self.assertEqual(report["status"], "complete")
             self.assertEqual([c["action"] for c in report["changes"]],
-                             ["unchanged"] * 5 + ["replace"])
+                             ["unchanged"] * 5 + ["replace", "add"])
             expected_tree = dict(before_tree)
             expected_tree[COMPOSER_POLICY[1:]] = AFTER_COMPOSER
+            expected_tree[POWER_KEY_INIT[1:]] = POWER_KEY_BYTES
             self.assertEqual(tree_snapshot(tree), expected_tree)
             for name in records:
                 expected = dict(before_records[name])
@@ -289,9 +333,10 @@ class CompatibilityTests(unittest.TestCase):
             before_record = copy.deepcopy(records[COMPOSER_POLICY])
             report = self.api.apply_compatibility(tree, records, contents, parent / "backups")
             self.assertEqual(report["status"], "complete")
-            self.assertEqual([c["action"] for c in report["changes"]], ["unchanged"] * 5 + ["replace"])
+            self.assertEqual([c["action"] for c in report["changes"]], ["unchanged"] * 5 + ["replace", "add"])
             expected = dict(before_tree)
             expected[COMPOSER_POLICY[1:]] = AFTER_COMPOSER
+            expected[POWER_KEY_INIT[1:]] = POWER_KEY_BYTES
             self.assertEqual(tree_snapshot(tree), expected)
             self.assertNotIn(DIRECT_COMPOSER_RULE, (tree / COMPOSER_POLICY[1:]).read_bytes())
             self.assertEqual((parent / "backups" / COMPOSER_POLICY[1:]).read_bytes(), DIRECT_COMPOSER)
@@ -622,7 +667,7 @@ class CompatibilityTests(unittest.TestCase):
             self.assertEqual(failure.exception.report["rollback_operations"], [MATRIX, INIT, GENFS])
 
     def test_keyboard_interrupt_after_real_replace_rolls_back_each_target(self):
-        for target in (GENFS, INIT, MATRIX, SKIP_MOUNT, COMPOSER_POLICY):
+        for target in (GENFS, INIT, MATRIX, SKIP_MOUNT, COMPOSER_POLICY, POWER_KEY_INIT):
             with self.subTest(target=target), tempfile.TemporaryDirectory() as tmp:
                 parent = Path(tmp)
                 tree, records, contents = fixture(parent)

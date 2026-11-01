@@ -1,4 +1,4 @@
-"""Five exact source-tree compatibility fixes for official PLG110 ColorOS 17.
+"""Six exact source-tree compatibility fixes for official PLG110 ColorOS 17.
 
 This operates on an exclusively owned, quiescent canonical SAR tree, never an
 image, mount or device. Donor inode metadata lives in the supplied complete
@@ -25,6 +25,13 @@ SKIP_PARENT_PATH = "/system/system_ext/etc/init"
 SKIP_DIR_PATH = SKIP_PARENT_PATH + "/config"
 SKIP_MOUNT_PATH = SKIP_DIR_PATH + "/skip_mount.cfg"
 SKIP_MOUNT_BYTES = b"/system_ext\n/product\n"
+POWER_KEY_INIT_PATH = SKIP_PARENT_PATH + "/dash-power-key.rc"
+POWER_KEY_INIT_BYTES = (
+    b"# Avoid a five-second wait for the absent OplusProject service on dash.\n"
+    b"# Apply after saved properties load; only skip optional power-key telemetry.\n"
+    b"on property:ro.persistent_properties.ready=true\n"
+    b"    setprop persist.sys.saupwk_test true\n"
+)
 COMPOSER_POLICY_PATH = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
 COMPOSER_BEFORE_SHA256 = "a9176d643c44e2bade190fa39fca99d9962eb572aa6e94e907aab18cd3051251"
 COMPOSER_LEGACY_ALLOW_SHA256 = "fe5c16850894a465381f568e0637610649378b11465d7b00a79f377f3236d528"
@@ -235,6 +242,14 @@ def _make_plan(tree, records, content_manifest):
                               == COMPOSER_LEGACY_ALLOW_SHA256)
         if (composer_applied or composer_migration) and not (legacy_applied and skip_applied):
             raise ValueError("composer client policy is present without the previous complete fixes")
+        power_key_applied = POWER_KEY_INIT_PATH in records
+        if power_key_applied:
+            if (not (legacy_applied and skip_applied and composer_applied)
+                    or not _same_synthetic_record(records, POWER_KEY_INIT_PATH, "file",
+                                                  len(POWER_KEY_INIT_BYTES), template)
+                    or content_manifest.get(POWER_KEY_INIT_PATH) != _identity(POWER_KEY_INIT_BYTES)
+                    or _read_regular(tree / POWER_KEY_INIT_PATH[1:])[0] != POWER_KEY_INIT_BYTES):
+                raise ValueError("unexpected existing power-key compatibility configuration")
     except OSError as exc:
         raise ValueError(f"cannot safely read compatibility input: {exc}") from exc
     final_records = copy.deepcopy(records)
@@ -285,7 +300,19 @@ def _make_plan(tree, records, content_manifest):
     if not composer_applied:
         writes.append({"kind": "file", "path": COMPOSER_POLICY_PATH, "data": composer_policy,
                        "before": original[COMPOSER_POLICY_PATH], "host": host_metadata[COMPOSER_POLICY_PATH]})
-    report = {"status": "already_applied" if legacy_applied and skip_applied and composer_applied else "planned",
+    if not power_key_applied:
+        final_records[POWER_KEY_INIT_PATH] = _synthetic_record(
+            "file", _new_inode(final_records), len(POWER_KEY_INIT_BYTES), template)
+        final_contents[POWER_KEY_INIT_PATH] = _identity(POWER_KEY_INIT_BYTES)
+        writes.append({"kind": "file", "path": POWER_KEY_INIT_PATH, "data": POWER_KEY_INIT_BYTES,
+                       "before": None, "host": dict(host_metadata[TEMPLATE_PATH], mode=0o644)})
+    changes.append({"path": POWER_KEY_INIT_PATH, "action": "unchanged" if power_key_applied else "add",
+                    "before": {"record": copy.deepcopy(records[POWER_KEY_INIT_PATH]),
+                               "content": copy.deepcopy(content_manifest[POWER_KEY_INIT_PATH])}
+                    if power_key_applied else None,
+                    "after": {"record": copy.deepcopy(final_records[POWER_KEY_INIT_PATH]),
+                              "content": copy.deepcopy(final_contents[POWER_KEY_INIT_PATH])}})
+    report = {"status": "already_applied" if legacy_applied and skip_applied and composer_applied and power_key_applied else "planned",
               "donor": "official PLG110 ColorOS 17", "canonical_tree": str(tree),
               "changes": changes, "final_records": final_records,
               "final_content_manifest": final_contents}
