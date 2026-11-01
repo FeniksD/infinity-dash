@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='utf-8'?>
+<compatibility-matrix version="9.0" type="framework">
+  <hal format="aidl" optional="true">
+    <name>com.fingerprints.extension3</name>
+    <version>1</version>
+    <interface>
+      <name>IFingerprintNavigation</name>
+      <instance>default</instance>
+    </interface>
+    <interface>
+      <name>IFingerprintSensorTest</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.lineage.health</name>
+    <version>2</version>
+    <interface>
+      <name>IChargingControl</name>
+      <instance>default</instance>
+    </interface>
+    <interface>
+      <name>IFastCharge</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.qti.hardware.fingerprint</name>
+    <version>1</version>
+    <interface>
+      <name>IQfpExtendedFingerprint</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.aidl.mtdservice</name>
+    <version>1</version>
+    <interface>
+      <name>IMTService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.aidlbgservice</name>
+    <version>1</version>
+    <interface>
+      <name>IBGService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.camera.mivimessage</name>
+    <version>1</version>
+    <interface>
+      <name>IService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.display.mihwcextension</name>
+    <version>1</version>
+    <interface>
+      <name>IMiHwcExtension</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.displayfeature_aidl</name>
+    <version>2</version>
+    <interface>
+      <name>IDisplayFeature</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.fingerprintextension</name>
+    <version>1</version>
+    <interface>
+      <name>IXiaomiFingerprint</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.fx.tunnel</name>
+    <version>1</version>
+    <interface>
+      <name>IMiFxTunnel</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.idmanager</name>
+    <version>1</version>
+    <interface>
+      <name>IIdManagerService</name>
+      <instance>default</instance>
+    </interface>
+    <interface>
+      <name>ISecidService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.mfidoca</name>
+    <version>1</version>
+    <interface>
+      <name>IFidoService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.misys.common</name>
+    <version>3</version>
+    <interface>
+      <name>IHypSysIntl</name>
+      <instance>default</instance>
+    </interface>
+    <interface>
+      <name>IMiSysImpl</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.misys.core</name>
+    <version>1</version>
+    <interface>
+      <name>IMiSysCore</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.mtkblackbox</name>
+    <version>3</version>
+    <interface>
+      <name>IMtkblackboxImpl</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hardware.postprocservice</name>
+    <version>1</version>
+    <interface>
+      <name>IPostProcService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.hw.touchfeature</name>
+    <version>1</version>
+    <interface>
+      <name>ITouchFeature</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>vendor.xiaomi.sensor.citsensorservice</name>
+    <version>1</version>
+    <interface>
+      <name>ICitSensorService</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+  <hal format="aidl" optional="true">
+    <name>xiaomi.system.hypsys.common</name>
+    <version>1</version>
+    <interface>
+      <name>IHypSysSsi</name>
+      <instance>default</instance>
+    </interface>
+    <interface>
+      <name>IHypSysSsiIntl</name>
+      <instance>default</instance>
+    </interface>
+  </hal>
+</compatibility-matrix>

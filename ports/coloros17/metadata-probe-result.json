@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "result": {
+    "/": {
+      "uid": 70000,
+      "gid": 71000,
+      "mode": "0o751",
+      "label": "u:object_r:rootfs:s0"
+    },
+    "/system/bin": {
+      "uid": 0,
+      "gid": 2000,
+      "mode": "0o2750",
+      "label": "u:object_r:system_file:s0"
+    },
+    "/system/bin/probe": {
+      "uid": 70000,
+      "gid": 71000,
+      "mode": "0o4750",
+      "label": "u:object_r:system_file:s0"
+    },
+    "/link": {
+      "uid": 12345,
+      "gid": 23456,
+      "mode": "0o777",
+      "label": "u:object_r:system_file:s0"
+    },
+    "capability_hex": "0100000200000000000000000100000000000000"
+  }
+}

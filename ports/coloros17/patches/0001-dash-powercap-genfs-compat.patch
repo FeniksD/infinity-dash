@@ -1,0 +1,10 @@
+--- a/system/etc/selinux/plat_sepolicy_genfs_202604.cil
++++ b/system/etc/selinux/plat_sepolicy_genfs_202604.cil
+@@ -2,7 +2,5 @@
+ (genfscon sysfs "/power/mem_sleep" (u object_r sysfs_mem_sleep ((s0) (s0))))
+ (genfscon sysfs "/class/typec" (u object_r sysfs_typec ((s0) (s0))))
+ ;; #ifdef QCOM_ONLY_CHANGES
+-(genfscon sysfs "/class/powercap" (u object_r sysfs_powercap ((s0) (s0))))
+-(genfscon sysfs "/devices/virtual/powercap" (u object_r sysfs_powercap ((s0) (s0))))
+ ;; #endif /* QCOM_ONLY_CHANGES */
+ (genfscon proc "/sys/kernel/firmware_config" (u object_r proc_firmware_config ((s0) (s0))))

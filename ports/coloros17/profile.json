@@ -17,13 +17,14 @@
     "my_bigball",
     "my_manifest"
   ],
-  "pipeline_adapter_ready": false,
-  "readiness_note": "Source audit complete; safe transformation adapter and device-specific policy still require implementation. This profile must fail closed.",
+  "pipeline_adapter_ready": true,
+  "readiness_note": "Reviewed metadata-preserving host construction adapter is implemented. This does not claim DSU boot or hardware compatibility.",
   "use_stock_init": true,
   "add_vendor_stuff": false,
   "debloat": {},
   "allow_insecure_adb": false,
   "allow_permissive_selinux": false,
   "allow_unreviewed_binary_patches": false,
-  "mystic_commit": "b906057b9909d9ec3272feb9c53306f7bd4912f0"
+  "mystic_commit": "b906057b9909d9ec3272feb9c53306f7bd4912f0",
+  "artifact_mode": "raw_editable_ext4_lab_image"
 }

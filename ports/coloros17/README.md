@@ -1,6 +1,6 @@
 # ColorOS 17 / dash work area
 
-Status: official donor selected and metadata verified; port is **not yet build-ready or boot-tested**. The profile intentionally refuses transformation until the safe adapter is implemented. Do not invoke the unmodified Mystic pipeline as a substitute.
+Status: official donor and signatures checked; the reviewed host construction adapter is implemented. The port is **not yet boot-tested**. Do not invoke the unmodified Mystic pipeline as a substitute.
 
 Donor: OPPO Find X9 Pro CN, `PLG110_17.0.0.105(CN01)`, Android17/SDK37. This is the same device family named by the earlier unofficial ColorOS16 dash port. `donor.json` records public provenance; expiring URL query signatures remain in private task cache.
 
@@ -14,7 +14,19 @@ python3 -B ports/coloros17/preflight.py \
   --payload-summary ports/coloros17/payload-summary.json
 ```
 
-At the current stage it must report that the ColorOS17 adapter is not reviewed. Changing that flag alone does not implement the adapter or establish safety.
+This validates the extraction recipe and the reviewed construction profile. It does not authorize a phone flash or establish bootability.
+
+`candidate.py` provides the host-only `merge`, `patch` and `build` stages. Run it as an unprivileged build account, with the verified input reports and unpacked trees under the selected base directory:
+
+```sh
+python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage merge
+python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage patch
+python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage build
+```
+
+The stages retain a recovery journal and atomically publish the metadata/content pair. Files are moved on the same filesystem, preserving the original raw images without duplicating the full unpacked tree. Only three compatibility changes are included: remove two conflicting powercap genfs rules, restore the loop-control label before APEX bootstrap, and add optional declarations for the retained dash HALs.
+
+The output is an **unsigned, editable EXT4 laboratory image**, not an OPPO-signed update or a production ROM. The original `/my_reserve` directory has no label; a temporary build label is removed and verified afterward. SELinux policies compile in the mode used by the unmodified donor init and contain no permissive domains, but the stricter build-time neverallow audit still reports retained-vendor conflicts. Full APEX/kernel VINTF checks and device tests remain outstanding.
 
 Pinned toolkit: [MysticGSI](https://github.com/MysticGSI/mysticgsi/tree/b906057b9909d9ec3272feb9c53306f7bd4912f0). There is no `37/coloros` profile at this commit. Its stock pipeline also performs broad removals, disables security properties and can install permissive-SELinux helpers, so this port will use explicit, reviewed transformations instead. Original authorship must be preserved.
 

@@ -1,0 +1,71 @@
+{
+  "vendor_policy_version": "202604",
+  "vendor_genfs_labels_version": "202604",
+  "input_hashes_unchanged": true,
+  "unmodified_compile": {
+    "exit": 255,
+    "blocker": "Two conflicting powercap genfscon rules"
+  },
+  "two_genfs_only_strict_compile": {
+    "exit": 255,
+    "neverallow_assertions_failed": 10,
+    "report": "compile-candidate-powercap.stderr"
+  },
+  "runtime_permissive_domains": {
+    "command": [
+      "/srv/infinity/out/host/linux-x86/bin/sepolicy-analyze",
+      "/srv/infinity/coloros17/work/analysis-selinux/candidate-runtime.policy",
+      "permissive"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "donor_init_runtime_evidence": {
+    "donor_init": "/srv/infinity/coloros17/work/parts/system/system/bin/init",
+    "sha256": "e53865932cee65fc69b00c3e8ebee5c0ba340f57d295bb187cf232e0de75af9c",
+    "argument_vector_disassembly_range": "0x12b42c..0x12b4b0",
+    "evidence": "secilc pointer at vector slot0; -N pointer 0x2809d stored in slot6 at instruction 0x12b494",
+    "rodata_strings": {
+      "0x21dbe": "/system/bin/secilc",
+      "0x1de57": "-m",
+      "0x22f4a": "-M",
+      "0x2098a": "true",
+      "0x24e34": "-G",
+      "0x2809d": "-N",
+      "0x2f09e": "-c",
+      "0x3222d": "-o",
+      "0x13184": "-f",
+      "0x22f4d": "/sys/fs/selinux/null"
+    },
+    "scope": "Static donor binary proof; not execution on phone"
+  },
+  "context_validation": {
+    "checks": 21,
+    "failures": 0
+  },
+  "loop_control": {
+    "path": "/dev/loop-control",
+    "lookup_return": 0,
+    "context": "u:object_r:loop_control_device:s0",
+    "basis": "Combined donor platform/system_ext/product and retained dash vendor/odm file contexts",
+    "limitation": "Offline lookup only; actual device-node label not inspected"
+  },
+  "limitations": [
+    "No phone action, policy load, or setenforce performed.",
+    "Runtime -N compile is not a pass of strict neverallow assertions.",
+    "VINTF uses synthetic empty APEX list, skips kernel requirements and does not prove runtime HAL availability.",
+    "Boot, APEX activation and hardware behavior remain untested.",
+    "Actual /dev/loop-control label not observed; offline expected type is loop_control_device."
+  ],
+  "runtime_compile": {
+    "result": "passed",
+    "mode": "actual donor init uses -N",
+    "strict_neverallow_validation_passed": false,
+    "permissive_domains": 0
+  },
+  "vintf": {
+    "partition_only_with_additive_matrix": "passed",
+    "apex_and_kernel_complete": false
+  }
+}

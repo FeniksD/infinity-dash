@@ -92,6 +92,11 @@
       "bytes": 696320
     }
   ],
-  "archive_sha256": null,
-  "validation_status": "metadata verified; full archive download in progress; signature not verified; not ready to flash"
+  "archive_sha256": "887e2af172a05b8de746711b121847a86a51eb7a96621535cb5d4b5984d3c6b7",
+  "validation_status": "Official-host archive size/MD5, full payload SHA256 and OTA/payload signature consistency verified. Embedded signing certificate is not independently pinned. Port construction and device testing remain pending.",
+  "archive_md5_verified": true,
+  "payload_hash_verified": true,
+  "ota_signature_consistent": true,
+  "expected_payload_bytes": 9592095570,
+  "ota_certificate_sha256": "2de09468859e8f347c52149c319ad83046d6a0e1e11ad89b69ffcf8c35aaac6a"
 }

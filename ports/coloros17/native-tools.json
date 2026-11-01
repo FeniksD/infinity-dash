@@ -1,0 +1,25 @@
+{
+  "source_build": "754decc022b25740754389324cc878d094c34721",
+  "hashes": {
+    "ota_extractor": "44559fda4d99d2dcbdd2d9888861d594eaf36e16dfd790566cefb00e2f3eb8cf",
+    "e2fsdroid": "a2d7164775b27e177bb340bf427c899cb4e62c9b35bbc3c097363d02c8a8d296",
+    "mke2fs": "d1cea13f4716e73dd78e3e99c3d469d95083a46b998b9f83071debcf04a20925",
+    "avbtool": "8a0943ac896357682de7060f20869bdc92cb62a0cc26feb774932997af2bce40",
+    "fsck.erofs": "ed1580a680ca735b901aa0a6520ec61d99cebeff7aa577729760cb9eadb94639",
+    "check_ota_package_signature": "5766d67e0059363d0a79717f3bd0b26ee101b4fd44bf66e953867c0d44e53036"
+  },
+  "system_tools": {
+    "debugfs": {
+      "path": "/usr/sbin/debugfs",
+      "sha256": "864e1d7b445e7b5bfc831da78330dbcafc590fa82b89ea9de60b7527f989954f",
+      "package": "e2fsprogs",
+      "version": "1.47.2-3ubuntu4"
+    },
+    "e2fsck": {
+      "path": "/usr/sbin/e2fsck",
+      "sha256": "2e51f521c676729920eaba694933d9d4048645f1a5789556fd0027e62d11ecc8",
+      "package": "e2fsprogs",
+      "version": "1.47.2-3ubuntu4"
+    }
+  }
+}
