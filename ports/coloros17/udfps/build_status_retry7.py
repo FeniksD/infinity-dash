@@ -8,7 +8,7 @@ import shutil
 import subprocess
 import zipfile
 
-ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/root-container-build6')
+ROOT = pathlib.Path('/srv/infinity/coloros17/.cache/fingerprint-rootcause/status-retry-build7')
 CANON = pathlib.Path('/srv/infinity/coloros17/work/canonical/system/framework/services.jar')
 JAVA = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/java'
 JAVAC = '/srv/infinity/android/prebuilts/jdk/jdk21/linux-x86/bin/javac'
@@ -156,7 +156,7 @@ summary = {
     'original_classes_in_dex': len(original_paths),
     'semantic_roundtrip_differences': differences,
     'unchanged_jar_entries': unchanged_entries,
-    'core_checks': 52,
+    'core_checks': 65,
     'resource_checks': 19,
     'root_resource_checks': 21,
     'test_only_dex_inventory': harness_inventory,

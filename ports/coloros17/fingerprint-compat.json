@@ -1,5 +1,5 @@
 {
-  "status": "live_enrollment_and_authentication_verified_retry_and_ui_incomplete",
+  "status": "live_enrollment_authentication_and_retries_verified_ui_incomplete",
   "native_hal": {
     "descriptor": "android.hardware.biometrics.fingerprint.IFingerprint/default",
     "interface_version": 4,
@@ -28,10 +28,10 @@
     "feature selects NewFingerEnrollActivity rather than rear-scanner UI",
     "scoped property read permission initializes OEM overlay renderer without disabling enforcing",
     "UI geometry settings220/712 are accepted and icon appears at intended location",
-    "Native enrollment and real fingerprint authentication work with rooted passive input bridge"
+    "Native enrollment and real fingerprint authentication work with rooted passive input bridge",
+    "Repeated attempts preserved across OEM status notifications; wrong finger rejected, enrolled finger accepted in same active request"
   ],
   "not_verified": [
-    "retry after a failed authentication",
     "enrollment progress and completion UI",
     "fingerprint animation",
     "permanent cold-boot integration"
@@ -40,7 +40,7 @@
   "source_integration_pending": true,
   "touch_bridge": {
     "source": "udfps/manifest.json",
-    "status": "live_enrollment_and_authentication_verified_retry_and_ui_incomplete",
+    "status": "live_enrollment_authentication_and_retries_verified_ui_incomplete",
     "deployment": "temporary bind mount only",
     "prerequisites": "existing property, feature and scoped SELinux changes remain required"
   }

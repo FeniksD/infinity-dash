@@ -90,9 +90,12 @@ public final class UdfpsTouchBridgeCore {
     private boolean blockedGesture;
 
     public UdfpsTouchBridgeCore(Port port) { this.port = Objects.requireNonNull(port); }
+    /** Oplus uses show() for these adjunct touch/failure notifications, not session requests. */
+    public static boolean isOemStatusReason(int reason) { return reason == 8 || reason == 9 || reason == 10; }
 
     /** Run every method on the fingerprint handler. Returns a token for listener callbacks. */
     public long show(Target next) {
+        if (next != null && isOemStatusReason(next.reason)) return generation;
         if (registered && target != null && target.equals(next) && port.enabledForDash()
                 && port.clientStillLive(next) && port.displayReady(next)) return generation;
         stop();

@@ -185,6 +185,7 @@ public final class DashUdfpsTouchBridge implements UdfpsTouchBridgeCore.Port {
     /** Hook only after SensorOverlays' real remote show succeeds. */
     public static void onShow(Object overlayOwner, int sensorId, int reason, Object client) {
         try {
+            if (UdfpsTouchBridgeCore.isOemStatusReason(reason)) return;
             if (ENTRY_LOGGED.compareAndSet(false, true)) diagnostic("show hook entered");
             if (!gate()) { diagnostic("show suppressed: opt-in or SKU gate"); return; }
             DashUdfpsTouchBridge bridge = instance;

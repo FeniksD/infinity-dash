@@ -258,7 +258,52 @@ public final class UdfpsTouchBridgeCoreTest {
         check(!b.armed() && p.calls.equals(List.of("down:7", "up:7", "down:8", "up:8")),
                 "gesture cancel cannot preserve a session after opt-out");
     }
+    private static UdfpsTouchBridgeCore.Target statusTarget(int reason) {
+        return new UdfpsTouchBridgeCore.Target(new Object(), CLIENT, 7, 0, 0, reason, 0,
+                638, 2060, 110, 1280, 2772);
+    }
+    private static void testOemStatusNotificationsPreserveSession() {
+        for (int reason : new int[] {8, 9, 10}) {
+            FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
+            long generation = b.show(target(7));
+            b.motion(generation, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 100));
+            long after = b.show(statusTarget(reason));
+            check(after == generation && b.armed() && b.pointerHeld()
+                            && p.calls.equals(List.of("down:7")) && p.registerCount == 1 && p.unregisterCount == 0,
+                    "OEM touch/failure status cannot replace or tear down active held session");
+            b.motion(generation, event(UdfpsTouchBridgeCore.Action.UP, 638, 2060, 200));
+            b.motion(generation, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 300));
+            check(p.calls.equals(List.of("down:7", "up:7", "down:7")),
+                    "another physical press works after OEM failure notification");
+
+            FakePort pendingPort = new FakePort(); UdfpsTouchBridgeCore pending = new UdfpsTouchBridgeCore(pendingPort);
+            long pendingGeneration = pending.show(target(7));
+            pending.motion(pendingGeneration, event(UdfpsTouchBridgeCore.Action.DOWN, 10, 10, 100));
+            pending.show(statusTarget(reason));
+            pending.motion(pendingGeneration, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 200));
+            check(pendingPort.calls.equals(List.of("down:7")) && pending.armed(),
+                    "OEM notification preserves pending same-pointer sensor entry");
+        }
+        FakePort emptyPort = new FakePort(); UdfpsTouchBridgeCore empty = new UdfpsTouchBridgeCore(emptyPort);
+        empty.show(statusTarget(10));
+        check(!empty.armed() && emptyPort.registerCount == 0, "status notification cannot create a session");
+
+        FakePort p = new FakePort(); UdfpsTouchBridgeCore b = new UdfpsTouchBridgeCore(p);
+        long g = b.show(target(7)); b.motion(g, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 100));
+        b.show(statusTarget(10)); b.hide(OWNER, 0);
+        check(!b.armed() && p.calls.equals(List.of("down:7", "up:7")), "real owner hide still cleans up after status");
+        long fresh = b.show(target(8)); b.motion(fresh, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 300));
+        b.show(statusTarget(10)); p.enabled = false;
+        b.motion(fresh, event(UdfpsTouchBridgeCore.Action.MOVE, 638, 2060, 400));
+        check(!b.armed() && p.calls.get(p.calls.size()-1).equals("up:8"), "opt-out still releases after status");
+        p.enabled = true;
+        long last = b.show(target(9)); b.motion(last, event(UdfpsTouchBridgeCore.Action.DOWN, 638, 2060, 500));
+        b.show(statusTarget(99));
+        check(!b.armed() && p.calls.get(p.calls.size()-1).equals("up:9"),
+                "unknown invalid request still fails closed; only documented statuses are ignored");
+    }
     public static void main(String[] args) {
+        testOemStatusNotificationsPreserveSession();
         testRealSessionInvalidationStillStops();
         testUnrelatedMultitouchCannotDestroyOverlay(); testHeldMultitouchReleasesOnlyGesture();
         testNoninteractiveDisplayCannotCapture();

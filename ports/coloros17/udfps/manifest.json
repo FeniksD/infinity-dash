@@ -1,35 +1,35 @@
 {
-  "status": "live_enrollment_and_authentication_verified_retry_and_ui_incomplete",
+  "status": "live_enrollment_authentication_and_retries_verified_ui_incomplete",
   "scope": "screen-on portrait dash only; passive input bridge forwards real finger events to the current standard fingerprint request",
   "source_sha256": {
-    "DashUdfpsTouchBridge.java": "8c8390bb3aa7d0d204a3c9438a65c6a7c7661e1311e5c8dc8503241c280c39a9",
-    "UdfpsTouchBridgeCore.java": "b3a62c1d4d7fed24f61b7d9a638f9b32177b157abf046fb8647b347faee985a3",
+    "DashUdfpsTouchBridge.java": "96d7d516576c487e4ca139a8e56a1fda0cc3b5a229940a720e5ac2795d6856a7",
+    "UdfpsTouchBridgeCore.java": "f6568c1977e92ded79f78ed90d89617f79b20fa0e97e3b305613a6eb6c114c97",
     "PassiveInputLease.java": "f50bc9013ff3e862e58b54fab4ef3ea6a660231f392a1f61264115e48d94d16b",
     "RootedInputResources.java": "cc23906b3fa94e0111a2c97ab6b11d8d70b94e2f676812be5bbfb869ec1f28c6",
-    "UdfpsTouchBridgeCoreTest.java": "ef330adfec9fb7061d8e09054bd113e8367ec740f4e189ef7f82d33681571566",
+    "UdfpsTouchBridgeCoreTest.java": "1c1c23ddfb76f6340854512630716aba172da34c85f634c77e80c0e3b9fb8b61",
     "PassiveInputLeaseTest.java": "eca6543644dbb91deeee55136896ee0681997a8894bae0f6ae835f9bfa34e5cb",
     "RootedInputResourcesTest.java": "eba59d84ba8e87972e533f58e33bf51330eefb034a507ed7c48adc08639d94a9",
     "DashBridgeArtHarness.java": "6f14e9aa4ddea8a12ed6e7eb305cf7b87f1fa88c04013e6294f9efe245182648",
-    "build_root_container6.py": "c1a1f0466e55528fd95dca939086f4c93c9a92fedad548be6cc1963225db78ea"
+    "build_status_retry7.py": "1eda42d2c0e0d8d958c5c053529c46295086ad8f9bfdb7c92c4b7cb9ce2e1602"
   },
   "canonical_services_jar_sha256": "105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94",
-  "candidate_services_jar_sha256": "af3ed6031bf0115b17997f157bf790e54986659a5f04bd3bffa39629f778b3ac",
-  "test_only_harness_sha256": "2cc2e02c3e362de8df42150c4e76ef2607715000e91ef1dff2a0f30a5a95bfd5",
+  "candidate_services_jar_sha256": "2c633c5512dfaeb714049b3e4214bdaabb2bc181444a2248a7f0661f585b7183",
+  "test_only_harness_sha256": "e8b5f03263e370bfeb0bd6488f87792566871f72e7ec7454d563da2e1173982f",
   "property_gate": "persist.sys.dash.udfps_touch_bridge=true",
   "packaging": "Two SensorOverlays hooks in classes.dex; helpers in classes5.dex; remaining entries unchanged",
   "verification": [
     "ART class origin verification: production from exact candidate, tests from test-only DEX",
-    "52 core lifecycle and motion checks passed on device",
+    "65 core lifecycle and motion checks passed on device",
     "19 resource ownership checks passed on device",
     "21 root/monitor creation and cleanup checks passed on device",
     "Donor APIs and PointerContext parcel verified without invoking HAL",
     "Live system_server restarted, enrollment UI available and InputMonitor receiver created",
     "Native enrollment completed with remaining=0; fingerprint persisted in settings as Finger 1",
-    "Native authentication accepted enrolled finger and rejected another finger; no lockout observed"
+    "Native authentication accepted enrolled finger and rejected another finger; no lockout observed",
+    "Same active authentication request rejected three attempts and then accepted the enrolled finger without a screen cycle"
   ],
   "limitations": [
     "Enrollment progress/completion screen and fingerprint animation are not working correctly",
-    "After one failed lockscreen attempt, further attempts do not work until screen is cycled; under investigation",
     "No AOD or screen-off authentication support verified",
     "No template, trusted authenticator, or HAL success emulation",
     "Not integrated in build_image.py or installed raw DSU image"
@@ -46,11 +46,19 @@
     "aosp_reference": "https://android.googlesource.com/platform/frameworks/base/+/12fb8ad349d93facbb5ca0b0924b74840755cf83/packages/SystemUI/src/com/android/systemui/biometrics/udfps/SinglePointerTouchProcessor.kt",
     "regression": "Old core failed entry regression; corrected core passes 52 checks, resource suite unchanged at 19"
   },
-  "last_live_result": "One fingerprint enrolled; native enrollment reached remaining=0 and scheduler success=true. Four accepts and four rejects observed; owner confirms enrolled finger unlocks and other finger does not.",
+  "last_live_result": "Owner confirms repeated attempts work. Native request2 reports false,false,false,true with no intervening cancellation.",
   "rooted_monitor": {
     "reason": "Oplus places FOD touchable windows as root-level siblings above normal display Input Overlays; native spy-window scan stops at first touched non-spy",
     "solution": "Own bufferless root-eligible container above FOD, containing only the bridge passive InputMonitor. Dispose receiver then monitor, remove and release owned root.",
     "verification": "Standalone probe input list index0 and real dispatcher events paired FOD target with raised spy only",
     "guard": "Only active during valid dash fingerprint sessions with screen on; never pilfers pointers or fabricates authentication"
+  },
+  "status_notifications": {
+    "ignored_for_session_lifecycle": [
+      8,
+      9,
+      10
+    ],
+    "reason": "Oplus sends touch-down/up/failure as show() notifications; they are not a new AcquisitionClient request and must not stop the active bridge."
   }
 }
