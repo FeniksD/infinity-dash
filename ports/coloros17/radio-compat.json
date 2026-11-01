@@ -1,0 +1,16 @@
+{
+  "status": "verified_NVM_access_fix_cellular_still_unresolved",
+  "policy_fragment": "patches/rild-dsu-metadata-read.cil",
+  "reason": "Retained libnvram calls ReadDefaultFstab; missing DSU metadata access aborted NVM_Init before PRODUCT_INFO read.",
+  "verified": [
+    "DSU libfstab EACCES eliminated",
+    "PRODUCT_INFO descriptor failure eliminated; normal read-only completion observed",
+    "No NV write permission added; special LID61 uses O_RDONLY"
+  ],
+  "not_fixed": [
+    "SYS_NV_SIG_ERR indications still occur after a fresh modem boot",
+    "No successful radio-on confirmation; cellular registration unavailable"
+  ],
+  "next_step": "Compare same full-modem startup against working Infinity after preserving current DSU modifications",
+  "source_integration_pending": true
+}

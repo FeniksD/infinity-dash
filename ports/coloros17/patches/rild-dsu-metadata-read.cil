@@ -1,0 +1,4 @@
+;; Retained libnvram/libfstab must detect DSU and read its public fstab metadata.
+;; No directory enumeration, writes, or new NVRAM permissions are granted.
+(allow rild gsi_metadata_file (dir (search)))
+(allow rild gsi_public_metadata_file (file (open read getattr)))
