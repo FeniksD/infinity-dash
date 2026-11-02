@@ -1,0 +1,6 @@
+id=infinity_incfs_lifetime_fix
+name=Infinity dash IncFS lifetime fix
+version=2026.11.02
+versionCode=2026110201
+author=FeniksD
+description=Fixes the IncFS marker-path use-after-free on the matching Infinity dash build. Disabled automatically on other base libraries.

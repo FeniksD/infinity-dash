@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "observed_utc": "2026-11-02T16:55:20.418185+00:00",
+  "device": "dash",
+  "android_version": 17,
+  "rom": "Infinity X 4.1",
+  "root_cause": "A temporary std::string returned by path::join was destroyed before stat used the pointer retained by path::CStrWrapper. Native system_server startup crashed in checkReadLogsDisabledMarker while adopting an existing IncFS mount.",
+  "recovery": {
+    "stale_mount_unmounted": true,
+    "staging_directory_quarantined_not_deleted": true,
+    "userdata_formatted": false
+  },
+  "source": {
+    "project": "frameworks/base",
+    "commit": "376ae8444e798ed5dffeba922e518ac603b759bb",
+    "patch": "patches/0006-incfs-marker-lifetime.patch",
+    "original_sha256": "f0af090dbec2e89318588ed66605381b01f455425e0d01aa87d94ee08be8e3cc",
+    "fixed_sha256": "7e993a5fa6f8b7049f9d8f67bab39e43865eca2f793ece01202ba9716ca22a0d"
+  },
+  "validation": {
+    "asan_original_failed_cases": 4,
+    "asan_fixed_passed_cases": 4,
+    "baseline_library_sha256": "03fdc0558874b1396558aa2a424d322895837bb8458b469d44a6a77c5d8b4df7",
+    "fixed_library_sha256": "50dd2f5660ebe8a82c2c2ab99431961ad5b4f70c84f732ff7ef838034486b1cf",
+    "dynamic_symbols_compared": 3309,
+    "abi_and_needed_libraries_match": true,
+    "link_inputs_unchanged": 34,
+    "compile_and_link_success": true,
+    "trial_framework_restart_succeeded": true,
+    "full_reboots_with_fixed_library_succeeded": 2,
+    "zygisk_enabled_after_second_reboot": true,
+    "system_server_pid_after_second_reboot": 1861,
+    "new_incfs_crash_in_current_boot_buffer": false,
+    "repository_tests_passed": 133,
+    "hotfix_guard_scenarios_passed": 7,
+    "offline_preflight_passed": true
+  },
+  "delivery": {
+    "type": "Magisk module; only system/lib64/service.incremental.so replaced",
+    "zip": "infinity-dash-incfs-lifetime-fix-20261102.zip",
+    "zip_sha256": "7416c49af7ddf2ac48f9a570127efb840ce2901da27e7e29e7d2c35dc5b07661",
+    "guard": "Disable if device/SDK, base library or replacement hash do not match.",
+    "rom_partitions_flashed": false,
+    "private_material_included": false
+  },
+  "limitations": [
+    "This targets the identified native IncFS crash, not every possible cause of a boot loop.",
+    "The triggering abandoned install was quarantined during recovery and not reintroduced to user app paths. Host ASan tests exercise the faulty function with real upstream path helpers.",
+    "The current ROM image is unchanged; future builds must apply the registered source patch. Remove the temporary module after installing a fixed build."
+  ]
+}
