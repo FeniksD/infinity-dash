@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "path": "/system/system_ext/framework/oplus-telephony-common.jar",
+  "file": "oplus-telephony-common.jar",
+  "source_sha256": "28e179a1eef07ea36cf70cc694f906c08b05f0bb3b8bdd1bb1a375f574e1be7f",
+  "sha256": "db15d4228b2facc4f3c56bf86f4cb33209d2fb24ffeb4a421c6334a4b4ee28cc",
+  "size": 2971240,
+  "method_source_sha256": "090c1444ed4bcd5ee43184f1152169f224acb40f5f9d37899184e922e452b1f8",
+  "runtime_state": "live-tested: SMS and incoming calls confirmed by owner; permanent installation pending",
+  "scope": "Handle SecurityException when subscribing to the absent optional OPPO IRadioStable service; keep SELinux enforcing and retain Xiaomi modem/NV partitions."
+}

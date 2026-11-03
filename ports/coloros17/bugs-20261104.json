@@ -9,22 +9,25 @@
     {
       "id": "incoming-radio",
       "priority": 1,
-      "status": "reported",
+      "status": "live_fix_confirmed_by_owner_pending_permanent_install",
       "symptoms": [
         "incoming calls",
         "incoming SMS"
       ],
       "next_check": "Compare ordinary incoming call/SMS with Infinity using the same SIM; do not rely only on OTP services.",
-      "affected_subscriptions": "both physical SIM and eSIM, owner report"
+      "affected_subscriptions": "both physical SIM and eSIM, owner report",
+      "root_cause": "OplusRadioAidl.registerForOplusRadioServiceCallback lets a SecurityException for the absent optional OPPO radio service abort OplusTelephonyFactory construction; the default fallback then leaves both SMS handlers in StartupState."
     },
     {
       "id": "signal-indicator",
       "priority": 1,
-      "status": "reported",
+      "status": "live_fix_confirmed_by_owner_pending_permanent_install",
       "symptoms": [
         "signal strength indicator"
       ],
-      "next_check": "Compare framework ServiceState and SignalStrength with the visible status bar; separate display mapping from modem registration."
+      "next_check": "Compare framework ServiceState and SignalStrength with the visible status bar; separate display mapping from modem registration.",
+      "observation": "Restoring OplusTelephonyFactory also restored OEM signal levels; on-device probe returned standard/OEM levels 3 and 4 with -106 and -95 dBm, not forced-full values.",
+      "root_cause": "Same failed OplusTelephonyFactory initialization prevented the OEM signal-level producer from filling the status-bar values."
     },
     {
       "id": "aod-sofod",
@@ -65,6 +68,27 @@
       ],
       "next_check": "Record game package, chosen refresh rate, frame rate, game settings and thermal status; 120 Hz display refresh alone does not establish game FPS.",
       "reported_game": "Standoff 2"
+    },
+    {
+      "id": "esim-management",
+      "priority": 2,
+      "status": "reported_and_service_absence_verified",
+      "symptoms": [
+        "existing eSIM works as second subscription",
+        "eSIM profile management UI missing"
+      ],
+      "next_check": "Audit the retained Infinity EuiccGoogle LPA, permissions, EuiccPolicy and euicc/mep feature declarations before staging; do not delete existing profiles."
+    },
+    {
+      "id": "google-certification-integrity",
+      "priority": 4,
+      "status": "reported",
+      "symptoms": [
+        "Play Store device certification",
+        "MEETS_DEVICE_INTEGRITY",
+        "MEETS_STRONG_INTEGRITY"
+      ],
+      "next_check": "Investigate last, at the owner's request, after core hardware/radio/display issues. Record real server verdicts; do not assume passing results."
     }
   ],
   "constraints": [

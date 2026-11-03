@@ -131,3 +131,30 @@ Use at least **32 GiB** for this donor during DSU testing. The previous 8 GiB us
 The owner authorized resetting only ColorOS userdata. It was recreated as a 34,359,738,368-byte `userdata_gsi` through the existing ImageService API, retaining the installed system image and the native Infinity installation. Full mapped `system_gsi` hashes matched before and after; control markers and the existing metadata-key pointer stayed unchanged. This was a clean reset, not an in-place F2FS expansion. The preserve-data expansion prototype was not deployed.
 
 The installed delta retains the old 15,169,392,640-byte system filesystem geometry and therefore has a different raw hash from the separately rebuilt full image. `runtime-image.json` records both artifacts and the cold-boot evidence.
+
+## Optional OPPO radio service on dash
+
+`radio_registration.py` adds a `SecurityException` handler to the existing
+`RemoteException` failure path around OPPO radio service notification
+registration. The Xiaomi base has no `vendor.oplus.hardware.radio.IRadioStable`
+service. Before this change the exception aborted `OplusTelephonyFactoryImpl`
+construction; both SIM SMS handlers stayed in `StartupState`. With the patch
+both handlers receive `EVENT_START_ACCEPTING_SMS`. The owner confirmed incoming
+SMS and calls during the live test. SELinux remains enforcing.
+
+Build the pinned JAR without modifying the canonical input, then stage it:
+
+```sh
+python3 -B ports/coloros17/radio/build_registration.py \
+  /path/to/original/oplus-telephony-common.jar \
+  /path/to/new/oplus-telephony-common.jar \
+  ports/coloros17/radio_registration.py /srv/infinity/android
+# Copy the verified output to BASE/inputs/radio/oplus-telephony-common.jar.
+python3 -B -m ports.coloros17.candidate --base BASE --stage radio
+```
+
+The active profile requires this stage before a future image build.
+`radio-registration.json` pins both source and result; `radio/validation.json`
+records the ART regression and device-test limits. The regression executes the
+actual extracted method body with controlled service responses, including an
+unrelated exception that must remain visible.

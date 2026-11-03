@@ -1,0 +1,44 @@
+{
+  "source_sha256": "28e179a1eef07ea36cf70cc694f906c08b05f0bb3b8bdd1bb1a375f574e1be7f",
+  "output_sha256": "db15d4228b2facc4f3c56bf86f4cb33209d2fb24ffeb4a421c6334a4b4ee28cc",
+  "bytes": 2971240,
+  "changed_classes": [
+    "com/oplus/internal/telephony/OplusRadioAidl.smali"
+  ],
+  "method": ".method private registerForOplusRadioServiceCallback()V",
+  "original_method_sha256": "090c1444ed4bcd5ee43184f1152169f224acb40f5f9d37899184e922e452b1f8",
+  "tools": {
+    "/srv/infinity/android/prebuilts/extract-tools/common/smali/baksmali.jar": "9b821ea330526f97231888402664b50617b81561e8b2d6bc21c55c358bc8440f",
+    "/srv/infinity/android/prebuilts/extract-tools/common/smali/smali.jar": "b8f790266a640a0de35391dc91fc12c7519ae4c5501f12496b138003fe4631ef",
+    "/srv/infinity/android/prebuilts/sdk/tools/linux/bin/zipalign": "2f5ebdded1fe910913926ac486c4cf3eef9874c6a7a1d1480875c9375a478ca4"
+  },
+  "schema_version": 1,
+  "device": "dash",
+  "scope": "ColorOS DSU",
+  "root_cause": "Absent vendor.oplus.hardware.radio.IRadioStable/OplusRadioN notification lookup throws SecurityException and prevents OplusTelephonyFactoryImpl initialization.",
+  "art_regression": {
+    "original_denial_failed": true,
+    "patched_cases_passed": 4,
+    "cases": [
+      "normal registration",
+      "SecurityException",
+      "RemoteException",
+      "unrelated IllegalStateException must propagate"
+    ]
+  },
+  "device_validation": {
+    "both_sim_sms_handlers_left_startup": true,
+    "incoming_sms_confirmed_by_owner": true,
+    "incoming_calls_confirmed_by_owner": true,
+    "persistent_installation": false,
+    "signal_indicator_confirmed_by_owner": true,
+    "levels_checked_against_standard_signal_strength": true
+  },
+  "selinux_disabled": false,
+  "modem_partitions_modified": false,
+  "repository_tests": {
+    "passed": 271,
+    "skipped": 12,
+    "total": 283
+  }
+}

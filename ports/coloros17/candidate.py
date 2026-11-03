@@ -19,6 +19,7 @@ from .compat import apply_compatibility, plan_compatibility
 from .runtime_bundle import apply_runtime_bundle, plan_runtime_bundle
 from .build_image import build_image, validate_tree
 from .branding_bundle import plan_branding_bundle, apply_branding_bundle
+from .radio_bundle import plan_radio_bundle, apply_radio_bundle, TARGET as RADIO_JAR_PATH
 
 HERE = Path(__file__).resolve().parent
 
@@ -85,11 +86,11 @@ def _load_state(work):
         raise ValueError("Invalid final manifest state")
     pending = state["pending"]
     if pending is not None:
-        if not isinstance(pending, dict) or pending.get("stage") not in {"merge", "patch", "runtime", "camera", "branding"}:
+        if not isinstance(pending, dict) or pending.get("stage") not in {"merge", "patch", "runtime", "camera", "branding", "radio"}:
             raise ValueError("Invalid pending transformation state; recovery required")
         if _matches(tree, pending.get("after")):
             state["current"] = pending["after"]
-        elif pending["stage"] in {"patch", "runtime", "camera", "branding"} and _matches(tree, state["current"]):
+        elif pending["stage"] in {"patch", "runtime", "camera", "branding", "radio"} and _matches(tree, state["current"]):
             pass
         elif (pending["stage"] == "merge" and state["current"] is None
               and not os.path.lexists(tree) and isinstance(pending.get("sources"), dict)
@@ -189,9 +190,11 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--profile", type=Path, default=HERE / "profile.json")
-    parser.add_argument("--stage", choices=["merge", "patch", "runtime", "branding", "build"], required=True)
+    parser.add_argument("--stage", choices=["merge", "patch", "runtime", "branding", "radio", "build"], required=True)
     parser.add_argument("--runtime-artifacts", type=Path,
                         help="Pinned JAR directory (default: BASE/inputs/runtime)")
+    parser.add_argument("--radio-artifacts", type=Path,
+                        help="Pinned radio JAR directory (default: BASE/inputs/radio)")
     parser.add_argument("--output", type=Path,
                         help="New image destination (build stage only)")
     args = parser.parse_args(argv)
@@ -203,8 +206,12 @@ def main(argv=None):
     branding_enabled = profile.get("branding_bundle_required", False)
     if type(branding_enabled) is not bool:
         raise ValueError("branding_bundle_required must be a boolean")
+    radio_enabled = profile.get("radio_registration_required", False)
+    if type(radio_enabled) is not bool:
+        raise ValueError("radio_registration_required must be a boolean")
     base = args.base.resolve(strict=True)
     artifacts = args.runtime_artifacts if args.runtime_artifacts is not None else base / "inputs/runtime"
+    radio_artifacts = args.radio_artifacts if args.radio_artifacts is not None else base / "inputs/radio"
     work = base / "work"
     _verify_receipts(base, read_json(HERE / "donor.json"))
     state_path = work / "final-state.json"
@@ -280,6 +287,23 @@ def main(argv=None):
             state.update(current=after, pending=None)
             write_json(state_path, state)
             report = {"status": result["status"], "stage": "branding", "report": result["report_path"]}
+    elif args.stage == "radio":
+        pair = state["current"]
+        if pair is None:
+            raise ValueError("Merge must complete before radio registration patching")
+        plan = plan_radio_bundle(tree, pair["records"], pair["contents"], radio_artifacts)
+        if plan["status"] == "already_applied":
+            report = {"status": "already_applied", "stage": "radio", "report": None}
+        else:
+            after = {"records": plan["final_records"], "contents": plan["final_content_manifest"]}
+            backup = work / ("radio-backup-" + uuid.uuid4().hex)
+            state["pending"] = {"stage": "radio", "after": after, "backup_dir": str(backup)}
+            write_json(state_path, state)
+            result = apply_radio_bundle(tree, pair["records"], pair["contents"], radio_artifacts, backup)
+            _validate_pair(tree, after)
+            state.update(current=after, pending=None)
+            write_json(state_path, state)
+            report = {"status": result["status"], "stage": "radio", "report": result["report_path"]}
     else:
         pair = state["current"]
         if pair is None:
@@ -295,6 +319,12 @@ def main(argv=None):
             branding = plan_branding_bundle(tree, pair["records"], pair["contents"], HERE / "branding_overlay")
             if branding["status"] != "already_applied":
                 raise ValueError("Required port branding must be applied before building")
+        if radio_enabled:
+            if RADIO_JAR_PATH not in pair["records"]:
+                raise ValueError("Required radio registration JAR is missing")
+            radio = plan_radio_bundle(tree, pair["records"], pair["contents"], radio_artifacts)
+            if radio["status"] != "already_applied":
+                raise ValueError("Required radio registration patch must be applied before building")
         native = read_json(HERE / "native-tools.json")
         paths = {name: "/srv/infinity/out/host/linux-x86/bin/" + name for name in ["mke2fs", "e2fsdroid"]}
         hashes = {name: native["hashes"][name] for name in paths}
