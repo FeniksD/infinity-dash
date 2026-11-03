@@ -1,5 +1,11 @@
 # ColorOS 17 / dash work area
 
+The current branded artifact is `ColorOS17-dash-FeniksD-20261104.img`.
+[branding-image.json](branding-image.json) records its complete filesystem
+verification and the separately verified delta installed into the owner's
+inactive DSU image. Device UI validation is pending a boot into ColorOS.
+The earlier `runtime-image.json` remains the historical pre-branding record.
+
 Port and device adaptation: **FeniksD**. Updates and releases:
 [FeniksD Lab | dash](https://t.me/feniksd_dash). Contact:
 [@FeniksD2](https://t.me/FeniksD2). The bilingual attribution text is kept in

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "status": "installed_pending_device_ui_check",
+  "source_commit": "ab50c70",
+  "channel": "https://t.me/feniksd_dash",
+  "author": "FeniksD",
+  "full_image": {
+    "file": "ColorOS17-dash-FeniksD-20261104.img",
+    "bytes": 15359614976,
+    "sha256": "990f535f9b2b6c861fb48296a76419782f6ac86cb701b33825e642d69d58c437",
+    "metadata_records": 14499,
+    "verified_files": 11236,
+    "device_boot_tested": false
+  },
+  "installed_dsu": {
+    "bytes": 15169392640,
+    "before_sha256": "55af46c4b593fafc862a6f90ee6ad1bc691bced9c59404e13327a63f66193888",
+    "sha256": "df0613df59792682bb36d675824cc784b31c3b88fdd201472c4932a4220ac4f8",
+    "rw_audit": {
+      "paths": 14499,
+      "file_hashes": 11236,
+      "binary_xattrs": 4,
+      "verified": true
+    },
+    "ro_audit": {
+      "paths": 14499,
+      "file_hashes": 11236,
+      "binary_xattrs": 4,
+      "verified": true
+    },
+    "fsck_passed": true,
+    "mapping_released": true,
+    "device_ui_tested": false
+  },
+  "overlay": {
+    "apk_sha256": "ade830deffa6bb6c2135df5fb625c5b651f701d9964b7937405fb1e871efecc3",
+    "bytes": 21047,
+    "source_settings_sha256": "808818365d2beefdbf8bf2af7292b5b7b06ca97ed84ceb08e9d921a0a5dda1c8"
+  },
+  "changes": [
+    "/system/etc/feniksd-port-info.txt",
+    "/system/system_ext/overlay/FeniksDAboutOverlay.apk"
+  ],
+  "checks": {
+    "tests_total": 275,
+    "tests_skipped": 12,
+    "same_unsigned_apk_reproduced_from_committed_source": true,
+    "overlay_policy_check": "idmap2 --policy system, without ignore-overlayable",
+    "original_preference_nodes_and_attributes_preserved": true,
+    "original_settings_apk_unchanged": true
+  },
+  "userdata_included": false,
+  "boot_partitions_changed": false
+}
