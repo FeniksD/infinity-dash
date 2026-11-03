@@ -1,5 +1,45 @@
 # ColorOS 17 / dash work area
 
+Port and device adaptation: **FeniksD**. Updates and releases:
+[FeniksD Lab | dash](https://t.me/feniksd_dash). Contact:
+[@FeniksD2](https://t.me/FeniksD2). The bilingual attribution text is kept in
+[PORT_INFO.txt](PORT_INFO.txt). ColorOS is developed by OPPO; original Xiaomi,
+xiaomi-mt6991 and Project Infinity X contributions retain their authorship.
+
+`branding_overlay/` contains the source resources and the signed, code-free RRO
+for the "About device" port-information entry. It opens
+`https://t.me/feniksd_dash` and includes Russian and English labels. The donor
+Settings APK stays unchanged. `branding.py` reconstructs its existing preference
+XML from the pinned donor's AAPT2 resource dump and appends the entry; the build
+was checked to preserve every original preference node and attribute.
+`branding-bundle.json` pins the exact Settings APK and overlay hashes.
+Apply this stage before building an image with the current profile:
+
+```sh
+python3 -B -m ports.coloros17.candidate --base /srv/infinity/coloros17 --stage branding
+```
+
+This adds only `/system/etc/feniksd-port-info.txt` and
+`/system/system_ext/overlay/FeniksDAboutOverlay.apk`. Signing keys are held outside
+the repository. This description of the build inputs is not a device-test result.
+
+The included 21 KiB APK is a pinned prebuilt with no DEX code or launcher icon.
+To rebuild the resource overlay against the exact donor APK:
+
+```sh
+python3 -B -m ports.coloros17.branding \
+  --settings-apk /path/to/donor/Settings.apk \
+  --framework-apk /path/to/donor/framework-res.apk \
+  --aapt2 /path/to/aapt2 \
+  --output /path/to/new/FeniksDAboutOverlay-unsigned.apk
+```
+
+Sign that output with the maintainer's separate overlay certificate before
+staging it. A different signing key or changed resources require a new reviewed
+APK hash in `branding-bundle.json`. The builder refuses a different Settings
+APK and checks that recompilation preserves all original preference nodes and
+attributes. The original Settings APK is neither modified nor re-signed.
+
 Status: ColorOS 17 boots through DSU on dash. Fingerprint enrollment, animation, repeated authentication and wake-to-unlock are owner-tested. Restoring the retained hardware product name enables LTE; the owner confirmed mobile data and outgoing calls. The permanent runtime delta has passed a cold boot; the owner confirmed fingerprint enrollment and repeated unlock after a clean userdata reset. DSU userdata is now 32 GiB, with about 25.6 GiB available and no low/full-storage flag. Incoming calls and SMS are being retested. Face Unlock has no compatible provider yet. The Infinity MIUI Camera bundle is installed but still requires runtime testing. This remains a laboratory port.
 
 The first raw EXT4 candidate and its gzip were built and verified; its regenerable gzip cache was later removed while preserving the raw image. [lab-image.json](lab-image.json) records their sizes, SHA-256 hashes and the limits of offline validation. The gzip is 6,866,550,221 bytes; it expands to 15,169,392,640 bytes. Construction verified 14,480 inode metadata records and all 11,219 regular-file contents. Successful construction does not establish that the image boots on `dash`.

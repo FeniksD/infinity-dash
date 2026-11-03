@@ -1,0 +1,4 @@
+<overlay>
+    <item target="xml/device_info" value="@xml/feniksd_device_info" />
+    <item target="xml/my_device_info" value="@xml/feniksd_my_device_info" />
+</overlay>

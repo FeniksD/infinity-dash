@@ -1,0 +1,5 @@
+<resources>
+    <string name="feniksd_port_category">About this port</string>
+    <string name="feniksd_port_title">FeniksD Lab | dash</string>
+    <string name="feniksd_port_summary">ColorOS port by FeniksD · t.me/feniksd_dash</string>
+</resources>

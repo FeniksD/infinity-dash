@@ -18,6 +18,7 @@
     "my_manifest"
   ],
   "pipeline_adapter_ready": true,
+  "branding_bundle_required": true,
   "readiness_note": "Reviewed metadata-preserving host construction adapter is implemented. This does not claim DSU boot or hardware compatibility.",
   "use_stock_init": true,
   "add_vendor_stuff": false,

@@ -40,6 +40,7 @@ def prepare(base):
     config = candidate.read_json(ROOT / 'ports/coloros17/profile.json')
     config['pipeline_adapter_ready'] = True
     config['runtime_bundle_required'] = False  # Legacy fixtures contain no runtime JAR inputs.
+    config['branding_bundle_required'] = False  # Legacy fixtures contain no Settings APK.
     save(base / 'profile.json', config)
     (base / 'work').mkdir(exist_ok=True)
     return config
