@@ -9,7 +9,7 @@
     {
       "id": "incoming-radio",
       "priority": 1,
-      "status": "live_fix_confirmed_by_owner_pending_permanent_install",
+      "status": "fixed_live_and_permanently_installed",
       "symptoms": [
         "incoming calls",
         "incoming SMS"
@@ -21,7 +21,7 @@
     {
       "id": "signal-indicator",
       "priority": 1,
-      "status": "live_fix_confirmed_by_owner_pending_permanent_install",
+      "status": "fixed_live_and_permanently_installed",
       "symptoms": [
         "signal strength indicator"
       ],

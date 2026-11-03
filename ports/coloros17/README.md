@@ -1,6 +1,8 @@
 # ColorOS 17 / dash work area
 
-The current branded artifact is `ColorOS17-dash-FeniksD-20261104-rro4.img`.
+The current artifact is `ColorOS17-dash-FeniksD-20261104-radio1.img`.
+[radio-image.json](radio-image.json) records the verified radio fix and its
+permanent DSU installation. The earlier branding-only artifact is recorded below.
 [branding-image.json](branding-image.json) records its complete filesystem
 verification and the separately verified delta installed into the owner's
 inactive DSU image. The page was checked live with the port entry directly after

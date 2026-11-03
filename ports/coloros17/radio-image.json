@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "status": "installed_and_cold_boot_verified",
+  "source_commit": "8c14505",
+  "full_image": {
+    "file": "ColorOS17-dash-FeniksD-20261104-radio1.img",
+    "bytes": 15359614976,
+    "sha256": "b64bcecf9e16058ef74cd35f7b346a22a688e27a64266693c4550b25bca429a9",
+    "verified_files": 11236,
+    "metadata_records": 14499
+  },
+  "installed_dsu": {
+    "bytes": 15169392640,
+    "before_sha256": "306736a1560ca76c143d66409b799a1f6211b8d54615a71c72f8ed0b86cce40c",
+    "sha256": "33aecbd34c6ae5fc1c38bc2575afb5151710ed136a4b85d8982377b9bdcecb39",
+    "rw_audit": {
+      "paths": 14499,
+      "file_hashes": 11236,
+      "binary_xattrs": 4,
+      "verified": true
+    },
+    "ro_audit": {
+      "paths": 14499,
+      "file_hashes": 11236,
+      "binary_xattrs": 4,
+      "verified": true
+    },
+    "fsck_passed": true,
+    "mapping_released": true,
+    "cold_boot_tested": true
+  },
+  "changed_paths": [
+    "/system/system_ext/framework/oplus-telephony-common.jar"
+  ],
+  "selinux_enforcing_retained": true,
+  "modem_or_nv_partitions_changed": false,
+  "userdata_formatted": false,
+  "network_function_test": "Owner confirmed SMS, incoming calls and actual signal bars before permanent installation; same JAR verified after cold boot."
+}

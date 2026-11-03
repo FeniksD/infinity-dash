@@ -6,6 +6,6 @@
   "sha256": "db15d4228b2facc4f3c56bf86f4cb33209d2fb24ffeb4a421c6334a4b4ee28cc",
   "size": 2971240,
   "method_source_sha256": "090c1444ed4bcd5ee43184f1152169f224acb40f5f9d37899184e922e452b1f8",
-  "runtime_state": "live-tested: SMS and incoming calls confirmed by owner; permanent installation pending",
+  "runtime_state": "SMS, incoming calls and signal bars confirmed by owner; permanently installed JAR hash verified after cold boot",
   "scope": "Handle SecurityException when subscribing to the absent optional OPPO IRadioStable service; keep SELinux enforcing and retain Xiaomi modem/NV partitions."
 }

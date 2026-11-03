@@ -30,9 +30,11 @@
     "both_sim_sms_handlers_left_startup": true,
     "incoming_sms_confirmed_by_owner": true,
     "incoming_calls_confirmed_by_owner": true,
-    "persistent_installation": false,
+    "persistent_installation": true,
     "signal_indicator_confirmed_by_owner": true,
-    "levels_checked_against_standard_signal_strength": true
+    "levels_checked_against_standard_signal_strength": true,
+    "cold_boot_jar_sha256_verified": true,
+    "temporary_bind_mount_remaining": false
   },
   "selinux_disabled": false,
   "modem_partitions_modified": false,
