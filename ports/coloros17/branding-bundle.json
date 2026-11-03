@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "bundle_id": "feniksd-dash-about-v1",
+  "bundle_id": "feniksd-dash-about-v4",
   "files": [
     {
       "path": "/system/etc/feniksd-port-info.txt",
@@ -11,8 +11,20 @@
     {
       "path": "/system/system_ext/overlay/FeniksDAboutOverlay.apk",
       "artifact": "FeniksDAboutOverlay.apk",
-      "sha256": "ade830deffa6bb6c2135df5fb625c5b651f701d9964b7937405fb1e871efecc3",
-      "size": 21047
+      "sha256": "7bd3718a2052b3543db38d841c8d86d1ac0c7c850283c584d6d638cce77fcf64",
+      "size": 21047,
+      "replaces": [
+        {
+          "kind": "file",
+          "size": 21047,
+          "sha256": "ade830deffa6bb6c2135df5fb625c5b651f701d9964b7937405fb1e871efecc3"
+        },
+        {
+          "kind": "file",
+          "size": 21047,
+          "sha256": "19a2de309dc65bfe16a7fa2c36f7d10c8edc5ef8eb7f93fdbb64a96dcdf353d3"
+        }
+      ]
     }
   ],
   "metadata_template": "/system/etc/vintf/compatibility_matrix.device.xml",

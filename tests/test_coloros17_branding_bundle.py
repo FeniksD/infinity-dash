@@ -57,6 +57,25 @@ class BrandingBundleTests(unittest.TestCase):
             self.assertEqual(again["status"], "already_applied")
             self.assertFalse((parent / "unused").exists())
 
+    def test_upgrade_replaces_only_the_pinned_old_overlay_and_can_repeat(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            parent = Path(tmp)
+            tree, records, contents, artifacts, spec = setup_fixture(parent)
+            with patch.object(branding_bundle, "_load_manifest", return_value=spec):
+                first = branding_bundle.apply_branding_bundle(tree, records, contents, artifacts, parent / "first")
+            old_data = (artifacts / "FeniksDAboutOverlay.apk").read_bytes()
+            new_data = b"corrected resource IDs"
+            spec["files"][1]["replaces"] = [{"kind": "file", "sha256": hashlib.sha256(old_data).hexdigest(), "size": len(old_data)}]
+            spec["files"][1].update(sha256=hashlib.sha256(new_data).hexdigest(), size=len(new_data))
+            (artifacts / "FeniksDAboutOverlay.apk").write_bytes(new_data)
+            with patch.object(branding_bundle, "_load_manifest", return_value=spec):
+                upgraded = branding_bundle.apply_branding_bundle(tree, first["final_records"], first["final_content_manifest"], artifacts, parent / "upgrade")
+                repeated = branding_bundle.apply_branding_bundle(tree, upgraded["final_records"], upgraded["final_content_manifest"], artifacts, parent / "unused")
+            self.assertEqual(upgraded["applied"], [OVERLAY])
+            self.assertEqual((parent / "upgrade" / OVERLAY[1:]).read_bytes(), old_data)
+            self.assertEqual((tree / OVERLAY[1:]).read_bytes(), new_data)
+            self.assertEqual(repeated["status"], "already_applied")
+
     def test_unknown_existing_credit_file_is_not_overwritten(self):
         with tempfile.TemporaryDirectory() as tmp:
             tree, _, _, artifacts, spec = setup_fixture(Path(tmp))

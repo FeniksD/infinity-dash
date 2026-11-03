@@ -34,7 +34,7 @@ def _value(raw, resources):
 
 
 def render_about_overlay(dump, resources):
-    """Preserve the donor preference tree and append one channel preference."""
+    """Preserve donor settings; put port credits just below the storage card."""
     root, stack = None, []
     for raw in dump.splitlines():
         if not raw.strip():
@@ -80,7 +80,7 @@ def render_about_overlay(dump, resources):
     category = ET.SubElement(root,
         "com.oplus.settings.widget.preference.SettingsPreferenceCategory" if coloros else "PreferenceCategory",
         {ANDROID + "key": "feniksd_port_category", ANDROID + "title": "@string/feniksd_port_category",
-         ANDROID + "order": "1000"})
+         ANDROID + "order": "176" if coloros else "1000"})
     entry = ET.SubElement(category,
         "com.oplus.settings.widget.preference.SettingsSimpleJumpPreference" if coloros else "Preference",
         {ANDROID + "key": "feniksd_port_info", ANDROID + "title": "@string/feniksd_port_title",
@@ -130,16 +130,37 @@ def build_overlay(settings_apk, framework_apk, aapt2, output):
             (work / "res/xml" / ("feniksd_" + name + ".xml")).write_bytes(render_about_overlay(dump, resources))
         run("compile", "--dir", work / "res", "-o", work / "resources.zip")
         apk = work / "unsigned.apk"
+        # A 0x7f overlay aliases Settings references when loaded as an RRO.
+        # Shared-library IDs leave donor IDs absolute and relocate only our own.
         run("link", "--manifest", work / "AndroidManifest.xml", "-I", framework_apk,
             "-I", settings_apk, "--auto-add-overlay", "--no-resource-deduping",
-            "--no-resource-removal", "-o", apk, work / "resources.zip")
+            "--no-resource-removal", "--shared-lib", "-o", apk, work / "resources.zip")
         def normalized(text):
-            return [re.sub(r" \(line=[0-9]+\)", "", l.strip()).replace(SETTINGS_URI, AUTO_URI)
-                    for l in text.splitlines() if l.strip() and not l.strip().startswith("N:")]
+            lines = text.splitlines()
+            skip_keys = {"feniksd_port_category", "feniksd_port_info"}
+            output, i = [], 0
+            while i < len(lines):
+                line = lines[i]
+                indent = len(line) - len(line.lstrip())
+                if line.lstrip().startswith("E:"):
+                    j = i + 1
+                    while j < len(lines) and not lines[j].lstrip().startswith("E:"):
+                        j += 1
+                    if any(re.search(r':key\(0x[0-9a-fA-F]+\)="' + re.escape(key) + '"', attr)
+                           for key in skip_keys for attr in lines[i + 1:j]):
+                        i += 1
+                        while i < len(lines) and (not lines[i].strip()
+                                or len(lines[i]) - len(lines[i].lstrip()) > indent):
+                            i += 1
+                        continue
+                if line.strip() and not line.lstrip().startswith("N:"):
+                    output.append(re.sub(r" \(line=[0-9]+\)", "", line.strip()).replace(SETTINGS_URI, AUTO_URI))
+                i += 1
+            return output
         for name, original in dumps.items():
             compiled = run("dump", "xmltree", apk, "--file", "res/xml/feniksd_" + name + ".xml")
             old, new = normalized(original), normalized(compiled)
-            if old != new[:len(old)]:
+            if old != new:
                 raise ValueError("Compiled overlay changed an original preference")
         os.link(apk, output)
     return {"output": str(output), "sha256": digest(output), "bytes": output.stat().st_size,

@@ -1,21 +1,20 @@
 {
   "schema_version": 1,
-  "status": "installed_pending_device_ui_check",
-  "source_commit": "ab50c70",
+  "status": "installed_and_cold_boot_ui_verified",
   "channel": "https://t.me/feniksd_dash",
   "author": "FeniksD",
   "full_image": {
-    "file": "ColorOS17-dash-FeniksD-20261104.img",
+    "file": "ColorOS17-dash-FeniksD-20261104-rro4.img",
     "bytes": 15359614976,
-    "sha256": "990f535f9b2b6c861fb48296a76419782f6ac86cb701b33825e642d69d58c437",
+    "sha256": "344fa0a7c4d79d7855b6c5a29847efcd24b8fa80e9dbb5611af76d6b22bc3af9",
     "metadata_records": 14499,
     "verified_files": 11236,
     "device_boot_tested": false
   },
   "installed_dsu": {
     "bytes": 15169392640,
-    "before_sha256": "55af46c4b593fafc862a6f90ee6ad1bc691bced9c59404e13327a63f66193888",
-    "sha256": "df0613df59792682bb36d675824cc784b31c3b88fdd201472c4932a4220ac4f8",
+    "before_sha256": "df0613df59792682bb36d675824cc784b31c3b88fdd201472c4932a4220ac4f8",
+    "sha256": "306736a1560ca76c143d66409b799a1f6211b8d54615a71c72f8ed0b86cce40c",
     "rw_audit": {
       "paths": 14499,
       "file_hashes": 11236,
@@ -30,24 +29,29 @@
     },
     "fsck_passed": true,
     "mapping_released": true,
-    "device_ui_tested": false
+    "device_ui_tested": true,
+    "cold_boot_tested": true
   },
   "overlay": {
-    "apk_sha256": "ade830deffa6bb6c2135df5fb625c5b651f701d9964b7937405fb1e871efecc3",
+    "apk_sha256": "7bd3718a2052b3543db38d841c8d86d1ac0c7c850283c584d6d638cce77fcf64",
     "bytes": 21047,
-    "source_settings_sha256": "808818365d2beefdbf8bf2af7292b5b7b06ca97ed84ceb08e9d921a0a5dda1c8"
+    "source_settings_sha256": "808818365d2beefdbf8bf2af7292b5b7b06ca97ed84ceb08e9d921a0a5dda1c8",
+    "version_code": 4
   },
   "changes": [
-    "/system/etc/feniksd-port-info.txt",
     "/system/system_ext/overlay/FeniksDAboutOverlay.apk"
   ],
   "checks": {
-    "tests_total": 275,
+    "tests_total": 278,
     "tests_skipped": 12,
     "same_unsigned_apk_reproduced_from_committed_source": true,
     "overlay_policy_check": "idmap2 --policy system, without ignore-overlayable",
     "original_preference_nodes_and_attributes_preserved": true,
-    "original_settings_apk_unchanged": true
+    "original_settings_apk_unchanged": true,
+    "installer_tests_passed": 13,
+    "live_device_ui_checked": true,
+    "layout": "after storage, before original hardware card",
+    "dpi_changed": false
   },
   "userdata_included": false,
   "boot_partitions_changed": false

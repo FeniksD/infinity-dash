@@ -1,9 +1,12 @@
 # ColorOS 17 / dash work area
 
-The current branded artifact is `ColorOS17-dash-FeniksD-20261104.img`.
+The current branded artifact is `ColorOS17-dash-FeniksD-20261104-rro4.img`.
 [branding-image.json](branding-image.json) records its complete filesystem
 verification and the separately verified delta installed into the owner's
-inactive DSU image. Device UI validation is pending a boot into ColorOS.
+inactive DSU image. The page was checked live with the port entry directly after
+the device-name/storage card and the original PLG110 hardware card retained.
+The same layout was checked after a cold boot of the permanently updated DSU;
+the APK checksum matches and no temporary APK bind mount remains.
 The earlier `runtime-image.json` remains the historical pre-branding record.
 
 Port and device adaptation: **FeniksD**. Updates and releases:
@@ -16,7 +19,8 @@ xiaomi-mt6991 and Project Infinity X contributions retain their authorship.
 for the "About device" port-information entry. It opens
 `https://t.me/feniksd_dash` and includes Russian and English labels. The donor
 Settings APK stays unchanged. `branding.py` reconstructs its existing preference
-XML from the pinned donor's AAPT2 resource dump and appends the entry; the build
+XML from the pinned donor's AAPT2 resource dump and inserts the entry at order
+176, between the storage card (175) and hardware card (350); the build
 was checked to preserve every original preference node and attribute.
 `branding-bundle.json` pins the exact Settings APK and overlay hashes.
 Apply this stage before building an image with the current profile:
@@ -45,6 +49,19 @@ staging it. A different signing key or changed resources require a new reviewed
 APK hash in `branding-bundle.json`. The builder refuses a different Settings
 APK and checks that recompilation preserves all original preference nodes and
 attributes. The original Settings APK is neither modified nor re-signed.
+
+The overlay is linked with `--shared-lib` so its local resource IDs do not alias
+the target Settings package (0x7f). The first version shared that package ID and
+caused a blank About page: Android relocated donor integer/string references
+into the overlay namespace. A device-side resource probe reproduced the bad
+integer lookup; the corrected overlay resolves the original donor resources
+and the complete About page renders again. The Russian and default English
+labels are both retained. DPI is not changed by this overlay.
+
+The owner-reported remaining issues and next checks are recorded in
+[bugs-20261104.json](bugs-20261104.json). The native OPPO camera app also currently
+throws a missing `CameraAdapterUtils` class error; restoring the original About
+layout does not fix that separate app failure.
 
 Status: ColorOS 17 boots through DSU on dash. Fingerprint enrollment, animation, repeated authentication and wake-to-unlock are owner-tested. Restoring the retained hardware product name enables LTE; the owner confirmed mobile data and outgoing calls. The permanent runtime delta has passed a cold boot; the owner confirmed fingerprint enrollment and repeated unlock after a clean userdata reset. DSU userdata is now 32 GiB, with about 25.6 GiB available and no low/full-storage flag. Incoming calls and SMS are being retested. Face Unlock has no compatible provider yet. The Infinity MIUI Camera bundle is installed but still requires runtime testing. This remains a laboratory port.
 

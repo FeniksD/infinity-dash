@@ -47,15 +47,29 @@ def _make_plan(tree, records, contents, artifact_dir):
         if records.get(str(Path(path).parent), {}).get("kind") != "dir":
             raise ValueError("branding parent must already exist")
         exists = path in records
+        action = "add"
         if exists:
-            if (not compat._same_synthetic_record(records, path, "file", len(data), template)
-                    or contents.get(path) != identity or compat._read_regular(tree / path[1:])[0] != data):
+            previous, previous_host = compat._read_regular(tree / path[1:])
+            previous_identity = compat._identity(previous)
+            if (not compat._same_synthetic_record(records, path, "file", len(previous), template)
+                    or contents.get(path) != previous_identity):
+                raise ValueError("unknown existing branding file")
+            if previous == data:
+                action = "unchanged"
+            elif (path == "/system/system_ext/overlay/FeniksDAboutOverlay.apk"
+                    and previous_identity in item.get("replaces", [])):
+                action = "replace"
+                final_records[path]["size"] = len(data)
+                final_contents[path] = identity
+                writes.append({"kind": "file", "path": path, "data": data,
+                               "before": previous, "host": previous_host})
+            else:
                 raise ValueError("unknown existing branding file")
         else:
             final_records[path] = compat._synthetic_record("file", compat._new_inode(final_records), len(data), template)
             final_contents[path] = identity
             writes.append({"kind": "file", "path": path, "data": data, "before": None, "host": host})
-        changes.append({"path": path, "action": "unchanged" if exists else "add",
+        changes.append({"path": path, "action": action,
                         "before": {"record": copy.deepcopy(records[path]), "content": copy.deepcopy(contents[path])} if exists else None,
                         "after": {"record": copy.deepcopy(final_records[path]), "content": identity}})
     report = {"status": "planned" if writes else "already_applied", "bundle_id": spec["bundle_id"],

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "reported_by": "FeniksD",
+  "date": "2026-11-04",
+  "device": "dash",
+  "donor": "PLG110_17.0.0.105(CN01)",
+  "scope": "ColorOS DSU port; reports still require isolated reproduction",
+  "bugs": [
+    {
+      "id": "incoming-radio",
+      "priority": 1,
+      "status": "reported",
+      "symptoms": [
+        "incoming calls",
+        "incoming SMS"
+      ],
+      "next_check": "Compare ordinary incoming call/SMS with Infinity using the same SIM; do not rely only on OTP services.",
+      "affected_subscriptions": "both physical SIM and eSIM, owner report"
+    },
+    {
+      "id": "signal-indicator",
+      "priority": 1,
+      "status": "reported",
+      "symptoms": [
+        "signal strength indicator"
+      ],
+      "next_check": "Compare framework ServiceState and SignalStrength with the visible status bar; separate display mapping from modem registration."
+    },
+    {
+      "id": "aod-sofod",
+      "priority": 2,
+      "status": "reported",
+      "symptoms": [
+        "AOD",
+        "screen-off fingerprint",
+        "brightness flicker while AOD is active"
+      ],
+      "next_check": "Capture doze transitions and fingerprint requests together; preserve the working screen-on enrollment/unlock path."
+    },
+    {
+      "id": "auto-brightness",
+      "priority": 2,
+      "status": "reported",
+      "symptoms": [
+        "automatic brightness"
+      ],
+      "next_check": "Check light sensor events and framework lux/display-brightness mapping before changing the display configuration.",
+      "initial_observation": "The light sensor is discovered, but the ColorOS display pipeline reports 222..10239 brightness units alongside a 0..1 backlight curve; verify the conversion boundary."
+    },
+    {
+      "id": "raise-to-wake",
+      "priority": 2,
+      "status": "reported",
+      "symptoms": [
+        "raise to wake"
+      ],
+      "next_check": "Check the configured wake gesture sensor and actual HAL sensor inventory."
+    },
+    {
+      "id": "game-fps-limit",
+      "priority": 3,
+      "status": "reported",
+      "symptoms": [
+        "60 FPS in some games"
+      ],
+      "next_check": "Record game package, chosen refresh rate, frame rate, game settings and thermal status; 120 Hz display refresh alone does not establish game FPS.",
+      "reported_game": "Standoff 2"
+    }
+  ],
+  "constraints": [
+    "Do not change modem/NV partitions",
+    "Keep the working Infinity installation",
+    "Do not disable thermal protection",
+    "Record each tested change and rollback independently"
+  ]
+}
