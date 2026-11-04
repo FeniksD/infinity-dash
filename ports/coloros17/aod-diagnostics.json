@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "status": "unresolved",
+  "device": "dash",
+  "panel": "dsi_p10u_42_02_0a_dsc_vdo",
+  "observations": [
+    "ColorOS renders AOD clock, date and battery in a captured frame.",
+    "DreamManager and DisplayManager report DOZE_SUSPEND during an uninterrupted screen-off observation.",
+    "The owner confirms that the physical panel remains black.",
+    "The retained Xiaomi displayfeature AIDL and MiHwcExtension services are present.",
+    "A direct low-AOD-brightness request reaches the panel driver but its DSI command fails with crtc0 disable skip mtk_ddic_dsi_send_cmd_with_lock."
+  ],
+  "reference_source": {
+    "repository": "https://github.com/MiCode/MTK_kernel_device_modules",
+    "commit": "9c6256406e2afb9c316fe3be05a66c1eaa88d900",
+    "branch": "dash-w-oss",
+    "purpose": "Read the panel AOD command path and documented doze brightness enum. This reference does not establish the running kernel's build provenance.",
+    "files": {
+      "include/uapi/drm/mi_disp.h": "d695539c2e9d435685b8b9f3181405a93460e7a2c31b9e4db17fe17b2eb2e29a",
+      "drivers/gpu/drm/mediatek/mediatek_v2/mi_disp/mi_disp_sysfs.c": "f4c6023252f2a4a4e70d8e0ab3fe56c54d8d93581668cd1054aeccd6ea9c86a8"
+    }
+  },
+  "bounded_tests": [
+    {
+      "change": "Request the documented low AOD brightness value 2 while in DOZE_SUSPEND.",
+      "result": "Panel command failed because the CRTC was disabled; owner saw no clock."
+    },
+    {
+      "change": "Temporarily keep the display controller on, then request low AOD brightness.",
+      "result": "Owner saw no clock and reported a yellow artifact near the top."
+    },
+    {
+      "change": "Request 30 Hz through the non-persistent user-preferred-mode API.",
+      "result": "Effective mode remained 120 Hz; the guard aborted before sending the brightness command."
+    },
+    {
+      "change": "Temporarily apply an atomic 30 Hz display-mode request, verify active hardware mode, then request low AOD brightness.",
+      "result": "The hardware mode was verified at 30 Hz; the owner still saw a black screen."
+    }
+  ],
+  "cleanup_verified": {
+    "panel_doze_brightness": 0,
+    "active_refresh_hz": 120,
+    "user_preferred_mode": null,
+    "default_surfaceflinger_mode_id": 2,
+    "surfaceflinger_refresh_ranges": [0, 120],
+    "density_override": 480,
+    "automatic_brightness_enabled": true,
+    "screen_off_timeout_ms": 30000,
+    "stay_awake_while_plugged_in": 0,
+    "test_helper_stopped": true,
+    "persistent_firmware_changes": false
+  },
+  "next_step": "Trace the stock Xiaomi video-panel AOD sequence, including displayfeature/MiHwcExtension calls and layer metadata, before another implementation attempt."
+}

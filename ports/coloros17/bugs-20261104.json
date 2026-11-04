@@ -32,13 +32,15 @@
     {
       "id": "aod-sofod",
       "priority": 2,
-      "status": "reported",
+      "status": "aod_panel_transition_under_investigation",
       "symptoms": [
         "AOD",
         "screen-off fingerprint",
         "brightness flicker while AOD is active"
       ],
-      "next_check": "Capture doze transitions and fingerprint requests together; preserve the working screen-on enrollment/unlock path."
+      "next_check": "Trace the stock Xiaomi video-panel AOD protocol and its display/HWC integration. Preserve the working screen-on fingerprint path; direct brightness and generic power/rate overrides did not restore visible AOD.",
+      "observation": "ColorOS renders a clock/date/battery frame and reports DOZE_SUSPEND while the owner sees a black physical panel. The direct low-brightness command fails because the CRTC is disabled. Bounded power-on and confirmed 30 Hz variants also failed the owner-visible test; all overrides were restored.",
+      "diagnostics": "aod-diagnostics.json"
     },
     {
       "id": "auto-brightness",
