@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "boot_verified_cwb_and_lux_pipeline_active_pending_owner_test",
+  "full_image": {
+    "file": "ColorOS17-dash-FeniksD-20261104-sensor1.img",
+    "bytes": 15359614976,
+    "sha256": "731a6642571ad9f79252c29bd82363aad41054521c50085d468555eca1d7effb",
+    "verified_files": 11236,
+    "metadata_records": 14499
+  },
+  "installed_dsu": {
+    "before_sha256": "33aecbd34c6ae5fc1c38bc2575afb5151710ed136a4b85d8982377b9bdcecb39",
+    "sha256": "bca5cdef6de4686ea1be5f7f56483735004b9a1bbe1eec2212159b8277afe163",
+    "bytes": 15169392640,
+    "rw_audit": {
+      "paths": 14499,
+      "file_hashes": 11236,
+      "binary_xattrs": 4,
+      "verified": true
+    },
+    "ro_audit": {
+      "paths": 14499,
+      "file_hashes": 11236,
+      "binary_xattrs": 4,
+      "verified": true
+    },
+    "fsck_passed": true,
+    "mapping_released": true
+  },
+  "changed_paths": [
+    "/system/product/etc/build.prop"
+  ],
+  "tests": {
+    "total": 286,
+    "skipped": 12,
+    "installer": 13
+  },
+  "global_model_changed": false,
+  "vendor_or_nv_partitions_changed": false,
+  "userdata_formatted": false,
+  "verification": {
+    "ro_gsid_image_running": "1",
+    "ro_product_product_name": "dash_global",
+    "global_model": "PLG110",
+    "notifier_received_frames": true,
+    "notifier_connected_to_sensor_service": true,
+    "composer_dump_active": true,
+    "calculated_lux_observed": [
+      0.255575,
+      0.291377
+    ]
+  }
+}

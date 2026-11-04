@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "path": "/system/product/etc/build.prop",
+  "source_sha256": "38bc2a12a4cd98212d301445a0577bbee398c412f62ec044c306155a138dbd26",
+  "source_size": 3669,
+  "sha256": "815e0997cfe4d88dde8a95e4d0d75342a69cc4469f08708689bb8fc64e067b0f",
+  "size": 3676,
+  "source_line": "ro.product.product.name=ossi\n",
+  "replacement_line": "ro.product.product.name=dash_global\n",
+  "reason": "The retained Xiaomi HWC enables mNeedRGBNotifier only when ro.product.product.name matches its device allowlist, including dash. The donor product name ossi disables ALS frame notifications.",
+  "global_model_changed": false,
+  "evidence": {
+    "vendor_hwc_sha256": "461314ca41193ed6cb011daf027a4d18acfa50c1ccfdcded25d250ac23c6c6b0",
+    "whitelisted_device_names": [
+      "rodin",
+      "dali",
+      "klimt",
+      "goya",
+      "klee",
+      "dash",
+      "chagall"
+    ],
+    "vendor_notifier_counter_before": 0,
+    "property_checked_by_hwc": "ro.product.product.name",
+    "runtime_status": "cold boot verified: frame notifications and calibrated lux calculation active; owner auto-brightness test pending"
+  }
+}

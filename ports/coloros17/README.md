@@ -1,6 +1,8 @@
 # ColorOS 17 / dash work area
 
-The current artifact is `ColorOS17-dash-FeniksD-20261104-radio1.img`.
+The current artifact is `ColorOS17-dash-FeniksD-20261104-sensor1.img`.
+[sensor-product-image.json](sensor-product-image.json) records its checked
+product identity update and permanent DSU delta.
 [radio-image.json](radio-image.json) records the verified radio fix and its
 permanent DSU installation. The earlier branding-only artifact is recorded below.
 [branding-image.json](branding-image.json) records its complete filesystem
@@ -160,3 +162,19 @@ The active profile requires this stage before a future image build.
 records the ART regression and device-test limits. The regression executes the
 actual extracted method body with controlled service responses, including an
 unrelated exception that must remain visible.
+
+## Sensor product identity
+
+The retained dash HWC checks `ro.product.product.name` against a device
+allowlist containing `dash`. The shared donor product name `ossi` leaves
+`mNeedRGBNotifier` disabled, so the CIT light-sensor service is never told to
+request display frames for under-display light compensation.
+
+The `sensor` stage changes only that property to `dash_global`. The global
+model and the original PLG110 About-device presentation remain unchanged.
+The stage hash-pins both the original product build.prop and the result,
+preserves its metadata, and is required by the current build profile.
+
+```sh
+python3 -B -m ports.coloros17.candidate --base BASE --stage sensor
+```

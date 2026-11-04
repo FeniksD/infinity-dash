@@ -28,5 +28,6 @@
   "allow_unreviewed_binary_patches": false,
   "mystic_commit": "b906057b9909d9ec3272feb9c53306f7bd4912f0",
   "artifact_mode": "raw_editable_ext4_lab_image",
-  "radio_registration_required": true
+  "radio_registration_required": true,
+  "sensor_product_required": true
 }

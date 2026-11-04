@@ -42,6 +42,7 @@ def prepare(base):
     config['runtime_bundle_required'] = False  # Legacy fixtures contain no runtime JAR inputs.
     config['branding_bundle_required'] = False  # Legacy fixtures contain no Settings APK.
     config['radio_registration_required'] = False  # Legacy fixtures contain no radio JAR.
+    config['sensor_product_required'] = False  # Legacy fixtures contain no product build.prop.
     save(base / 'profile.json', config)
     (base / 'work').mkdir(exist_ok=True)
     return config
@@ -114,6 +115,18 @@ class CandidateGateTests(unittest.TestCase):
             profile['radio_registration_required'] = True
             save(base / 'profile.json', profile)
             with self.assertRaisesRegex(ValueError, 'radio registration'):
+                run_stage(base, 'build')
+
+    def test_build_refuses_missing_required_sensor_product_identity(self):
+        from ports.coloros17 import candidate
+        with tempfile.TemporaryDirectory() as folder:
+            base = Path(folder)
+            legacy_tree(base)
+            run_stage(base, 'patch')
+            profile = candidate.read_json(base / 'profile.json')
+            profile['sensor_product_required'] = True
+            save(base / 'profile.json', profile)
+            with self.assertRaisesRegex(ValueError, 'sensor product'):
                 run_stage(base, 'build')
 
     def test_unreviewed_profile_stops_before_creating_work_files(self):
