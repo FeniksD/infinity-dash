@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-04",
+  "status": "static_protocol_reconstructed_runtime_validation_pending",
+  "reference": {
+    "archive": "HyperOS4-purecn-dash.zip",
+    "size": 7773224738,
+    "provenance": "Previously supplied unofficial HyperOS port. This is a comparison reference, not proof of official stock provenance.",
+    "artifacts": [
+      {
+        "partition": "system_ext_a",
+        "name": "miui-services.jar",
+        "size": 20671772,
+        "sha256": "a9cd6659fd68170a8dcdbdc6a9754a1ee2b219f6e76539b6c51af96dedca039b"
+      },
+      {
+        "partition": "system_ext_a",
+        "name": "miui-framework.jar",
+        "size": 7487790,
+        "sha256": "dd52b782cf2907c87a96801e34c65b4e21834f252566e6cce70922d9c10b77fa"
+      },
+      {
+        "partition": "system_ext_a",
+        "name": "MiuiSystemUI.apk",
+        "size": 52456582,
+        "sha256": "9640655d2fc021794b2f5c9f1df7998144e499ba9f1991c4b5f363b0413595f9"
+      },
+      {
+        "partition": "system_ext_a",
+        "name": "libsurfaceflinger.so",
+        "size": 15063512,
+        "sha256": "75ac9f97423cbdf4868faf0d5ff35500d9d34e3c117db34a5122b1f3eb507641"
+      },
+      {
+        "partition": "vendor_a",
+        "name": "hwcomposer.mtk_common.so",
+        "size": 2086248,
+        "sha256": "67fba0b2d8a7f580c85f17724b4f2d076d16acbc51739fda1094d1d8a63c08c5"
+      },
+      {
+        "partition": "vendor_a",
+        "name": "libdisplayfeatureservice.so",
+        "size": 84760,
+        "sha256": "5cce3a42303d419f4cd90780724895c0775d13eeb9b5e1f228543791f9331e09"
+      },
+      {
+        "partition": "vendor_a",
+        "name": "libdisplayfeature.so",
+        "size": 68568,
+        "sha256": "79ecb362c696e6bd26dfec03b581d036e92a8e0099fe75e1f51decc9c8b22054"
+      },
+      {
+        "partition": "vendor_a",
+        "name": "vendor.xiaomi.hardware.display.mihwcextension-V2-ndk.so",
+        "size": 85440,
+        "sha256": "a2e4bf6be432da651d417ed5308d465a7148fc44efd868a07c35ac0067c3c6c9"
+      },
+      {
+        "partition": "system_ext_a",
+        "name": "libmisurfaceflinger.so",
+        "size": 619032,
+        "sha256": "82c658a111018e498751f05833e314a56d260e36936b8a52739763e91196e0b1"
+      },
+      {
+        "partition": "system_ext_a",
+        "name": "vendor.xiaomi.hardware.display.mihwcextension-V3-ndk.so",
+        "size": 85440,
+        "sha256": "7d3ba21651ea9b709c48de2aa23c3cd3d7b1e5bb3b7d148ad8a061a771e2c008"
+      },
+      {
+        "partition": "product_a",
+        "name": "dash.xml",
+        "size": 36114,
+        "sha256": "bbdfb95c55e216caef352f43c3160a41c2913e4ec1dcf2afb2d652d0d894e0d1"
+      },
+      {
+        "partition": "product_a",
+        "name": "MIUIAod.apk",
+        "size": 57622268,
+        "sha256": "7e40b4f0da3c8125fd62c4193a7e03cd796cddcaba3c77c399e0427de693d65d"
+      }
+    ]
+  },
+  "verified_current_vendor": {
+    "hwcomposer_sha256": "461314ca41193ed6cb011daf027a4d18acfa50c1ccfdcded25d250ac23c6c6b0",
+    "hwc_aod_enabled": 1,
+    "initialization_guard": 1,
+    "method": "Read-only inspection of HwcFeatureList after matching its binary hash; no memory writes or injection."
+  },
+  "reconstructed_contracts": [
+    {
+      "component": "Xiaomi compositor layer notification",
+      "evidence": "MiSurfaceFlingerImpl::checkLayerStack and DFMessageThread::notifyKernelLayerHasAod",
+      "operation": "MI_DISP_IOCTL_SET_FEATURE (0xc0304401), feature 39 (LAYER_HAS_AOD), boolean value",
+      "kernel_effect": "Tracks whether an AOD layer is present; changes the display pipeline/PQ state. It is distinct from setting brightness."
+    },
+    {
+      "component": "Xiaomi display-feature power notification",
+      "evidence": "DFMessageThread::threadLoop",
+      "operation": "DisplayFeature AIDL sendMessage(13, state, empty string)",
+      "mapping": "HWC OFF -> 0, ON -> 1, DOZE -> 2, DOZE_SUSPEND -> 3"
+    },
+    {
+      "component": "AOD brightness",
+      "evidence": "DisplayFeatureManagerService::setDozeBrightness",
+      "operation": "DisplayFeature AIDL setFeature(display, 25, mode, 255)",
+      "mapping": "For the reviewed non-multiple-brightness branch: mode 0 normal, 1 high AOD, 2 low AOD."
+    },
+    {
+      "component": "MediaTek draw synchronization",
+      "evidence": "MIUIAod DozeService::setDozeScreenBrightness",
+      "operation": "Requests a short drawing wake lock and invalidates the AOD view when changing brightness; brightness and rendering are coordinated."
+    }
+  ],
+  "limitations": [
+    "These commands have not yet been validated as a complete fix on the ColorOS port.",
+    "The reference HyperOS compositor and retained compositor binaries differ; whole-library replacement has not been proposed or performed.",
+    "The retained MiHwcExtension notifyLayerFlagToHwc handler returns success without doing the work; its presence alone is not a working AOD bridge.",
+    "The native Infinity control was interrupted by a tap wake event; its physical AOD result is inconclusive.",
+    "AOD support in the composer does not by itself prove a working end-to-end low-power display path."
+  ],
+  "prepared_probe": {
+    "installed": false,
+    "scope": "Bounded diagnostic, not a persistent patch",
+    "dex_sha256": "21776650b0935319eeb76922f49d8d1b35ce2b1c1e065cd7ff808b2ba88f6e5e",
+    "native_os_rejection_test_passed": true,
+    "guards": [
+      "ColorOS DSU active",
+      "dash product",
+      "exact reviewed composer hash",
+      "one physical display",
+      "DisplayFeature AIDL descriptor/version",
+      "known initial AOD feature state"
+    ],
+    "restoration": "Reset brightness mode and layer marker, notify normal display state, wake the display. External timeout recovery is required before running a mutating test."
+  },
+  "next_step": "Run the bounded protocol test in ColorOS with a recovery watchdog and physical observation. Only then design a persistent event-driven adapter; preserve current screen-on fingerprint behavior."
+}

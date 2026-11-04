@@ -44,7 +44,10 @@
     "active_refresh_hz": 120,
     "user_preferred_mode": null,
     "default_surfaceflinger_mode_id": 2,
-    "surfaceflinger_refresh_ranges": [0, 120],
+    "surfaceflinger_refresh_ranges": [
+      0,
+      120
+    ],
     "density_override": 480,
     "automatic_brightness_enabled": true,
     "screen_off_timeout_ms": 30000,
@@ -52,5 +55,6 @@
     "test_helper_stopped": true,
     "persistent_firmware_changes": false
   },
-  "next_step": "Trace the stock Xiaomi video-panel AOD sequence, including displayfeature/MiHwcExtension calls and layer metadata, before another implementation attempt."
+  "next_step": "Trace the stock Xiaomi video-panel AOD sequence, including displayfeature/MiHwcExtension calls and layer metadata, before another implementation attempt.",
+  "stock_protocol_analysis": "aod-stock-analysis.json"
 }
