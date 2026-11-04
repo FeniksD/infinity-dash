@@ -22,6 +22,6 @@
     ],
     "vendor_notifier_counter_before": 0,
     "property_checked_by_hwc": "ro.product.product.name",
-    "runtime_status": "cold boot verified: frame notifications and calibrated lux calculation active; owner auto-brightness test pending"
+    "runtime_status": "cold boot verified: frame notifications and calibrated lux calculation active; owner confirmed that automatic brightness responds to changing light"
   }
 }

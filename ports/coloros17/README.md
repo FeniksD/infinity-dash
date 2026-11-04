@@ -174,6 +174,10 @@ The `sensor` stage changes only that property to `dash_global`. The global
 model and the original PLG110 About-device presentation remain unchanged.
 The stage hash-pins both the original product build.prop and the result,
 preserves its metadata, and is required by the current build profile.
+After permanent installation and a cold boot, the frame notifications and
+calibrated lux resumed. The owner confirmed that automatic brightness responds
+when the sensor is covered and then exposed to brighter light. AOD behavior
+remains a separate, unresolved test.
 
 ```sh
 python3 -B -m ports.coloros17.candidate --base BASE --stage sensor
