@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "status": "metadata_authenticated_not_yet_constructed",
+  "device": "dash",
+  "donor_product": "CPH2791IN",
+  "candidate": "CPH2791_17.0.0.102(EX01)",
+  "region": "India",
+  "sdk": 37,
+  "security_patch": "2026-10-01",
+  "archive_bytes": 9579038691,
+  "expected_archive_md5": "28166f5860aa7f7d4c8c3068be0436a3",
+  "discovery_page": "https://fwatlas.com/oppo/oppo-find-x9-pro/cph2791-17-0-0-102-ex01-cph2791-11-c-60-1600-202610181119-in",
+  "delivery": "public mirror containing the original OTA as a stored inner ZIP; full archive verification pending",
+  "metadata_authentication": {
+    "certificate_sha256": "2de09468859e8f347c52149c319ad83046d6a0e1e11ad89b69ffcf8c35aaac6a",
+    "matches_previously_verified_oppo_key": true,
+    "rsa_sha256_signature_verified": true,
+    "signed_content_sha256": "bd0f13c793b64a1dc446955ba416c02b35af46233498d2b5be73d40573ef52e3"
+  },
+  "selected_partition_bytes": 8502480896,
+  "selected_partitions": [
+    {
+      "name": "system",
+      "size": 813936640,
+      "sha256": "9a7824a772401dc560e2feed4a7412b20c9629068c2ee95824279293e94e9d35",
+      "operation_types": {
+        "8": 383,
+        "0": 4,
+        "6": 1,
+        "1": 1
+      },
+      "data_bytes": 633805580,
+      "source_operations": 0
+    },
+    {
+      "name": "system_ext",
+      "size": 1044578304,
+      "sha256": "0d8f75b334adfb063e73fc6cc3f3df1c44a4adc7729e09ee2080fedb58ed663d",
+      "operation_types": {
+        "8": 460,
+        "1": 19,
+        "0": 19,
+        "6": 1
+      },
+      "data_bytes": 793398632,
+      "source_operations": 0
+    },
+    {
+      "name": "product",
+      "size": 151924736,
+      "sha256": "ea5c8e2ff88628ed01c6b70313ccaca73f79f17b135ef6ff58e6298fe4d3a2db",
+      "operation_types": {
+        "8": 71,
+        "0": 2
+      },
+      "data_bytes": 111620656,
+      "source_operations": 0
+    },
+    {
+      "name": "my_product",
+      "size": 2877280256,
+      "sha256": "dc6869304917962569552d3be06c0fb6fa87475d9fb31afa555f66e5c2aeff59",
+      "operation_types": {
+        "8": 1111,
+        "0": 257,
+        "6": 3,
+        "1": 1
+      },
+      "data_bytes": 2338367877,
+      "source_operations": 0
+    },
+    {
+      "name": "my_engineering",
+      "size": 335872,
+      "sha256": "4efa5d049085c81bc3ccee6dd9a4ea73702c0b426581841906cffae90e1b1bdf",
+      "operation_types": {
+        "8": 1
+      },
+      "data_bytes": 9392,
+      "source_operations": 0
+    },
+    {
+      "name": "my_stock",
+      "size": 3600900096,
+      "sha256": "5d190a37d21dbf828dc2b19a4a089c002cc046f790b0baa9cd036caa80555eb3",
+      "operation_types": {
+        "8": 1554,
+        "0": 155,
+        "1": 4,
+        "6": 5
+      },
+      "data_bytes": 2850918838,
+      "source_operations": 0
+    },
+    {
+      "name": "my_heytap",
+      "size": 335872,
+      "sha256": "083e1ebbbdb9866bd562a7f3b44e439d91c340231f32bc2f13e1308ff8e4ef2d",
+      "operation_types": {
+        "8": 1
+      },
+      "data_bytes": 1560,
+      "source_operations": 0
+    },
+    {
+      "name": "my_carrier",
+      "size": 335872,
+      "sha256": "73aaaefc645ca8f4dcf4517cee6fce2c912e781a7d2384fc6accf1267faaf8be",
+      "operation_types": {
+        "8": 1
+      },
+      "data_bytes": 1560,
+      "source_operations": 0
+    },
+    {
+      "name": "my_region",
+      "size": 11968512,
+      "sha256": "2b8cda6f71949345c0d0935a57888d5e6e096945331c679b31f0087afac5099a",
+      "operation_types": {
+        "8": 6
+      },
+      "data_bytes": 9861116,
+      "source_operations": 0
+    },
+    {
+      "name": "my_bigball",
+      "size": 335872,
+      "sha256": "d5fc02100b528046eaf468f6b605a560f909be8a7c14a44a2c6301ad7413869f",
+      "operation_types": {
+        "8": 1
+      },
+      "data_bytes": 1560,
+      "source_operations": 0
+    },
+    {
+      "name": "my_manifest",
+      "size": 548864,
+      "sha256": "ccfdd8bd6d7ffc742ccd81192fb901980fd1cc49561656983d31b6020f5e7e31",
+      "operation_types": {
+        "8": 1
+      },
+      "data_bytes": 389948,
+      "source_operations": 0
+    }
+  ],
+  "full_archive_verified": false,
+  "patches_rebased": false,
+  "image_built": false,
+  "phone_tested": false,
+  "cn_fallback_preserved": true
+}
