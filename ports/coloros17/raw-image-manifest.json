@@ -1,39 +1,39 @@
 [
   {
     "name": "system",
-    "bytes": 1061126144,
-    "sha256": "fd1987a05c60ebb670c773bcf98139dddd81882b6e367b566fe3b3c770834268",
-    "operations": 506
+    "bytes": 813936640,
+    "sha256": "9a7824a772401dc560e2feed4a7412b20c9629068c2ee95824279293e94e9d35",
+    "operations": 389
   },
   {
     "name": "system_ext",
-    "bytes": 1087647744,
-    "sha256": "94e4afac4a9c4e6bca0548c5a36998dbbb895a82ff5fcce10e22f696fb42877d",
-    "operations": 519
+    "bytes": 1044578304,
+    "sha256": "0d8f75b334adfb063e73fc6cc3f3df1c44a4adc7729e09ee2080fedb58ed663d",
+    "operations": 499
   },
   {
     "name": "product",
-    "bytes": 152326144,
-    "sha256": "e07cdbe1290260abb6b9564a4758870da6368e1b73ca1917db86ce3b013702bd",
+    "bytes": 151924736,
+    "sha256": "ea5c8e2ff88628ed01c6b70313ccaca73f79f17b135ef6ff58e6298fe4d3a2db",
     "operations": 73
   },
   {
     "name": "my_product",
-    "bytes": 1313992704,
-    "sha256": "7a2eb534d686f1b6fa8b0bfef1f4e302733baba676b5d97c286663f15ca43031",
-    "operations": 627
+    "bytes": 2877280256,
+    "sha256": "dc6869304917962569552d3be06c0fb6fa87475d9fb31afa555f66e5c2aeff59",
+    "operations": 1372
   },
   {
     "name": "my_engineering",
     "bytes": 335872,
-    "sha256": "52a139d5d1c1236106eb3480091cedb55e214076af589dd0b429f496f58193d7",
+    "sha256": "4efa5d049085c81bc3ccee6dd9a4ea73702c0b426581841906cffae90e1b1bdf",
     "operations": 1
   },
   {
     "name": "my_stock",
-    "bytes": 4713377792,
-    "sha256": "1ed28c4104dc9e75bc7bb0a90aa918b4aa5a57301e1d8efe4f8f03d0c948e322",
-    "operations": 2248
+    "bytes": 3600900096,
+    "sha256": "5d190a37d21dbf828dc2b19a4a089c002cc046f790b0baa9cd036caa80555eb3",
+    "operations": 1718
   },
   {
     "name": "my_heytap",
@@ -44,14 +44,14 @@
   {
     "name": "my_carrier",
     "bytes": 335872,
-    "sha256": "a2ce3ac91b0252e44bde007b08e54a2db91c75a6fe5044e126f30495b721b3bd",
+    "sha256": "73aaaefc645ca8f4dcf4517cee6fce2c912e781a7d2384fc6accf1267faaf8be",
     "operations": 1
   },
   {
     "name": "my_region",
-    "bytes": 7254016,
-    "sha256": "de491390d3bf2cf3591120a6a3163be15aaceaf67f3763ec202998d00c538b85",
-    "operations": 4
+    "bytes": 11968512,
+    "sha256": "2b8cda6f71949345c0d0935a57888d5e6e096945331c679b31f0087afac5099a",
+    "operations": 6
   },
   {
     "name": "my_bigball",
@@ -61,8 +61,8 @@
   },
   {
     "name": "my_manifest",
-    "bytes": 696320,
-    "sha256": "5193c21bdf9148ca11f77d02943ee5faff932c4cbf8ec3137a27b2f8d40a2671",
+    "bytes": 548864,
+    "sha256": "ccfdd8bd6d7ffc742ccd81192fb901980fd1cc49561656983d31b6020f5e7e31",
     "operations": 1
   }
 ]

@@ -1,53 +1,51 @@
 {
   "magic": "CrAU",
   "major_version": 2,
-  "manifest_size": 346777,
+  "manifest_size": 347588,
   "metadata_signature_size": 523,
-  "minor_version": 9,
-  "partial_update": true,
   "metadata_hash_matches": true,
-  "operation_counts": {
-    "REPLACE_XZ": 5475,
-    "REPLACE": 412,
-    "REPLACE_BZ": 105,
-    "ZERO": 190
-  },
   "partitions": [
     {
       "name": "system",
-      "size": 1061126144,
+      "size": 813936640,
+      "sha256": "9a7824a772401dc560e2feed4a7412b20c9629068c2ee95824279293e94e9d35",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 502,
-        "REPLACE": 3,
+        "REPLACE_XZ": 383,
+        "REPLACE": 4,
+        "ZERO": 1,
         "REPLACE_BZ": 1
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "system_ext",
-      "size": 1087647744,
+      "size": 1044578304,
+      "sha256": "0d8f75b334adfb063e73fc6cc3f3df1c44a4adc7729e09ee2080fedb58ed663d",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 488,
-        "REPLACE_BZ": 15,
-        "REPLACE": 16
+        "REPLACE_XZ": 460,
+        "REPLACE_BZ": 19,
+        "REPLACE": 19,
+        "ZERO": 1
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "product",
-      "size": 152326144,
+      "size": 151924736,
+      "sha256": "ea5c8e2ff88628ed01c6b70313ccaca73f79f17b135ef6ff58e6298fe4d3a2db",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 72,
-        "REPLACE": 1
+        "REPLACE_XZ": 71,
+        "REPLACE": 2
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "vbmeta_system",
       "size": 4096,
+      "sha256": "c74bf40043c6c522053da2a49275bdecdcbba9196e427852fd2aa6dfeacdafc6",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -57,6 +55,7 @@
     {
       "name": "boot",
       "size": 67108864,
+      "sha256": "303b323a8f900685fe6435f5276d17dbde8c3b01f66ad0d2c3b21465dfdc1ca0",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 10,
@@ -67,30 +66,33 @@
     },
     {
       "name": "vendor",
-      "size": 739094528,
+      "size": 640118784,
+      "sha256": "300118785949dd6da354c87939772a9f56dc04ef9868efc3a1b86617b7cd4bcc",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 339,
+        "REPLACE_XZ": 291,
         "REPLACE": 4,
-        "REPLACE_BZ": 10
+        "REPLACE_BZ": 11
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "my_product",
-      "size": 1313992704,
+      "size": 2877280256,
+      "sha256": "dc6869304917962569552d3be06c0fb6fa87475d9fb31afa555f66e5c2aeff59",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 469,
-        "REPLACE": 155,
-        "REPLACE_BZ": 2,
-        "ZERO": 1
+        "REPLACE_XZ": 1111,
+        "REPLACE": 257,
+        "ZERO": 3,
+        "REPLACE_BZ": 1
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "my_engineering",
       "size": 335872,
+      "sha256": "4efa5d049085c81bc3ccee6dd9a4ea73702c0b426581841906cffae90e1b1bdf",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -99,19 +101,21 @@
     },
     {
       "name": "my_stock",
-      "size": 4713377792,
+      "size": 3600900096,
+      "sha256": "5d190a37d21dbf828dc2b19a4a089c002cc046f790b0baa9cd036caa80555eb3",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 2054,
-        "REPLACE": 184,
+        "REPLACE_XZ": 1554,
+        "REPLACE": 155,
         "REPLACE_BZ": 4,
-        "ZERO": 6
+        "ZERO": 5
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "my_heytap",
       "size": 335872,
+      "sha256": "083e1ebbbdb9866bd562a7f3b44e439d91c340231f32bc2f13e1308ff8e4ef2d",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -121,6 +125,7 @@
     {
       "name": "my_carrier",
       "size": 335872,
+      "sha256": "73aaaefc645ca8f4dcf4517cee6fce2c912e781a7d2384fc6accf1267faaf8be",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -129,16 +134,18 @@
     },
     {
       "name": "my_region",
-      "size": 7254016,
+      "size": 11968512,
+      "sha256": "2b8cda6f71949345c0d0935a57888d5e6e096945331c679b31f0087afac5099a",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 4
+        "REPLACE_XZ": 6
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "my_bigball",
       "size": 335872,
+      "sha256": "d5fc02100b528046eaf468f6b605a560f909be8a7c14a44a2c6301ad7413869f",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -147,7 +154,8 @@
     },
     {
       "name": "my_manifest",
-      "size": 696320,
+      "size": 548864,
+      "sha256": "ccfdd8bd6d7ffc742ccd81192fb901980fd1cc49561656983d31b6020f5e7e31",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -156,19 +164,21 @@
     },
     {
       "name": "odm",
-      "size": 3303178240,
+      "size": 3263340544,
+      "sha256": "d6263ce19e37f25dbbc305207f66f99befc3584eb1c1121364f2fca6fe12b777",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 1345,
-        "REPLACE_BZ": 55,
-        "REPLACE": 43,
-        "ZERO": 133
+        "REPLACE_XZ": 1325,
+        "REPLACE_BZ": 58,
+        "REPLACE": 40,
+        "ZERO": 134
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "preloader_raw",
       "size": 1236992,
+      "sha256": "7d84cb2002b00e4362199ff771f3e75542923287f5004071b4a1ecdff1e3cdac",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -178,6 +188,7 @@
     {
       "name": "apusys",
       "size": 2400256,
+      "sha256": "87de2f8d5e39c759eca305afb951c1099939985de9e994520d4248ed1ff36648",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2
@@ -187,6 +198,7 @@
     {
       "name": "audio_dsp",
       "size": 22695936,
+      "sha256": "01330ed57fc55cdc84a6b3a48576207dec5343faa8dc114ebe7298af8d791505",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 9,
@@ -197,6 +209,7 @@
     {
       "name": "ccu",
       "size": 106496,
+      "sha256": "23f44f722e251a6ba5907f2046d14b61daac03132dfac72281ea7b632d7bc42b",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -206,6 +219,7 @@
     {
       "name": "connsys_gnss",
       "size": 3874816,
+      "sha256": "921434b38d6d062ae8e0cc192212e2a0cfa5c7dc02186b4d933fdf7a67da38d0",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2
@@ -215,6 +229,7 @@
     {
       "name": "dpm",
       "size": 1384448,
+      "sha256": "c5fca3e9d8d68fb5695df2973bc47105903e6944eb1b0c7674504d1f5cb2c11b",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -224,6 +239,7 @@
     {
       "name": "dtbo",
       "size": 4988928,
+      "sha256": "6087a47960c1e952109954792fa4fc7e6c7c92015b54ddfd81f935c18f27baaa",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 3
@@ -233,6 +249,7 @@
     {
       "name": "gpueb",
       "size": 1323008,
+      "sha256": "34bcb14a453d9f130504ce181e6293ac326c40d9363aba97736d646617aa665b",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -242,6 +259,7 @@
     {
       "name": "gz",
       "size": 3768320,
+      "sha256": "f840bcfa3ec69bd22fc37ba19db815ef9504926552277af82eaf91548c5861f7",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2
@@ -251,6 +269,7 @@
     {
       "name": "ise",
       "size": 528384,
+      "sha256": "7a1384420d64a932b39122d47e21f3dc47c5c628d1f0281d3c2fe0a22244158a",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -260,6 +279,7 @@
     {
       "name": "emiupfw",
       "size": 196608,
+      "sha256": "54bc28f02b6cc663fb34501848d7c980f21926d3e48661cd39071e698a462d21",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -269,6 +289,7 @@
     {
       "name": "lk",
       "size": 10596352,
+      "sha256": "87c5497fd560623fa550d4c0d73e544d65885af2eb25d76fc9fda6b97a36c9f7",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 6
@@ -278,6 +299,7 @@
     {
       "name": "logo",
       "size": 6328320,
+      "sha256": "5cb89ec3d699f34b3c7c4974758708014c62f2af229e6fd809ad87f87b3f176a",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 4
@@ -287,16 +309,19 @@
     {
       "name": "mcf_ota",
       "size": 33554432,
+      "sha256": "f73cdf8ae2d0ff74d1ef060bf81555fcd21e978df33277ac0e76ec161bc0e45b",
       "old_partition_info_present": false,
       "operations": {
-        "REPLACE_XZ": 6,
-        "ZERO": 10
+        "REPLACE_XZ": 7,
+        "ZERO": 8,
+        "REPLACE_BZ": 1
       },
       "operations_with_source_extents": 0
     },
     {
       "name": "mcupm",
       "size": 2347008,
+      "sha256": "de7ad53e369b7ba432a6a20293b88aae9b0ca434c9840450cfd4679bc97877c1",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2
@@ -306,6 +331,7 @@
     {
       "name": "modem",
       "size": 181768192,
+      "sha256": "caf4113e8b0f374e48bddf1aa95e8560eb7a2fc3ad380fed234fe4ced4cef30e",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 68,
@@ -317,6 +343,7 @@
     {
       "name": "mvpu_algo",
       "size": 61440,
+      "sha256": "f66ab1ce09fb1a3a0cc0ded690ed771011b6f96cd99f213492f6ef5566a8ea1d",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -326,6 +353,7 @@
     {
       "name": "pi_img",
       "size": 528384,
+      "sha256": "1f858d9b7ebbaaa711b5dfa3172c23d7ce720b3cc8c840ff94f38a94032b9afe",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -335,6 +363,7 @@
     {
       "name": "pvmfw",
       "size": 2097152,
+      "sha256": "98b2066145c9f93c27e4defa24ad47fd1c4336aa7a41d220f47483b3cef9845a",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -344,6 +373,7 @@
     {
       "name": "rot_boot_fmc",
       "size": 102400,
+      "sha256": "b533e26de08e49cd18a992e23c5055062fc7403f5f31636251c211c86d64e1a1",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -353,6 +383,7 @@
     {
       "name": "rot_boot_fw",
       "size": 167936,
+      "sha256": "aeba2c4cd350b9f6d3c478bed22644688c6bd0ec4ccabcca08644feb03ea0458",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -362,6 +393,7 @@
     {
       "name": "rotfw",
       "size": 172032,
+      "sha256": "046c694f377b8803793a95f056e43003a1896b82525c9513d865951f4932db00",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -371,6 +403,7 @@
     {
       "name": "scp",
       "size": 12300288,
+      "sha256": "e248e14605838eee6ba2e69c93ab54e73d906a64eb0d37d10863ece1ab20ac94",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 6
@@ -380,6 +413,7 @@
     {
       "name": "spmfw",
       "size": 36864,
+      "sha256": "5d5724b411dee34896c7072d6dcc79e0347a1b1c3cd3fe6368f871acdd2becdf",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -389,6 +423,7 @@
     {
       "name": "sspm",
       "size": 409600,
+      "sha256": "37bc12f3ed8e3907aa1c0cae2c870f1eff8de8a6267a379adde967d568b2cf8f",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -398,6 +433,7 @@
     {
       "name": "tee",
       "size": 3522560,
+      "sha256": "be5fc629de898acbad261a9313f7f53c06205772713d1110668fe43103eb8d64",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2
@@ -407,6 +443,7 @@
     {
       "name": "vcp",
       "size": 2555904,
+      "sha256": "2d55398509f0febfd11f232a139dec5751e5ec646787b301891281b956503a47",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2
@@ -416,6 +453,7 @@
     {
       "name": "init_boot",
       "size": 8388608,
+      "sha256": "855d65f99a213b5b8468cb2daa3f0592445360388e50967ebbc5e05582a95509",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 2,
@@ -427,6 +465,7 @@
     {
       "name": "vbmeta",
       "size": 8192,
+      "sha256": "3b8294c95c6c7a2949d957d07a14c19e358556eb82d32ef613bc2918d43ae7b9",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -436,6 +475,7 @@
     {
       "name": "vbmeta_vendor",
       "size": 4096,
+      "sha256": "709261396fb16a7beed25ce13099995738280d048aa163dd43340e992f3ab361",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -445,6 +485,7 @@
     {
       "name": "vendor_boot",
       "size": 100663296,
+      "sha256": "42a1d10ca67776735c1def74f8313673ea85556f4aefbc2c2c5bd51e9f479a52",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 31,
@@ -456,6 +497,7 @@
     {
       "name": "cdt_engineering",
       "size": 1048576,
+      "sha256": "91424c78673130a12d1553a2d1227f39b361a584afbf4f651eecf6280819317f",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_BZ": 1
@@ -465,6 +507,7 @@
     {
       "name": "odm_dlkm",
       "size": 348160,
+      "sha256": "469e1da3690a5227660d6930f933355fe86a0342cee026e9106443173e00901b",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 1
@@ -474,6 +517,7 @@
     {
       "name": "system_dlkm",
       "size": 14512128,
+      "sha256": "3c1538210e986317784a7bf0f29487858ea0ea15bd2b6804cbcffd93a85d3e5a",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 6,
@@ -483,14 +527,13 @@
     },
     {
       "name": "vendor_dlkm",
-      "size": 31797248,
+      "size": 31780864,
+      "sha256": "1ed546fa65cf496f183cb40e5c198b64361cb9914305965f3ab9bd858db65504",
       "old_partition_info_present": false,
       "operations": {
         "REPLACE_XZ": 16
       },
       "operations_with_source_extents": 0
     }
-  ],
-  "downloaded_bytes": 347324,
-  "note": "No payload data or images executed. Metadata hash is self-consistency only; full payload hash/signature not checked."
+  ]
 }

@@ -2,8 +2,8 @@
   "schema_version": 1,
   "rom_type": "coloros",
   "sdk": 37,
-  "product": "PLG110",
-  "version": "PLG110_17.0.0.105(CN01)",
+  "product": "CPH2791IN",
+  "version": "CPH2791_17.0.0.102(EX01)",
   "required_partitions": [
     "system",
     "system_ext",

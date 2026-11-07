@@ -1,8 +1,7 @@
 {
   "cryptographic_signature_valid": true,
-  "certificate_source": "included in manufacturer-hosted OTA signature",
   "certificate_sha256": "2de09468859e8f347c52149c319ad83046d6a0e1e11ad89b69ffcf8c35aaac6a",
-  "independently_trusted_certificate_pin": false,
-  "note": "Signature consistency plus verified manufacturer CDN origin; signer certificate alone is not independent provenance.",
-  "archive_sha256": "887e2af172a05b8de746711b121847a86a51eb7a96621535cb5d4b5984d3c6b7"
+  "certificate_source": "Previously verified manufacturer-hosted CN OTA; exact same key",
+  "archive_sha256": "4612534083b32f68d1a04274e03669c693faf85ce1d91e4d9e595ed9bf9415e2",
+  "payload_signatures_verified": true
 }

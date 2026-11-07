@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "metadata_authenticated_not_yet_constructed",
+  "status": "archive_authenticated_rebase_pending",
   "device": "dash",
   "donor_product": "CPH2791IN",
   "candidate": "CPH2791_17.0.0.102(EX01)",
@@ -10,7 +10,7 @@
   "archive_bytes": 9579038691,
   "expected_archive_md5": "28166f5860aa7f7d4c8c3068be0436a3",
   "discovery_page": "https://fwatlas.com/oppo/oppo-find-x9-pro/cph2791-17-0-0-102-ex01-cph2791-11-c-60-1600-202610181119-in",
-  "delivery": "public mirror containing the original OTA as a stored inner ZIP; full archive verification pending",
+  "delivery": "Original OTA inside a public mirror wrapper; whole archive and payload signature verification completed",
   "metadata_authentication": {
     "certificate_sha256": "2de09468859e8f347c52149c319ad83046d6a0e1e11ad89b69ffcf8c35aaac6a",
     "matches_previously_verified_oppo_key": true,
@@ -143,9 +143,11 @@
       "source_operations": 0
     }
   ],
-  "full_archive_verified": false,
+  "full_archive_verified": true,
   "patches_rebased": false,
   "image_built": false,
   "phone_tested": false,
-  "cn_fallback_preserved": true
+  "cn_fallback_preserved": true,
+  "archive_sha256": "4612534083b32f68d1a04274e03669c693faf85ce1d91e4d9e595ed9bf9415e2",
+  "payload_sha256": "d1bd4534a1910029656b27a2513c460fcba7ca7433685129b41e44b990d4f3fa"
 }

@@ -34,7 +34,7 @@ def prepare(base):
         'md5': donor['expected_md5'], 'md5_matches': True})
     save(base / 'control/payload-verification.json', {
         'payload_hash_verified': True, 'payload_sha256': donor['expected_payload_sha256'],
-        'payload_bytes': 9592095570})
+        'payload_bytes': donor['expected_payload_bytes']})
     save(base / 'control/ota-signature-verification.json', {
         'cryptographic_signature_valid': True, 'archive_sha256': donor['archive_sha256']})
     config = candidate.read_json(ROOT / 'ports/coloros17/profile.json')
