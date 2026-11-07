@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "path": "/my_product/etc/refresh_rate_config.xml",
+  "source_sha256": "6d47b223c6f0b188607e50a8952fe9f848929c6da5454d42a11f14b6a9b6d661",
+  "source_size": 190075,
+  "sha256": "7a6327b2056ba1bc773b861c3e3c6ee33f6d701c94468ebb1f1c3ffba7a20f32",
+  "size": 190211,
+  "package": "com.axlebolt.standoff2",
+  "donor": "CPH2791_17.0.0.102(EX01)",
+  "runtime_evidence": {
+    "method": "saved per-app override through native ColorOS service",
+    "before_fps": 60.21,
+    "after_app_restart_fps": 120.43,
+    "global_mode": "auto",
+    "date": "2026-11-07",
+    "image_xml_boot_tested": false
+  }
+}

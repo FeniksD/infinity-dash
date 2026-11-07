@@ -1,4 +1,4 @@
-"""Six exact source-tree compatibility fixes for pinned Global ColorOS 17.
+"""Exact source-tree compatibility fixes for pinned Global ColorOS 17.
 
 This operates on an exclusively owned, quiescent canonical SAR tree, never an
 image, mount or device. Donor inode metadata lives in the supplied complete
@@ -194,10 +194,16 @@ def _same_synthetic_record(records, path, kind, size, template):
             and not any(r["inode"] == inode for p, r in records.items() if p != path))
 
 
-def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None):
+def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None, game_refresh_enabled=False):
+    from ports.coloros17 import game_refresh
+    if type(game_refresh_enabled) is not bool:
+        raise ValueError('game_refresh_enabled must be a boolean')
     tree = _canonical_host(tree, exists=True)
     validate_tree(tree, records, content_manifest)
-    for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH, COMPOSER_POLICY_PATH):
+    input_paths = (GENFS_PATH, INIT_PATH, TEMPLATE_PATH, COMPOSER_POLICY_PATH)
+    if game_refresh_enabled:
+        input_paths += (game_refresh.TARGET,)
+    for path in input_paths:
         if records.get(path, {}).get("kind") != "file":
             raise ValueError(f"compatibility input must be a regular file: {path}")
     if records.get(SKIP_PARENT_PATH, {}).get("kind") != "dir":
@@ -211,7 +217,7 @@ def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None):
     try:
         original = {}
         host_metadata = {}
-        for path in (GENFS_PATH, INIT_PATH, TEMPLATE_PATH, COMPOSER_POLICY_PATH):
+        for path in input_paths:
             data, host = _read_regular(tree / path[1:])
             if _identity(data) != content_manifest[path]:
                 raise ValueError(f"file changed after manifest validation: {path}")
@@ -220,6 +226,9 @@ def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None):
         genfs, genfs_applied = _genfs(original[GENFS_PATH])
         init, init_applied = _init(original[INIT_PATH])
         composer_policy, composer_applied = _composer_policy(original[COMPOSER_POLICY_PATH], runtime_policy_sha256)
+        refresh_applied = True
+        if game_refresh_enabled:
+            refresh, refresh_applied = game_refresh.transform(original[game_refresh.TARGET])
         matrix_exists = MATRIX_PATH in records
         if matrix_exists:
             if records[MATRIX_PATH]["kind"] != "file":
@@ -319,16 +328,26 @@ def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None):
                     if power_key_applied else None,
                     "after": {"record": copy.deepcopy(final_records[POWER_KEY_INIT_PATH]),
                               "content": copy.deepcopy(final_contents[POWER_KEY_INIT_PATH])}})
-    report = {"status": "already_applied" if legacy_applied and skip_applied and composer_applied and power_key_applied else "planned",
+    if game_refresh_enabled:
+        path = game_refresh.TARGET
+        final_records[path]['size'] = len(refresh)
+        final_contents[path] = _identity(refresh)
+        changes.append({'path': path, 'action': 'unchanged' if refresh_applied else 'replace',
+                        'before': {'record': copy.deepcopy(records[path]), 'content': copy.deepcopy(content_manifest[path])},
+                        'after': {'record': copy.deepcopy(final_records[path]), 'content': copy.deepcopy(final_contents[path])}})
+        if not refresh_applied:
+            writes.append({'kind': 'file', 'path': path, 'data': refresh,
+                           'before': original[path], 'host': host_metadata[path]})
+    report = {"status": "already_applied" if legacy_applied and skip_applied and composer_applied and power_key_applied and refresh_applied else "planned",
               "donor": "pinned Global ColorOS 17", "canonical_tree": str(tree),
               "changes": changes, "final_records": final_records,
               "final_content_manifest": final_contents}
     return tree, report, writes
 
 
-def plan_compatibility(tree, records, content_manifest, *, runtime_policy_sha256=None):
+def plan_compatibility(tree, records, content_manifest, *, runtime_policy_sha256=None, game_refresh_enabled=False):
     """Validate the complete tree and return an immutable-input, JSON-safe plan."""
-    return _make_plan(tree, records, content_manifest, runtime_policy_sha256)[1]
+    return _make_plan(tree, records, content_manifest, runtime_policy_sha256, game_refresh_enabled)[1]
 
 
 def _atomic_write(path, data, host=None):
@@ -429,7 +448,7 @@ def _rmdir(path):
         os.close(parent)
 
 
-def apply_compatibility(tree, records, content_manifest, backup_dir):
+def apply_compatibility(tree, records, content_manifest, backup_dir, *, runtime_policy_sha256=None, game_refresh_enabled=False):
     """Apply only the reviewed changes, or roll them back on operational failure.
 
     ``backup_dir`` must be an explicit directory outside the canonical tree
@@ -438,7 +457,7 @@ def apply_compatibility(tree, records, content_manifest, backup_dir):
     CompatibilityError with status ``failed_needs_recovery``; no updated
     manifest is returned for a failed operation.
     """
-    tree, report, writes = _make_plan(tree, records, content_manifest)
+    tree, report, writes = _make_plan(tree, records, content_manifest, runtime_policy_sha256, game_refresh_enabled)
     return apply_change_plan(tree, records, content_manifest, report, writes, backup_dir)
 
 

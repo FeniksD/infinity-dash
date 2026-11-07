@@ -4,6 +4,39 @@ This branch targets **Global (India) CPH2791_17.0.0.102(EX01)**. The full origin
 
 Global framework hooks are rebuilt with `runtime_rebase.py` from pinned Global inputs. Only our own hash-pinned helper DEX is reused; original CN framework DEXs are not substituted. The Global image is being validated through a separate DSU slot while preserving the existing CN installation and Infinity.
 
+## Standoff 2 refresh-rate default
+
+The Global profile requires the `game_refresh_required` compatibility patch.
+The existing `patch` stage adds one hash-pinned entry for
+`com.axlebolt.standoff2` to `/my_product/etc/refresh_rate_config.xml`:
+`rateId="3-1-2-3" disableViewOverride="true"`. Automatic and 120 Hz modes
+allow 120 Hz; explicit 60/90 Hz choices remain 60/90 Hz. Other packages and
+the thermal policy are unchanged. A build is rejected until the required
+profile has been applied. Existing published images are not retroactively
+changed.
+
+On the owner's running Global, Standoff 2 1.1.0 selected a window override of
+60 Hz despite its in-game 120 FPS setting. A native per-app preference for
+120 Hz restored approximately 120 FPS in training, including after an app
+restart, with the system-wide mode returned to Automatic. The validated live
+workaround was:
+
+```sh
+adb shell dumpsys oplusscreenmode simulate_setUserrefreshrate com.axlebolt.standoff2 0 3
+adb shell dumpsys oplusscreenmode simulate_setUserrefreshrate com.axlebolt.standoff2 3 3
+```
+
+These integers are ColorOS mode IDs, not arbitrary FPS values. To remove only
+this user preference:
+
+```sh
+adb shell dumpsys oplusscreenmode simulate_removeUserrefreshrate com.axlebolt.standoff2
+```
+
+The image XML profile still needs a fresh-data boot/game test before release;
+the live per-app test does not substitute for that validation. No general
+claim is made about unlocking an engine's own FPS cap in other games.
+
 
 The current artifact is `ColorOS17-dash-FeniksD-20261104-sensor1.img`.
 [sensor-product-image.json](sensor-product-image.json) records its checked

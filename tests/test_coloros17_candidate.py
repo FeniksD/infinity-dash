@@ -43,6 +43,7 @@ def prepare(base):
     config['branding_bundle_required'] = False  # Legacy fixtures contain no Settings APK.
     config['radio_registration_required'] = False  # Legacy fixtures contain no radio JAR.
     config['sensor_product_required'] = False  # Legacy fixtures contain no product build.prop.
+    config['game_refresh_required'] = False  # Legacy fixtures contain no refresh-rate XML.
     save(base / 'profile.json', config)
     (base / 'work').mkdir(exist_ok=True)
     return config

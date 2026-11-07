@@ -174,17 +174,20 @@ def _verify_receipts(base, donor):
         raise ValueError("OTA signature consistency verification must match the pinned donor")
 
 
-def _compatibility_plan(tree, pair, artifacts, runtime_enabled):
+def _compatibility_plan(tree, pair, artifacts, runtime_enabled, game_refresh_enabled=False):
     try:
-        return plan_compatibility(tree, pair["records"], pair["contents"])
+        return plan_compatibility(tree, pair["records"], pair["contents"], game_refresh_enabled=game_refresh_enabled)
     except ValueError:
         if not runtime_enabled:
             raise
         runtime = plan_runtime_bundle(tree, pair["records"], pair["contents"], artifacts)
         if runtime["status"] != "already_applied":
             raise ValueError("Incomplete compatibility/runtime state")
-        return plan_compatibility(tree, pair["records"], pair["contents"],
-                                  runtime_policy_sha256=runtime["policy_sha256"])
+        result = plan_compatibility(tree, pair["records"], pair["contents"],
+                                    runtime_policy_sha256=runtime["policy_sha256"],
+                                    game_refresh_enabled=game_refresh_enabled)
+        result['runtime_policy_sha256'] = runtime['policy_sha256']
+        return result
 
 
 def main(argv=None):
@@ -213,6 +216,9 @@ def main(argv=None):
     sensor_enabled = profile.get("sensor_product_required", False)
     if type(sensor_enabled) is not bool:
         raise ValueError("sensor_product_required must be a boolean")
+    game_refresh_enabled = profile.get("game_refresh_required", False)
+    if type(game_refresh_enabled) is not bool:
+        raise ValueError("game_refresh_required must be a boolean")
     base = args.base.resolve(strict=True)
     artifacts = args.runtime_artifacts if args.runtime_artifacts is not None else base / "inputs/runtime"
     radio_artifacts = args.radio_artifacts if args.radio_artifacts is not None else base / "inputs/radio"
@@ -240,7 +246,7 @@ def main(argv=None):
         pair = state["current"]
         if pair is None:
             raise ValueError("Merge must complete before compatibility patching")
-        plan = _compatibility_plan(tree, pair, artifacts, runtime_enabled)
+        plan = _compatibility_plan(tree, pair, artifacts, runtime_enabled, game_refresh_enabled)
         if plan["status"] == "already_applied":
             report = {"status": "already_applied", "stage": "patch", "report": None}
         else:
@@ -248,7 +254,9 @@ def main(argv=None):
             backup = work / ("compat-backup-" + uuid.uuid4().hex)
             state["pending"] = {"stage": "patch", "after": after, "backup_dir": str(backup)}
             write_json(state_path, state)
-            result = apply_compatibility(tree, pair["records"], pair["contents"], backup)
+            result = apply_compatibility(tree, pair["records"], pair["contents"], backup,
+                                         runtime_policy_sha256=plan.get('runtime_policy_sha256'),
+                                         game_refresh_enabled=game_refresh_enabled)
             _validate_pair(tree, after)
             state.update(current=after, pending=None)
             write_json(state_path, state)
@@ -257,7 +265,7 @@ def main(argv=None):
         pair = state["current"]
         if pair is None:
             raise ValueError("Merge must complete before the runtime bundle")
-        compatibility = _compatibility_plan(tree, pair, artifacts, True)
+        compatibility = _compatibility_plan(tree, pair, artifacts, True, game_refresh_enabled)
         if compatibility["status"] != "already_applied":
             raise ValueError("Compatibility patches must precede the runtime bundle")
         plan = plan_runtime_bundle(tree, pair["records"], pair["contents"], artifacts)
@@ -333,7 +341,7 @@ def main(argv=None):
             runtime = plan_runtime_bundle(tree, pair["records"], pair["contents"], artifacts)
             if runtime["status"] != "already_applied":
                 raise ValueError("Required runtime bundle must be applied before building")
-        plan = _compatibility_plan(tree, pair, artifacts, runtime_enabled)
+        plan = _compatibility_plan(tree, pair, artifacts, runtime_enabled, game_refresh_enabled)
         if plan["status"] != "already_applied":
             raise ValueError("Required compatibility patches must be applied before building")
         if branding_enabled:
