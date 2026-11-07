@@ -32,5 +32,14 @@
     "phone_boot_tested": false
   },
   "avb_signed": false,
-  "flashable_ota": false
+  "flashable_ota": false,
+  "installation": {
+    "slot": "global17",
+    "userdata_bytes": 34359738368,
+    "mapped_readback_matches": true,
+    "mapped_readback_sha256": "8fe5039c44ada333c094e817c1a30584d64bf7bd5f8eaee21266d469bf120ed1",
+    "cn_slot_metadata_and_backing_files_unchanged": true,
+    "one_time_boot_requested": true,
+    "boot_observation_pending": true
+  }
 }

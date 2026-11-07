@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "image_verified_transferring_for_device_test",
+  "status": "installed_first_boot_observation_pending",
   "device": "dash",
   "donor_product": "CPH2791IN",
   "candidate": "CPH2791_17.0.0.102(EX01)",
