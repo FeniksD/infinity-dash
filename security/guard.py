@@ -50,13 +50,28 @@ def changed_files(expected):
     return errors
 
 
-def unexpected_logins(messages, allowed_ip, fingerprint):
+def unexpected_logins(messages, allowed_ip, fingerprint, additional_logins=()):
+    # Additional identities must not widen the original root login policy.
+    rules = []
+    for rule in additional_logins:
+        if rule["user"] == "root":
+            raise ValueError("additional login rules cannot override root policy")
+        rules.append((rule["user"], rule["fingerprint"],
+                      [ipaddress.ip_network(cidr) for cidr in rule["source_cidrs"]]))
     errors = []
     for message in messages:
         if not message.startswith("Accepted ") or message.startswith("Accepted key "):
             continue
         match = re.search(r"Accepted (\S+) for (\S+) from (\S+) ", message)
-        if not match or match.group(1, 2, 3) != ("publickey", "root", allowed_ip) or fingerprint not in message.split():
+        accepted = bool(match and match.group(1, 2, 3) == ("publickey", "root", allowed_ip)
+                        and fingerprint in message.split())
+        if match and match.group(1) == "publickey":
+            source = ipaddress.ip_address(match.group(3))
+            accepted = accepted or any(
+                match.group(2) == user and key in message.split()
+                and any(source in network for network in networks)
+                for user, key, networks in rules)
+        if not accepted:
             errors.append("unexpected login: " + message)
     return errors
 
@@ -83,7 +98,7 @@ def services(raw):
 def inspect(baseline, journal, socket_output, service_output):
     errors = changed_files(baseline["files"])
     errors += changed_trees(baseline.get("trees", {}))
-    errors += unexpected_logins(journal, baseline["allowed_ip"], baseline["fingerprint"])
+    errors += unexpected_logins(journal, baseline["allowed_ip"], baseline["fingerprint"], baseline.get("additional_logins", ()))
     extra_ports = set(listeners(socket_output)) - set(baseline["listeners"])
     errors += ["unexpected listener: " + x for x in sorted(extra_ports)]
     extra_services = set(services(service_output)) - set(baseline["services"])

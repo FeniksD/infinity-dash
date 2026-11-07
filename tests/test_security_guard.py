@@ -33,6 +33,31 @@ class SecurityGuardTests(unittest.TestCase):
         for bad in (good.replace("1.2.3.4", "5.6.7.8"), good.replace("root", "attacker"), good.replace("publickey", "password"), good.replace("SHA256:trusted", "SHA256:other")):
             self.assertTrue(guard.unexpected_logins([bad], "1.2.3.4", "SHA256:trusted"))
 
+    def test_reviewed_phone_key_allows_mobile_ip_without_relaxing_root(self):
+        rules = [{"user": "phone", "fingerprint": "SHA256:phone", "source_cidrs": ["0.0.0.0/0", "::/0"]}]
+        phone = "Accepted publickey for phone from 178.130.142.2 port 345 ssh2: ECDSA SHA256:phone"
+        self.assertEqual(guard.unexpected_logins([phone], "1.2.3.4", "SHA256:root", rules), [])
+        for bad in (phone.replace("SHA256:phone", "SHA256:other"), phone.replace("phone from", "root from"), phone.replace("publickey", "password")):
+            self.assertTrue(guard.unexpected_logins([bad], "1.2.3.4", "SHA256:root", rules))
+        other_root = "Accepted publickey for root from 9.9.9.9 port 345 ssh2: ED25519 SHA256:root"
+        self.assertTrue(guard.unexpected_logins([other_root], "1.2.3.4", "SHA256:root", rules))
+
+    def test_additional_key_is_restricted_to_configured_network(self):
+        rules = [{"user": "phone", "fingerprint": "SHA256:phone", "source_cidrs": ["192.0.2.0/24"]}]
+        message = "Accepted publickey for phone from 198.51.100.4 port 345 ssh2: ECDSA SHA256:phone"
+        self.assertTrue(guard.unexpected_logins([message], "1.2.3.4", "SHA256:root", rules))
+        self.assertEqual(guard.unexpected_logins([message.replace("198.51.100.4", "192.0.2.4")], "1.2.3.4", "SHA256:root", rules), [])
+
+    def test_inspect_uses_reviewed_additional_login_rules(self):
+        baseline = {"files": {}, "allowed_ip": "1.2.3.4", "fingerprint": "SHA256:root", "listeners": [], "services": [],
+                    "additional_logins": [{"user": "phone", "fingerprint": "SHA256:phone", "source_cidrs": ["::/0"]}]}
+        message = "Accepted publickey for phone from 2001:db8::1 port 345 ssh2: ECDSA SHA256:phone"
+        self.assertEqual(guard.inspect(baseline, [message], "", ""), [])
+
+    def test_additional_root_rule_is_rejected(self):
+        with self.assertRaises(ValueError):
+            guard.unexpected_logins([], "1.2.3.4", "SHA256:root", [{"user": "root", "fingerprint": "SHA256:root", "source_cidrs": ["0.0.0.0/0"]}])
+
     def test_port_parser_covers_ipv6_and_interface_scope(self):
         raw = 'tcp LISTEN 0 4096 [::]:22 [::]:*\nudp UNCONN 0 0 127.0.0.53%lo:53 0.0.0.0:*\n'
         self.assertEqual(guard.listeners(raw), ["tcp :: 22", "udp 127.0.0.53 53"])
