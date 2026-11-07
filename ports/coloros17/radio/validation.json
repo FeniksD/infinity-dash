@@ -49,7 +49,13 @@
     }
   },
   "art_regression": {
-    "status": "pending_global_runtime"
+    "status": "passed_isolated_Global_method",
+    "runtime": "native Infinity Android17 ART",
+    "source_method_sha256": "c519f0ceaed28ee85336d446b2c6f68520f296b7899fb7cd2b1651ee2407bc44",
+    "patched_cases_passed": 4,
+    "original_case_reproduced_security_exception": true,
+    "real_modem_or_binder_calls": false,
+    "global_runtime_tested": false
   },
   "device_validation": {
     "status": "pending_global_runtime"

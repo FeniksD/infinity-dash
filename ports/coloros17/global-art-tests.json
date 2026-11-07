@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "runtime": "Android 17 ART on native Infinity",
+  "global_boot_tested": false,
+  "radio": {
+    "source_jar_sha256": "39d6f4a36798025e5dd32d0ed092c0ba7b0a3946dce2c961d929446d213dbe66",
+    "source_method_sha256": "c519f0ceaed28ee85336d446b2c6f68520f296b7899fb7cd2b1651ee2407bc44",
+    "method_isolated_with_explicit_service_boundary": true,
+    "original_case_reproduced_security_exception": true,
+    "patched_cases_passed": 4,
+    "cases": [
+      "normal notification registration",
+      "SecurityException from absent optional service",
+      "RemoteException",
+      "unrelated IllegalStateException propagates"
+    ],
+    "real_modem_or_binder_calls": false
+  },
+  "fingerprint_helper": {
+    "helper_dex_sha256": "40e2b582fd8597f2130cb7c069223494921cde0375785e44f303c9ef92a69c67",
+    "test_dex_sha256": "b435fc42c485cb8da4c8e1a0235aceac1b034132ce6a7e5789b2098cd991ac3b",
+    "core": 65,
+    "passive_resources": 19,
+    "root_resource_lifecycle": 21,
+    "oem_ui_bridge": 44,
+    "readiness": 37,
+    "total_passed": 186,
+    "real_sensor_or_input_access": false
+  },
+  "pending": [
+    "Global boot and full OEM API harness",
+    "ChargingNotifyRegression on Global",
+    "RuntimeProbe on Global",
+    "real calls, SMS, haptics and fingerprint enrollment"
+  ]
+}
