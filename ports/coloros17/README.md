@@ -1,5 +1,10 @@
 # ColorOS 17 / dash work area
 
+This branch targets **Global (India) CPH2791_17.0.0.102(EX01)**. The full original OTA and payload signatures were verified against the OPPO key already established from the manufacturer-hosted CN release. `global-candidate.json` tracks current Global readiness; older `*-image.json` files and CN evidence are historical references, not Global device-test results.
+
+Global framework hooks are rebuilt with `runtime_rebase.py` from pinned Global inputs. Only our own hash-pinned helper DEX is reused; original CN framework DEXs are not substituted. The Global image is being validated through a separate DSU slot while preserving the existing CN installation and Infinity.
+
+
 The current artifact is `ColorOS17-dash-FeniksD-20261104-sensor1.img`.
 [sensor-product-image.json](sensor-product-image.json) records its checked
 product identity update and permanent DSU delta.

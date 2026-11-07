@@ -33,15 +33,15 @@ def normalized(text):
             continue
         if s.startswith('.method '): labels = {}
         if s.startswith('.field '): s = re.sub(r' = (?:false|0x0|0x0L|null)$', '', s)
-        s = s.replace('const-string/jumbo ', 'const-string ')
-        s = s.replace('goto/16 ', 'goto ').replace('goto/32 ', 'goto ')
         strings = []
         def save_string(match):
             strings.append(match.group()); return '@STRING' + str(len(strings)-1) + '@'
         s = re.sub(r'"(?:\\.|[^"\\])*"', save_string, s)
+        s = s.replace('const-string/jumbo ', 'const-string ')
+        s = s.replace('goto/16 ', 'goto ').replace('goto/32 ', 'goto ')
         s = re.sub(r':(?:cond|goto|try_start|try_end|catch|catchall|pswitch|sswitch|array)(?:_data)?_[0-9a-f]+\b',
                    lambda m: labels.setdefault(m.group(), ':label_' + str(len(labels))), s)
-        for index, string in enumerate(strings): s = s.replace('@STRING' + str(index) + '@', string)
+        s = re.sub(r'@STRING([0-9]+)@', lambda match: strings[int(match.group(1))], s)
         result.append(s)
     return '\n'.join(result)
 

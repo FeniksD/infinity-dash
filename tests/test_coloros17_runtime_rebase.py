@@ -53,6 +53,19 @@ class RuntimeRebaseTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             verify_classes(before, expected, expected | {'Extra.smali': 'new class'}, {'Target.smali'})
 
+    def test_opcode_text_inside_a_literal_is_not_normalized(self):
+        for old, new in [('goto/16 ', 'goto '), ('goto/32 ', 'goto '), ('const-string/jumbo ', 'const-string ')]:
+            a = 'const-string v0, "literal ' + old + 'tail"'
+            b = 'const-string v0, "literal ' + new + 'tail"'
+            with self.subTest(opcode=old):
+                self.assertNotEqual(normalized(a), normalized(b))
+                with self.assertRaises(ValueError):
+                    verify_classes({'Other.smali': a}, {'Other.smali': a}, {'Other.smali': b}, set())
+
+    def test_restoring_multiple_literals_does_not_rewrite_placeholder_text(self):
+        text = '.annotation "literal @STRING1@" "second literal"'
+        self.assertIn('"literal @STRING1@"', normalized(text))
+
     def test_label_normalization_preserves_literal_string_contents(self):
         a = '.method m()V\n:cond_1\nconst-string v0, "literal :cond_1"\ngoto :cond_1\n.end method'
         b = a.replace(':cond_1\n', ':cond_f\n').replace('goto :cond_1', 'goto :cond_f')

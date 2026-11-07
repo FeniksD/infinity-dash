@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "archive_authenticated_rebase_pending",
+  "status": "image_verified_device_test_pending",
   "device": "dash",
   "donor_product": "CPH2791IN",
   "candidate": "CPH2791_17.0.0.102(EX01)",
@@ -144,10 +144,15 @@
     }
   ],
   "full_archive_verified": true,
-  "patches_rebased": false,
-  "image_built": false,
+  "patches_rebased": true,
+  "image_built": true,
   "phone_tested": false,
   "cn_fallback_preserved": true,
   "archive_sha256": "4612534083b32f68d1a04274e03669c693faf85ce1d91e4d9e595ed9bf9415e2",
-  "payload_sha256": "d1bd4534a1910029656b27a2513c460fcba7ca7433685129b41e44b990d4f3fa"
+  "payload_sha256": "d1bd4534a1910029656b27a2513c460fcba7ca7433685129b41e44b990d4f3fa",
+  "raw_image": {
+    "filename": "ColorOS17-CPH2791IN-dash-FeniksD-global-20261107.img",
+    "bytes": 16006615040,
+    "sha256": "8fe5039c44ada333c094e817c1a30584d64bf7bd5f8eaee21266d469bf120ed1"
+  }
 }
