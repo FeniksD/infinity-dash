@@ -50,6 +50,13 @@ the next isolated checks. The audited canonical Global tree does not include thi
 optional APK; that inventory does not describe later data-app installs. No
 framework/property or camera-permission workaround is enabled by this review.
 
+The retained kernel base is documented in
+[kernel-provenance.json](../../sources/kernel-provenance.json). The pinned kernel
+and 78 system modules match the official Google GKI artifacts byte for byte.
+The exact source manifest and embedded configuration are saved for a future
+isolated rebuild. Xiaomi/MediaTek vendor-module and DTB correspondence remains
+open; no alternate kernel has been built, adopted or flashed by this review.
+
 ## Standoff 2 refresh-rate default
 
 The Global profile requires the `game_refresh_required` compatibility patch.

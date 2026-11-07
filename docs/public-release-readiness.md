@@ -9,7 +9,7 @@ This is a testing release candidate, not a claim of complete hardware qualificat
 ## Before a wider UNOFFICIAL release
 
 - Publish the exact GApps/release-signing branch and its dependencies, changes and original author credits. The public GitHub repository exists, but the latest local branch must be published deliberately; the remote main branch is older.
-- Resolve kernel-source provenance. `BoardConfig.mk` currently consumes `device/xiaomi/dash-kernel/Image.lz4` and prebuilt modules. The pinned kernel repository contains binaries, DTBs, headers and extraction scripts, not a complete buildable kernel source tree. Xiaomi's `dash-w-oss` sources exist, but correspondence to the exact distributed binary/modules and any modifications has not been established. A link to a similarly named branch is not proof of correspondence.
+- Finish kernel-source provenance. **Update 2026-11-07:** the pinned `Image.lz4` and all 78 `system_dlkm` modules match Google build `15511674` byte for byte. Its exact source commit, 33-project resolved manifest and embedded config are preserved in [kernel-provenance.json](../sources/kernel-provenance.json), [kernel-gki-manifest.xml](../sources/kernel-gki-manifest.xml) and [kernel-gki.config](../sources/kernel-gki.config). The Xiaomi/MediaTek vendor modules and DTBs still need exact source/build correlation; the verified GKI subset does not establish complete corresponding driver source. No rebuild or kernel replacement has been performed.
 - Complete basic hardware and recovery tests and gather independent tester reports. Calls/IMS, NFC, biometrics, camera modes, suspend/standby, sustained charging, USB, encryption/recovery decryption and eSIM behavior are not all qualified. Confirm the reported charging estimate fix on-device over actual charge cycles.
 - Test installation from each supported starting firmware, a clean recovery sideload and an update from the previous release. Document recovery replacement/retention and rollback. Do not label a generic OrangeFox one-ZIP installation as tested.
 - Publish known limitations, download hashes, a bug-report route and a realistic update policy. Do not promise permanent Google certification or conceal the post-install Integrity setup requirement.
@@ -23,7 +23,7 @@ The [current official requirements](https://projectinfinity-x.com/apply-for-main
 
 The [application form](https://github.com/ProjectInfinity-X/official_devices/issues/new?template=maintainers-application.yml) asks for the device, source URLs, maintained ROMs, a link to an existing public UNOFFICIAL release announcement, exceptions and contact information. Having a private/local ZIP alone does not complete that public-release requirement. The team decides acceptance; no application has been submitted by this task.
 
-The main unresolved technical item for an application is the complete corresponding kernel source. The practical next step is a clearly labelled UNOFFICIAL testing release with accurate source and testing information, followed by resolving that source question with the upstream device maintainers.
+The main unresolved source item for an application is the corresponding vendor-module/DTB source and build configuration; the GKI image and system-module origins are now identified. The practical next step is a clearly labelled UNOFFICIAL testing release with accurate source and testing information, followed by resolving that source question with the upstream device maintainers.
 
 ## Download hosting
 

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "status": "gki_image_and_system_modules_identified_vendor_correspondence_pending",
+  "scope": "The exact prebuilt inputs pinned for the Infinity dash build and retained by the ColorOS DSU experiment. No new live phone read, kernel build or flash.",
+  "prebuilt_repository": {
+    "url": "https://github.com/xiaomi-mt6991/device_xiaomi_dash-kernel",
+    "commit": "4458fffb756b163f6157c9bdd967a6941c51b58c"
+  },
+  "gki": {
+    "version": "6.6.118-android15-8-ge56cf6b09cca-ab15511674-4k",
+    "source_repository": "https://android.googlesource.com/kernel/common",
+    "source_commit": "e56cf6b09cca2151bcee244b3d334fb68685ff57",
+    "release_tag": "android15-6.6-2026-01_r34",
+    "build_id": "15511674",
+    "release_url": "https://android.googlesource.com/kernel/common/+/refs/tags/android15-6.6-2026-01_r34",
+    "artifact_url": "https://ci.android.com/builds/submitted/15511674/kernel_aarch64/latest/raw/Image.lz4",
+    "compressed_bytes": 17290467,
+    "compressed_sha256": "ae495de07e4eaeedf47a807163683978e036ab99512e351893fd5e69a369eb6c",
+    "decompressed_sha256": "81181e8321e655acbce601faff94ab1610f9b825869a56a1c0e5bfcf9db1126c",
+    "comparison": "Both the compressed Image.lz4 and decompressed kernel are byte-identical to the official Google artifact.",
+    "source_manifest": {
+      "path": "sources/kernel-gki-manifest.xml",
+      "sha256": "dbaa1ca849500f4e0cc421beb8b431eb957905379a1a1f9d6b0bfd7d6b5fb1c3",
+      "projects": 33,
+      "all_project_revisions_pinned": true,
+      "artifact_url": "https://ci.android.com/builds/submitted/15511674/kernel_aarch64/latest/raw/manifest_15511674.xml"
+    },
+    "embedded_config": {
+      "path": "sources/kernel-gki.config",
+      "sha256": "b4bdfa788a4f501ff39d3ed8a6729d728aa4cea8e9fb651ab816383eb8e805e1",
+      "page_size": 4096
+    },
+    "system_modules": {
+      "count": 78,
+      "all_byte_identical_to_google_archive": true,
+      "archive_url": "https://ci.android.com/builds/submitted/15511674/kernel_aarch64/latest/raw/system_dlkm_staging_archive.tar.gz",
+      "archive_bytes": 12709028,
+      "archive_sha256": "d10dbba3f50100b3aadbfe8df37b98ae4fcbf38a3d16c6baff61db16c4cccf63",
+      "archive_layout": "Each matching module occurs both under flatten/lib/modules and the versioned lib/modules tree. Duplicates were compared by content hash, not extracted over one another."
+    },
+    "rebuild_performed": false
+  },
+  "all_prebuilt_modules": {
+    "file_count": 602,
+    "unique_contents": 576,
+    "cohorts": [
+      {
+        "location": "system_dlkm",
+        "vermagic": "6.6.118-android15-8-ge56cf6b09cca-ab15511674-4k SMP preempt mod_unload modversions aarch64",
+        "count": 78
+      },
+      {
+        "location": "vendor_dlkm",
+        "vermagic": "6.6.118-android15-8-g26238aa48eab-4k SMP preempt mod_unload modversions aarch64",
+        "count": 263
+      },
+      {
+        "location": "vendor_ramdisk",
+        "vermagic": "6.6.118-android15-8-g26238aa48eab-4k SMP preempt mod_unload modversions aarch64",
+        "count": 261
+      }
+    ],
+    "inventory_receipt": {
+      "name": "module-inventory.json",
+      "sha256": "709e70a1c6817c1862b6b5d23106bb72d5fdf6b0641ac639057f3a3d3f97db25"
+    }
+  },
+  "remaining_source_work": [
+    "Identify the corresponding Xiaomi/MediaTek vendor module source and build inputs for the g26238aa48eab cohort.",
+    "Verify the exact DTB inputs and device-specific module build configuration.",
+    "Perform an isolated rebuild and compare configuration, KMI/module-version compatibility and resulting artifacts.",
+    "Do not infer complete corresponding source for every driver from the verified GKI image and system modules."
+  ],
+  "official_xiaomi_references": {
+    "MiCode/Xiaomi_Kernel_OpenSource": {
+      "commit": "2d28e280ea3652c3b36143243be5dd699b7b022b",
+      "top_level_makefile_version": "6.6.89",
+      "note": "This standalone Makefile version differs from the identified GKI. Build recipes and module source still require correlation; the name dash-w-oss is not sufficient proof."
+    },
+    "MiCode/MTK_kernel_device_modules": {
+      "commit": "9c6256406e2afb9c316fe3be05a66c1eaa88d900"
+    },
+    "MiCode/MTK_kernel_modules": {
+      "commit": "8c88cf7d74838078f876838dad8c00565ce42a7d"
+    },
+    "MiCode/kernel_build": {
+      "branch": "dash-w-oss",
+      "commit": "9cb88f1774aeb6037822b015edd790cce01f1033",
+      "url": "https://api.github.com/repos/MiCode/kernel_build/git/ref/heads/dash-w-oss"
+    },
+    "MiCode/mtkcam-kernel_device_modules": {
+      "branch": "dash-w-oss",
+      "commit": "d2808f446b997a284201bbda613352c05e2a01c3",
+      "url": "https://api.github.com/repos/MiCode/mtkcam-kernel_device_modules/git/ref/heads/dash-w-oss"
+    }
+  },
+  "separate_community_candidate": {
+    "status": "discovered_not_built_or_adopted",
+    "project_url": "https://github.com/Content-Creation-Club/android_kernel_xiaomi_dash",
+    "reported_source_version": "6.6.144 from the pinned Makefile",
+    "repositories": {
+      "Content-Creation-Club/android_kernel_xiaomi_dash": {
+        "branch": "dash-w-oss",
+        "commit": "0e44277060623cb432b6405a59d7dfeee246b1fb",
+        "url": "https://api.github.com/repos/Content-Creation-Club/android_kernel_xiaomi_dash/git/ref/heads/dash-w-oss"
+      },
+      "Content-Creation-Club/android_kernel_xiaomi_dash_build": {
+        "branch": "dash-w-oss",
+        "commit": "627ef9ba0d3183b9db32b288ee8477f72cafd9d4",
+        "url": "https://api.github.com/repos/Content-Creation-Club/android_kernel_xiaomi_dash_build/git/ref/heads/dash-w-oss"
+      },
+      "Content-Creation-Club/android_kernel_xiaomi_dash_device_modules": {
+        "branch": "dash-w-oss",
+        "commit": "94914f6bc83f3577de6fa54542efd39885d4ded1",
+        "url": "https://api.github.com/repos/Content-Creation-Club/android_kernel_xiaomi_dash_device_modules/git/ref/heads/dash-w-oss"
+      },
+      "Content-Creation-Club/android_kernel_xiaomi_dash_mtk_modules": {
+        "branch": "dash-w-oss",
+        "commit": "d3e32dcf9f67e5083dd55bb94745b8bfbf5b92ba",
+        "url": "https://api.github.com/repos/Content-Creation-Club/android_kernel_xiaomi_dash_mtk_modules/git/ref/heads/dash-w-oss"
+      },
+      "Content-Creation-Club/android_kernel_xiaomi_dash_bazel_mgk_rules": {
+        "branch": "lineage-23.2",
+        "commit": "1573a08b7d6bf620a195120b7b23fe4f1445da61",
+        "url": "https://github.com/Content-Creation-Club/android_kernel_xiaomi_dash_bazel_mgk_rules/tree/1573a08b7d6bf620a195120b7b23fe4f1445da61"
+      }
+    },
+    "author_claim": "Reimplemented selected missing dash vendor modules, including touch, fingerprint transport, thermal and UFS-related components.",
+    "limits": [
+      "This is a separate experimental implementation, not the source of the currently pinned Google kernel binary.",
+      "Its manifest contains moving branch revisions; capture a complete resolved manifest before a controlled build.",
+      "No compatibility, safety, source-completeness or phone-boot claim is made here."
+    ]
+  },
+  "evidence": [
+    {
+      "name": "prebuilt-kernel.json",
+      "sha256": "979c47db8fbe04f5f42c7120ee7460e3978061eb360524bfc8d379d52a00eb01"
+    },
+    {
+      "name": "google-artifact-comparison.json",
+      "sha256": "7b2146c737ea73ae247a5d4ed9c5192caa6685945f1fb76983c9a140d4ec0ca2"
+    },
+    {
+      "name": "google-module-comparison.json",
+      "sha256": "ef3d2e3598b6f9754ec30c182412e1ee7eb35920742de76b3d4682d677aae272"
+    },
+    {
+      "name": "source-files.json",
+      "sha256": "0149c8bc7bd50fa962b8b6d4f072ae8afcf6a9462b17b5c7bbb7bf3f38dae9ca"
+    }
+  ],
+  "phone_accessed": false,
+  "production_dependencies_changed": false
+}
