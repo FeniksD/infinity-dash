@@ -21,8 +21,9 @@ results remain separate evidence.
 
 The owner now chooses Global and has abandoned CN credential recovery. Do not
 resume CN boot tests. The owner also prohibits further interaction with the phone
-until renewed authorization: continue only on the host. The server guard remains
-latched, so these follow-up records do not authorize a new build or baseline reset.
+until renewed authorization: continue only on the host. The later ACME-client
+incident review is recorded in `security/acme-update-20261107.json`; it changes
+one reviewed file hash and does not resume or authorize a new image build.
 
 ## Global constraints
 

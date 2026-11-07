@@ -78,6 +78,7 @@
   },
   "current_constraints": [
     "Owner prohibited further phone interaction on 2026-11-07; subsequent work is host-only until explicitly reauthorized.",
-    "The server build guard remains latched after an acme.sh file change. No new build or baseline reset was performed during this follow-up."
-  ]
+    "The separate acme.sh update incident was reviewed with a one-file baseline change. No build was resumed; see security/acme-update-20261107.json."
+  ],
+  "host_guard_follow_up": "../../security/acme-update-20261107.json"
 }

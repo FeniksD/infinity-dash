@@ -27,8 +27,10 @@ TEE replacement was not observed. The owner chose Global and ended CN recovery.
 Do not promise independent credential isolation or resume CN boot tests.
 
 The owner currently prohibits phone interaction. Host-side work must not trigger
-ADB probes, package changes, DSU switching, reboots or cleanup. The server build
-guard is also still latched; no new image build is implied by these source updates.
+ADB probes, package changes, DSU switching, reboots or cleanup. The separate ACME
+client update incident was reviewed with a one-file baseline change; see
+[the host review](../../security/acme-update-20261107.json). No build was resumed
+and no new image build is implied by these source updates.
 
 The AOD source follow-up is in [aod-global-analysis.json](aod-global-analysis.json).
 Seven selected Global/CN classes were compared: 148 method bodies match after

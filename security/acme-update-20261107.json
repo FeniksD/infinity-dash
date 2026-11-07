@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "status": "resolved_and_scheduled_guard_verified",
+  "scope": "Build-host file-change alarm, not an attestation of the host kernel or cloud provider.",
+  "cause": "The configured acme.sh cron job performed an enabled client auto-upgrade. The updated script matched an official upstream commit after the installer-preferred bash shebang substitution.",
+  "client": {
+    "version": "3.1.7",
+    "upstream_commit": "7e87a310fda61afe92e3db6ac29f81efdf53b8c0",
+    "source_url": "https://github.com/acmesh-official/acme.sh/blob/7e87a310fda61afe92e3db6ac29f81efdf53b8c0/acme.sh",
+    "upstream_sha256": "b4d1a37add59bd50c0d7624a553e9446073b864c1006e9ffb44fa0da7adaef15",
+    "installed_sha256": "c3b7a336d9453487bc3ed877cc7feaf0d4525110e8030e6a6bedd1d6d6f447df",
+    "only_installer_transformation": "First line is #!/usr/bin/bash instead of #!/usr/bin/env sh."
+  },
+  "review": {
+    "protected_paths": 989,
+    "protected_trees": 16,
+    "unexplained_protected_file_changes": 0,
+    "unexpected_successful_ssh_logins": 0,
+    "unexpected_listeners": 0,
+    "unexpected_running_services": 0,
+    "build_source_files_matched": 86,
+    "build_source_commit": "7867ceb",
+    "build_user_processes_present": false,
+    "audit_created_python_cache": true,
+    "audit_cache_removed_and_membership_rechecked": true
+  },
+  "change": {
+    "client_auto_upgrade": false,
+    "certificate_renewal_cron_changed": false,
+    "baseline_change": "Only the acme.sh file-content hash; existing permissions, trusted SSH identities, source pins, directories and service/listener policies preserved.",
+    "original_incident_archived": true,
+    "automatic_build_resume": false
+  },
+  "verification": {
+    "manual_guard_ok": true,
+    "scheduled_guard_ok": true,
+    "timer_active_after_maintenance": true,
+    "phone_accessed": false,
+    "scheduled_guard_utc": "2026-11-07T16:12:46+00:00",
+    "systemd_result": "success",
+    "scheduled_receipt_sha256": "3e9208c9bf8e815b11a08f40eab27ac286a24fbcdce078615760b43f87a30203",
+    "github_actions_enabled": false,
+    "github_self_hosted_runners": 0,
+    "github_receipt_sha256": "78e93f18f6f76bae592029388ae0e03073256f0bcdf6e660d7e1c7bba0ff4213"
+  },
+  "limits": [
+    "The absence of unexpected events in the inspected records is not proof that root, the kernel, the provider account or historical logs could not have been compromised.",
+    "Certificate renewal was not forced during this review; its unchanged cron entry remains scheduled.",
+    "No Android or ColorOS build was started."
+  ]
+}
