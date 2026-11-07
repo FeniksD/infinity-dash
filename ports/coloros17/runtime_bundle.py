@@ -10,7 +10,7 @@ from .build_image import validate_tree
 HERE = Path(__file__).resolve().parent
 MANIFEST = HERE / "runtime-bundle.json"
 RADIO_PATH = "/my_manifest/build.prop"
-RADIO_BEFORE = b"ro.product.vendor.name=PLG110\n"
+RADIO_BEFORE = b"ro.product.vendor.name=CPH2791IN\n"
 RADIO_AFTER = b"ro.product.vendor.name=dash_global\n"
 
 

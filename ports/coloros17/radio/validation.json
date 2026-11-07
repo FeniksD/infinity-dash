@@ -1,7 +1,7 @@
 {
-  "source_sha256": "28e179a1eef07ea36cf70cc694f906c08b05f0bb3b8bdd1bb1a375f574e1be7f",
-  "output_sha256": "db15d4228b2facc4f3c56bf86f4cb33209d2fb24ffeb4a421c6334a4b4ee28cc",
-  "bytes": 2971240,
+  "source_sha256": "48b53efe64fd5e4cb183f9ead2e351b7b47152b07923cbbb0480755bd78a04a4",
+  "output_sha256": "39d6f4a36798025e5dd32d0ed092c0ba7b0a3946dce2c961d929446d213dbe66",
+  "bytes": 2976700,
   "changed_classes": [
     "com/oplus/internal/telephony/OplusRadioAidl.smali"
   ],
@@ -42,5 +42,6 @@
     "passed": 271,
     "skipped": 12,
     "total": 283
-  }
+  },
+  "global_device_tests_pending": true
 }

@@ -1,4 +1,4 @@
-"""Six exact source-tree compatibility fixes for official PLG110 ColorOS 17.
+"""Six exact source-tree compatibility fixes for pinned Global ColorOS 17.
 
 This operates on an exclusively owned, quiescent canonical SAR tree, never an
 image, mount or device. Donor inode metadata lives in the supplied complete
@@ -33,9 +33,9 @@ POWER_KEY_INIT_BYTES = (
     b"    setprop persist.sys.saupwk_test true\n"
 )
 COMPOSER_POLICY_PATH = "/system/system_ext/etc/selinux/system_ext_sepolicy.cil"
-COMPOSER_BEFORE_SHA256 = "a9176d643c44e2bade190fa39fca99d9962eb572aa6e94e907aab18cd3051251"
-COMPOSER_LEGACY_ALLOW_SHA256 = "fe5c16850894a465381f568e0637610649378b11465d7b00a79f377f3236d528"
-COMPOSER_AFTER_SHA256 = "799bb07e4a6296eff3af52a15f03edd0c56e21001b1b096a002de4d9dae8fbcc"
+COMPOSER_BEFORE_SHA256 = "37c4c9267a080c8615f6506525ab4ef1a09344c7642e9264b512fbddc3b16846"
+COMPOSER_LEGACY_ALLOW_SHA256 = "ede0a4b85acef7aaca68ee25ab02005133ef995fe6998b467bb642583a61e250"
+COMPOSER_AFTER_SHA256 = "35f3d1c9424278efa70e68664015a3c82276caf67e8afba0a416d2357c9e1ac1"
 # Vendor grants service discovery to this attribute and excludes its members
 # from the corresponding neverallow; a standalone direct allow is insufficient.
 _COMPOSER_RULE = b"(typeattributeset hal_mtk_composer_ext_client (surfaceflinger))\n"
@@ -118,7 +118,7 @@ def _genfs(data):
             raise ValueError("patched genfs unexpectedly contains a powercap rule")
         return data, True
     if digest != GENFS_BEFORE_SHA256:
-        raise ValueError("genfs does not match the pinned official PLG110 donor")
+        raise ValueError("genfs does not match the pinned official Global donor")
     result = data
     for line in _POWER_LINES:
         if result.splitlines(keepends=True).count(line) != 1:
@@ -320,7 +320,7 @@ def _make_plan(tree, records, content_manifest, runtime_policy_sha256=None):
                     "after": {"record": copy.deepcopy(final_records[POWER_KEY_INIT_PATH]),
                               "content": copy.deepcopy(final_contents[POWER_KEY_INIT_PATH])}})
     report = {"status": "already_applied" if legacy_applied and skip_applied and composer_applied and power_key_applied else "planned",
-              "donor": "official PLG110 ColorOS 17", "canonical_tree": str(tree),
+              "donor": "pinned Global ColorOS 17", "canonical_tree": str(tree),
               "changes": changes, "final_records": final_records,
               "final_content_manifest": final_contents}
     return tree, report, writes

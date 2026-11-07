@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "donor": "CPH2791_17.0.0.102(EX01)",
+  "jars": {
+    "services.jar": "3d6ed82e5cc616915b6b5cb0e9b56c2118fa117ee9df365c505f99e0b72671ce",
+    "oplus-services.jar": "89232797bbc4f40552ac1463b5b79e15f33b76b6b47ebda3ce753cebca79d26e"
+  },
+  "helper_jar_sha256": "0f2ec63ffa251787fc570e19cdc7870f4051c5f14190c079c3e0dacec64913d1",
+  "helper_dex_sha256": "40e2b582fd8597f2130cb7c069223494921cde0375785e44f303c9ef92a69c67",
+  "getter_class": "com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintServiceProviderExtImpl.smali",
+  "classes": {
+    "services": {
+      "com/android/server/biometrics/sensors/SensorOverlays.smali": "e58c0568b380697e1ee93a91eb16a8f04d6dcbe6d9f6865954d4dbb1a83ef3d1"
+    },
+    "oplus1": {
+      "com/android/server/OplusBatteryService.smali": "bbd82b2fa17622677bf0b41e767a730cdd1589872e58e6b826c9f7c83fbdf297",
+      "com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintServiceProviderExtImpl.smali": "6fff319524ae506467afdae4a892789711580ad3254cd2887981d951cb4b4605"
+    },
+    "oplus2": {
+      "com/android/server/vibrator/VibrationStepConductorExtImpl.smali": "7e9c2d33ba662ec165205159dc749f8a9d828b73533f54a1d0583fc3e8115510"
+    }
+  },
+  "patched_classes": {
+    "oplus1": {
+      "com/android/server/OplusBatteryService.smali": "5e83c640030f1b396c507215f1b921c82b2825ba494d86b2a2726dd8f31d6135"
+    },
+    "oplus2": {
+      "com/android/server/vibrator/VibrationStepConductorExtImpl.smali": "5deaf285a6c2e27c7a07ba8e4d3d35225c31dfe02393fce95b1fcac8a517591c"
+    }
+  }
+}

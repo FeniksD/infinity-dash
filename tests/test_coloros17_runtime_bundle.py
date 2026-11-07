@@ -32,7 +32,7 @@ def runtime_fixture(parent, tree=None):
     if tree is None:
         tree, _, _ = fixture(parent)
     values = {SERVICES: b"donor services", OPLUS: b"donor oplus", MAPPING: b"mapping fixture\n",
-              RADIO: b"ro.product.model=PLG110\nro.product.vendor.name=PLG110\nro.product.device=OP5E11L1\n",
+              RADIO: b"ro.product.model=PLG110\nro.product.vendor.name=CPH2791IN\nro.product.device=OP5E11L1\n",
               STAMP: b"old-policy-stamp\n", COMPOSER_POLICY: AFTER_COMPOSER}
     for name, data in values.items():
         target = tree / name[1:]
@@ -58,9 +58,9 @@ def runtime_fixture(parent, tree=None):
     policy["sha256"] = sha(result)
     radio = spec["radio_product_override"]
     radio.update(source_sha256=sha(values[RADIO]), source_size=len(values[RADIO]),
-                 sha256=sha(values[RADIO].replace(b"ro.product.vendor.name=PLG110\n",
+                 sha256=sha(values[RADIO].replace(b"ro.product.vendor.name=CPH2791IN\n",
                                                   b"ro.product.vendor.name=dash_global\n")),
-                 size=len(values[RADIO]) + 5)
+                 size=len(values[RADIO].replace(b"ro.product.vendor.name=CPH2791IN\n", b"ro.product.vendor.name=dash_global\n")))
     return tree, records, contents, artifacts, spec
 
 
@@ -69,17 +69,17 @@ class RuntimeBundleTests(unittest.TestCase):
         from ports.coloros17 import runtime_bundle
         spec = runtime_bundle._load_manifest()
         self.assertEqual({x["sha256"] for x in spec["artifacts"]}, {
-            "0f2ec63ffa251787fc570e19cdc7870f4051c5f14190c079c3e0dacec64913d1",
-            "f0eefa5ea3f4ef7b819379ee52a4826cdaa20abdb761df3c4ac2664af8779057"})
+            "3ae64fe5be2e1525580475f30079bd6f27f65b7ba90bb1fd6f57035b7ea9a04e",
+            "048b6d404d9a48da6f1cb4c7385ecbdda0e62b69424fcc001a16b9de0f4299c5"})
         rc = (ROOT / "ports/coloros17/patches/dash-runtime-compat.rc").read_text()
         self.assertNotIn("ro.product.vendor.name", rc)
         self.assertIn("setprop vendor.fingerprint.aidl.support 1", rc)
         radio = spec["radio_product_override"]
         self.assertEqual(radio["path"], RADIO)
-        self.assertEqual(radio["source_line"], "ro.product.vendor.name=PLG110\n")
+        self.assertEqual(radio["source_line"], "ro.product.vendor.name=CPH2791IN\n")
         self.assertEqual(radio["replacement_line"], "ro.product.vendor.name=dash_global\n")
-        self.assertEqual((radio["source_size"], radio["size"]), (5032, 5037))
-        self.assertEqual(radio["sha256"], "41e6c240f05e7afb006457f1745f47a2897936863785dd6407fb5f9a00008867")
+        self.assertEqual((radio["source_size"], radio["size"]), (5095, 5097))
+        self.assertEqual(radio["sha256"], "ecba5b7fe559ecd6a0ce64c04f93ebb59ab149287d90f29c14c99b628161df1a")
 
     def test_runtime_properties_are_synchronous_before_zygote_and_preserve_optout(self):
         # AOSP queues property-triggered actions behind already-queued boot actions.
@@ -198,7 +198,7 @@ class RuntimeBundleTests(unittest.TestCase):
 
     def test_radio_requires_one_exact_line_even_for_hash_pinned_fixture(self):
         from ports.coloros17 import runtime_bundle
-        for data in (b"ro.product.vendor.name=PLG110\nro.product.vendor.name=PLG110\n",
+        for data in (b"ro.product.vendor.name=CPH2791IN\nro.product.vendor.name=CPH2791IN\n",
                      b"ro.product.vendor.name = PLG110\n"):
             with self.subTest(data=data), tempfile.TemporaryDirectory() as folder:
                 tree, records, contents, artifacts, spec = runtime_fixture(Path(folder))
@@ -216,7 +216,7 @@ class RuntimeBundleTests(unittest.TestCase):
         from ports.coloros17 import runtime_bundle
         with tempfile.TemporaryDirectory() as folder:
             tree, records, contents, artifacts, spec = runtime_fixture(Path(folder))
-            data = (tree / RADIO[1:]).read_bytes().replace(b"=PLG110\nro.product.device", b"=dash_global\nro.product.device")
+            data = (tree / RADIO[1:]).read_bytes().replace(b"=CPH2791IN\nro.product.device", b"=dash_global\nro.product.device")
             (tree / RADIO[1:]).write_bytes(data)
             records[RADIO]["size"] = len(data)
             contents[RADIO] = {"kind": "file", "size": len(data), "sha256": sha(data)}
@@ -245,7 +245,7 @@ class RuntimeBundleTests(unittest.TestCase):
             self.assertEqual(tree_snapshot(tree), before)
             self.assertEqual((Path(folder) / "backup" / SERVICES[1:]).read_bytes(), b"donor services")
             self.assertEqual((Path(folder) / "backup" / RADIO[1:]).read_bytes(),
-                             b"ro.product.model=PLG110\nro.product.vendor.name=PLG110\nro.product.device=OP5E11L1\n")
+                             b"ro.product.model=PLG110\nro.product.vendor.name=CPH2791IN\nro.product.device=OP5E11L1\n")
             (tree / SERVICES[1:]).write_bytes((artifacts / spec["artifacts"][0]["file"]).read_bytes())
             new_records, contents = manifest(tree)
             for name in records:

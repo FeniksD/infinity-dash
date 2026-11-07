@@ -1,20 +1,20 @@
 {
   "schema_version": 1,
-  "bundle_id": "dash-c9-services-c8-oplus-radio-dash-global",
+  "bundle_id": "dash-global-102-rebased-runtime",
   "artifacts": [
     {
       "file": "services.jar",
       "path": "/system/framework/services.jar",
-      "source_sha256": "105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94",
-      "sha256": "0f2ec63ffa251787fc570e19cdc7870f4051c5f14190c079c3e0dacec64913d1",
-      "size": 44705735
+      "source_sha256": "3d6ed82e5cc616915b6b5cb0e9b56c2118fa117ee9df365c505f99e0b72671ce",
+      "sha256": "3ae64fe5be2e1525580475f30079bd6f27f65b7ba90bb1fd6f57035b7ea9a04e",
+      "size": 44706939
     },
     {
       "file": "oplus-services.jar",
       "path": "/system/framework/oplus-services.jar",
-      "source_sha256": "8b5310eb659073e1dc2127c94133f75f6a325e06780a43eec8cca89a945b0af4",
-      "sha256": "f0eefa5ea3f4ef7b819379ee52a4826cdaa20abdb761df3c4ac2664af8779057",
-      "size": 30400845
+      "source_sha256": "89232797bbc4f40552ac1463b5b79e15f33b76b6b47ebda3ce753cebca79d26e",
+      "sha256": "048b6d404d9a48da6f1cb4c7385ecbdda0e62b69424fcc001a16b9de0f4299c5",
+      "size": 30402532
     }
   ],
   "additions": [
@@ -31,8 +31,8 @@
   ],
   "policy": {
     "path": "/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
-    "source_sha256": "799bb07e4a6296eff3af52a15f03edd0c56e21001b1b096a002de4d9dae8fbcc",
-    "sha256": "ea429fa56fda93a29fa1f9167aef6d2edba445ded8a2b1ba2f513bd628d720fd",
+    "source_sha256": "35f3d1c9424278efa70e68664015a3c82276caf67e8afba0a416d2357c9e1ac1",
+    "sha256": "e7e188d45f722cff8cb6760ea87b1d91f89949d8a7affe6047246d8054807dd9",
     "fragments": [
       {
         "source": "patches/fingerprint-public-property-read.cil",
@@ -47,19 +47,19 @@
     "mapping_sha256": "d4bcd93a10df6b2188a32a9e84b5928e26a1cc2a0540a68f3a23a1bf5ad60c8b",
     "stamp_path": "/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256",
     "accepted_source_stamp_sha256": [
-      "6070d6438a144ac342d87da1792132c7389a08103dcc000e1709ca01441fa441",
-      "06523f41b25217302765d72c47b16475ce6805dd0396e62ef799161f7a5f6eee"
+      "80b3e91cc68080911a4f6207cd2d487d98ab0210185fe3e85ec0d3636a5c776f",
+      "6f3b5ca719d2930fd116c6281cbbea78a9aa829f4fb73f2d0d209ced8f69d879"
     ],
     "stamp_rule": "sha256(policy_bytes + mapping_bytes) + newline"
   },
   "metadata_template": "/system/etc/vintf/compatibility_matrix.device.xml",
   "radio_product_override": {
     "path": "/my_manifest/build.prop",
-    "source_sha256": "1b956fd725f3ae5cd2441d9296c1402c5488ce5587c32db48cf6a324d06be3c3",
-    "source_size": 5032,
-    "sha256": "41e6c240f05e7afb006457f1745f47a2897936863785dd6407fb5f9a00008867",
-    "size": 5037,
-    "source_line": "ro.product.vendor.name=PLG110\n",
+    "source_sha256": "1fc9047ba1690ccc0da9f7150c372a511f5958567d4f5d327fb38d1f32b7fee1",
+    "source_size": 5095,
+    "sha256": "ecba5b7fe559ecd6a0ce64c04f93ebb59ab149287d90f29c14c99b628161df1a",
+    "size": 5097,
+    "source_line": "ro.product.vendor.name=CPH2791IN\n",
     "replacement_line": "ro.product.vendor.name=dash_global\n"
   }
 }

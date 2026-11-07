@@ -7,7 +7,7 @@ Updates and releases / Канал: https://t.me/feniksd_dash
 Contact / Связь: https://t.me/FeniksD2
 
 Base firmware / Исходная прошивка:
-OPPO Find X9 Pro CN (PLG110), ColorOS 17.0.0.105(CN01).
+OPPO Find X9 Pro Global (India, CPH2791IN), ColorOS 17.0.0.102(EX01).
 ColorOS and the original OPPO components are developed by OPPO.
 
 Hardware support / Поддержка оборудования:
@@ -15,7 +15,7 @@ The port uses retained Xiaomi device components and work from the
 xiaomi-mt6991 device-tree maintainers and Project Infinity X.
 Original authorship and licenses remain with their respective owners.
 
-This port has been tested on the maintainer's POCO X8 Pro Max.
+This Global candidate is being validated on the maintainer's POCO X8 Pro Max.
 Compatibility with another phone or firmware base requires separate testing.
-Порт проверялся на POCO X8 Pro Max автора.
+Глобальный вариант проходит проверку на POCO X8 Pro Max автора.
 Другие модели и версии базовой прошивки требуют отдельной проверки.

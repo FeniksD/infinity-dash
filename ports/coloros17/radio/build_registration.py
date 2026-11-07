@@ -2,7 +2,7 @@
 from pathlib import Path
 import hashlib, importlib.util, json, subprocess, sys, tempfile, zipfile
 
-INPUT_SHA256 = '28e179a1eef07ea36cf70cc694f906c08b05f0bb3b8bdd1bb1a375f574e1be7f'
+INPUT_SHA256 = '48b53efe64fd5e4cb183f9ead2e351b7b47152b07923cbbb0480755bd78a04a4'
 CLASS = 'com/oplus/internal/telephony/OplusRadioAidl.smali'
 
 

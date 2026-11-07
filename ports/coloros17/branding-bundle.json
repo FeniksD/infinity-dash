@@ -1,33 +1,22 @@
 {
   "schema_version": 1,
-  "bundle_id": "feniksd-dash-about-v4",
+  "bundle_id": "feniksd-dash-global-about-v1",
   "files": [
     {
       "path": "/system/etc/feniksd-port-info.txt",
       "source": "PORT_INFO.txt",
-      "sha256": "acea65dc06b970685d98a1b5ece0c63aea78e7d19823f5670072ccb10ec37796",
-      "size": 1117
+      "sha256": "819297eee298888904c3c647145186c8741e8557d33eaea2e84b014a7cfa23e6",
+      "size": 1186
     },
     {
       "path": "/system/system_ext/overlay/FeniksDAboutOverlay.apk",
       "artifact": "FeniksDAboutOverlay.apk",
-      "sha256": "7bd3718a2052b3543db38d841c8d86d1ac0c7c850283c584d6d638cce77fcf64",
+      "sha256": "e80211f516b5d9edd2cd78140aa9303841148ea8ac63d2d36c0b3c40d67b76f6",
       "size": 21047,
-      "replaces": [
-        {
-          "kind": "file",
-          "size": 21047,
-          "sha256": "ade830deffa6bb6c2135df5fb625c5b651f701d9964b7937405fb1e871efecc3"
-        },
-        {
-          "kind": "file",
-          "size": 21047,
-          "sha256": "19a2de309dc65bfe16a7fa2c36f7d10c8edc5ef8eb7f93fdbb64a96dcdf353d3"
-        }
-      ]
+      "replaces": []
     }
   ],
   "metadata_template": "/system/etc/vintf/compatibility_matrix.device.xml",
-  "settings_apk_sha256": "808818365d2beefdbf8bf2af7292b5b7b06ca97ed84ceb08e9d921a0a5dda1c8",
+  "settings_apk_sha256": "33b0173ba206bc75a25cfba765d96f64fb3a29db7bca02fcb2b9c28f6744838b",
   "channel": "https://t.me/feniksd_dash"
 }
