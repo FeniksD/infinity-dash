@@ -40,6 +40,16 @@ A matching getter is therefore insufficient proof of visible AOD or successful
 restoration. The bounded Xiaomi layer/power protocol test remains unperformed;
 no AOD patch is enabled in the candidate.
 
+The optional MIUI Camera bundle remains unverified on Global. The retained CN
+launch trace opens the Xiaomi camera HAL, but disconnects without a usable
+preview, and app log flow control dropped part of the failure trace. The camera
+also reads the OPPO `Build.DEVICE` for its feature-profile lookup. The `Qcom` MIVI
+implementation name is not by itself proof of wrong CPU detection.
+[camera-diagnostics.json](camera-diagnostics.json) records the traced methods and
+the next isolated checks. The audited canonical Global tree does not include this
+optional APK; that inventory does not describe later data-app installs. No
+framework/property or camera-permission workaround is enabled by this review.
+
 ## Standoff 2 refresh-rate default
 
 The Global profile requires the `game_refresh_required` compatibility patch.

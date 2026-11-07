@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "status": "source_investigated_fresh_runtime_trace_required",
+  "scope": "Offline review of the retained Infinity MIUI Camera bundle and the earlier CN launch trace. No phone access, APK patch, policy update or new camera installation.",
+  "bundle_id": "infinity-dash-miuicamera-6.3.006290.7",
+  "apk_sha256": "4e5387a5b0a79890813b490fa8df012fa6037a66b672896f226a04eaa890a16c",
+  "runtime_evidence": {
+    "rom": "Earlier PLG110 CN installation, not current Global",
+    "event_date": "2026-11-06",
+    "app_version": "6.3.006290.7",
+    "camera_permission": "foreground access permitted in the saved AppOps report",
+    "camera_service": "Camera 0 opened through the retained Xiaomi HAL, then disconnected before a usable preview was established.",
+    "profile_identity_logged": "OP5E11L1 / op5e11l1",
+    "log_loss": "Application log flow control reported 3869 rows dropped. The saved trace does not preserve a definitive initiating error for the disconnect.",
+    "sources": [
+      {
+        "receipt": "camera-live-20261106/app-logcat.txt",
+        "sha256": "439846d69ac93c65a0a39bd338a94c235bee1c9e10cc942af2006f33a936ce8f"
+      },
+      {
+        "receipt": "camera-live-20261106/launch-logcat.txt",
+        "sha256": "5b2a6b97ffe9eb2f5d5d91d478942b33ec06b18c949007cd26323fb3a83d1a6d"
+      },
+      {
+        "receipt": "camera-live-20261106/appops.txt",
+        "sha256": "ebd8f8efaefb38d87c4a94f8275adac569b7277bd0f321b13220623240302e3b"
+      },
+      {
+        "receipt": "camera-live-20261106/camera-after-launch.txt",
+        "sha256": "6ab51872c91d6d97ab2638ea4f90e6a8bc9682b86c723b5ab01678f401cbe633"
+      }
+    ]
+  },
+  "global_image_inventory": {
+    "source": {
+      "receipt": "cn-global-research-20261107/global-apks.json",
+      "sha256": "8e585c890a2ea4c2aaccb53dcf11a795203c2a678209c1517eb2bc300f658765"
+    },
+    "miui_camera_in_canonical_tree": false,
+    "oplus_camera_present": true,
+    "limit": "This inventory describes the canonical Global OS tree, not later data-app installs on the phone. The optional camera bundle is available separately; current Global MIUI Camera behavior is not established by the old CN trace."
+  },
+  "class_sha256": {
+    "com/xiaomi/camera/mivi/MIVICaptureManager": "c9aebcd74c141ced71be6114604ac94415ff15b98a4d3559b9c9bc754d2f4c90",
+    "com/xiaomi/camera/mivi/MIVISDKConfig": "4d769ccddf33ee36bdfc2e9e4c3d959cc4d97d5ff3f34cffcc75b3789e5919c5",
+    "com/android/camera/CameraAppImpl": "fb833f44d0afb38fa46309d3019f305c8196249f7487c0c9132577ef4d16fb4a",
+    "Qd/b": "2d751768b28b7db9e9ebd13d16e411dee7ca844dd3cff4f4de7212dae1f77923",
+    "Qd/c": "41b02289c6d1976c8f44b83958945a4450b030ebbe9e7f7a0e86055b81ad8249",
+    "Qd/a": "2cdbf0363193cd4485879410f600ea4bcf4fec5885a476f0bfbb74e6e68f039a",
+    "An/q": "d769169cada3827ea40b62316d6a3e1b017e8e5f3ec37c09aad09524585db2d2",
+    "Lk/t": "64a0044d4850e85fe36ec963e71e046578d21c81dda7869dab22065d381eef1c"
+  },
+  "findings": [
+    {
+      "id": "mivi_backend_label_not_soc_proof",
+      "evidence": "CameraAppImpl.onCreate passes a compiled false value to MIVISDKConfig.setSupportMIVI2InMTK. MIVICaptureManager selects its Qcom implementation when either the generic MIVI2 or MIVI3 JPEG flag is true.",
+      "conclusion": "The Qcom implementation name alone does not establish incorrect CPU detection. Do not force the MTK flag based only on this log line."
+    },
+    {
+      "id": "device_profile_selection",
+      "evidence": "Qd/c caches Build.DEVICE; Qd/a supplies a lazy profile-name value through Lk/t; An/q.k constructs the per-device profile class and falls back to common/manufacturer handling when lookup fails.",
+      "conclusion": "The trace uses an OPPO device name rather than dash. Verify the actual selected profile in a controlled trial before adding a package-scoped identity adaptation. The source path is a concrete compatibility suspect, not a proven explanation of the disconnect."
+    },
+    {
+      "id": "mivi2_vendor_override",
+      "evidence": "Qd/b.F0 combines the profile default, camera.debug.mivi2 and persist.vendor.camera.mivi.version. It can enable MIVI2 when the vendor version is 2.",
+      "conclusion": "Inspect existing values and profile selection together; do not globally change vendor camera properties or disable MIVI without testing."
+    },
+    {
+      "id": "nonfatal_missing_classes",
+      "evidence": "The app continued past missing MTKBoostFramework/MtkBoostFramework and optional CameraOptManager messages and reached CameraService connect.",
+      "conclusion": "Those startup messages alone do not justify injecting vendor framework classes or broad permission rules."
+    }
+  ],
+  "next_trial": {
+    "requires_renewed_phone_authorization": true,
+    "first_checks": [
+      "Confirm whether the exact signed bundle is installed on Global and record its code path/hash.",
+      "Capture the first failure with sufficient log retention and identify the actual selected camera profile class.",
+      "Compare the exact same APK and profile result with the known working Infinity installation if needed."
+    ],
+    "candidate_hypothesis": "A package-scoped dash profile selection may restore the intended camera feature set; it must be evaluated independently of logging and permission changes.",
+    "acceptance": [
+      "Rear and front preview visible.",
+      "A still image saves and reopens.",
+      "Normal video records with audio.",
+      "Camera closes and reopens without a service or app crash."
+    ],
+    "not_performed": [
+      "No global Build/property spoof.",
+      "No APK re-signing.",
+      "No forced MIVI backend switch.",
+      "No broad SELinux or filesystem-permission changes."
+    ]
+  }
+}
