@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "status": "static_follow_up_no_device_test",
+  "device": "dash",
+  "target": "Global CPH2791_17.0.0.102(EX01)",
+  "scope": "Narrow source comparison and panel return-value audit. No phone commands or changes; no AOD fix has been deployed or verified.",
+  "systemui_apks": {
+    "cn": "55aa231fb9ed67972b3e84a33b67d40942bf742e6cb6dc9bbd4d04b6ec5caf44",
+    "global": "98958ad15c4184de3d35be62ca319183f6edd51d43567a42546903f868366b95"
+  },
+  "compared_classes": {
+    "com/android/systemui/doze/DozeService": {
+      "cn": {
+        "dex": "classes7.dex",
+        "sha256": "f63ba056e3a42c82596db71f68b1fff98ee3f0aa2d55584087ba49ed357e8cda"
+      },
+      "global": {
+        "dex": "classes7.dex",
+        "sha256": "03e0d7307739a880f661e70bff5f9ee64f919dad87f1bdbb9b9a1a4428362602"
+      },
+      "method_body_comparison": {
+        "unchanged": 16,
+        "changed": [
+          ".method public final onCreate()V"
+        ],
+        "only_cn": [],
+        "only_global": []
+      }
+    },
+    "com/oplus/systemui/aod/display/AODDisplayUtil": {
+      "cn": {
+        "dex": "classes9.dex",
+        "sha256": "171a01511f70c4b1ef456c0adbd73b87e8175f0f4912152b4745a438ee05fe85"
+      },
+      "global": {
+        "dex": "classes9.dex",
+        "sha256": "e6383ee89aa66755b14f989b1eeae33f8b92fc1f344e273088e5c6ed0dfdc8e2"
+      },
+      "method_body_comparison": {
+        "unchanged": 62,
+        "changed": [],
+        "only_cn": [],
+        "only_global": []
+      }
+    },
+    "com/oplus/systemui/aod/display/RamlessAODDisplayUtil": {
+      "cn": {
+        "dex": "classes3.dex",
+        "sha256": "e207e11753c0faa02163bed96e51bde2875a4088f05672cc81d64dcb8400dda4"
+      },
+      "global": {
+        "dex": "classes3.dex",
+        "sha256": "e873162982ade02908e77eca3b7efcf35d4695ac6d4b5b3ce7d4828c570a4deb"
+      },
+      "method_body_comparison": {
+        "unchanged": 8,
+        "changed": [],
+        "only_cn": [],
+        "only_global": []
+      }
+    },
+    "com/oplus/systemui/aod/display/BaseDisplayUtil": {
+      "cn": {
+        "dex": "classes9.dex",
+        "sha256": "c1219b4f8bc4c097c9eb1bf78ead560c9ca5fd0ecb5f571344e16f1172404802"
+      },
+      "global": {
+        "dex": "classes9.dex",
+        "sha256": "37b8bc8dc04511b6acb261c16c187f2d7b11ff896a24ea47c50b2663d10d4852"
+      },
+      "method_body_comparison": {
+        "unchanged": 18,
+        "changed": [
+          ".method public final setDozeScreenBrightness(FI)V"
+        ],
+        "only_cn": [],
+        "only_global": []
+      }
+    },
+    "com/oplus/systemui/aod/OplusDozeServiceExImpl": {
+      "cn": {
+        "dex": "classes9.dex",
+        "sha256": "42a5356b6a50b728cf080c06f81d65ce37e4a1c4191e438630c046658cb95d63"
+      },
+      "global": {
+        "dex": "classes9.dex",
+        "sha256": "e0f3daf47c9126253cc698560b5ddcc7845cd8af5f6dec9cc99bf7e8d6a27d5b"
+      },
+      "method_body_comparison": {
+        "unchanged": 23,
+        "changed": [],
+        "only_cn": [],
+        "only_global": []
+      }
+    },
+    "com/oplusos/systemui/common/feature/AodFeatureOption": {
+      "cn": {
+        "dex": "classes9.dex",
+        "sha256": "e2d5e47aa0187227e0ffca0a131e6af1f6938c0acb47cbfb1029739497b11ec2"
+      },
+      "global": {
+        "dex": "classes9.dex",
+        "sha256": "8a127a14c5fddb60839cad8bc785127b55d65da0cc79a60b50b689ff2df6c815"
+      },
+      "method_body_comparison": {
+        "unchanged": 15,
+        "changed": [],
+        "only_cn": [],
+        "only_global": []
+      }
+    },
+    "com/android/systemui/doze/DozeScreenState": {
+      "cn": {
+        "dex": "classes9.dex",
+        "sha256": "f30e68e54fe2cfa9d326bf87f3512c4727ef8c50bf7ad0606ca5089c7aced5ed"
+      },
+      "global": {
+        "dex": "classes9.dex",
+        "sha256": "20f452b461c5f0ea0dcde622704a24795aaeabd9a87bcc7654096824dd501761"
+      },
+      "method_body_comparison": {
+        "unchanged": 6,
+        "changed": [],
+        "only_cn": [],
+        "only_global": []
+      }
+    }
+  },
+  "comparison_method": "Extract the listed classes from the pinned SystemUI APKs. Compare each exact method signature after runtime_rebase.normalized removes debug lines and normalizes DEX branch labels/instruction widths. This is a static source comparison, not an equivalence proof for every DEX or resource.",
+  "comparison_result": {
+    "classes": 7,
+    "unchanged_method_bodies": 148,
+    "changed_method_bodies": 2,
+    "changed_methods": [
+      "com.android.systemui.doze.DozeService.onCreate()",
+      "com.oplus.systemui.aod.display.BaseDisplayUtil.setDozeScreenBrightness(float,int)"
+    ],
+    "difference": "Global calls BrightnessSynchronizer.brightnessIntToFloat(int); CN divides the integer value by 255. The selected AOD state-transition method bodies are unchanged. This does not prove identical runtime state or overlay configuration."
+  },
+  "kernel_reference": {
+    "repository": "https://github.com/MiCode/MTK_kernel_device_modules",
+    "commit": "9c6256406e2afb9c316fe3be05a66c1eaa88d900",
+    "does_not_prove_running_kernel_provenance": true,
+    "existing_sources": {
+      "mi_dsi_panel.c": {
+        "sha256": "be4100579d3163b9110df725d52ed9604737e3cff2611cd85132bbca173c73c2"
+      },
+      "mi_disp_file.c": {
+        "sha256": "dd70203927e7786d1e0b4de20e8d1b0d287daa8db61ecc20e91ca3c35d75fa9f"
+      },
+      "panel-p10u-42-02-0a-dsc-vdo.c": {
+        "sha256": "a53d905eb83f6f41f4c5653d770d3bb5f3060c3fffdfb7496ac9a1228e3736f3"
+      }
+    },
+    "additional_sources": {
+      "drivers/gpu/drm/mediatek/mediatek_v2/mtk_disp_pq_helper.c": {
+        "bytes": 50541,
+        "sha256": "93b5160f7bfd41ca068311099d1fcaf01c9a1eaf9a85ac09d8fc9246657764b4",
+        "git_blob_sha1": "18ce3bc28d125a1ebbb67a7560d940885fa13ac2",
+        "url": "https://raw.githubusercontent.com/MiCode/MTK_kernel_device_modules/9c6256406e2afb9c316fe3be05a66c1eaa88d900/drivers/gpu/drm/mediatek/mediatek_v2/mtk_disp_pq_helper.c"
+      },
+      "drivers/gpu/drm/mediatek/mediatek_v2/mtk_drm_lowpower.c": {
+        "bytes": 102237,
+        "sha256": "5249b97ac0bd686a13553b5a4c5604c7eb3b6a416e8beb27985a9b9eea7bfb35",
+        "git_blob_sha1": "204021ab3b541227082f0334b5d09ba1f1389e27",
+        "url": "https://raw.githubusercontent.com/MiCode/MTK_kernel_device_modules/9c6256406e2afb9c316fe3be05a66c1eaa88d900/drivers/gpu/drm/mediatek/mediatek_v2/mtk_drm_lowpower.c"
+      },
+      "drivers/gpu/drm/mediatek/mediatek_v2/mtk_dsi.c": {
+        "bytes": 521444,
+        "sha256": "0f10e4c8da873f191de9dab87b4d4b92c525dceed625b05f2de0fb7c07d2ca6b",
+        "git_blob_sha1": "325f70602f23b78c9067053a832e9b3c64fe0260",
+        "url": "https://raw.githubusercontent.com/MiCode/MTK_kernel_device_modules/9c6256406e2afb9c316fe3be05a66c1eaa88d900/drivers/gpu/drm/mediatek/mediatek_v2/mtk_dsi.c"
+      }
+    }
+  },
+  "new_findings": [
+    {
+      "function": "mi_dsi_panel_set_doze_brightness",
+      "file": "drivers/gpu/drm/mediatek/mediatek_v2/mi_disp/mi_dsi_panel.c",
+      "lines": [
+        1576,
+        1625
+      ],
+      "finding": "The panel callback result is stored in set_doze_ret and logged on failure, but the function returns a different ret variable. It still updates the cached DISP_FEATURE_DOZE_BRIGHTNESS value after a failed panel callback.",
+      "consequence": "A successful sysfs/ioctl-level return and matching brightness readback do not establish successful panel programming.",
+      "source_url": "https://github.com/MiCode/MTK_kernel_device_modules/blob/9c6256406e2afb9c316fe3be05a66c1eaa88d900/drivers/gpu/drm/mediatek/mediatek_v2/mi_disp/mi_dsi_panel.c#L1576"
+    },
+    {
+      "function": "panel_set_doze_brightness",
+      "file": "drivers/gpu/drm/panel/panel-p10u-42-02-0a-dsc-vdo.c",
+      "lines": [
+        1588,
+        1628
+      ],
+      "finding": "After issuing the low/high AOD command, the panel implementation updates its software doze mode even if the DSI send returned an error.",
+      "consequence": "The panel get-doze value is also insufficient as an independent physical-output check.",
+      "source_url": "https://github.com/MiCode/MTK_kernel_device_modules/blob/9c6256406e2afb9c316fe3be05a66c1eaa88d900/drivers/gpu/drm/panel/panel-p10u-42-02-0a-dsc-vdo.c#L1588"
+    },
+    {
+      "function": "mtk_output_dsi_disable",
+      "file": "drivers/gpu/drm/mediatek/mediatek_v2/mtk_dsi.c",
+      "lines": [
+        6241,
+        6415
+      ],
+      "finding": "The disable path stops VDO mode, enters ULPS and powers off the DSI engine after doze-related callbacks.",
+      "consequence": "Recheck the power/layer transition order for this video-mode panel; do not infer visible AOD from DisplayManager DOZE_SUSPEND alone.",
+      "source_url": "https://github.com/MiCode/MTK_kernel_device_modules/blob/9c6256406e2afb9c316fe3be05a66c1eaa88d900/drivers/gpu/drm/mediatek/mediatek_v2/mtk_dsi.c#L6241"
+    }
+  ],
+  "not_proven": [
+    "That keeping DOZE rather than DOZE_SUSPEND is sufficient to produce visible AOD.",
+    "That the previously reconstructed layer-39 and DisplayFeature message-13 sequence fixes this Global port.",
+    "That Global brightness conversion is the cause of the black panel.",
+    "That the published kernel reference exactly matches the retained binary modules."
+  ],
+  "next_device_test": {
+    "requires_renewed_owner_authorization": true,
+    "starting_point": "Use the already prepared bounded stock-protocol probe only after reviewing its restoration checks. Do not run while the owner is using the phone.",
+    "single_hypothesis": "The Xiaomi layer/power notification must precede the low-brightness request while the video output is kept active; generic brightness/refresh overrides alone omit that protocol.",
+    "required_evidence": [
+      "Existing Global AOD request and actual physical-display state before the test.",
+      "Timestamped kernel evidence of successful or failed panel DSI commands.",
+      "Whether the requested layer marker and hardware power state actually take effect.",
+      "Physical observation of the clock, not merely a screenshot or brightness getter.",
+      "Restored normal display output and original layer/brightness state after the bounded test."
+    ],
+    "abort_conditions": [
+      "Pin, service-version or initial-state mismatch.",
+      "Display transport error or unavailable restoration path.",
+      "Timeout or user activity invalidating the test."
+    ],
+    "limitations": "No persistent adapter or automatic AOD setting change is justified until the bounded protocol test succeeds."
+  },
+  "source_evidence": {
+    "method_comparison_sha256": "74cda0fd6f52d8910cf93fbb0ddb245ddcad36a694c09b172783df264b87c51f",
+    "extraction_receipt_sha256": "42cb61eb4e8ef2d54f08870c2f175394d7db7cc5df27bb1feca6b6d8ba3f13c9"
+  }
+}

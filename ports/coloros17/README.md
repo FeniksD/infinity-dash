@@ -30,6 +30,14 @@ The owner currently prohibits phone interaction. Host-side work must not trigger
 ADB probes, package changes, DSU switching, reboots or cleanup. The server build
 guard is also still latched; no new image build is implied by these source updates.
 
+The AOD source follow-up is in [aod-global-analysis.json](aod-global-analysis.json).
+Seven selected Global/CN classes were compared: 148 method bodies match after
+normalization, and two differ in brightness conversion. The kernel reference also
+shows that cached doze-brightness values can update after a failed panel command.
+A matching getter is therefore insufficient proof of visible AOD or successful
+restoration. The bounded Xiaomi layer/power protocol test remains unperformed;
+no AOD patch is enabled in the candidate.
+
 ## Standoff 2 refresh-rate default
 
 The Global profile requires the `game_refresh_required` compatibility patch.

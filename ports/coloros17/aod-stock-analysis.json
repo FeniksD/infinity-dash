@@ -134,5 +134,6 @@
     ],
     "restoration": "Reset brightness mode and layer marker, notify normal display state, wake the display. External timeout recovery is required before running a mutating test."
   },
-  "next_step": "Run the bounded protocol test in ColorOS with a recovery watchdog and physical observation. Only then design a persistent event-driven adapter; preserve current screen-on fingerprint behavior."
+  "next_step": "Before any device test, obtain renewed owner authorization. Review Global source comparison and the cached-brightness false-success hazard in aod-global-analysis.json. Then perform a bounded stock-protocol test with independent physical-output and restoration checks; do not implement a persistent adapter based only on getter values.",
+  "global_follow_up": "aod-global-analysis.json"
 }
