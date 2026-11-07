@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "image_verified_device_test_pending",
+  "status": "image_verified_transferring_for_device_test",
   "device": "dash",
   "donor_product": "CPH2791IN",
   "candidate": "CPH2791_17.0.0.102(EX01)",
@@ -154,5 +154,11 @@
     "filename": "ColorOS17-CPH2791IN-dash-FeniksD-global-20261107.img",
     "bytes": 16006615040,
     "sha256": "8fe5039c44ada333c094e817c1a30584d64bf7bd5f8eaee21266d469bf120ed1"
+  },
+  "transfer_artifact": {
+    "filename": "ColorOS17-CPH2791IN-dash-FeniksD-global-20261107.img.gz",
+    "bytes": 6950803174,
+    "sha256": "6a31f7061a8c4c6b7b44928103ce440fd8ee8b2ab37fabb6bfe247696b235e3b",
+    "decompressed_hash_verified": true
   }
 }

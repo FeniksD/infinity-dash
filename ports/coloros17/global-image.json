@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "device": "dash",
+  "donor": "CPH2791IN 17.0.0.102(EX01)",
+  "artifact_kind": "unofficial device-specific DSU image",
+  "source_commit": "7867ceb",
+  "source_tar_sha256": "d31326fe6b1b73b069a917549a4039f52c6971c08d40910131ab8cf4f1da4646",
+  "verification_commit": "82cc535",
+  "raw": {
+    "filename": "ColorOS17-CPH2791IN-dash-FeniksD-global-20261107.img",
+    "bytes": 16006615040,
+    "sha256": "8fe5039c44ada333c094e817c1a30584d64bf7bd5f8eaee21266d469bf120ed1"
+  },
+  "gzip": {
+    "filename": "ColorOS17-CPH2791IN-dash-FeniksD-global-20261107.img.gz",
+    "bytes": 6950803174,
+    "sha256": "6a31f7061a8c4c6b7b44928103ce440fd8ee8b2ab37fabb6bfe247696b235e3b",
+    "decompressed_hash_verified": true
+  },
+  "verification": {
+    "metadata_inodes": 13982,
+    "regular_files": 10444,
+    "metadata_sha256": "e81361d54091cb2c410128ba471a950770cd0cb13f0d5f9e187660c226e5e104",
+    "content_manifest_sha256": "e5f90435c33d69d7ff835f436660615de339b978d48374433083265dad9da1e4",
+    "state_sha256": "b9224a6676d486b80ddcbbcd8cc2c5eb5a23fe82dea70061c44718717864136e",
+    "runtime_classes_rechecked": 15831,
+    "runtime_selinux_compiles": true,
+    "permissive_domains": 0,
+    "strict_neverallow_passed": false,
+    "partition_vintf_passed": true,
+    "complete_apex_kernel_vintf_checked": false,
+    "phone_boot_tested": false
+  },
+  "avb_signed": false,
+  "flashable_ota": false
+}
