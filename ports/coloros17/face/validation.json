@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "status": "host_tested_unintegrated_component",
+  "component": "FaceOperationGate",
+  "source_commit_reviewed": "b81d8f0",
+  "scope": "Operation callback envelopes only. This does not implement or enable Face Unlock.",
+  "files": {
+    "FaceOperationGate.java": "8df9b9330e89059f961e9548a7af7286cb8b24f67407d9160644762118141beb",
+    "FaceOperationGateTest.java": "1aa550f70efe85b8607abdae1ef26a47fc82a5f4920dd6003d37af7d775d9832"
+  },
+  "verification": {
+    "tdd_red": "API scaffold compiled but failed all 16 behavior cases because valid requests were refused.",
+    "tdd_green": "Focused Python wrapper passed the 16-case Java harness.",
+    "full_host_suite": {
+      "command": "MYSTIC_SOURCE_ROOT=<pinned-readers> COLOROS_NATIVE_TOOL_DIR=/usr/bin python3 -B -m unittest discover -s tests",
+      "tests": 302,
+      "result": "OK",
+      "skips": 0
+    },
+    "independent_review": {
+      "critical": 0,
+      "important": 0,
+      "minor": 1,
+      "verdict": "ready as an isolated host-only gate"
+    }
+  },
+  "deferred_minor": "Document that now must be trusted elapsed realtime sampled when the owner handler evaluates admission, using the same clock and units as begin/expire. Do not use an engine-supplied or earlier callback-arrival timestamp.",
+  "review_boundaries": [
+    {
+      "topic": "Camera/native cleanup and Binder-death provenance",
+      "decision": "Remain requirements of the future engine/adapter; this gate validates only the matching local token and caller UID.",
+      "cost_if_wrong": "An integration that falsely acknowledges closure could reuse the camera too early."
+    },
+    {
+      "topic": "Payload, engine identity, biometric policy and authentication",
+      "decision": "Remain requirements of the Android provider/client integration, not this envelope filter. No provider is registered.",
+      "cost_if_wrong": "Using admission as authentication or skipping those checks would be unsafe."
+    },
+    {
+      "topic": "Working Face Unlock on the device",
+      "decision": "Not claimed. Native engine, enrollment, UI and actual device checks remain pending.",
+      "cost_if_wrong": "Host-only tests cannot establish a working or secure biometric implementation."
+    }
+  ],
+  "process_ruling": "Run the independent review after task tests and before publishing the source, as a separate final-review phase. This changes process order only and waives no review.",
+  "integrated_into_rom": false,
+  "phone_accessed": false,
+  "kernel_or_framework_patched": false
+}

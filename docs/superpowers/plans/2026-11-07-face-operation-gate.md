@@ -46,8 +46,10 @@
 - [x] Implement the state transitions with fresh token identity and no Android or matcher dependency.
 - [x] Run the same command. Expected: all Java cases and the Python wrapper pass.
 - [x] Run `MYSTIC_SOURCE_ROOT=<verified readers> COLOROS_NATIVE_TOOL_DIR=/usr/bin python3 -B -m unittest discover -s tests`. Expected: full host suite passes; report any actual skips or failures.
-- [ ] Document the integration boundary and commit. Do not deploy.
+- [x] Document the integration boundary and commit. Do not deploy.
 
 ## Final review
 
 After the task passes, obtain a read-only review from its starting commit. Fix Important/Critical findings with failing regression tests before publishing the source. This review does not authorize deployment.
+
+Final review: no Critical/Important findings; one documentation minor recorded in `ports/coloros17/face/validation.json`. The component remains unintegrated.

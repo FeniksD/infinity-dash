@@ -57,6 +57,12 @@ The exact source manifest and embedded configuration are saved for a future
 isolated rebuild. Xiaomi/MediaTek vendor-module and DTB correspondence remains
 open; no alternate kernel has been built, adopted or flashed by this review.
 
+The unintegrated [face callback gate](face/README.md) has host lifecycle tests
+and a separate source review. It is preparation for a future software provider;
+no face engine, biometric provider or lock-screen authentication is enabled by
+this component. Its verification and remaining boundary work are recorded in
+[face/validation.json](face/validation.json).
+
 ## Standoff 2 refresh-rate default
 
 The Global profile requires the `game_refresh_required` compatibility patch.
