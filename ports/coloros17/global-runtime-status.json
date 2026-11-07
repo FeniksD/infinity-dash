@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "device": "dash",
+  "donor": "CPH2791_17.0.0.102(EX01)",
+  "status": "boot_observed_partial_runtime_validation",
+  "scope": "Follow-up observations for the existing Global DSU artifact; not a complete hardware acceptance test or a new image build.",
+  "artifact": {
+    "record": "global-image.json",
+    "raw_sha256": "8fe5039c44ada333c094e817c1a30584d64bf7bd5f8eaee21266d469bf120ed1",
+    "new_image_built_during_follow_up": false
+  },
+  "observed": {
+    "boot": {
+      "status": "verified",
+      "evidence": "Global build identity, global17 DSU slot, RUNNING_UNLOCKED user and launcher were recorded after returning from CN.",
+      "source": {
+        "receipt": "cn-feature-trial-20261107/return-global.json",
+        "sha256": "fcb2a05050ca846f839cae552b8cec8b53757d86f20667daa22046f731b2fdc4"
+      }
+    },
+    "pubg": {
+      "status": "owner_confirmed_120_fps",
+      "change": "Selected in-game Super Smooth and Ultra Extreme settings. No identity spoof or firmware FPS patch.",
+      "source": {
+        "receipt": "cn-global-research-20261107/comparison-evidence.json",
+        "sha256": "cc47a3fa788a3cdb538a7298e7ea19c87ffc1aeba3365770fc9b9d4530c01881"
+      }
+    },
+    "standoff2": {
+      "status": "measured_120_fps_with_saved_user_preference",
+      "version": "1.1.0",
+      "before_fps": 60.21291313276675,
+      "after_restart_fps": 120.43393277862373,
+      "system_refresh_mode": "Automatic",
+      "source": {
+        "receipt": "standoff-fps-20261107/verified-fix.json",
+        "sha256": "f92d43665ae503d605a24d76fef81cae92e433ff61dbf221f25edf0cfeb21f43"
+      },
+      "limits": [
+        "Validated after an app restart, not a device reboot.",
+        "The new game-refresh.xml build profile has not been boot-tested; it was not used for this live result."
+      ]
+    },
+    "google_apps": {
+      "status": "inventory_checked",
+      "evidence": "Global includes Google components; the active keyboard, SMS and assistant defaults were inspected.",
+      "certification_or_integrity_verified": false,
+      "source": {
+        "receipt": "cn-global-research-20261107/comparison-evidence.json",
+        "sha256": "cc47a3fa788a3cdb538a7298e7ea19c87ffc1aeba3365770fc9b9d4530c01881"
+      }
+    },
+    "esim_management": {
+      "status": "package_and_feature_present",
+      "profile_provisioning_tested": false,
+      "source": {
+        "receipt": "cn-global-research-20261107/comparison-evidence.json",
+        "sha256": "cc47a3fa788a3cdb538a7298e7ea19c87ffc1aeba3365770fc9b9d4530c01881"
+      }
+    }
+  },
+  "not_established_by_this_follow_up": [
+    "Global acceptance tests for incoming/outgoing calls and SMS on both subscriptions, signal indication and auto brightness.",
+    "Global acceptance tests for charging diagnostics, haptics, fingerprint enrollment and repeated unlock.",
+    "AOD, screen-off fingerprint, raise to wake, native/MIUI camera and face unlock.",
+    "Play Store certification, DEVICE_INTEGRITY and STRONG_INTEGRITY.",
+    "Complete VINTF/APEX/kernel compatibility, strict neverallow audit and sustained battery/thermal behavior."
+  ],
+  "prior_evidence": "CN bring-up receipts remain valid for that CN build; copying the patches to Global is not a substitute for Global device tests.",
+  "ai_feature_trials": "feature-trials-20261107.json",
+  "credential_isolation": {
+    "status": "cross_slot_risk_observed",
+    "summary": "After switching between the retained CN and Global DSU slots, CN rejected its existing screen credential while Global still unlocked. Static analysis found the same GSI Gatekeeper user-ID namespace in both. Internal TEE replacement was not directly observed.",
+    "recovery_verified": false,
+    "operator_decision": "Use Global. CN recovery and further CN boot tests were abandoned by the owner. Do not advertise these two installations as independently isolated credential domains.",
+    "data_erased_by_this_trial": false
+  },
+  "current_constraints": [
+    "Owner prohibited further phone interaction on 2026-11-07; subsequent work is host-only until explicitly reauthorized.",
+    "The server build guard remains latched after an acme.sh file change. No new build or baseline reset was performed during this follow-up."
+  ]
+}

@@ -2,7 +2,33 @@
 
 This branch targets **Global (India) CPH2791_17.0.0.102(EX01)**. The full original OTA and payload signatures were verified against the OPPO key already established from the manufacturer-hosted CN release. `global-candidate.json` tracks current Global readiness; older `*-image.json` files and CN evidence are historical references, not Global device-test results.
 
-Global framework hooks are rebuilt with `runtime_rebase.py` from pinned Global inputs. Only our own hash-pinned helper DEX is reused; original CN framework DEXs are not substituted. The Global image is being validated through a separate DSU slot while preserving the existing CN installation and Infinity.
+Global framework hooks are rebuilt with `runtime_rebase.py` from pinned Global inputs. Only our own hash-pinned helper DEX is reused; original CN framework DEXs are not substituted. The Global image has booted in the separate `global17` DSU slot. Full hardware acceptance remains incomplete. The native Infinity installation is retained.
+
+## Current Global observations
+
+[global-runtime-status.json](global-runtime-status.json) records the Global
+follow-up evidence separately from the earlier CN bring-up. Boot to an unlocked
+launcher is verified. PUBG 120 FPS was owner-confirmed after choosing the in-game
+preset; Standoff 2 reached about 120 FPS after a saved per-app display preference.
+Those results do not establish complete hardware support, Play certification,
+AOD, face unlock or camera compatibility. The original build-time receipts remain
+unchanged; their pending flags describe what was known when the artifact was built.
+
+[feature-trials-20261107.json](feature-trials-20261107.json) records the optional
+AI experiments. Neither 3D wallpapers, AI live wallpaper generation nor mind maps
+has passed end-to-end validation. The two wallpaper flags were reverted; the
+Mind Space trial was interrupted before completion. None is enabled by the image
+construction recipe. Do not publish these as working features.
+
+The retained CN slot rejected its existing screen credential after switching
+between DSU installations. It was not formatted, but its data is not confirmed
+recoverable. Both systems use the same GSI Gatekeeper user-ID namespace; internal
+TEE replacement was not observed. The owner chose Global and ended CN recovery.
+Do not promise independent credential isolation or resume CN boot tests.
+
+The owner currently prohibits phone interaction. Host-side work must not trigger
+ADB probes, package changes, DSU switching, reboots or cleanup. The server build
+guard is also still latched; no new image build is implied by these source updates.
 
 ## Standoff 2 refresh-rate default
 
@@ -38,7 +64,13 @@ the live per-app test does not substitute for that validation. No general
 claim is made about unlocking an engine's own FPS cap in other games.
 
 
-The current artifact is `ColorOS17-dash-FeniksD-20261104-sensor1.img`.
+## Historical CN bring-up
+
+The following records describe the earlier **CN** build and its experiments. They
+are retained as provenance and must not be read as Global validation. The current
+Global artifact is identified in [global-image.json](global-image.json).
+
+The final CN artifact was `ColorOS17-dash-FeniksD-20261104-sensor1.img`.
 [sensor-product-image.json](sensor-product-image.json) records its checked
 product identity update and permanent DSU delta.
 [radio-image.json](radio-image.json) records the verified radio fix and its

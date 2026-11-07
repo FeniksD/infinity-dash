@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "scope": "Host-only ColorOS pipeline regression checks. No ADB, phone access, full ROM build or server baseline modification.",
+  "code_commit": "13c20785a3daf9486f61df97054f1e603e0d937f",
+  "python": "3.14.7",
+  "runs": [
+    {
+      "command": "python3 -B -m unittest discover -s tests -p 'test_coloros17_*.py'",
+      "discovered": 169,
+      "passed": 157,
+      "skipped": 12,
+      "failed": 0,
+      "skip_reason": "Pinned parser root and native-tool directory were not configured."
+    },
+    {
+      "command": "MYSTIC_SOURCE_ROOT=<pinned-readers> COLOROS_NATIVE_TOOL_DIR=/usr/bin PYTHONPATH=<repository> python3 -B -m unittest -v test_coloros17_metadata.ExporterTests test_coloros17_build_image.NativeBuilderTests",
+      "working_directory": "tests",
+      "discovered": 12,
+      "passed": 12,
+      "skipped": 0,
+      "failed": 0
+    }
+  ],
+  "distinct_tests_passed": 169,
+  "pinned_parser_commit": "b906057b9909d9ec3272feb9c53306f7bd4912f0",
+  "parser_sources": {
+    "tools/fs/labels.py": {
+      "git_blob_sha1": "1555849d0c65c626c2f37f4a7e1ff02b0f140dc8",
+      "sha256": "12e872f1a3cf34eea8ee195bd0c7f4231cc6c95b120a0e2125da276d48c31b2b",
+      "bytes": 8429
+    },
+    "tools/fs/ext4/filesystem.py": {
+      "git_blob_sha1": "c93c7eeabfa33d37436cf7eda993f2d9dbf24879",
+      "sha256": "45f70ed60bb0f8431dea111c1159d57663a7c9a25466ec5da8c33c6bb150ec4d",
+      "bytes": 18860
+    }
+  },
+  "native_tools": {
+    "mke2fs": {
+      "sha256": "0ad4756fd858ee0a3a7fcaa34875af0c1050b9bccaf0d363c242d87d70575657"
+    },
+    "e2fsdroid": {
+      "sha256": "f5538dd5483789d36a38ea9f5ba305d98e1f666e2aa4f67999981451c5123b91"
+    },
+    "debugfs": {
+      "sha256": "9b27184084383c8607eee03b43c80eca4ef912acf4887b40a7cc420e267ad8a8"
+    },
+    "e2fsck": {
+      "sha256": "a9ea133a844edd695b5172abadc8bbbbb03aaedad80fc24d039bdbf4563a125c"
+    }
+  },
+  "limits": [
+    "Host test fixtures are not the complete Global image.",
+    "Local native-tool hashes identify this test environment, not the pinned production server toolchain.",
+    "These checks do not establish phone hardware compatibility or resolve untested AI, AOD, camera or certification features."
+  ]
+}

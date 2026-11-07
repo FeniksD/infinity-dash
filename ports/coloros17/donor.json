@@ -94,7 +94,7 @@
     }
   ],
   "archive_sha256": "4612534083b32f68d1a04274e03669c693faf85ce1d91e4d9e595ed9bf9415e2",
-  "validation_status": "Complete archive, payload hashes and manufacturer signatures verified. Global compatibility rebasing, construction and phone tests remain pending.",
+  "validation_status": "Complete archive, payload hashes and manufacturer signatures verified. Global patches rebased, image constructed and boot observed. Full hardware acceptance remains incomplete; see global-runtime-status.json.",
   "archive_md5_verified": true,
   "payload_hash_verified": true,
   "ota_signature_consistent": true,

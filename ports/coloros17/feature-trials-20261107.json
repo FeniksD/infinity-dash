@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-07",
+  "donor": "CPH2791_17.0.0.102(EX01)",
+  "scope": "Manual feature trials on Global; none of these optional flags has been added to the image construction profile.",
+  "provider": "content://com.oplus.customize.coreapp.configmanager.configprovider.AppFeatureProvider/app_feature",
+  "features": [
+    {
+      "key": "com.oplus.wallpapers.3d_wallpaper",
+      "original_row": "absent",
+      "flag_was_enabled": true,
+      "function_verified": false,
+      "finding": "Global contains the gate, but the selected theme must also answer is_theme_support_three_dimen. No separate 3D entry appeared with the tested themes.",
+      "final_row": "absent",
+      "rollback_verified": true,
+      "source": {
+        "receipt": "cn-feature-trial-20261107/3d-trial.json",
+        "sha256": "6e2379593435d68aacae0a878dbf7504c7b8f3d782a8248242ccb8ab63d091bc"
+      }
+    },
+    {
+      "key": "com.oplus.wallpapers.ai_camera_movement",
+      "original_row": "absent",
+      "flag_was_enabled": true,
+      "ui_entry_visible": true,
+      "function_verified": false,
+      "finding": "The AI live wallpaper Beta entry appeared, but AIUnit returned unit_supported=false because cloud_ai_new_mirror had no unit configuration. Existing ai_mirror and space_wallpaper modules do not establish compatibility with that API.",
+      "photo_uploaded": false,
+      "original_wallpaper_changed": false,
+      "final_row": "absent",
+      "rollback_verified": true,
+      "source": {
+        "receipt": "cn-feature-trial-20261107/ai-camera-trial.json",
+        "sha256": "64bef29ac9869ba22c622208aac709504eb02b81500d5a8e742a19e0307b6b6c"
+      },
+      "diagnostic_source": {
+        "receipt": "cn-feature-trial-20261107/server-error-diagnosis.json",
+        "sha256": "64170c5340d3e8ff4d6071f07bdec5cfa5138d8e1857d473b4dff47e7f3b7bf7"
+      }
+    },
+    {
+      "key": "com.oplus.aimemory.mind_map_enable",
+      "original_row": "absent",
+      "flag_was_enabled": true,
+      "function_verified": false,
+      "finding": "Global contains the mind-map gate. It also requires the AIWriter application metadata isSupportBackgroundTaskWorking=true; both reviewed regional AIWriter APKs contain that metadata. This satisfies prerequisites, not end-to-end map generation.",
+      "user_visible_test": "Joined the built-in Mind Space Beta. A collection dialog with synthetic name AI Feature Test was opened; collection creation and map generation were not confirmed.",
+      "other_changes": [
+        "Mind Space notification permission allowed.",
+        "Built-in Mind Space Beta joined.",
+        "Screen timeout temporarily changed from 30000 to 300000 ms."
+      ],
+      "final_row": "boolean:true at last observation; not restored after owner prohibited phone interaction",
+      "rollback_verified": false,
+      "source": {
+        "receipt": "cn-feature-trial-20261107/mindmap-trial.json",
+        "sha256": "0ce006af53e16fed85114f2e324e4a10216d738d26d7f543003760d779efc71e"
+      },
+      "stop_source": {
+        "receipt": "cn-feature-trial-20261107/owner-stop-state.json",
+        "sha256": "8a2b4632aafb5607609fc3181707c978770d082d497650856d5c357d0d0bb47e"
+      }
+    }
+  ],
+  "no_phone_actions_now": true,
+  "future_cleanup": "Only after renewed owner authorization: re-read each current value; restore only the exact trial row and any unchanged temporary setting, preserving subsequent user choices. Do not clear Mind Space data or revoke Beta without considering user changes.",
+  "release_rule": "Visible menu items, local feature flags and satisfied APK metadata gates are not evidence that an AI feature works. Keep these experiments out of default release configuration until end-to-end verification."
+}

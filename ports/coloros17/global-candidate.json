@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "status": "installed_first_boot_observation_pending",
+  "status": "boot_observed_partial_runtime_validation",
   "device": "dash",
   "donor_product": "CPH2791IN",
   "candidate": "CPH2791_17.0.0.102(EX01)",
@@ -146,7 +146,7 @@
   "full_archive_verified": true,
   "patches_rebased": true,
   "image_built": true,
-  "phone_tested": false,
+  "phone_tested": true,
   "cn_fallback_preserved": true,
   "archive_sha256": "4612534083b32f68d1a04274e03669c693faf85ce1d91e4d9e595ed9bf9415e2",
   "payload_sha256": "d1bd4534a1910029656b27a2513c460fcba7ca7433685129b41e44b990d4f3fa",
@@ -160,5 +160,8 @@
     "bytes": 6950803174,
     "sha256": "6a31f7061a8c4c6b7b44928103ce440fd8ee8b2ab37fabb6bfe247696b235e3b",
     "decompressed_hash_verified": true
-  }
+  },
+  "phone_test_scope": "Boot, unlocked launcher and selected game tests observed; full Global hardware acceptance is incomplete.",
+  "runtime_observations": "global-runtime-status.json",
+  "cn_fallback_scope": "Original CN image/metadata were retained. Existing CN userdata later rejected its credential; recoverability is not established and CN recovery was abandoned."
 }

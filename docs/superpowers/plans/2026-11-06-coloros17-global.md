@@ -10,6 +10,20 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-01-coloros17-dsu-design.md`, with the donor delta below.
 
+## Follow-up checkpoint: 2026-11-07
+
+The Global artifact was constructed, readback-verified and booted to an unlocked
+launcher. Follow-up scope and remaining acceptance gaps are recorded in
+`ports/coloros17/global-runtime-status.json`; optional AI experiments are in
+`ports/coloros17/feature-trials-20261107.json`. Do not turn the checklist below
+into a blanket assertion that every Global hardware test passed. CN-only test
+results remain separate evidence.
+
+The owner now chooses Global and has abandoned CN credential recovery. Do not
+resume CN boot tests. The owner also prohibits further interaction with the phone
+until renewed authorization: continue only on the host. The server guard remains
+latched, so these follow-up records do not authorize a new build or baseline reset.
+
 ## Global constraints
 
 - Candidate donor: Find X9 Pro `CPH2791_17.0.0.102(EX01)`, Android 17; select the exact regional artifact from inspected metadata.
