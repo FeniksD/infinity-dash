@@ -1,0 +1,2459 @@
+[
+  {
+    "path": "/my_bigball/build.prop",
+    "global_sha256": "32ce4036aa1cd906b083fb39fc854cf6498486d92dbf75ef501e116bab51d096",
+    "cn_original_sha256": "32ce4036aa1cd906b083fb39fc854cf6498486d92dbf75ef501e116bab51d096",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_carrier/build.prop",
+    "global_sha256": "06d9ddccecb9bfad27b0e7967cfc3add6d92dc1f0fc52d22fc315806388deb77",
+    "cn_original_sha256": "1231f2638d6c4334aad682b47dff4659f3a28c128dc7882b26573b3401e938fb",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_engineering/build.prop",
+    "global_sha256": "516862d10c73411ed1c738c6599db60b6fc95de39dc68ab3734696eee1fb1cc6",
+    "cn_original_sha256": "fe372e82833332c45302df37661b2bdf31cdcb2059b00b7182e4544a561198a5",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_heytap/build.prop",
+    "global_sha256": "e30b4bcc5282141231f468d2d0d428afb4364e1c6ef9d8ecb7542e4edf9f1075",
+    "cn_original_sha256": "e30b4bcc5282141231f468d2d0d428afb4364e1c6ef9d8ecb7542e4edf9f1075",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_manifest/build.prop",
+    "global_sha256": "1fc9047ba1690ccc0da9f7150c372a511f5958567d4f5d327fb38d1f32b7fee1",
+    "cn_original_sha256": "1b956fd725f3ae5cd2441d9296c1402c5488ce5587c32db48cf6a324d06be3c3",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/build.prop",
+    "global_sha256": "cd20c60188635f865800f713f5a30fb2a31cdeb789b09edc66255e43e149b925",
+    "cn_original_sha256": "d75d0f35a65e44ef03e0a47be3514bdfdafd3f4a0b246ce50e3a88d3ed44bb52",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/cust/AE/build.prop",
+    "global_sha256": "b4cb4b899c0c026aed8e8ca1f6e46bb3fc3e56d5f452b125096fde82ed8a0ed5",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/APC/build.prop",
+    "global_sha256": "ef08cbc757428244856c6ce8eadaa5024052d84e3366d5f3e933a5e2f32549ff",
+    "cn_original_sha256": "2fa16a6fccbab84e3bde92e7ac15cd8eb2d30818d066a1896791ee91352fc9bc",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/cust/AU/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/BR/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/DZ/build.prop",
+    "global_sha256": "c28604f9f2f00515c11f089279e1ddc64428ff27795b74354386530dc188c100",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/EG/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/EU-EEA-Double/build.prop",
+    "global_sha256": "17edd8c9558b3a614a620666ede31884084048e4b672432e5c63e05cc6cfcc60",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/EU-NONEEA-Double/build.prop",
+    "global_sha256": "5a25f5d93ff306caa789cb72352b0556d64215c51ba3c07907c086ee0d39e4a3",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/EU-NONEEA/build.prop",
+    "global_sha256": "5a25f5d93ff306caa789cb72352b0556d64215c51ba3c07907c086ee0d39e4a3",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/EUEX-ALL-CUST/build.prop",
+    "global_sha256": "6b42c85e59df78c14d65a43ee085a92477e3936f1be5f69e92573ad5079b3c80",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/EUEX/build.prop",
+    "global_sha256": "5adf102a1057a8a7fef791908607457234433422dfaaa755347d681d670734f9",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/GB/build.prop",
+    "global_sha256": "d224be6f60ecb289f97403d5c288f6b3dbf62d5c613249d59698931c11406f81",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/ID/build.prop",
+    "global_sha256": "a312d2347d11e8fb8a00b185191f3a38eaa2b81c95aca71eb542e883709e41c2",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/IN/build.prop",
+    "global_sha256": "e3baed3e4b2d158ec5521b8bc29d8a25cabcb3dcbf64282c43b4505ff961d0e3",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/JP/build.prop",
+    "global_sha256": "8a6ae74bf20bb1e597a1857df88ce961a72c4dbe3f5e5cd8e9360350c6034197",
+    "cn_original_sha256": "8a6ae74bf20bb1e597a1857df88ce961a72c4dbe3f5e5cd8e9360350c6034197",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/cust/LK/build.prop",
+    "global_sha256": "92a92c5089c9bee5dcbd2c85938b6813019122efd62fcdd30c7b34b9f0786e40",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/MA/build.prop",
+    "global_sha256": "a13e43c72c2bd0191aae8c612c23c88d906cf72e437d63254688473cdbb24fec",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/MEA/apps_extension/ZA/regionSwitch/framework/com.google.android.dialer.support.jar",
+    "global_sha256": "584859f94fe2dd0c4aec65f514a990b6f4fc8290bfd7565e2fe036d761aee89e",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/MEA/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/MX/build.prop",
+    "global_sha256": "f9910afcb71f0ff1c56c795c6326d155d1e9b1580c05502fc720a586ca4a261b",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/MY/build.prop",
+    "global_sha256": "df0c3d61fc4dcb5493c2b06ccf1c9a1c43a7758c6f2b55f78fac38472f44b6b2",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/NZ/build.prop",
+    "global_sha256": "9cfbf0d8f29d8bd107bf13670a703993f0d9e22dcc9ba273bf60d2cd895d1d87",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/OCA/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/RO/build.prop",
+    "global_sha256": "254b5301baebfa675a4560711735a0f816d6bf3fbfcea93ff8658a91c03f381b",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/RU/build.prop",
+    "global_sha256": "23884be619e830c44644b0a92ad70080fa6c773a718014a6da71331121bd5270",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/SA/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/SG/build.prop",
+    "global_sha256": "399b010268117ab06be9ddc4a83d806f8b46fb933330a3f100f87eb900cb7675",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/TH/build.prop",
+    "global_sha256": "e370f58dde6c94d111c3205aca866a7acd8a71517a314c47941b1a32119794c7",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/TN/build.prop",
+    "global_sha256": "8c2d56d43ffbd060583ae45effb93e5d95ffea0c8ff523af89a9a1915674b61f",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/TR/build.prop",
+    "global_sha256": "d6de3ce572c1c87abd52498b813e1527859ff4bfed0f210559538f81d8b4f726",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/TW/build.prop",
+    "global_sha256": "634a22c31bbac5dec7c973473e2793b59a495d29c5448da4b64a1c89d2f5a495",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/UA/build.prop",
+    "global_sha256": "6c4eaca40d7bdeb9f5ef44f378b6d643d8d8019cbecceb8113107e0f12cc9f52",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/VN/build.prop",
+    "global_sha256": "242e0482b7a7e15b91b4a2415c9ee61fe375557410003c10d58e5d1a10ede910",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/cust/ZA/build.prop",
+    "global_sha256": "f19595ca23dcc8518f6be76e3f330fc6af6f44bc543e22cd58c4dfb4c75e161b",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/AE/build.prop",
+    "global_sha256": "b4cb4b899c0c026aed8e8ca1f6e46bb3fc3e56d5f452b125096fde82ed8a0ed5",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/DZ/build.prop",
+    "global_sha256": "c28604f9f2f00515c11f089279e1ddc64428ff27795b74354386530dc188c100",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/EU-EEA-Double/build.prop",
+    "global_sha256": "17edd8c9558b3a614a620666ede31884084048e4b672432e5c63e05cc6cfcc60",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/EU-NONEEA-Double/build.prop",
+    "global_sha256": "5a25f5d93ff306caa789cb72352b0556d64215c51ba3c07907c086ee0d39e4a3",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/EU-NONEEA/build.prop",
+    "global_sha256": "5a25f5d93ff306caa789cb72352b0556d64215c51ba3c07907c086ee0d39e4a3",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/EUEX-ALL-CUST/build.prop",
+    "global_sha256": "6b42c85e59df78c14d65a43ee085a92477e3936f1be5f69e92573ad5079b3c80",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/EUEX/build.prop",
+    "global_sha256": "17edd8c9558b3a614a620666ede31884084048e4b672432e5c63e05cc6cfcc60",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/GB/build.prop",
+    "global_sha256": "d224be6f60ecb289f97403d5c288f6b3dbf62d5c613249d59698931c11406f81",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/IN/build.prop",
+    "global_sha256": "a8f6e2487f74e20faa6f53cfb880d4f284b0836adc4c4dd0daaa35ae290df60c",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/LK/build.prop",
+    "global_sha256": "92a92c5089c9bee5dcbd2c85938b6813019122efd62fcdd30c7b34b9f0786e40",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/MA/build.prop",
+    "global_sha256": "a13e43c72c2bd0191aae8c612c23c88d906cf72e437d63254688473cdbb24fec",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/MY/build.prop",
+    "global_sha256": "76c1ddc9c76e53c37d5c5414ee6466184aaf4397826635c9b6023ee67bcae388",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/NZ/build.prop",
+    "global_sha256": "9cfbf0d8f29d8bd107bf13670a703993f0d9e22dcc9ba273bf60d2cd895d1d87",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/RO/build.prop",
+    "global_sha256": "254b5301baebfa675a4560711735a0f816d6bf3fbfcea93ff8658a91c03f381b",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/RU/build.prop",
+    "global_sha256": "23884be619e830c44644b0a92ad70080fa6c773a718014a6da71331121bd5270",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/SG/build.prop",
+    "global_sha256": "3b339278c5d0d1b98633001823d1988bf6526a901d7c0671c84e9d5c851cd315",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/TN/build.prop",
+    "global_sha256": "8c2d56d43ffbd060583ae45effb93e5d95ffea0c8ff523af89a9a1915674b61f",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/TR/build.prop",
+    "global_sha256": "2974aab5dd2734749a93019f7a01cd8b6c2876036caa22c9f9ff5ccc06d6cf46",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/TW/build.prop",
+    "global_sha256": "491622a79d69c1755045af4e37b6032a4fe00f1de3f287d200f00454e8f25578",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/UA/build.prop",
+    "global_sha256": "6c4eaca40d7bdeb9f5ef44f378b6d643d8d8019cbecceb8113107e0f12cc9f52",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/etc/cust_gms/ZA/build.prop",
+    "global_sha256": "f19595ca23dcc8518f6be76e3f330fc6af6f44bc543e22cd58c4dfb4c75e161b",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/framework/com.android.hotwordenrollment.common.util.jar",
+    "global_sha256": "3da2a188da2eaeb504ff9e49c85d951ae268a53db00ceb5260c5306319b03069",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/framework/com.google.android.dialer.support.jar",
+    "global_sha256": "584859f94fe2dd0c4aec65f514a990b6f4fc8290bfd7565e2fe036d761aee89e",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/my_product/product_overlay/framework/com.oplus.camera.unit.sdk.adapter.jar",
+    "global_sha256": "5ddf19ea569cd414c762052a4919f4e0c20b62ab543258b2029fe5535879937d",
+    "cn_original_sha256": "5ddf19ea569cd414c762052a4919f4e0c20b62ab543258b2029fe5535879937d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/product_overlay/framework/com.oplus.camera.unit.sdk.jar",
+    "global_sha256": "3873cc99d2bd8af0f14d8e1c4d5c5fcd750686ae39ef6df99e391baf2041933f",
+    "cn_original_sha256": "3873cc99d2bd8af0f14d8e1c4d5c5fcd750686ae39ef6df99e391baf2041933f",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/AT/regionSwitch/build.prop",
+    "global_sha256": "d4d44ae27f33aae5d2e9a7c048b4aa494f1109bcf54353a92ebf3bc93f9fd9ee",
+    "cn_original_sha256": "d4d44ae27f33aae5d2e9a7c048b4aa494f1109bcf54353a92ebf3bc93f9fd9ee",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/BA/regionSwitch/build.prop",
+    "global_sha256": "3a691c3812c2f1eada47f62543ebb2b6d4408789e8e1ffe2960d1c5a171cc412",
+    "cn_original_sha256": "3a691c3812c2f1eada47f62543ebb2b6d4408789e8e1ffe2960d1c5a171cc412",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/BE/regionSwitch/build.prop",
+    "global_sha256": "adcae658732846cdf3df1aec5f2d3e87ce29c5fc5fd2e85d889e4a5fafd00603",
+    "cn_original_sha256": "adcae658732846cdf3df1aec5f2d3e87ce29c5fc5fd2e85d889e4a5fafd00603",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/BG/regionSwitch/build.prop",
+    "global_sha256": "0c759b6f51b3da8b061b599d790a5493699f595d8f3311e9bcfcf1ae0d43ffe9",
+    "cn_original_sha256": "0c759b6f51b3da8b061b599d790a5493699f595d8f3311e9bcfcf1ae0d43ffe9",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/CH/regionSwitch/build.prop",
+    "global_sha256": "ea5a8c2f53bc3806f20d72a201379517f7924c7c9271ff5e91fb6412a94c8e31",
+    "cn_original_sha256": "ea5a8c2f53bc3806f20d72a201379517f7924c7c9271ff5e91fb6412a94c8e31",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/CZ/regionSwitch/build.prop",
+    "global_sha256": "0b706912850e42fffa1376240c634e4f3dcc8b5557c06ff31a9d7be6067a10be",
+    "cn_original_sha256": "0b706912850e42fffa1376240c634e4f3dcc8b5557c06ff31a9d7be6067a10be",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/DE/regionSwitch/build.prop",
+    "global_sha256": "3735cefe78cfb19f51571b400d20104c23b2ed42d62ac7788d23c74c305fcd74",
+    "cn_original_sha256": "3735cefe78cfb19f51571b400d20104c23b2ed42d62ac7788d23c74c305fcd74",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/DK/regionSwitch/build.prop",
+    "global_sha256": "d4f01ce8c9c6ed1111de342e09dd19e272e6979a29b93ec8d198553bcb3911db",
+    "cn_original_sha256": "d4f01ce8c9c6ed1111de342e09dd19e272e6979a29b93ec8d198553bcb3911db",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/EE/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/ES-Vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/FI/regionSwitch/build.prop",
+    "global_sha256": "4a0132fe557fb88afeae997dfa73e97c0996042b43f749cb12db6d0a38dd5063",
+    "cn_original_sha256": "4a0132fe557fb88afeae997dfa73e97c0996042b43f749cb12db6d0a38dd5063",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/GB/regionSwitch/build.prop",
+    "global_sha256": "7cac24d0689ea0d6f68585fb70fecdb661d8d76bc71c092776c5b75db9cb1bed",
+    "cn_original_sha256": "7cac24d0689ea0d6f68585fb70fecdb661d8d76bc71c092776c5b75db9cb1bed",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/GR/regionSwitch/build.prop",
+    "global_sha256": "788a7d4a08ab965853c301819ab9f5f60818297eea614172af60a63578247a10",
+    "cn_original_sha256": "788a7d4a08ab965853c301819ab9f5f60818297eea614172af60a63578247a10",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/HK/regionSwitch/build.prop",
+    "global_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "cn_original_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/HR/regionSwitch/build.prop",
+    "global_sha256": "90d43625f45d1b8781f986078255dde16612fbd322a90fa40cbbd6628aa7a560",
+    "cn_original_sha256": "90d43625f45d1b8781f986078255dde16612fbd322a90fa40cbbd6628aa7a560",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/HU/regionSwitch/build.prop",
+    "global_sha256": "3cbba041639df113b7feea4126113ea137b817a46de2d1418652cb7c709edd03",
+    "cn_original_sha256": "3cbba041639df113b7feea4126113ea137b817a46de2d1418652cb7c709edd03",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/IE/regionSwitch/build.prop",
+    "global_sha256": "77c82818323b0d5d9416c9d35c18615f137b6b992679d5832e81734d7a8d7cba",
+    "cn_original_sha256": "77c82818323b0d5d9416c9d35c18615f137b6b992679d5832e81734d7a8d7cba",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/IS/regionSwitch/build.prop",
+    "global_sha256": "6d64a1babaac59da340752949621bfa9341699ff3115ce450889d5598c2f8a4b",
+    "cn_original_sha256": "6d64a1babaac59da340752949621bfa9341699ff3115ce450889d5598c2f8a4b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/IT/regionSwitch/build.prop",
+    "global_sha256": "df13aa3d41b2009602f8ddf0047e103057fb5752d7d1757ecfaa37bf8cad5250",
+    "cn_original_sha256": "df13aa3d41b2009602f8ddf0047e103057fb5752d7d1757ecfaa37bf8cad5250",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/LA/regionSwitch/build.prop",
+    "global_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "cn_original_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/LT/regionSwitch/build.prop",
+    "global_sha256": "208c80e2fc7ca77fcbb8ac115a7508e5bfe57cfaec3d483cfe4cb4f3f8d53017",
+    "cn_original_sha256": "208c80e2fc7ca77fcbb8ac115a7508e5bfe57cfaec3d483cfe4cb4f3f8d53017",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/LU/regionSwitch/build.prop",
+    "global_sha256": "e853dc219ba335d06013388b6d7de7f5a17ac0d23119d8ed6cac6193b1489fb8",
+    "cn_original_sha256": "e853dc219ba335d06013388b6d7de7f5a17ac0d23119d8ed6cac6193b1489fb8",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/LV/regionSwitch/build.prop",
+    "global_sha256": "a1d17acc47c7b0a88e205f28df1664d516fc1ee4f267a4b25109257298f3447d",
+    "cn_original_sha256": "a1d17acc47c7b0a88e205f28df1664d516fc1ee4f267a4b25109257298f3447d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/MD/regionSwitch/build.prop",
+    "global_sha256": "0211673eb3b9e0fdc94fe780d9200a9db0c79e1cd1fd00fc5858329e5f2a8b99",
+    "cn_original_sha256": "0211673eb3b9e0fdc94fe780d9200a9db0c79e1cd1fd00fc5858329e5f2a8b99",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/ME/regionSwitch/build.prop",
+    "global_sha256": "a7719d96eb491ad1788a5ab7cfb94540d5fcb1e9cddd7546d8b9589c0e943550",
+    "cn_original_sha256": "a7719d96eb491ad1788a5ab7cfb94540d5fcb1e9cddd7546d8b9589c0e943550",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/MK/regionSwitch/build.prop",
+    "global_sha256": "d626d2625ef42cd5f6eb3db6d234d0a1a6f9a2f893b01d631bb3e45309adabe0",
+    "cn_original_sha256": "d626d2625ef42cd5f6eb3db6d234d0a1a6f9a2f893b01d631bb3e45309adabe0",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/MM/regionSwitch/build.prop",
+    "global_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "cn_original_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/MTN/SimSwitchFirstTime/build.prop",
+    "global_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "cn_original_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/Movistar/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/NL/regionSwitch/build.prop",
+    "global_sha256": "6c98cc575c0f6aa1bcc998beb14e5e1f1038c01c0b7fc53f297e21cbc961d095",
+    "cn_original_sha256": "6c98cc575c0f6aa1bcc998beb14e5e1f1038c01c0b7fc53f297e21cbc961d095",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/NO/regionSwitch/build.prop",
+    "global_sha256": "65c37ad487fb40ff20c1a223d606fc9a4a53644106cfe3f8f41dff0743bc9184",
+    "cn_original_sha256": "65c37ad487fb40ff20c1a223d606fc9a4a53644106cfe3f8f41dff0743bc9184",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/NP/regionSwitch/build.prop",
+    "global_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "cn_original_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/O2/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/PL/regionSwitch/build.prop",
+    "global_sha256": "12725111b42271768775922042ec36b4e9c7d3571e4cc863df16fc03de6593b7",
+    "cn_original_sha256": "12725111b42271768775922042ec36b4e9c7d3571e4cc863df16fc03de6593b7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/PT/regionSwitch/build.prop",
+    "global_sha256": "aef29e63e6990707aac5d0a17ecc2fa83102591af474893e639dfdfde663ba2c",
+    "cn_original_sha256": "aef29e63e6990707aac5d0a17ecc2fa83102591af474893e639dfdfde663ba2c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/RO/regionSwitch/build.prop",
+    "global_sha256": "9a46a2c030b286408b8d1fb16e09d0985b6b4245e241828273db16538091c989",
+    "cn_original_sha256": "9a46a2c030b286408b8d1fb16e09d0985b6b4245e241828273db16538091c989",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/RS/regionSwitch/build.prop",
+    "global_sha256": "07c59daefef8fe2a2330b2cf1501ae6af9d88bc74f1b26ed84ace88d96562fcf",
+    "cn_original_sha256": "07c59daefef8fe2a2330b2cf1501ae6af9d88bc74f1b26ed84ace88d96562fcf",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/RU/regionSwitch/build.prop",
+    "global_sha256": "69a1d7169b7f1e08203851246865a27ab1427b36d06b61ecf1f700edc8665605",
+    "cn_original_sha256": "69a1d7169b7f1e08203851246865a27ab1427b36d06b61ecf1f700edc8665605",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/SE/regionSwitch/build.prop",
+    "global_sha256": "cff4c2d01af0d98ee92700d6be9855bbc288cdc3305b0652975d7a968273608a",
+    "cn_original_sha256": "cff4c2d01af0d98ee92700d6be9855bbc288cdc3305b0652975d7a968273608a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/SK/regionSwitch/build.prop",
+    "global_sha256": "e72c48af8038bffb6c25e6db40397f2b59deb0e4133ba17a174132cf0467ac12",
+    "cn_original_sha256": "e72c48af8038bffb6c25e6db40397f2b59deb0e4133ba17a174132cf0467ac12",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/TR/regionSwitch/build.prop",
+    "global_sha256": "23fc4c934250aff95f0b1981a36b1cbc79ecd969ff8a0c516c3fc189fcef6af4",
+    "cn_original_sha256": "23fc4c934250aff95f0b1981a36b1cbc79ecd969ff8a0c516c3fc189fcef6af4",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/UA/regionSwitch/build.prop",
+    "global_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "cn_original_sha256": "dac3842c0d3fcd2b0ceadb9c48ac2b2f60ceb02ab6b5d07c2b5e9d169bb49b3c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/Vodacom/SimSwitchFirstTime/build.prop",
+    "global_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "cn_original_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/Vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/cz-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/de-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/es-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/gb-ee-consumer/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/gb-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/gr-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/hu-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/ie-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/it-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/nl-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/nz-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/pt-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/ro-vodafone/SimSwitchFirstTime/build.prop",
+    "global_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "cn_original_sha256": "bb5e0483e1a2c9e3ea7ef2c2e1881ad28e5368da92a43dbe58dcfff17ec53821",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/za-mtn-lock/SimSwitchFirstTime/build.prop",
+    "global_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "cn_original_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_product/properties/za-vodacom/SimSwitchFirstTime/build.prop",
+    "global_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "cn_original_sha256": "358c8fed1b30aa9194d7ac4201a921e704ab3d4848534146c5057f78a80ce95a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_region/build.prop",
+    "global_sha256": "e457578c437d67fad0c7d41df5e700a606b0b3bddc9b1165b2da0062bf9e8801",
+    "cn_original_sha256": "d08537384aa8932ae6daf994fac5e414b8a8162ad3d7b1fab4a5398786afeeab",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_region/global/O/build.prop",
+    "global_sha256": "7db9f8493d8977d6f79586c8478cb2dec913b3247e223e7e23fc99bd65e77cf7",
+    "cn_original_sha256": "7db9f8493d8977d6f79586c8478cb2dec913b3247e223e7e23fc99bd65e77cf7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_region/global/P/build.prop",
+    "global_sha256": "7db9f8493d8977d6f79586c8478cb2dec913b3247e223e7e23fc99bd65e77cf7",
+    "cn_original_sha256": "7db9f8493d8977d6f79586c8478cb2dec913b3247e223e7e23fc99bd65e77cf7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_region/global/R/build.prop",
+    "global_sha256": "2030569143e78a23c28600b62651904eca8213c0eb0df0843c56ea44cd1c7535",
+    "cn_original_sha256": "2030569143e78a23c28600b62651904eca8213c0eb0df0843c56ea44cd1c7535",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_region/global/build.prop",
+    "global_sha256": "310f6b2d11d5054a21b10eed2f0b6c16c1d7107d5085bb6fdb78abf46c18ca5c",
+    "cn_original_sha256": "310f6b2d11d5054a21b10eed2f0b6c16c1d7107d5085bb6fdb78abf46c18ca5c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/my_stock/build.prop",
+    "global_sha256": "e347a9a1fffe02c271e1beb1feb012c70a4c744f927f44c2a13ce23918c12fac",
+    "cn_original_sha256": "a879947ca7373cf19d0fa096725e70639fb5baf0c69f003c091a56ecc21e34f8",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/build.prop",
+    "global_sha256": "47184324b48753dd60b1597d9ceb26733bea4f5f48183ff2de18fdb9a6f7d142",
+    "cn_original_sha256": "d2d67730491a00b0ebad80229d9d61de9c210b3634eabd8be78c280bfb51f1b7",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/bug_map",
+    "global_sha256": "30cf3d6b915d8d1382246aac8e5554f2bd413e51f3f3e82745efe9508d095b19",
+    "cn_original_sha256": "30cf3d6b915d8d1382246aac8e5554f2bd413e51f3f3e82745efe9508d095b19",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/202404.cil",
+    "global_sha256": "a5f6b060114f66b0190b05815c42d993f4c8a98a843ed9205fdaf0d7a5ca5974",
+    "cn_original_sha256": "a5f6b060114f66b0190b05815c42d993f4c8a98a843ed9205fdaf0d7a5ca5974",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/202404.compat.cil",
+    "global_sha256": "801ad38741a5a078e4795feef41dfc6f44fef23d083ee08e4d5095f074b8f344",
+    "cn_original_sha256": "801ad38741a5a078e4795feef41dfc6f44fef23d083ee08e4d5095f074b8f344",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/202504.cil",
+    "global_sha256": "2c7f3e25a70d0e273a361af0685c0ce2bb71de67ba1cc4101e5b34150b4da484",
+    "cn_original_sha256": "2c7f3e25a70d0e273a361af0685c0ce2bb71de67ba1cc4101e5b34150b4da484",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/202504.compat.cil",
+    "global_sha256": "0d64f42958274091ff8f88791a5db634fe5a5549d19614a940e29f32211f6a89",
+    "cn_original_sha256": "0d64f42958274091ff8f88791a5db634fe5a5549d19614a940e29f32211f6a89",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/202604.cil",
+    "global_sha256": "58ca38b3f14ab57600389b32f804cd425c3111c883f9db9cdd1436b984dff87b",
+    "cn_original_sha256": "58ca38b3f14ab57600389b32f804cd425c3111c883f9db9cdd1436b984dff87b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/31.0.cil",
+    "global_sha256": "09cc851b7559965eab108b4631e4e63c3852863952283a7b1eccf2bbf0312674",
+    "cn_original_sha256": "09cc851b7559965eab108b4631e4e63c3852863952283a7b1eccf2bbf0312674",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/31.0.compat.cil",
+    "global_sha256": "59f29c2cd0e88141dab6f3449357c88dea1c23bb1c7593ef4c1f7482835749d0",
+    "cn_original_sha256": "59f29c2cd0e88141dab6f3449357c88dea1c23bb1c7593ef4c1f7482835749d0",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/32.0.cil",
+    "global_sha256": "70807ac4d0930b166b79c73ae8a7a12536cdfdd17a0eb6666c0a16595993f9ae",
+    "cn_original_sha256": "70807ac4d0930b166b79c73ae8a7a12536cdfdd17a0eb6666c0a16595993f9ae",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/32.0.compat.cil",
+    "global_sha256": "7bf9cfe57c54ad05bb273b369c1e56dc4b0e471db2d7459e94aed69f015101bb",
+    "cn_original_sha256": "7bf9cfe57c54ad05bb273b369c1e56dc4b0e471db2d7459e94aed69f015101bb",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/33.0.cil",
+    "global_sha256": "2acf42096b144d962907074220305c40d0fb3a9299cd904c31ac24d9c3f84fb3",
+    "cn_original_sha256": "2acf42096b144d962907074220305c40d0fb3a9299cd904c31ac24d9c3f84fb3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/33.0.compat.cil",
+    "global_sha256": "e159029a974f2d9713e011bfae08a924a86fae0dbaae817e5754ab59f33683ef",
+    "cn_original_sha256": "e159029a974f2d9713e011bfae08a924a86fae0dbaae817e5754ab59f33683ef",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/34.0.cil",
+    "global_sha256": "d7bc36a0ac232eea5cd0e671e29a31e15c395d1a6c239494e9f5ed0323f705fd",
+    "cn_original_sha256": "d7bc36a0ac232eea5cd0e671e29a31e15c395d1a6c239494e9f5ed0323f705fd",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/mapping/34.0.compat.cil",
+    "global_sha256": "36eaa39c02638f9c852a4c3d5cbdf8b437a2beefc5bbf4aba056ad54ef3f9a61",
+    "cn_original_sha256": "36eaa39c02638f9c852a4c3d5cbdf8b437a2beefc5bbf4aba056ad54ef3f9a61",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_file_contexts",
+    "global_sha256": "9161254509766cf0d975b32c4dff71872e704d7abfd942ebd8fcba4ced099fb5",
+    "cn_original_sha256": "9161254509766cf0d975b32c4dff71872e704d7abfd942ebd8fcba4ced099fb5",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_hwservice_contexts",
+    "global_sha256": "e9f9f83ce1dfec4b036e09baa3b5cedeb27e8855b59164d42979ef5903f10668",
+    "cn_original_sha256": "e9f9f83ce1dfec4b036e09baa3b5cedeb27e8855b59164d42979ef5903f10668",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_keystore2_key_contexts",
+    "global_sha256": "5255d73632178621b13f5dc9698a31a55a59b614761a1713ea82cecfa709eef2",
+    "cn_original_sha256": "5255d73632178621b13f5dc9698a31a55a59b614761a1713ea82cecfa709eef2",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_mac_permissions.xml",
+    "global_sha256": "ffe55c1282aef91d4af93265868d80ffe80c8384b383672378e7cc23f74a0a2f",
+    "cn_original_sha256": "25988472008384fe5b1432de116fa30430aa871533fe42209ba9b04c8d40299e",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_property_contexts",
+    "global_sha256": "771ebae44285e05705c8d2d62f157c64501a9706dc1d64e9dcd36987e11ce1db",
+    "cn_original_sha256": "771ebae44285e05705c8d2d62f157c64501a9706dc1d64e9dcd36987e11ce1db",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_seapp_contexts",
+    "global_sha256": "fa8f56552f439accfda3b665119ef9a366919dda43ff2a05e91c945249abf068",
+    "cn_original_sha256": "fa8f56552f439accfda3b665119ef9a366919dda43ff2a05e91c945249abf068",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_sepolicy.cil",
+    "global_sha256": "00dce82b92786b04e9d39c18aa91c7479802abe630ce1005fbadb2122b5f09a5",
+    "cn_original_sha256": "00dce82b92786b04e9d39c18aa91c7479802abe630ce1005fbadb2122b5f09a5",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_sepolicy_and_mapping.sha256",
+    "global_sha256": "b17338f502348f6588ad1398692cdfb419a7fa3b7f4e113db2c3e7647606f1b3",
+    "cn_original_sha256": "b17338f502348f6588ad1398692cdfb419a7fa3b7f4e113db2c3e7647606f1b3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_sepolicy_genfs_202504.cil",
+    "global_sha256": "480d503e7730236b659230d16b3946b628394d529dabfef67c679281fd98357b",
+    "cn_original_sha256": "480d503e7730236b659230d16b3946b628394d529dabfef67c679281fd98357b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_sepolicy_genfs_202604.cil",
+    "global_sha256": "ce8b599e06d363155930549e845c0d4d234c0d9a5eb35a2f680ea6f51530b581",
+    "cn_original_sha256": "ce8b599e06d363155930549e845c0d4d234c0d9a5eb35a2f680ea6f51530b581",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_sepolicy_genfs_202704.cil",
+    "global_sha256": "3bdfcfba699936cb12d007fee7bca2feb1a88c75cc947f98b14c55fe4932b0d3",
+    "cn_original_sha256": "3bdfcfba699936cb12d007fee7bca2feb1a88c75cc947f98b14c55fe4932b0d3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_service_contexts",
+    "global_sha256": "27111193bb8883bbc10babac98b8f5d323b72f731f1d20d776348dc9bf3b26a8",
+    "cn_original_sha256": "27111193bb8883bbc10babac98b8f5d323b72f731f1d20d776348dc9bf3b26a8",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/etc/selinux/plat_tee_service_contexts",
+    "global_sha256": "8277a4d8afee32d53ed9b1527f01fc1c7c215e905e5f5a08b3b800ae88d7124d",
+    "cn_original_sha256": "8277a4d8afee32d53ed9b1527f01fc1c7c215e905e5f5a08b3b800ae88d7124d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/abx.jar",
+    "global_sha256": "0a5e59a4c2a15cfb9b4af553f63dc1a2ec72fc5c7f3cc19dcfa201231b4d5bf9",
+    "cn_original_sha256": "0a5e59a4c2a15cfb9b4af553f63dc1a2ec72fc5c7f3cc19dcfa201231b4d5bf9",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/am.jar",
+    "global_sha256": "fbfe2c90485834550893874d80c71d90553379953570d2edb2cf879d7dfc73cb",
+    "cn_original_sha256": "fbfe2c90485834550893874d80c71d90553379953570d2edb2cf879d7dfc73cb",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.hardware.biometrics.face-V1.0-java.jar",
+    "global_sha256": "db7c2fe49c33779de6ee61dbcd7b7ef1862129f88a7594bdf36ba233ecf94b9e",
+    "cn_original_sha256": "db7c2fe49c33779de6ee61dbcd7b7ef1862129f88a7594bdf36ba233ecf94b9e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.hardware.biometrics.fingerprint-V2.3-java.jar",
+    "global_sha256": "bdc0ef94f26e2a48b9e5e7715d7af259c52b175db19784c91a59072507a9e6da",
+    "cn_original_sha256": "bdc0ef94f26e2a48b9e5e7715d7af259c52b175db19784c91a59072507a9e6da",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.hardware.ir-V1-java.jar",
+    "global_sha256": "41c9f2157122ba3e222ecf05ba6b6e65ef295d92061b06a1ab8ef50c6b302169",
+    "cn_original_sha256": "41c9f2157122ba3e222ecf05ba6b6e65ef295d92061b06a1ab8ef50c6b302169",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.hardware.secure_element-V1.0-java.jar",
+    "global_sha256": "e13afc59b2a791ea9e0bef70dba89966c64f8f956efa478901f84bab871a1ed9",
+    "cn_original_sha256": "e13afc59b2a791ea9e0bef70dba89966c64f8f956efa478901f84bab871a1ed9",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.hidl.base-V1.0-java.jar",
+    "global_sha256": "3668f0145420b1f6cb9c85bb51dafff58da4070996231227080a5f93bb68f4a1",
+    "cn_original_sha256": "3668f0145420b1f6cb9c85bb51dafff58da4070996231227080a5f93bb68f4a1",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.hidl.manager-V1.0-java.jar",
+    "global_sha256": "6a9323f10d429016a76b3cafe75d5659b57a4ef5ba30d8178f014b001e877e8a",
+    "cn_original_sha256": "6a9323f10d429016a76b3cafe75d5659b57a4ef5ba30d8178f014b001e877e8a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.test.base.jar",
+    "global_sha256": "93e7cc000c5ff60475114511e8ec745df1cd911396cd887ad1e6bbc58b886fa3",
+    "cn_original_sha256": "93e7cc000c5ff60475114511e8ec745df1cd911396cd887ad1e6bbc58b886fa3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.test.mock.jar",
+    "global_sha256": "bd3e53c7950a1f15bef12f4aeccaf3b0502beb51a03355d8d6326ca302247db6",
+    "cn_original_sha256": "bd3e53c7950a1f15bef12f4aeccaf3b0502beb51a03355d8d6326ca302247db6",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/android.test.runner.jar",
+    "global_sha256": "e31ca9fda88f92cd508052ae643cd09d0b52dd36d4827db3e1107ea2c5132ac2",
+    "cn_original_sha256": "e31ca9fda88f92cd508052ae643cd09d0b52dd36d4827db3e1107ea2c5132ac2",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/appwidget.jar",
+    "global_sha256": "2cfe57db408ba44aee53c2a9999ca7a6faaba9d1eed5d641db01f3a2b4d26cd1",
+    "cn_original_sha256": "2cfe57db408ba44aee53c2a9999ca7a6faaba9d1eed5d641db01f3a2b4d26cd1",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/bmgr.jar",
+    "global_sha256": "b2dde515b3e2d602c5ef5fd209a0cecda17d00c671ba2c51938087823b3f9857",
+    "cn_original_sha256": "b2dde515b3e2d602c5ef5fd209a0cecda17d00c671ba2c51938087823b3f9857",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/bu.jar",
+    "global_sha256": "655a68156193d06789e0988b2f58c803d871c635a0f026bc1fd8e2f8ee5f8872",
+    "cn_original_sha256": "655a68156193d06789e0988b2f58c803d871c635a0f026bc1fd8e2f8ee5f8872",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/com.android.fmradio.jar",
+    "global_sha256": "956385dd29ff7943b5ca7dfc83fd341c9988c232b310aced20d692119b4788c3",
+    "cn_original_sha256": "956385dd29ff7943b5ca7dfc83fd341c9988c232b310aced20d692119b4788c3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/com.android.future.usb.accessory.jar",
+    "global_sha256": "29c307ae09b9c74bc0e656a775f2707d97ba4f393c69d9cb459508d47bc611ba",
+    "cn_original_sha256": "29c307ae09b9c74bc0e656a775f2707d97ba4f393c69d9cb459508d47bc611ba",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/com.android.location.provider.jar",
+    "global_sha256": "cda71bdc7c1814de8b3f32187556e5c8475a854b29812c8fbb733a43f7ddc9c1",
+    "cn_original_sha256": "cda71bdc7c1814de8b3f32187556e5c8475a854b29812c8fbb733a43f7ddc9c1",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/com.android.media.remotedisplay.jar",
+    "global_sha256": "a6d39e7f366ccab0b37d97d344bd5cd876dc55f392ede23c86d998feb084f032",
+    "cn_original_sha256": "a6d39e7f366ccab0b37d97d344bd5cd876dc55f392ede23c86d998feb084f032",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/com.android.mediadrm.signer.jar",
+    "global_sha256": "e51de036bc157cf9018535874a4bfb8ce381059ed1b75ff900f4175665da40d3",
+    "cn_original_sha256": "e51de036bc157cf9018535874a4bfb8ce381059ed1b75ff900f4175665da40d3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/com.android.nfc_extras.jar",
+    "global_sha256": "f6cdc4932e1cdb4dfeef85c2807a7dac289bd13cddba15fc58947853245a2281",
+    "cn_original_sha256": "f6cdc4932e1cdb4dfeef85c2807a7dac289bd13cddba15fc58947853245a2281",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/content.jar",
+    "global_sha256": "f9d18e858c0ab2fe2849b91247b0ec6379db9696c2126245305b07658f5d722b",
+    "cn_original_sha256": "f9d18e858c0ab2fe2849b91247b0ec6379db9696c2126245305b07658f5d722b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/ext.jar",
+    "global_sha256": "c1cdc85a20fa0825009063bfa4b22bd582ede4fe2fdbcce18938d87da9704d14",
+    "cn_original_sha256": "c1cdc85a20fa0825009063bfa4b22bd582ede4fe2fdbcce18938d87da9704d14",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/framework-graphics.jar",
+    "global_sha256": "50e069e9b4871cefa95bfe7dd8866a59f72c0a2a6b38af5e5526f9176a5e25c4",
+    "cn_original_sha256": "50e069e9b4871cefa95bfe7dd8866a59f72c0a2a6b38af5e5526f9176a5e25c4",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/framework-location.jar",
+    "global_sha256": "30c8ae79ffadf4ce6561739fedff4da9fcf21ae15da73a5407dcbb680e1ef8e6",
+    "cn_original_sha256": "30c8ae79ffadf4ce6561739fedff4da9fcf21ae15da73a5407dcbb680e1ef8e6",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/framework-nfc.jar",
+    "global_sha256": "a6fbad4db84436c7d9305493cf805f2dbf16d5643ac8072a3e0fda6427efd726",
+    "cn_original_sha256": "a6fbad4db84436c7d9305493cf805f2dbf16d5643ac8072a3e0fda6427efd726",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/framework-ondeviceintelligence-platform.jar",
+    "global_sha256": "6c23c9726b9d0fc4a6e54b54150f38d4e656b91fafac9f3d9e786282ab23c605",
+    "cn_original_sha256": "6c23c9726b9d0fc4a6e54b54150f38d4e656b91fafac9f3d9e786282ab23c605",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/framework-telecom.jar",
+    "global_sha256": "447c210f2a4afa289ff647485306410414d1663fb9f994c9d60bddbf021cf04a",
+    "cn_original_sha256": "447c210f2a4afa289ff647485306410414d1663fb9f994c9d60bddbf021cf04a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/framework.jar",
+    "global_sha256": "1c6127aa9ccc45efc10c7ddf16f3e12f19d544c890535d46c63b9ec7ca0ee0ff",
+    "cn_original_sha256": "b162bebef34cc6650df503a39a51101679ccfef03d2f4c34615d04503c4b565d",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/hid.jar",
+    "global_sha256": "b053403cc4fed6303d251446650da90ca50a8be48b2ca25a662bba51be4df9ec",
+    "cn_original_sha256": "b053403cc4fed6303d251446650da90ca50a8be48b2ca25a662bba51be4df9ec",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/ifaamanager.jar",
+    "global_sha256": "b4ee35a8c83c3754d7d908ebc3b0d6eb7565c2f0c8883e758d83ac32d3c0aa70",
+    "cn_original_sha256": "b4ee35a8c83c3754d7d908ebc3b0d6eb7565c2f0c8883e758d83ac32d3c0aa70",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/ims-common.jar",
+    "global_sha256": "57f2386bab68b562be03139b78d04a6c2b0cf8e45eac57e04427a2add906594f",
+    "cn_original_sha256": "57f2386bab68b562be03139b78d04a6c2b0cf8e45eac57e04427a2add906594f",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/incident-helper-cmd.jar",
+    "global_sha256": "aa6646843c7aed000aa5372d28aa39d4180393a32c979ab06a02d25e3f91e909",
+    "cn_original_sha256": "aa6646843c7aed000aa5372d28aa39d4180393a32c979ab06a02d25e3f91e909",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/javax.obex.jar",
+    "global_sha256": "2652e1d598fe988e9d64605c9b025d1cfaeecba81a3aa14257f0dbfe36eb046e",
+    "cn_original_sha256": "2652e1d598fe988e9d64605c9b025d1cfaeecba81a3aa14257f0dbfe36eb046e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/monkey.jar",
+    "global_sha256": "6a951af51da7e603d9c72ea48e26fb72656527e8665521bafe17478adafef28e",
+    "cn_original_sha256": "6a951af51da7e603d9c72ea48e26fb72656527e8665521bafe17478adafef28e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/msync-lib.jar",
+    "global_sha256": "bf0a4f5e449d1eb3bffe5e05c1f4e311d4177a1078c1878801ff13f455971b96",
+    "cn_original_sha256": "bf0a4f5e449d1eb3bffe5e05c1f4e311d4177a1078c1878801ff13f455971b96",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/oplus-framework.jar",
+    "global_sha256": "27b4d12d168fd8569f86761617d8fb85fde52798c06061bfd1d70ddc5a18222a",
+    "cn_original_sha256": "a658b01406f052d7fd5b534fd88ce08f4b65edcc9046b6e84f2ecde5c961de0d",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/oplus-service-jobscheduler.jar",
+    "global_sha256": "c03b40874aecd59fae10ef34a8a03032edbb91500b5ded0d2bd67f6c8d7ec454",
+    "cn_original_sha256": "c03b40874aecd59fae10ef34a8a03032edbb91500b5ded0d2bd67f6c8d7ec454",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/oplus-services.jar",
+    "global_sha256": "89232797bbc4f40552ac1463b5b79e15f33b76b6b47ebda3ce753cebca79d26e",
+    "cn_original_sha256": "8b5310eb659073e1dc2127c94133f75f6a325e06780a43eec8cca89a945b0af4",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/org.apache.http.legacy.jar",
+    "global_sha256": "4606c6d05df1a06ec7dd19f365a31c1dea54b0a58b9dcf31cc3f807ed199e669",
+    "cn_original_sha256": "4606c6d05df1a06ec7dd19f365a31c1dea54b0a58b9dcf31cc3f807ed199e669",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/requestsync.jar",
+    "global_sha256": "813b4314b8612989a5fc1e2206dec11fedacf095e5929e8ed3dea14f3b00122c",
+    "cn_original_sha256": "813b4314b8612989a5fc1e2206dec11fedacf095e5929e8ed3dea14f3b00122c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/services.jar",
+    "global_sha256": "3d6ed82e5cc616915b6b5cb0e9b56c2118fa117ee9df365c505f99e0b72671ce",
+    "cn_original_sha256": "105cc421668d81ac1c7bced968f0fbb32205a03781e6d846f13d4c8d8effec94",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/sm.jar",
+    "global_sha256": "a3d5ad30ff4475a15b147d60706ded6934aded2a59c1e1dee79ddfc40a0da170",
+    "cn_original_sha256": "a3d5ad30ff4475a15b147d60706ded6934aded2a59c1e1dee79ddfc40a0da170",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/subsystem-framework.jar",
+    "global_sha256": "d00089d9e5b91c0b1e939ae292e6d298e1178895f395ff72897ca2b24dbb2386",
+    "cn_original_sha256": "d00089d9e5b91c0b1e939ae292e6d298e1178895f395ff72897ca2b24dbb2386",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/svc.jar",
+    "global_sha256": "11ec5f5fdb2a7f49cab6e5489eabf3b2dfc4249ffc0989f0e5b25730ff73e04c",
+    "cn_original_sha256": "11ec5f5fdb2a7f49cab6e5489eabf3b2dfc4249ffc0989f0e5b25730ff73e04c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/telecom.jar",
+    "global_sha256": "551a45e08c68d0270b9493a2d59bd56687bcaee1c7682da2c4dc7abb2523006b",
+    "cn_original_sha256": "551a45e08c68d0270b9493a2d59bd56687bcaee1c7682da2c4dc7abb2523006b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/telephony-common.jar",
+    "global_sha256": "40f1ad9947ff7918db868c6807d9aa1308ab57c304c56eec72c04f3e4b9e1011",
+    "cn_original_sha256": "2e9e145a6056deae258645ab694969b2f8accad34200718c7f17ff51747be7a5",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/tradeinmode.jar",
+    "global_sha256": "37bc088283ecbe3ebba0a4f757d2fb5337a0a31511838ce72d58d08123a30ce3",
+    "cn_original_sha256": "37bc088283ecbe3ebba0a4f757d2fb5337a0a31511838ce72d58d08123a30ce3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/uiautomator.jar",
+    "global_sha256": "a1ce81574b4e2fbdb33b585aef8c4e172e13e891fb5a2ac6ab0fa6ffc4261166",
+    "cn_original_sha256": "a1ce81574b4e2fbdb33b585aef8c4e172e13e891fb5a2ac6ab0fa6ffc4261166",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/uinput.jar",
+    "global_sha256": "211d42007c4f0a080a206a2c08fbd2b4e0ddb3eba481b4a9754e83451aa93019",
+    "cn_original_sha256": "211d42007c4f0a080a206a2c08fbd2b4e0ddb3eba481b4a9754e83451aa93019",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.biometrics.fingerprint-V2.1-java.jar",
+    "global_sha256": "a12a12fdf846fe0adcf5f7550371801cd9760471f881e2cf83951bab16ee624d",
+    "cn_original_sha256": "a12a12fdf846fe0adcf5f7550371801cd9760471f881e2cf83951bab16ee624d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.commondcs-V1-java.jar",
+    "global_sha256": "d80cb416ed0ed3492567d122b208d043977d6e0b18e3121b5f470b2815e1395f",
+    "cn_original_sha256": "d80cb416ed0ed3492567d122b208d043977d6e0b18e3121b5f470b2815e1395f",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.display.MixLut3D-V1-java.jar",
+    "global_sha256": "608b99355e98e241a22b4d40f72744d55b3c12b186c7ab1ed6529fd316c8429d",
+    "cn_original_sha256": "608b99355e98e241a22b4d40f72744d55b3c12b186c7ab1ed6529fd316c8429d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.lmvibrator-V1.0-java.jar",
+    "global_sha256": "e513b5ac28062019e0a314079456954b114dbd811a58ec7b1b219f011144a341",
+    "cn_original_sha256": "e513b5ac28062019e0a314079456954b114dbd811a58ec7b1b219f011144a341",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.nfcExtns-V1-java.jar",
+    "global_sha256": "de0fae41260901399d7841ed58cdf76f7b91b4e7e3e0e1f02e3afae0593f7c30",
+    "cn_original_sha256": "de0fae41260901399d7841ed58cdf76f7b91b4e7e3e0e1f02e3afae0593f7c30",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.olc2-V3-java.jar",
+    "global_sha256": "46475e28631a434450a0362522662188efaf7830b333e02d7ea743b9753668ee",
+    "cn_original_sha256": "46475e28631a434450a0362522662188efaf7830b333e02d7ea743b9753668ee",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.opluslights-V1-java.jar",
+    "global_sha256": "e37b124426fcc2ce793853595c4869f4cab5f0919298fa4831bbf5ab0a8012f8",
+    "cn_original_sha256": "e37b124426fcc2ce793853595c4869f4cab5f0919298fa4831bbf5ab0a8012f8",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.osense.client-V1-java.jar",
+    "global_sha256": "ef77ef276c1108065bacb9a0e3cf218408e46453df3c3bff11626d913593b215",
+    "cn_original_sha256": "ef77ef276c1108065bacb9a0e3cf218408e46453df3c3bff11626d913593b215",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.pogo_keyboard-V1-java.jar",
+    "global_sha256": "1451ac0f8580e489dded1d6413af3991e6c0dfe6813438783c5b67e69d23ade2",
+    "cn_original_sha256": "1451ac0f8580e489dded1d6413af3991e6c0dfe6813438783c5b67e69d23ade2",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vendor.oplus.hardware.rpmh-V1-java.jar",
+    "global_sha256": "3e1d6f92cc55c3ae2080c5f647105ff913dd22d454d0becbcbebeb4d90556638",
+    "cn_original_sha256": "3e1d6f92cc55c3ae2080c5f647105ff913dd22d454d0becbcbebeb4d90556638",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/voip-common.jar",
+    "global_sha256": "0838cf2905c24179994a216d191e20de2cc0fc18fe8db94d476091d9d2aac185",
+    "cn_original_sha256": "0838cf2905c24179994a216d191e20de2cc0fc18fe8db94d476091d9d2aac185",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/vr.jar",
+    "global_sha256": "4fedd0185ce08671d8a7aec37a37152453991558fcf1ca505e36501dcad57695",
+    "cn_original_sha256": "4fedd0185ce08671d8a7aec37a37152453991558fcf1ca505e36501dcad57695",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/framework/wapicertstore.jar",
+    "global_sha256": "8f865e33b2f1fb676741da0d598da208cc0a7e2a9d416328ae61edfdfe087bae",
+    "cn_original_sha256": "8f865e33b2f1fb676741da0d598da208cc0a7e2a9d416328ae61edfdfe087bae",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/build.prop",
+    "global_sha256": "c441164bf5b594fb37be5e83611a94a243dab4a1c3dea7452cf7a8b4af912238",
+    "cn_original_sha256": "38bc2a12a4cd98212d301445a0577bbee398c412f62ec044c306155a138dbd26",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/202404.cil",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/202504.cil",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/202604.cil",
+    "global_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "cn_original_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/31.0.cil",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/32.0.cil",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/33.0.cil",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/mapping/34.0.cil",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_file_contexts",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_hwservice_contexts",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_keystore2_key_contexts",
+    "global_sha256": "7734711aa7ed3359b49303882956fd16791cbb5f6a144fafceb73fa33a741a15",
+    "cn_original_sha256": "5d06168337257fc3e4b14c00d8135fb18347624de863e8d3d23f3e8bc9486243",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_mac_permissions.xml",
+    "global_sha256": "9fc6e3bc49b67055ec3e2059f5fce7c7e5b72069697d82f963aec4dd2d61fcf0",
+    "cn_original_sha256": "9fc6e3bc49b67055ec3e2059f5fce7c7e5b72069697d82f963aec4dd2d61fcf0",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_property_contexts",
+    "global_sha256": "15aafcd01c19de2182572ba9409d6b7cfa84e06e166517b93a563920fcd9257c",
+    "cn_original_sha256": "57659b4e3a9157df7e4e635a3a71e904e99286c983955fb76cab649496b61634",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_seapp_contexts",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_sepolicy.cil",
+    "global_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "cn_original_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_sepolicy_and_mapping.sha256",
+    "global_sha256": "c94f4b432da8b59c46dc555a91b033ff28fca1e2b5a1ecdadf56fd59f96e2c1e",
+    "cn_original_sha256": "c94f4b432da8b59c46dc555a91b033ff28fca1e2b5a1ecdadf56fd59f96e2c1e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_sepolicy_and_mapping_debug.sha256",
+    "global_sha256": "c94f4b432da8b59c46dc555a91b033ff28fca1e2b5a1ecdadf56fd59f96e2c1e",
+    "cn_original_sha256": "c94f4b432da8b59c46dc555a91b033ff28fca1e2b5a1ecdadf56fd59f96e2c1e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_sepolicy_debug.cil",
+    "global_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "cn_original_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_service_contexts",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/etc/selinux/product_tee_service_contexts",
+    "global_sha256": "c814593f8bf342360bb48e24d46cbe4b99fe71165ba0d592c9f74218df761996",
+    "cn_original_sha256": "0ac8cde44273d0c697038224d18d8835e8138a28c346bb387b09847866b0811d",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/product/framework/com.google.android.dialer.support.jar",
+    "global_sha256": "584859f94fe2dd0c4aec65f514a990b6f4fc8290bfd7565e2fe036d761aee89e",
+    "cn_original_sha256": "584859f94fe2dd0c4aec65f514a990b6f4fc8290bfd7565e2fe036d761aee89e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/build.prop",
+    "global_sha256": "35e4393836a439b234f07f2406910d0f5044c308e0bdbdb47080bac30aba6cc7",
+    "cn_original_sha256": "6fb1e9e459cf88f66238187aaa7ea6009a0fd1b936e048b2b48a45150a934144",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/bug_map",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/202404.cil",
+    "global_sha256": "5f6116d4feaba2cb12b137276de59456416450cba8ea12c9b729e7e43b8d8645",
+    "cn_original_sha256": "5f6116d4feaba2cb12b137276de59456416450cba8ea12c9b729e7e43b8d8645",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/202404.compat.cil",
+    "global_sha256": "ca880b27d0a07f67468bdb36b33dfa7990e36ea27a53f8048574e089f770f71e",
+    "cn_original_sha256": "ca880b27d0a07f67468bdb36b33dfa7990e36ea27a53f8048574e089f770f71e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/202504.cil",
+    "global_sha256": "8fe63a563283b206f8b0aa516a51d0851056a6b0fd8d9368fb2121a12a3d2db7",
+    "cn_original_sha256": "8fe63a563283b206f8b0aa516a51d0851056a6b0fd8d9368fb2121a12a3d2db7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/202504.compat.cil",
+    "global_sha256": "375a17041ba3c597e661422056ae8cd3f51015bbcfa7f5549720ef76b9e45167",
+    "cn_original_sha256": "375a17041ba3c597e661422056ae8cd3f51015bbcfa7f5549720ef76b9e45167",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/202604.cil",
+    "global_sha256": "d4bcd93a10df6b2188a32a9e84b5928e26a1cc2a0540a68f3a23a1bf5ad60c8b",
+    "cn_original_sha256": "d4bcd93a10df6b2188a32a9e84b5928e26a1cc2a0540a68f3a23a1bf5ad60c8b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/31.0.cil",
+    "global_sha256": "40e096cadf8836402589fb54661d5592894885f4fd26a076a26387bfb946e855",
+    "cn_original_sha256": "40e096cadf8836402589fb54661d5592894885f4fd26a076a26387bfb946e855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/31.0.compat.cil",
+    "global_sha256": "c8527d7a17966cb5eb911db030e04bc5aee52007031acf9232bedde255faff4f",
+    "cn_original_sha256": "c8527d7a17966cb5eb911db030e04bc5aee52007031acf9232bedde255faff4f",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/32.0.cil",
+    "global_sha256": "05cc09cc7d9e8c68f685283bd9af96474d0f5f95c20c2b131c43b28fe515ff49",
+    "cn_original_sha256": "05cc09cc7d9e8c68f685283bd9af96474d0f5f95c20c2b131c43b28fe515ff49",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/32.0.compat.cil",
+    "global_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "cn_original_sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/33.0.cil",
+    "global_sha256": "1410d1f9f098bbe3430499351e2968065a331aec37526403cceaded2cd2d7c41",
+    "cn_original_sha256": "1410d1f9f098bbe3430499351e2968065a331aec37526403cceaded2cd2d7c41",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/33.0.compat.cil",
+    "global_sha256": "c8527d7a17966cb5eb911db030e04bc5aee52007031acf9232bedde255faff4f",
+    "cn_original_sha256": "c8527d7a17966cb5eb911db030e04bc5aee52007031acf9232bedde255faff4f",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/34.0.cil",
+    "global_sha256": "f09ff111179a1b32a52ec759117e04b4c862e3f76e3d704dcc2041d1865465f5",
+    "cn_original_sha256": "f09ff111179a1b32a52ec759117e04b4c862e3f76e3d704dcc2041d1865465f5",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/mapping/34.0.compat.cil",
+    "global_sha256": "d74eb7ad5c6039621f416729f79fa2941558e50b092773ddd84e24d7050640bd",
+    "cn_original_sha256": "d74eb7ad5c6039621f416729f79fa2941558e50b092773ddd84e24d7050640bd",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/plat_sepolicy_and_mapping_debug.sha256",
+    "global_sha256": "8c36aa0cb335f05a8da35e7c20cea1b8f97c56a3baf1f8c362e9f587a801bd1b",
+    "cn_original_sha256": "8c36aa0cb335f05a8da35e7c20cea1b8f97c56a3baf1f8c362e9f587a801bd1b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/plat_sepolicy_debug.cil",
+    "global_sha256": "fa92a444c6f2951baed79f3474e5b0a71012f129b079de433d1c150c3a647478",
+    "cn_original_sha256": "fa92a444c6f2951baed79f3474e5b0a71012f129b079de433d1c150c3a647478",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_file_contexts",
+    "global_sha256": "a22dd8102e50d8bd6fa2c14c11a5bcd620b5cd8b6ba689f6c98e25fc5b689820",
+    "cn_original_sha256": "a22dd8102e50d8bd6fa2c14c11a5bcd620b5cd8b6ba689f6c98e25fc5b689820",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_hwservice_contexts",
+    "global_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "cn_original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_keystore2_key_contexts",
+    "global_sha256": "e8e2f661327344d54d7a9720ca72951e49f72ad6aa260f048030499d75956893",
+    "cn_original_sha256": "73e9edd2249cc365ff21476f37ba0177ae4756f18a03e70f8698adc0cc379114",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_mac_permissions.xml",
+    "global_sha256": "9b553dbc466df5021a6db241ac1af2f5405b986dd0af5bbb3f63c02281d53dff",
+    "cn_original_sha256": "9b553dbc466df5021a6db241ac1af2f5405b986dd0af5bbb3f63c02281d53dff",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_property_contexts",
+    "global_sha256": "49638d80765beb363c1861d8bc7ec419d56628685951b90b1ea6ce4825b079a3",
+    "cn_original_sha256": "dd0c3e3aa7e655e55683442bd71e1ba5411b5124dd9735fb9fbfab2cf107619f",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_seapp_contexts",
+    "global_sha256": "1a00e3020f3b8a1a392c0b9cc549e3896149201e7f0ec1ae5355530340a9f96c",
+    "cn_original_sha256": "1a00e3020f3b8a1a392c0b9cc549e3896149201e7f0ec1ae5355530340a9f96c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_sepolicy.cil",
+    "global_sha256": "37c4c9267a080c8615f6506525ab4ef1a09344c7642e9264b512fbddc3b16846",
+    "cn_original_sha256": "a9176d643c44e2bade190fa39fca99d9962eb572aa6e94e907aab18cd3051251",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping.sha256",
+    "global_sha256": "80b3e91cc68080911a4f6207cd2d487d98ab0210185fe3e85ec0d3636a5c776f",
+    "cn_original_sha256": "6070d6438a144ac342d87da1792132c7389a08103dcc000e1709ca01441fa441",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_sepolicy_and_mapping_debug.sha256",
+    "global_sha256": "04e821d3605e9743a7ceb6bb53be98fda02bfbf984793d99ec823564d6659115",
+    "cn_original_sha256": "c32de477acbb355a3b84b52df630fbdff0a9e4a8c0162d8aeffb70005d1267f2",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_sepolicy_debug.cil",
+    "global_sha256": "340c601404b5dd80fb9f70fb0be273e39c0e49b4c3b9946546e7651cbb4ddd55",
+    "cn_original_sha256": "71a8943f8d89f470e125765eceab08f4f95bfbe3365041af901ebadc479096a9",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_service_contexts",
+    "global_sha256": "396f4e9e06ad6e5cad923e312337d4c0f96255dd70f70e9d389da35a3b00e521",
+    "cn_original_sha256": "396f4e9e06ad6e5cad923e312337d4c0f96255dd70f70e9d389da35a3b00e521",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/etc/selinux/system_ext_tee_service_contexts",
+    "global_sha256": "d1584ebffeb794a87de5041f53445e55b3b6541e880e5dfe7e7e7144b492e519",
+    "cn_original_sha256": "205712271e6ae1e2323cf19c2a01ab7bcf1bd22ba72c46fe70bfb867a2bf6250",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/DataChannelApi.jar",
+    "global_sha256": "dcb35581dd228549a1a8d818c4e233196251e8055afe1e20e060a68f653a044e",
+    "cn_original_sha256": "dcb35581dd228549a1a8d818c4e233196251e8055afe1e20e060a68f653a044e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/SatelliteClient.jar",
+    "global_sha256": "a5d7472ceacbb7787fbbf51a399f9648367212b909e0bb2d8d14ea1c9cbd8fe4",
+    "cn_original_sha256": "a5d7472ceacbb7787fbbf51a399f9648367212b909e0bb2d8d14ea1c9cbd8fe4",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/androidx.camera.extensions.impl.jar",
+    "global_sha256": "68e124565aa36e4dfb86b4345d02ec38bf5455dcd36cd278223ccad5d8dc2fc6",
+    "cn_original_sha256": "68e124565aa36e4dfb86b4345d02ec38bf5455dcd36cd278223ccad5d8dc2fc6",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/androidx.window.extensions.jar",
+    "global_sha256": "daca177a713a513c447c1224643efe915f6eeefedcf7d45a818751a630c7408b",
+    "cn_original_sha256": "daca177a713a513c447c1224643efe915f6eeefedcf7d45a818751a630c7408b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/androidx.window.sidecar.jar",
+    "global_sha256": "385095d262a25333c8e9a00b6ae0e954ee7db0f14a8214836aa8e38ce4b7d0bf",
+    "cn_original_sha256": "385095d262a25333c8e9a00b6ae0e954ee7db0f14a8214836aa8e38ce4b7d0bf",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/com.android.extensions.appfunctions.jar",
+    "global_sha256": "674addf49f4c704e8dd28e9571c30332dd302dce7de41027e6a90938124a110f",
+    "cn_original_sha256": "674addf49f4c704e8dd28e9571c30332dd302dce7de41027e6a90938124a110f",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/com.mediatek.ims.rcsua.jar",
+    "global_sha256": "bc38c6cd7af6450ab4a1923a709564bd053f062ae11c836868c839ab5bd2039a",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/system/system_ext/framework/defrag_wrapper.jar",
+    "global_sha256": "5a8a7458f42155539719e6cb5e435b59837f141cff2e74b5817c31509fd83574",
+    "cn_original_sha256": "5a8a7458f42155539719e6cb5e435b59837f141cff2e74b5817c31509fd83574",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/getcplc.jar",
+    "global_sha256": "13caade48cd0de17b5d0f7af1c7aca009de8f39575026ab50d516ff4ae8f8613",
+    "cn_original_sha256": "13caade48cd0de17b5d0f7af1c7aca009de8f39575026ab50d516ff4ae8f8613",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/getnfcc.jar",
+    "global_sha256": "b669caed58f80d2d0a640ff223825b481199262e4f6f9f5179455bf2b73d49cd",
+    "cn_original_sha256": "b669caed58f80d2d0a640ff223825b481199262e4f6f9f5179455bf2b73d49cd",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/log-handler.jar",
+    "global_sha256": "33053677e69d7f2bf6ec98666254615f36d251fda00b87cf2f416ea9a4efe391",
+    "cn_original_sha256": "33053677e69d7f2bf6ec98666254615f36d251fda00b87cf2f416ea9a4efe391",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/mediatek-common.jar",
+    "global_sha256": "7be73d9c5047fd07f1d0e07c2361a6f41a42f8de42e61b9d49012bdf61f4e6b5",
+    "cn_original_sha256": "7be73d9c5047fd07f1d0e07c2361a6f41a42f8de42e61b9d49012bdf61f4e6b5",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/mediatek-framework.jar",
+    "global_sha256": "79d13f14eb6f954aeb43517699e7c0726ee7d6e42b7753be7ea7de40d60273d1",
+    "cn_original_sha256": "79d13f14eb6f954aeb43517699e7c0726ee7d6e42b7753be7ea7de40d60273d1",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/mediatek-ims-base.jar",
+    "global_sha256": "abe3d1ebe337bfa3b8eaae854addd67cedc01494311b846562010f84823cd078",
+    "cn_original_sha256": "abe3d1ebe337bfa3b8eaae854addd67cedc01494311b846562010f84823cd078",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/mediatek-ims-common.jar",
+    "global_sha256": "9f1d280701dbd1b37e112fccee122766e6a0b01a074352c255170cfca809a6c0",
+    "cn_original_sha256": "9f1d280701dbd1b37e112fccee122766e6a0b01a074352c255170cfca809a6c0",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/mediatek-ims-extension-plugin.jar",
+    "global_sha256": "8a3baf7796b3e500d7caf0473ea9e3b27ec4f789a7b97e16835a5c21f6c15a5d",
+    "cn_original_sha256": "8a3baf7796b3e500d7caf0473ea9e3b27ec4f789a7b97e16835a5c21f6c15a5d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/mediatek-services.jar",
+    "global_sha256": "045d987fbd59fc56757772747fad00ffd5c7837a9a9a1737b16697fc7c26d095",
+    "cn_original_sha256": "045d987fbd59fc56757772747fad00ffd5c7837a9a9a1737b16697fc7c26d095",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/nfcvendorlib.jar",
+    "global_sha256": "80247559bc24156b4464984315b166b3affef69a4e87c697da971512b20ad9d6",
+    "cn_original_sha256": "80247559bc24156b4464984315b166b3affef69a4e87c697da971512b20ad9d6",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-evolution-ext.jar",
+    "global_sha256": "da5910cfa1d51f4d1ec2f71b3619b89cf6ee637af3158d81098d15d7c57dcd80",
+    "cn_original_sha256": "da5910cfa1d51f4d1ec2f71b3619b89cf6ee637af3158d81098d15d7c57dcd80",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-evolution-networkless.jar",
+    "global_sha256": "5e2d64d9b68eb4c675c490abe7493fab0d511c3efb9f5876c8e1d348f05dc5ca",
+    "cn_original_sha256": "5e2d64d9b68eb4c675c490abe7493fab0d511c3efb9f5876c8e1d348f05dc5ca",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-evolution-satellite.jar",
+    "global_sha256": "f8bc00925a7b0d96043018da25c314eecd54981bcfeb653760f7a93d8dad4a7e",
+    "cn_original_sha256": "f8bc00925a7b0d96043018da25c314eecd54981bcfeb653760f7a93d8dad4a7e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-ims-ext-mtk.jar",
+    "global_sha256": "e7b68a4adb0b72939c5d26380c1500f50de10656dda038092965f0808491380e",
+    "cn_original_sha256": "733719573701f338c8cd0911b4ebbc7b34d92a50533e73b510ecda1d17744ef6",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-lbs-services.jar",
+    "global_sha256": "81f3ab8960ba5034b0a01df0f0d31a37452edcfa5c1262d1bd22aa58b1df48de",
+    "cn_original_sha256": "ac41eaf4e5baeab770f47a04cb30b65adfe7cb0379f0718bee0de45a96076140",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-subsys-tool.jar",
+    "global_sha256": "155360c994b3798404c84375626da47cb6cae2e111bc7a76c905a0afde4b6acd",
+    "cn_original_sha256": "155360c994b3798404c84375626da47cb6cae2e111bc7a76c905a0afde4b6acd",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-subsystem-service-ext.jar",
+    "global_sha256": "f886b9613af209b13b2bf895e29d8f0ec98a4272da7dc4be8ee7fc6522b2be88",
+    "cn_original_sha256": "d6b6e5b3007125c388767b89616fd9f795c9d3b4e5b0394b2cb0b7d2fe2c7f31",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-subsystem-service.jar",
+    "global_sha256": "330e399e450a8d25be5a97b9164d1e9a44c31bc4c865f4d5303214dd9f8763ae",
+    "cn_original_sha256": "b1ec5ce0db65e36af7c9778514280fdec1f5d17278464dc80733cd3b2ecf0a0e",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-telephony-common-ext.jar",
+    "global_sha256": "8df447381db9e1275abbae2ed2fdaa88254d027cd7b51cc0be3898b5cc93b321",
+    "cn_original_sha256": "8df447381db9e1275abbae2ed2fdaa88254d027cd7b51cc0be3898b5cc93b321",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-telephony-common.jar",
+    "global_sha256": "48b53efe64fd5e4cb183f9ead2e351b7b47152b07923cbbb0480755bd78a04a4",
+    "cn_original_sha256": "28e179a1eef07ea36cf70cc694f906c08b05f0bb3b8bdd1bb1a375f574e1be7f",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-telephony-rus.jar",
+    "global_sha256": "23cbccf477d7c1d3810b61a3cad5cde1c2d510dce13402c2d1d472ad11f7b5ba",
+    "cn_original_sha256": "23cbccf477d7c1d3810b61a3cad5cde1c2d510dce13402c2d1d472ad11f7b5ba",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-virtual-audio-policy.jar",
+    "global_sha256": "aaf5d7cb44e6f52c106e0142c4a48f07d643dd2ce841c11cb33cbcee04460405",
+    "cn_original_sha256": "aaf5d7cb44e6f52c106e0142c4a48f07d643dd2ce841c11cb33cbcee04460405",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus-wifi-service.jar",
+    "global_sha256": "fe28cec8d1bbd661f07061e9b0f836bee95f2d2d464ed60bfa7ce8253da30187",
+    "cn_original_sha256": "a634e1a24fff94deee66e1d82717602260b20e5cb22bdf6a1f71ddcdb237ce26",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/oplus_bluetooth_common_ext.jar",
+    "global_sha256": "1453afa3f2870bb143eb11eaa17645f87f573b50d8950dc2feb47e62efced39c",
+    "cn_original_sha256": "f77c4b8e38ad9b90f6f7bcd8c2fbf44e62c38f04382a7bd74e9e180948c39bb6",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/rsmcService.jar",
+    "global_sha256": "2b75bc4f53b117d61eddd6d8cc437576b3ea543c69361e5663f6e65007228ea4",
+    "cn_original_sha256": "2b75bc4f53b117d61eddd6d8cc437576b3ea543c69361e5663f6e65007228ea4",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/rsumanager.jar",
+    "global_sha256": "4a6308eea58a05f18e8636fdbd809ccea391fd40e58b1eae78acd06a8cade628",
+    "cn_original_sha256": null,
+    "content_identical": false,
+    "metadata_identical": false
+  },
+  {
+    "path": "/system/system_ext/framework/soc_bluetooth_ext.jar",
+    "global_sha256": "f295919468726109ddb4b4d23c54127824050efc2eb034dd66e428de5a79261e",
+    "cn_original_sha256": "f295919468726109ddb4b4d23c54127824050efc2eb034dd66e428de5a79261e",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-camera-plugin.jar",
+    "global_sha256": "296b6d9feab6f620846a733cd017308135dc939f2564f0aa7198a3d3a240ad8d",
+    "cn_original_sha256": "296b6d9feab6f620846a733cd017308135dc939f2564f0aa7198a3d3a240ad8d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-channel-lock-plugin.jar",
+    "global_sha256": "716a3f50fd7669c4a4b0af4e60f3b6c37cc6e4abe6b5770b13a9be129d0e40e8",
+    "cn_original_sha256": "716a3f50fd7669c4a4b0af4e60f3b6c37cc6e4abe6b5770b13a9be129d0e40e8",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-dns-recovery-plugin.jar",
+    "global_sha256": "b6896b5fbc7c49a6df74db9c8d4ae1c64df21c9d705fe15059e70a3371f308d8",
+    "cn_original_sha256": "b6896b5fbc7c49a6df74db9c8d4ae1c64df21c9d705fe15059e70a3371f308d8",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-gps-plugin.jar",
+    "global_sha256": "c3a8339c2d6ee984676550cb8b23323a3c668f2a9133afb3630804e78d9ba3ed",
+    "cn_original_sha256": "c3a8339c2d6ee984676550cb8b23323a3c668f2a9133afb3630804e78d9ba3ed",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-imsrtp-plugin.jar",
+    "global_sha256": "996b6f3c88cd3099158db459ef3c052323cf3d8b1293101590204aec2fc4389b",
+    "cn_original_sha256": "996b6f3c88cd3099158db459ef3c052323cf3d8b1293101590204aec2fc4389b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-litefeature-plugin.jar",
+    "global_sha256": "f2a141522843d5605d01f555bc3bc320d05cfd640ddfc9b795d9f0a97709bab0",
+    "cn_original_sha256": "f2a141522843d5605d01f555bc3bc320d05cfd640ddfc9b795d9f0a97709bab0",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-olk-plugin.jar",
+    "global_sha256": "da37b642bf83cad85c4aa9cf5e92c5bfaeea6d651ffe446b399788c6137e72fc",
+    "cn_original_sha256": "da37b642bf83cad85c4aa9cf5e92c5bfaeea6d651ffe446b399788c6137e72fc",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-power-plugin.jar",
+    "global_sha256": "314cfe5cf70f32068ea12c941c1f32dcb252ae4ef8e7fbb27446389861820154",
+    "cn_original_sha256": "314cfe5cf70f32068ea12c941c1f32dcb252ae4ef8e7fbb27446389861820154",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-scene-plugin.jar",
+    "global_sha256": "b2c948dd4235250a29822905a599f5799fe753fe2e505f3d72e34ef48893002b",
+    "cn_original_sha256": "b2c948dd4235250a29822905a599f5799fe753fe2e505f3d72e34ef48893002b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-sido-plugin.jar",
+    "global_sha256": "7dc4b0f593ed2f2fbbf11fb67cdb781c7e849e745833d8954bd2035daf861cd3",
+    "cn_original_sha256": "7dc4b0f593ed2f2fbbf11fb67cdb781c7e849e745833d8954bd2035daf861cd3",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-telephony-plugin.jar",
+    "global_sha256": "67629a7f881afbd04275528519a2e0da66ca65ad09abafb818a710f0ee025423",
+    "cn_original_sha256": "67629a7f881afbd04275528519a2e0da66ca65ad09abafb818a710f0ee025423",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-tunneldetection-plugin.jar",
+    "global_sha256": "72455c5c383f2f945d529f738618da7ba863b3331488000fa05e4e31673e9a63",
+    "cn_original_sha256": "72455c5c383f2f945d529f738618da7ba863b3331488000fa05e4e31673e9a63",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/subsys-wifi-plugin.jar",
+    "global_sha256": "01c25e0d79b3102dd2949a4a61d6029cb41e267b3409845550a1572e76ebd1ca",
+    "cn_original_sha256": "01c25e0d79b3102dd2949a4a61d6029cb41e267b3409845550a1572e76ebd1ca",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor-subsystem-service.jar",
+    "global_sha256": "692151e1de59f9c7b423f4af7666691d99319cf059f1aa841c2ebdae2282e5f0",
+    "cn_original_sha256": "0f060f4d10d376dee20cb159f4b1fbf5a61799e2c2035c45aa94a836658a0dab",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.biometrics.fingerprintpay-V1-java.jar",
+    "global_sha256": "39ae8274316c142c50b77bc853fb704a6eed5d586a92f2e2e4f6737412cb788b",
+    "cn_original_sha256": "39ae8274316c142c50b77bc853fb704a6eed5d586a92f2e2e4f6737412cb788b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.charger-V1-java.jar",
+    "global_sha256": "d957156334f380e1d31feea549eff8e9b9f111a47c6e34a4a688e25d0c5354c9",
+    "cn_original_sha256": "d957156334f380e1d31feea549eff8e9b9f111a47c6e34a4a688e25d0c5354c9",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.charger-V1.0-java.jar",
+    "global_sha256": "615c54e8b139ab239a7c36f55b023894bdc2716bacb20401b6f0208ca4c0324b",
+    "cn_original_sha256": "615c54e8b139ab239a7c36f55b023894bdc2716bacb20401b6f0208ca4c0324b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.charger-V12-java.jar",
+    "global_sha256": "b23d092e05492ba77fbef38ae2c9885f9e6d843ddd95eb673a932495c022d70c",
+    "cn_original_sha256": "b23d092e05492ba77fbef38ae2c9885f9e6d843ddd95eb673a932495c022d70c",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.cryptoeng-V1-java.jar",
+    "global_sha256": "e63c4d0c608936702338d62b493554bb984f18d616a52dd9bb6823195fd1e6f7",
+    "cn_original_sha256": "e63c4d0c608936702338d62b493554bb984f18d616a52dd9bb6823195fd1e6f7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.cryptoeng-V1.0-java.jar",
+    "global_sha256": "116ed056904cf12d4fdc7847160c4a7850eedef35a42bc2c3b4e5dac1ef05fb7",
+    "cn_original_sha256": "116ed056904cf12d4fdc7847160c4a7850eedef35a42bc2c3b4e5dac1ef05fb7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.engineer-V1-java.jar",
+    "global_sha256": "480bb83d0a0c739d0420af2007fcb6a15940eaa866ad14ce9c9df9d4f9c6a411",
+    "cn_original_sha256": "480bb83d0a0c739d0420af2007fcb6a15940eaa866ad14ce9c9df9d4f9c6a411",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.engineer-V1.0-java.jar",
+    "global_sha256": "f65c8e873458e8c61c2b1a34b6624a04def268f969512b0938a53856eb82eadc",
+    "cn_original_sha256": "f65c8e873458e8c61c2b1a34b6624a04def268f969512b0938a53856eb82eadc",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.fido.fido2ca-V1-java.jar",
+    "global_sha256": "ec1cd4b33f99adb521428c16183039c0386f52c87ad7651cab334465ae2a92b7",
+    "cn_original_sha256": "ec1cd4b33f99adb521428c16183039c0386f52c87ad7651cab334465ae2a92b7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.fido.fidoca-V1-java.jar",
+    "global_sha256": "52d45138052f0dcd32bf9ecdf404e081395d478d518612d9d440dbd86dec21eb",
+    "cn_original_sha256": "52d45138052f0dcd32bf9ecdf404e081395d478d518612d9d440dbd86dec21eb",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.gameopt-V1-java.jar",
+    "global_sha256": "615498675192220c0452ead52cd7c2f4922dad29fcefe56c02820220137d833b",
+    "cn_original_sha256": "615498675192220c0452ead52cd7c2f4922dad29fcefe56c02820220137d833b",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.gameopt-V2-java.jar",
+    "global_sha256": "2513302eb282dd1a57ad28f753850a9877ed5308190da0b97d001822ba549acd",
+    "cn_original_sha256": "2513302eb282dd1a57ad28f753850a9877ed5308190da0b97d001822ba549acd",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.keymint-V1-java.jar",
+    "global_sha256": "2ced5c4818d83d37b0d117eab756db34c5be38a064f13b641cf45443b8dc273d",
+    "cn_original_sha256": "2ced5c4818d83d37b0d117eab756db34c5be38a064f13b641cf45443b8dc273d",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.location_aidl-V1-java.jar",
+    "global_sha256": "2ee38ce8d5d055ec7c947311322f4ad3ce304f23435924189880286d37cf7c7a",
+    "cn_original_sha256": "2ee38ce8d5d055ec7c947311322f4ad3ce304f23435924189880286d37cf7c7a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.misc-V1-java.jar",
+    "global_sha256": "e24b8b58f0dc3ad225e8020a94d7b698742b7e14d4255757c383708b65acb028",
+    "cn_original_sha256": "e24b8b58f0dc3ad225e8020a94d7b698742b7e14d4255757c383708b65acb028",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.misc-V1.0-java.jar",
+    "global_sha256": "95a32336f4aad9ee4085f5a1cc88015dd7ab3ea41111594b7f71e95cdb8ec1b0",
+    "cn_original_sha256": "95a32336f4aad9ee4085f5a1cc88015dd7ab3ea41111594b7f71e95cdb8ec1b0",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.oplusSensor-V1-java.jar",
+    "global_sha256": "3f02ab92016455047693ce435bf248099697a36d6795a53b09ab5d1f5ed5b673",
+    "cn_original_sha256": "3f02ab92016455047693ce435bf248099697a36d6795a53b09ab5d1f5ed5b673",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.oplusSensor-V1.0-java.jar",
+    "global_sha256": "a2642b52bfa1fd1e1ef9bcf66198389a4504c1dec14ad4d0fea194fba70e458a",
+    "cn_original_sha256": "a2642b52bfa1fd1e1ef9bcf66198389a4504c1dec14ad4d0fea194fba70e458a",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.osense.client-V1.0-java.jar",
+    "global_sha256": "c1d467eca0a0953797c4085f030bb1f7004f0b4fc1b6b9a23e4ba1d3eea460be",
+    "cn_original_sha256": "c1d467eca0a0953797c4085f030bb1f7004f0b4fc1b6b9a23e4ba1d3eea460be",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.riskdetect-V1-java.jar",
+    "global_sha256": "7627cd15ec00d05741017983847e188f573837f14d25a1958b46698d3b835beb",
+    "cn_original_sha256": "7627cd15ec00d05741017983847e188f573837f14d25a1958b46698d3b835beb",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.stability.oplus_project-V1-java.jar",
+    "global_sha256": "a12b05040103332e6fb0b76242c095c29e11130f7b0cd31a60efb555042ed8db",
+    "cn_original_sha256": "a12b05040103332e6fb0b76242c095c29e11130f7b0cd31a60efb555042ed8db",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.stability.oplus_project-V2-java.jar",
+    "global_sha256": "9d1489a58fb87f1436258a699d4c93de7daedc2a44b9a580ad74b508c6795b45",
+    "cn_original_sha256": "9d1489a58fb87f1436258a699d4c93de7daedc2a44b9a580ad74b508c6795b45",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.stability.oplus_project-V3-java.jar",
+    "global_sha256": "790682991a40c6501d2af82f71bb41385c5aaf3e42b1c0ff7124c4f33f6982d5",
+    "cn_original_sha256": "790682991a40c6501d2af82f71bb41385c5aaf3e42b1c0ff7124c4f33f6982d5",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.touch-V1-java.jar",
+    "global_sha256": "9bce0fc18cec15bd44a5501ec4ab530b3178f55e54fe4bdce7135bf3e07888a5",
+    "cn_original_sha256": "9bce0fc18cec15bd44a5501ec4ab530b3178f55e54fe4bdce7135bf3e07888a5",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.touch-V1.0-java.jar",
+    "global_sha256": "9dd29e70c844a7367d283416d3c842d3e869acfb6ed620a7d2bdd714f66f0fcc",
+    "cn_original_sha256": "9dd29e70c844a7367d283416d3c842d3e869acfb6ed620a7d2bdd714f66f0fcc",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.touch-V2-java.jar",
+    "global_sha256": "f1fbd0c561de52e2d469e27a6be83dfa6808948c707a144d307d950bc85052a2",
+    "cn_original_sha256": "f1fbd0c561de52e2d469e27a6be83dfa6808948c707a144d307d950bc85052a2",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.transmessage-V1-java.jar",
+    "global_sha256": "e992c7d8494909398864749cc158434fe5b2db1088496eb49cdc4ba6d51687c2",
+    "cn_original_sha256": "e992c7d8494909398864749cc158434fe5b2db1088496eb49cdc4ba6d51687c2",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.transmessage-V1.0-java.jar",
+    "global_sha256": "636776f89d90c2c78b1a92e061bc47d6bbaa5f64ba04649388b34a27f40fcd94",
+    "cn_original_sha256": "636776f89d90c2c78b1a92e061bc47d6bbaa5f64ba04649388b34a27f40fcd94",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/vendor.oplus.hardware.weaver-V1-java.jar",
+    "global_sha256": "6733a73d5b2bfa0bdd059d6eb691b7726e403b34a37035ca91c44419f2b04613",
+    "cn_original_sha256": "6733a73d5b2bfa0bdd059d6eb691b7726e403b34a37035ca91c44419f2b04613",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/framework/videoLogcatExt.jar",
+    "global_sha256": "2cf123db216129d43df7477bef7409afe9c35c2badd9f269cf2d5492495f7ab7",
+    "cn_original_sha256": "2cf123db216129d43df7477bef7409afe9c35c2badd9f269cf2d5492495f7ab7",
+    "content_identical": true,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/priv-app/Settings/Settings.apk",
+    "global_sha256": "33b0173ba206bc75a25cfba765d96f64fb3a29db7bca02fcb2b9c28f6744838b",
+    "cn_original_sha256": "808818365d2beefdbf8bf2af7292b5b7b06ca97ed84ceb08e9d921a0a5dda1c8",
+    "content_identical": false,
+    "metadata_identical": true
+  },
+  {
+    "path": "/system/system_ext/priv-app/WirelessSettings/WirelessSettings.apk",
+    "global_sha256": "6cd17d0845f43078e9fcfd3c631e9c0b6f8230f70efe8ad89880479c5a8c49a8",
+    "cn_original_sha256": "fb412ef25c42058135119f6c0c7bcbc254c26d3334ab6065432b08c89f43072e",
+    "content_identical": false,
+    "metadata_identical": true
+  }
+]
